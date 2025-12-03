@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recherche d'Alternance en France | Abroad Zone</title>
+  <meta name="description" content="Service complet de recherche d'alternance en France. Accompagnement personnalisé, accès à notre réseau d'entreprises partenaires, coaching jusqu'à la signature de votre contrat." />
+  <meta name="keywords" content="alternance France, recherche alternance, contrat alternance, accompagnement alternance, Abroad Zone" />
+  <meta name="author" content="Abroad Zone" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.abroadzone.com.tn/recherche-alternance" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Recherche d'Alternance en France | Abroad Zone" />
+  <meta property="og:description" content="Service complet de recherche d'alternance en France. Accompagnement personnalisé, accès à notre réseau d'entreprises partenaires." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.abroadzone.com.tn/recherche-alternance" />
+  <meta property="og:image" content="https://www.abroadzone.com.tn/og-image-alternance.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Recherche d'Alternance en France | Abroad Zone" />
+  <meta name="twitter:description" content="Service complet de recherche d'alternance en France. Accompagnement personnalisé, accès à notre réseau d'entreprises partenaires." />
+  <meta name="twitter:image" content="https://www.abroadzone.com.tn/og-image-alternance.jpg" />
+
+  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="logo.png" as="image">
+
+  <meta name="theme-color" content="#175c7d">
+
+  <style>
+    /* ================== VARIABLES ================== */
+    :root{
+      --primary:#175c7d;
+      --primary-2:#2a7a9e;
+      --accent:#fbbf24;
+      --muted:#4a5360;
+      --bg:#f6f9fc;
+      --card:#ffffff;
+      --dark:#1c3450;
+      --radius:16px;
+      --max-width:1400px;
+    }
+
+    /* ================== RESET / BASE ================== */
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--dark);
+      background:linear-gradient(135deg,var(--bg),#e8eff5 80%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+      min-height:100vh;
+      -webkit-overflow-scrolling: touch;
+    }
+    img{max-width:100%;display:block;height:auto}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 5%}
+
+    /* ================== BREADCRUMB ================== */
+    .breadcrumb {
+      padding: 10px 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .breadcrumb ol {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .breadcrumb li {
+      display: flex;
+      align-items: center;
+    }
+    .breadcrumb li:not(:last-child)::after {
+      content: '/';
+      margin: 0 8px;
+    }
+    .breadcrumb a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb a:hover {
+      color: var(--primary);
+    }
+
+    /* ================== HEADER / NAV ================== */
+    header{
+      position:sticky;top:0;z-index:1200;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(23,92,125,0.03);
+      transition: box-shadow .28s ease, transform .28s ease;
+    }
+    header.scrolled{box-shadow:0 8px 30px rgba(23,92,125,0.08)}
+    .nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:52px;width:auto;border-radius:8px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(23,92,125,0.12))}
+    .brand .title{font-weight:800;letter-spacing:1.2px;background:linear-gradient(135deg,var(--primary),var(--primary-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:1.05rem}
+    .brand .tag{font-size:0.78rem;color:var(--muted);margin-top:2px;font-weight:600}
+
+    nav.primary{display:flex;gap:22px;align-items:center}
+    nav.primary a{color:var(--dark);font-weight:600;font-size:0.95rem;padding:8px 6px;position:relative;transition:color .22s}
+    nav.primary a:hover{color:var(--primary)}
+    nav.primary a::after{content:'';position:absolute;left:0;bottom:-8px;width:0;height:3px;background:linear-gradient(90deg,var(--accent),#ffd700);transition:width .28s;border-radius:3px}
+    nav.primary a:hover::after{width:100%}
+    .nav-actions{display:flex;gap:12px;align-items:center}
+    .lang-switch{display:flex;gap:6px;border-radius:999px;overflow:hidden;border:2px solid rgba(23,92,125,0.08);background:white;box-shadow:0 2px 8px rgba(23,92,125,0.04)}
+    .lang-switch button{background:transparent;border:0;padding:8px 12px;font-weight:700;cursor:pointer;font-size:0.85rem;color:var(--primary)}
+    .lang-switch button.active{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;transform:scale(1.03)}
+    .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;padding:10px 18px;border-radius:30px;font-weight:700;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(23,92,125,0.18)}
+    .btn-outline{background:transparent;border:1px solid var(--primary);padding:8px 14px;border-radius:12px;cursor:pointer;font-weight:600}
+
+    /* BURGER */
+    .burger{display:none;width:46px;height:46px;border-radius:10px;align-items:center;justify-content:center;cursor:pointer}
+    .burger svg{width:22px;height:22px}
+    .burger.active{background:rgba(23,92,125,0.06)}
+    @media(max-width:980px){
+      nav.primary{display:none;position:absolute;left:0;right:0;top:74px;background:white;flex-direction:column;gap:8px;padding:18px 6%;box-shadow:0 12px 40px rgba(12,30,45,0.08);border-radius:12px;margin:0 5%}
+      nav.primary.show{display:flex;animation:slideDown .28s ease}
+      .burger{display:flex}
+      @keyframes slideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+    }
+
+    /* ================== HERO ================== */
+    .hero{
+      background:
+        linear-gradient(135deg, rgba(23,92,125,0.86), rgba(23,92,125,0.72)),
+        url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80&fm=webp') center/cover no-repeat;
+      min-height:60vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      padding:6vh 5%;
+      position:relative;
+      text-align:center;
+      overflow:hidden;
+    }
+    .hero .content{
+      max-width:1000px;
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+    }
+    .hero h1{font-size:2.6rem;line-height:1.05;font-weight:800;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,0.35);margin:0}
+    .hero p.lead{font-size:1.1rem;color:rgba(255,255,255,0.95);max-width:760px;font-weight:600;margin:0}
+    .hero .actions{margin-top:8px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+    /* ================== SECTIONS ================== */
+    section{padding:64px 5%}
+    h2.section-title{color:var(--primary);font-size:2.2rem;margin-bottom:8px;font-weight:800;display:inline-block;position:relative}
+    h2.section-title::after{content:'';position:absolute;bottom:-8px;left:0;width:60px;height:4px;background:linear-gradient(90deg,var(--accent),#ffd700);border-radius:2px}
+    .subtitle{color:var(--muted);margin-bottom:26px;max-width:920px;font-size:1.02rem;line-height:1.6}
+
+    /* CARDS / GRID */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:18px}
+    .card{background:var(--card);border-radius:18px;padding:22px;box-shadow:0 12px 40px rgba(23,92,125,0.06);transition:all .32s;position:relative;overflow:hidden;border:1px solid rgba(23,92,125,0.06)}
+    .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:5px;background:linear-gradient(90deg,var(--primary),var(--accent),var(--primary-2));transform:scaleX(0);transform-origin:left;transition:transform .36s}
+    .card:hover::before{transform:scaleX(1)}
+    .card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(16,36,56,0.09);border-color:rgba(238,188,57,0.12)}
+    .card h3{color:var(--primary);margin-bottom:10px;font-size:1.12rem}
+    .card p{color:#333;font-size:0.98rem;line-height:1.6}
+
+    /* PRICING */
+    .pricing-container {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0;
+    }
+    .pricing-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 40px rgba(23, 92, 125, 0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid var(--primary);
+    }
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary-2));
+    }
+    .pricing-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin: 20px 0;
+    }
+    .pricing-currency {
+      font-size: 1.5rem;
+      vertical-align: super;
+    }
+    .pricing-details {
+      margin: 30px 0;
+      text-align: left;
+    }
+    .pricing-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 1.05rem;
+    }
+    .pricing-item-icon {
+      color: var(--accent);
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+    .pricing-cta {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-block;
+      margin-top: 20px;
+      box-shadow: 0 8px 25px rgba(23, 92, 125, 0.2);
+    }
+    .pricing-cta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(23, 92, 125, 0.3);
+    }
+    .pricing-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    /* STEPS */
+    .steps-container {
+      margin: 40px 0;
+    }
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 60px 0;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary-2));
+      z-index: 1;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 23%;
+      position: relative;
+      z-index: 2;
+    }
+    .step-number {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    .step-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .step-description {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-section {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      padding: 80px 5%;
+    }
+    
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .testimonials-header h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+    }
+    
+    .testimonial-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(23, 92, 125, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(23, 92, 125, 0.15);
+    }
+    
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+    }
+    
+    .testimonial-info h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    
+    .testimonial-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    
+    .verified-badge {
+      background: #10b981;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .rating {
+      display: flex;
+      gap: 2px;
+      margin: 12px 0;
+    }
+    
+    .star {
+      color: #fbbf24;
+      font-size: 1.2rem;
+    }
+    
+    .star.empty {
+      color: #e5e7eb;
+    }
+    
+    .testimonial-content {
+      position: relative;
+      padding-left: 20px;
+      flex: 1;
+    }
+    
+    .testimonial-content::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      font-size: 3rem;
+      color: var(--primary);
+      opacity: 0.2;
+      font-family: Georgia, serif;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      line-height: 1.6;
+      color: #374151;
+      margin: 0;
+    }
+
+    /* FAQ */
+    .faq-container {
+      margin-top: 30px;
+    }
+    .faq-item {
+      background: var(--card);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(23, 92, 125, 0.05);
+      border: 1px solid rgba(23, 92, 125, 0.06);
+    }
+    .faq-question {
+      width: 100%;
+      padding: 20px;
+      background: transparent;
+      border: none;
+      text-align: left;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+    .faq-question:hover {
+      background-color: rgba(23, 92, 125, 0.03);
+    }
+    .faq-icon {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      transition: transform 0.3s;
+    }
+    .faq-question[aria-expanded="true"] .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .faq-answer p {
+      padding: 0 20px 20px;
+      margin: 0;
+      line-height: 1.6;
+      color: #444;
+    }
+    .faq-question[aria-expanded="true"] + .faq-answer {
+      max-height: 300px;
+    }
+
+    /* CONTACT */
+    .contact-grid{display:grid;grid-template-columns:1fr;gap:20px;align-items:start;margin-top:20px}
+    .contact-card{background:var(--card);padding:20px;border-radius:14px;box-shadow:0 12px 40px rgba(23,92,125,0.06);border:1px solid rgba(23,92,125,0.06)}
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #e6eef2;
+      font-size: 0.98rem;
+      font-family: inherit;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(23, 92, 125, 0.1);
+    }
+    .error-message {
+      color: #e74c3c;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: block;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin-top: 4px;
+    }
+    .form-status {
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+    .form-status.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .form-status.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    .contact-card button{width:100%;padding:12px;border-radius:10px;border:none;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:white;transition:all .28s}
+    .contact-card button:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(23,92,125,0.16)}
+    .muted{color:var(--muted)}
+
+    /* FOOTER compact */
+    footer{background:linear-gradient(135deg,var(--primary),#1a6a8e);color:#fff;padding:28px 5% 30px;margin-top:24px}
+    .foot-grid{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center}
+    footer h2{margin:0;font-size:1.05rem}
+    footer p{margin:6px 0;line-height:1.45}
+
+    /* WHATSAPP FLOAT */
+    .whatsapp-float{position:fixed;right:24px;bottom:24px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(23,92,125,0.35);z-index:1400;cursor:pointer;border:3px solid rgba(238,188,57,0.28)}
+    .whatsapp-float svg{width:34px;height:34px;fill:#fff;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2))}
+    .whatsapp-float::before{content:'';position:absolute;top:-6px;right:-6px;width:14px;height:14px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:0.6}}
+
+    /* SCROLL REVEAL */
+    [data-anim]{opacity:0;transform:translateY(18px);transition:all .6s cubic-bezier(0.2,0.9,0.23,1)}
+    [data-anim].in{opacity:1;transform:none}
+
+    /* Focus improvements */
+    button:focus, a:focus, input:focus, textarea:focus, select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width:980px){
+      .hero{padding:8vh 4%}
+      .hero h1{font-size:1.9rem}
+      .steps {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+      .steps::before {
+        width: 4px;
+        height: 100%;
+        top: 0;
+        left: 30px;
+        right: auto;
+      }
+      .step {
+        width: 100%;
+        flex-direction: row;
+        text-align: left;
+      }
+      .step-number {
+        margin-right: 20px;
+        margin-bottom: 0;
+      }
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width:640px){
+      .brand .title{font-size:1rem}
+      .brand img{height:44px}
+      .card{padding:18px}
+      footer{padding:22px 4%}
+      .pricing-price {
+        font-size: 2.5rem;
+      }
+      .testimonials-header h2 {
+        font-size: 2rem;
+      }
+      .testimonial-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BREADCRUMB -->
+  <nav aria-label="Breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ol>
+        <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+        <li><a href="index.html#services" data-fr="Services" data-en="Services">Services</a></li>
+        <li>Recherche d'alternance</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header role="banner" aria-label="Barre de navigation">
+    <div class="container nav-wrap">
+      <div class="brand" aria-hidden="false">
+        <img src="logo.png" alt="Abroad Zone logo" id="site-logo" loading="lazy" />
+        <div>
+          <div class="title">ABROAD ZONE</div>
+          <div class="tag" data-fr="Votre partenaire de confiance" data-en="Your trusted partner">Votre partenaire de confiance</div>
+        </div>
+      </div>
+
+      <nav class="primary" aria-label="Menu principal" role="navigation">
+        <a href="index.html" aria-label="Accueil" data-fr="Accueil" data-en="Home">Accueil</a>
+        <a href="index.html#services" aria-label="Nos services" data-fr="Nos services" data-en="Services">Nos services</a>
+        <a href="index.html#destinations" aria-label="Destinations" data-fr="Destinations" data-en="Destinations">Destinations</a>
+        <a href="index.html#bureaux" aria-label="Bureaux" data-fr="Bureaux" data-en="Offices">Bureaux</a>
+        <a href="index.html#temoignages" aria-label="Témoignages" data-fr="Témoignages" data-en="Testimonials">Témoignages</a>
+        <a href="index.html#faq" aria-label="FAQ" data-fr="FAQ" data-en="FAQ">FAQ</a>
+        <a href="index.html#contact" aria-label="Contact" data-fr="Contact" data-en="Contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions" role="group" aria-label="Actions principales">
+        <div class="lang-switch" role="tablist" aria-label="Choisir la langue">
+          <button id="lang-fr" role="tab" aria-selected="true" class="active" aria-label="Français">FR</button>
+          <button id="lang-en" role="tab" aria-selected="false" aria-label="English">EN</button>
+        </div>
+
+        <button class="btn-primary" id="project-btn" aria-label="Lancer mon projet">Lancer mon projet</button>
+
+        <div class="burger" role="button" aria-label="Menu" aria-expanded="false" tabindex="0">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1c3450" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="close-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none"><path d="M6 18L18 6M6 6l12 12" stroke="#1c3450" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="hero" role="main" aria-labelledby="hero-title">
+    <div class="content container" data-anim>
+      <h1 id="hero-title">Recherche d'Alternance en France</h1>
+      <p class="lead" id="hero-lead">Accompagnement complet pour décrocher votre alternance, de la recherche d'opportunités jusqu'à votre embauche.</p>
+
+      <div class="actions">
+        <button class="btn-primary" onclick="document.querySelector('#pricing').scrollIntoView({behavior:'smooth'})">Voir nos tarifs</button>
+        <a class="btn-outline" href="#processus" role="button">Notre processus</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- INTRODUCTION -->
+  <section class="container" data-anim>
+    <h2 class="section-title">Vous cherchez une alternance en France ?</h2>
+    <p class="subtitle">Nous proposons un accompagnement complet pour décrocher votre alternance, même si vous n'êtes pas encore inscrit dans nos établissements partenaires.</p>
+
+    <div class="cards">
+      <article class="card" role="listitem" aria-labelledby="card-1">
+        <h3 id="card-1">🔍 Recherche personnalisée</h3>
+        <p>Nous identifions les opportunités d'alternance qui correspondent à votre profil, vos compétences et vos aspirations professionnelles.</p>
+      </article>
+
+      <article class="card" role="listitem" aria-labelledby="card-2">
+        <h3 id="card-2">📝 Préparation aux entretiens</h3>
+        <p>Coaching personnalisé pour vous aider à réussir vos entretiens et à vous démarquer des autres candidats.</p>
+      </article>
+
+      <article class="card" role="listitem" aria-labelledby="card-3">
+        <h3 id="card-3">🤝 Accès à notre réseau</h3>
+        <p>Bénéficiez de notre réseau d'entreprises partenaires qui recherchent activement des alternants.</p>
+      </article>
+
+      <article class="card" role="listitem" aria-labelledby="card-4">
+        <h3 id="card-4">✅ Suivi jusqu'à la signature</h3>
+        <p>Nous vous accompagnons à chaque étape jusqu'à la signature de votre contrat d'alternance.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="processus" class="container" data-anim>
+    <h2 class="section-title">Notre processus en 4 étapes</h2>
+    <p class="subtitle">Un accompagnement structuré pour maximiser vos chances de succès</p>
+
+    <div class="steps-container">
+      <div class="steps">
+        <div class="step" data-anim>
+          <div class="step-number">1</div>
+          <div class="step-title">Analyse de votre profil</div>
+          <div class="step-description">Nous étudions votre parcours, vos compétences et vos objectifs pour identifier les meilleures opportunités.</div>
+        </div>
+
+        <div class="step" data-anim>
+          <div class="step-number">2</div>
+          <div class="step-title">Recherche d'opportunités</div>
+          <div class="step-description">Nous sélectionnons les offres d'alternance correspondant à votre profil et nous vous présentons les plus pertinentes.</div>
+        </div>
+
+        <div class="step" data-anim>
+          <div class="step-number">3</div>
+          <div class="step-title">Préparation aux entretiens</div>
+          <div class="step-description">Nous vous coachons pour vous préparer aux entretiens et vous aider à vous démarquer.</div>
+        </div>
+
+        <div class="step" data-anim>
+          <div class="step-number">4</div>
+          <div class="step-title">Accompagnement jusqu'à la signature</div>
+          <div class="step-description">Nous vous aidons à négocier votre contrat et nous vous accompagnons jusqu'à votre embauche.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="container" data-anim>
+    <h2 class="section-title">Notre offre</h2>
+    <p class="subtitle">Un tarif transparent pour un accompagnement complet</p>
+
+    <div class="pricing-container">
+      <div class="pricing-card" data-anim>
+        <h3 class="pricing-title">Pack Alternance Complet</h3>
+        <div class="pricing-price">400<span class="pricing-currency">€</span></div>
+        
+        <div class="pricing-details">
+          <div class="pricing-item">
+            <span class="pricing-item-icon">✓</span>
+            <span>Suivi personnalisé pour vos candidatures et entretiens</span>
+          </div>
+          <div class="pricing-item">
+            <span class="pricing-item-icon">✓</span>
+            <span>Accès à notre réseau d'entreprises partenaires</span>
+          </div>
+          <div class="pricing-item">
+            <span class="pricing-item-icon">✓</span>
+            <span>Coaching jusqu'à la signature de votre contrat</span>
+          </div>
+          <div class="pricing-item">
+            <span class="pricing-item-icon">✓</span>
+            <span>Accompagnement administratif</span>
+          </div>
+        </div>
+
+        <div class="pricing-note">
+          <strong>Paiement en deux étapes :</strong><br>
+          150 € à payer en avance<br>
+          250 € à régler après votre premier salaire en alternance
+        </div>
+
+        <a href="https://buy.stripe.com/test_28E28q8lme352AA8f2bbG00" target="_blank" class="pricing-cta">Procéder au paiement</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="temoignages" class="testimonials-section" data-anim>
+    <div class="testimonials-header">
+      <h2>Témoignages</h2>
+      <p>Découvrez les expériences de nos étudiants qui ont trouvé leur alternance avec nous</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Koussi" class="testimonial-avatar">
+          <div class="testimonial-info">
+            <h4>Sarah Koussi</h4>
+            <div class="testimonial-meta">
+              <span>🇫🇷</span>
+              <span>France</span>
+              <span>•</span>
+              <span>Alternance</span>
+              <span class="verified-badge">✓ Vérifié</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="rating">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        
+        <div class="testimonial-content">
+          <p class="testimonial-text">Grâce à Abroad Zone, j'ai trouvé mon alternance en 3 semaines seulement ! Le suivi était impeccable et les conseils très pertinents. Je recommande vivement leur professionnalisme.</p>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Amine Benali" class="testimonial-avatar">
+          <div class="testimonial-info">
+            <h4>Amine Benali</h4>
+            <div class="testimonial-meta">
+              <span>🇫🇷</span>
+              <span>France</span>
+              <span>•</span>
+              <span>Alternance</span>
+              <span class="verified-badge">✓ Vérifié</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="rating">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        
+        <div class="testimonial-content">
+          <p class="testimonial-text">Un accompagnement clair et professionnel du début à la fin. J'ai pu décrocher une alternance dans une grande entreprise grâce à leur réseau et leur préparation aux entretiens.</p>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Léa Martin" class="testimonial-avatar">
+          <div class="testimonial-info">
+            <h4>Léa Martin</h4>
+            <div class="testimonial-meta">
+              <span>🇫🇷</span>
+              <span>France</span>
+              <span>•</span>
+              <span>Alternance</span>
+              <span class="verified-badge">✓ Vérifié</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="rating">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        
+        <div class="testimonial-content">
+          <p class="testimonial-text">Le service de recherche d'alternance m'a sauvé la vie ! En tant qu'étudiant international, je ne connaissais pas le marché du travail français. Abroad Zone m'a guidé pas à pas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="container" data-anim>
+    <h2 class="section-title">Questions Fréquentes</h2>
+    <p class="subtitle">Retrouvez les réponses aux questions que vous nous posez le plus souvent sur notre service de recherche d'alternance.</p>
+
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Quels sont les délais pour trouver une alternance avec votre service ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>En général, il faut compter entre 1 et 3 mois pour trouver une alternance avec notre accompagnement. Cependant, cela dépend de votre profil, de la période de l'année et de votre flexibilité géographique.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Est-ce que je dois être inscrit dans un de vos établissements partenaires pour bénéficier de ce service ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Non, ce service est ouvert à tous les étudiants, quel que soit leur établissement d'origine. Nous vous accompagnons dans votre recherche d'alternance même si vous n'êtes pas encore inscrit dans nos partenaires.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Que se passe-t-il si je ne trouve pas d'alternance ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Nous nous engageons à vous accompagner jusqu'à ce que vous trouviez une alternance. Si malgré nos efforts, vous ne décrochez pas de contrat, nous prolongeons notre accompagnement sans frais supplémentaires.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Comment fonctionne le paiement en deux étapes ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Vous payez 150 € au début du processus pour démarrer notre accompagnement. Les 250 € restants sont à régler uniquement après avoir reçu votre premier salaire en alternance, ce qui garantit notre engagement dans votre réussite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container" data-anim>
+    <h2 class="section-title">Contactez-nous</h2>
+    <p class="subtitle">Prêt à lancer votre projet d'alternance ? Remplissez le formulaire ou envoyez-nous un message via WhatsApp.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card" aria-labelledby="contact-form-title">
+        <h3 id="contact-form-title">Formulaire de contact</h3>
+
+        <form id="contact-form" novalidate>
+          <div class="form-group">
+            <label for="name">Nom complet</label>
+            <input id="name" name="name" required aria-describedby="name-error" />
+            <span id="name-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer un nom valide.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Adresse email</label>
+            <input id="email" name="email" type="email" required aria-describedby="email-error" />
+            <span id="email-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer un email valide.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Numéro de téléphone</label>
+            <input id="phone" name="phone" type="tel" required aria-describedby="phone-error" />
+            <span id="phone-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer un numéro de téléphone valide.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="formation">Formation actuelle</label>
+            <input id="formation" name="formation" required aria-describedby="formation-error" />
+            <span id="formation-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer votre formation.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" rows="6" required aria-describedby="message-error"></textarea>
+            <span id="message-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer un message.</span>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="consent" name="consent" required aria-describedby="consent-error">
+            <label for="consent">J'accepte que mes données soient traitées conformément à la politique de confidentialité.</label>
+            <span id="consent-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Vous devez accepter les conditions.</span>
+          </div>
+
+          <button type="submit" aria-label="Envoyer" id="send-btn">Envoyer via WhatsApp</button>
+          <p id="form-status" class="form-status" role="status" aria-live="polite" style="margin-top:12px;font-size:.95rem;"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="foot-grid">
+      <h2 id="footer-title">Abroad Zone - Votre avenir, notre mission</h2>
+      <p id="footer-subtitle" class="muted">Support sur-mesure pour vos projets internationaux.</p>
+
+      <p style="margin-top:6px">WhatsApp : <a id="wa-number-footer" href="#" target="_blank" rel="noopener">+216 56 59 07 03</a></p>
+      <p>Email : <a href="mailto:contact@abroadzone.com">contact@abroadzone.com</a></p>
+      <p>Bureaux : Tunis, Casablanca, Lefke (Chypre du Nord), Moscou, Dubaï, Kinshasa, Brazzaville</p>
+      <p style="margin-top:8px">&copy; <span id="year"></span> Abroad Zone</p>
+      <p><a href="index.html#privacy">Politique de confidentialité</a></p>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a id="whatsapp" class="whatsapp-float" href="#" target="_blank" aria-label="Contactez-nous sur WhatsApp" title="Contactez-nous sur WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 0C7.1636 0 0 7.1636 0 16 0 19.024 0.951 21.78 2.605 24.09L0.4 31.333 8 29.064C10.19 30.392 13.01 31.333 16 31.333 24.8364 31.333 32 24.1694 32 15.333 32 6.4966 24.8364 0 16 0zM24.769 20.11c-0.333-0.17-2.026-1-2.34-1.116-0.314-0.117-0.54-0.176-0.766 0.174-0.226 0.35-0.873 1.117-1.067 1.343-0.194 0.225-0.387 0.255-0.766 0.087-0.38-0.17-1.612-0.53-3.07-1.687-1.137-1.01-1.904-2.258-2.128-2.654-0.226-0.396-0.02-0.594 0.16-0.77 0.18-0.176 0.403-0.457 0.6-0.684 0.197-0.227 0.268-0.394 0.4-0.664 0.133-0.27 0.066-0.504-0.034-0.702-0.1-0.198-0.9-2.148-1.234-2.938-0.332-0.79-0.648-0.685-0.888-0.697-0.24-0.013-0.507-0.016-0.777-0.016s-0.686.096-1.044.49c-0.36.398-1.373 1.36-1.373 3.318 0 1.957 1.386 3.77 1.586 4.04 0.2 0.268 2.78 4.238 6.742 5.941 0.944.408 1.684.674 2.26.86 0.95.307 1.818.264 2.503.16 0.764-.118 2.356-.996 2.69-1.953 0.334-0.958 0.332-1.76 0.234-1.93-0.1-0.17-0.37-0.27-0.771-0.48z"/></svg>
+  </a>
+
+  <script>
+    // ===== Helpers =====
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+
+    // Set year
+    $('#year').textContent = new Date().getFullYear();
+
+    // ===== Header scroll effect with throttling =====
+    const header = $('header');
+    let scrollTimer = null;
+
+    function handleScroll() {
+      if (scrollTimer) {
+        window.cancelAnimationFrame(scrollTimer);
+      }
+      
+      scrollTimer = window.requestAnimationFrame(() => {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // ===== Mobile menu toggle =====
+    const burger = $('.burger');
+    const nav = $('.nav-wrap nav.primary');
+    burger.addEventListener('click', toggleMobileMenu);
+    burger.addEventListener('keydown', (e) => { 
+      if(e.key === 'Enter' || e.key === ' ') { 
+        e.preventDefault(); 
+        toggleMobileMenu(); 
+      } 
+    });
+    function toggleMobileMenu(){
+      if(!nav) return;
+      nav.classList.toggle('show');
+      burger.classList.toggle('active');
+      const expanded = burger.classList.contains('active');
+      burger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      const menuIcon = burger.querySelector('.menu-icon');
+      const closeIcon = burger.querySelector('.close-icon');
+      if(menuIcon && closeIcon){
+        if(expanded){ 
+          menuIcon.style.display='none'; 
+          closeIcon.style.display='block'; 
+        } else { 
+          menuIcon.style.display='block'; 
+          closeIcon.style.display='none'; 
+        }
+      }
+    }
+    // close menu on link click
+    $$('a[data-target]').forEach(a => a.addEventListener('click', () => { 
+      if(nav && nav.classList.contains('show')) toggleMobileMenu(); 
+    }));
+
+    // ===== Scroll reveal =====
+    const animEls = $$('[data-anim]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { 
+        if(entry.isIntersecting) entry.target.classList.add('in'); 
+      });
+    }, { threshold: 0.18 });
+    animEls.forEach(el => observer.observe(el));
+
+    // ===== Contact form validation & WhatsApp redirect =====
+    const contactForm = $('#contact-form');
+    const formStatus = $('#form-status');
+    const inputs = $$('#contact-form input, #contact-form textarea, #contact-form select');
+
+    function validateForm(){
+      let valid = true;
+      
+      // Reset error messages
+      $$('.error-message').forEach(err => err.style.display = 'none');
+      
+      // Validate name
+      const name = $('#name');
+      if (!name.value || !name.value.trim()) {
+        $('#name-error').style.display = 'block';
+        valid = false;
+      }
+      
+      // Validate email
+      const email = $('#email');
+      if (!email.value || !email.value.trim()) {
+        $('#email-error').style.display = 'block';
+        valid = false;
+      } else {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!re.test(email.value)) {
+          $('#email-error').textContent = 'Veuillez entrer une adresse email valide.';
+          $('#email-error').style.display = 'block';
+          valid = false;
+        }
+      }
+      
+      // Validate phone
+      const phone = $('#phone');
+      if (!phone.value || !phone.value.trim()) {
+        $('#phone-error').style.display = 'block';
+        valid = false;
+      }
+      
+      // Validate formation
+      const formation = $('#formation');
+      if (!formation.value || !formation.value.trim()) {
+        $('#formation-error').style.display = 'block';
+        valid = false;
+      }
+      
+      // Validate message
+      const message = $('#message');
+      if (!message.value || !message.value.trim()) {
+        $('#message-error').style.display = 'block';
+        valid = false;
+      }
+      
+      // Validate consent
+      const consent = $('#consent');
+      if (!consent.checked) {
+        $('#consent-error').style.display = 'block';
+        valid = false;
+      }
+      
+      return valid;
+    }
+
+    inputs.forEach(inp => {
+      inp.addEventListener('input', () => { 
+        const err = $(`#${inp.id}-error`); 
+        if(err && inp.value.trim()) err.style.display='none'; 
+      });
+    });
+
+    if(contactForm){
+      contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        if (!validateForm()) {
+          formStatus.textContent = 'Veuillez remplir tous les champs correctement.';
+          formStatus.className = 'form-status error';
+          return;
+        }
+        
+        const name = $('#name').value.trim();
+        const email = $('#email').value.trim();
+        const phone = $('#phone').value.trim();
+        const formation = $('#formation').value.trim();
+        const message = $('#message').value.trim();
+        
+        // Create WhatsApp message
+        const whatsappMessage = encodeURIComponent(
+          `Nouvelle demande de contact pour le service de recherche d'alternance\n\n` +
+          `Nom: ${name}\n` +
+          `Email: ${email}\n` +
+          `Téléphone: ${phone}\n` +
+          `Formation: ${formation}\n\n` +
+          `Message: ${message}`
+        );
+        
+        // Redirect to WhatsApp
+        window.location.href = `https://wa.me/21656590703?text=${whatsappMessage}`;
+        
+        formStatus.textContent = 'Redirection vers WhatsApp...';
+        formStatus.className = 'form-status success';
+        
+        setTimeout(() => {
+          formStatus.textContent = '';
+          formStatus.className = 'form-status';
+        }, 3000);
+        
+        contactForm.reset();
+      });
+    }
+
+    // ===== WhatsApp dynamic link =====
+    const WA_NUMBER = '21656590703';
+    const whatsappBtn = $('#whatsapp');
+    const waLinkFooter = $('#wa-number-footer');
+
+    function getWhatsAppLink(){
+      const base = `https://wa.me/${WA_NUMBER}`;
+      const message = `Bonjour%20Abroad%20Zone%20%F0%9F%91%8B%20Je%20souhaite%20des%20informations%20sur%20votre%20service%20de%20recherche%20d'alternance.`;
+      return `${base}?text=${message}`;
+    }
+
+    function setWhatsAppLink(){
+      const link = getWhatsAppLink();
+      if(whatsappBtn) whatsappBtn.setAttribute('href', link);
+      if(waLinkFooter) waLinkFooter.setAttribute('href', link);
+      if(waLinkFooter) waLinkFooter.textContent = '+' + WA_NUMBER;
+    }
+    setWhatsAppLink();
+
+    // Project button scroll
+    $('#project-btn').addEventListener('click', () => document.querySelector('#contact').scrollIntoView({behavior:'smooth'}));
+
+    // Smooth anchors
+    $$('a[href^="#"]').forEach(a => { 
+      a.addEventListener('click', function(e){ 
+        const id = this.getAttribute('href'); 
+        if(id && id.startsWith('#')){ 
+          e.preventDefault(); 
+          const el = document.querySelector(id); 
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); 
+        } 
+      }); 
+    });
+
+    // Accessibility: keyboard tabbing detection
+    document.addEventListener('keydown', (e) => { 
+      if(e.key === 'Tab') document.body.classList.add('user-is-tabbing'); 
+    });
+
+    // ===== FAQ Accordion =====
+    $$('button.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        
+        // Close all other elements
+        $$('button.faq-question').forEach(otherButton => {
+          if (otherButton !== button) {
+            otherButton.setAttribute('aria-expanded', 'false');
+          }
+        });
+        
+        // Toggle current element
+        button.setAttribute('aria-expanded', !isExpanded);
+      });
+    });
+
+    // Make cards focusable for keyboard navigation
+    $$('.card, .step').forEach(el => {
+      if (!el.hasAttribute('tabindex')) {
+        el.setAttribute('tabindex', '0');
+      }
+      
+      // Add keyboard event handlers
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          el.click();
+        }
+      });
+    });
+
+  </script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Service",
+    "name":"Recherche d'Alternance en France",
+    "description":"Service complet de recherche d'alternance en France. Accompagnement personnalisé, accès à notre réseau d'entreprises partenaires, coaching jusqu'à la signature de votre contrat.",
+    "provider":{
+      "@type":"Organization",
+      "name":"Abroad Zone",
+      "url":"https://www.abroadzone.com.tn"
+    },
+    "offers":{
+      "@type":"Offer",
+      "price":"400",
+      "priceCurrency":"EUR",
+      "description":"Pack Alternance Complet : Suivi personnalisé, accès au réseau, coaching jusqu'à la signature"
+    }
+  }
+  </script>
+</body>
+</html>
