@@ -257,6 +257,19 @@
       margin-top: 20px;
       font-style: italic;
     }
+    .pricing-warning {
+      background-color: rgba(251, 191, 36, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 12px 15px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+      color: var(--dark);
+    }
+    .pricing-warning strong {
+      color: var(--primary);
+      font-weight: 700;
+    }
 
     /* STEPS */
     .steps-container {
@@ -689,6 +702,10 @@
     <h2 class="section-title">Vous cherchez une alternance en France ?</h2>
     <p class="subtitle">Nous proposons un accompagnement complet pour décrocher votre alternance, même si vous n'êtes pas encore inscrit dans nos établissements partenaires.</p>
 
+    <div class="pricing-warning">
+      <strong>Important :</strong> Ce service est destiné exclusivement aux étudiants déjà présents en France et déjà inscrits dans un établissement d'enseignement supérieur en France proposant l'alternance.
+    </div>
+
     <div class="cards">
       <article class="card" role="listitem" aria-labelledby="card-1">
         <h3 id="card-1">🔍 Recherche personnalisée</h3>
@@ -773,6 +790,10 @@
             <span class="pricing-item-icon">✓</span>
             <span>Accompagnement administratif</span>
           </div>
+        </div>
+
+        <div class="pricing-warning">
+          <strong>À noter :</strong> Les frais de service ne sont pas remboursables.
         </div>
 
         <div class="pricing-note">
@@ -902,7 +923,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Non, ce service est ouvert à tous les étudiants, quel que soit leur établissement d'origine. Nous vous accompagnons dans votre recherche d'alternance même si vous n'êtes pas encore inscrit dans nos partenaires.</p>
+          <p>Non, ce service est ouvert à tous les étudiants déjà présents en France et déjà inscrits dans un établissement d'enseignement supérieur en France proposant l'alternance, quel que soit leur établissement d'origine.</p>
         </div>
       </div>
 
@@ -912,7 +933,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Nous nous engageons à vous accompagner jusqu'à ce que vous trouviez une alternance. Si malgré nos efforts, vous ne décrochez pas de contrat, nous prolongeons notre accompagnement sans frais supplémentaires.</p>
+          <p>Nous nous engageons à vous accompagner jusqu'à ce que vous trouviez une alternance. Si malgré nos efforts, vous ne décrochez pas de contrat, nous prolongeons notre accompagnement sans frais supplémentaires. Notez cependant que les frais de service initiaux ne sont pas remboursables.</p>
         </div>
       </div>
 
@@ -922,7 +943,17 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Vous payez 150 € au début du processus pour démarrer notre accompagnement. Les 250 € restants sont à régler uniquement après avoir reçu votre premier salaire en alternance, ce qui garantit notre engagement dans votre réussite.</p>
+          <p>Vous payez 150 € au début du processus pour démarrer notre accompagnement. Les 250 € restants sont à régler uniquement après avoir reçu votre premier salaire en alternance, ce qui garantit notre engagement dans votre réussite. Notez que ces frais ne sont pas remboursables.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Les frais de service sont-ils remboursables ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Non, les frais de service ne sont pas remboursables. Nous nous engageons à vous fournir un accompagnement complet et de qualité, mais les frais engagés restent acquis même si vous ne trouvez pas d'alternance.</p>
         </div>
       </div>
     </div>
