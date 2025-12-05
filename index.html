@@ -104,15 +104,15 @@
       color: var(--primary);
     }
 
-    /* ================== HEADER / NAV ================== */
-    header{
+    /* ================== ER / NAV ================== */
+    er{
       position:sticky;top:0;z-index:1200;
       background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(23,92,125,0.03);
       transition: box-shadow .28s ease, transform .28s ease;
     }
-    header.scrolled{box-shadow:0 8px 30px rgba(23,92,125,0.08)}
+    er.scrolled{box-shadow:0 8px 30px rgba(23,92,125,0.08)}
     .nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 0}
     .brand{display:flex;align-items:center;gap:12px}
     .brand img{height:52px;width:auto;border-radius:8px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(23,92,125,0.12))}
@@ -328,12 +328,12 @@
       padding: 80px 5%;
     }
     
-    .testimonials-header {
+    .testimonials-er {
       text-align: center;
       margin-bottom: 40px;
     }
     
-    .testimonials-header h2 {
+    .testimonials-er h2 {
       font-size: 2.5rem;
       font-weight: 800;
       color: var(--primary);
@@ -1619,6 +1619,16 @@
       }
     }
   </style>
+  <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KHZQS9TNSK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KHZQS9TNSK');
+</script>
+
 </head>
 
 <body>
