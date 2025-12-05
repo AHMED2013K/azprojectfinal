@@ -65,6 +65,9 @@
       line-height:1.6;
       min-height:100vh;
       -webkit-overflow-scrolling: touch;
+      /* Amélioration mobile */
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
     }
     img{max-width:100%;display:block;height:auto}
     a{color:inherit;text-decoration:none}
@@ -82,6 +85,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
+      flex-wrap: wrap; /* Mobile */
     }
     .breadcrumb li {
       display: flex;
@@ -127,8 +131,8 @@
     .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;padding:10px 18px;border-radius:30px;font-weight:700;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(23,92,125,0.18)}
     .btn-outline{background:transparent;border:1px solid var(--primary);padding:8px 14px;border-radius:12px;cursor:pointer;font-weight:600}
 
-    /* BURGER */
-    .burger{display:none;width:46px;height:46px;border-radius:10px;align-items:center;justify-content:center;cursor:pointer}
+    /* BURGER - Amélioration mobile */
+    .burger{display:none;width:46px;height:46px;border-radius:10px;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation}
     .burger svg{width:22px;height:22px}
     .burger.active{background:rgba(23,92,125,0.06)}
     @media(max-width:980px){
@@ -425,6 +429,7 @@
       font-size: 0.9rem;
       color: var(--muted);
       margin-top: 4px;
+      flex-wrap: wrap; /* Mobile */
     }
     
     .verified-badge {
@@ -567,6 +572,7 @@
       align-items: center;
       gap: 16px;
       margin-top: 40px;
+      flex-wrap: wrap; /* Mobile */
     }
     
     .pagination-btn {
@@ -624,6 +630,8 @@
       gap: 30px;
       box-shadow: 0 4px 20px rgba(23, 92, 125, 0.1);
       margin-top: 40px;
+      flex-wrap: wrap; /* Mobile */
+      justify-content: center; /* Mobile */
     }
     
     .stat-item {
@@ -743,33 +751,871 @@
       outline-offset: 2px;
     }
 
-    /* RESPONSIVE */
-    @media (max-width:980px){
-      .hero{padding:8vh 4%}
-      .hero h1{font-size:1.9rem}
-      .destination{height:200px}
-      section{padding:36px 6%}
-      nav.primary{display:none}
-      .nav-wrap{position:relative}
-      .testimonials-grid {
-        grid-template-columns: 1fr;
+    /* ==================== AMÉLIORATIONS MOBILE ==================== */
+    
+    /* Responsive Design - Mobile First */
+    @media (max-width: 1200px) {
+      .container {
+        padding: 0 4%;
       }
     }
-    @media (max-width:640px){
-      .brand .title{font-size:1rem}
-      .brand img{height:44px}
-      .card{padding:18px}
-      footer{padding:22px 4%}
-      .testimonials-header h2 {
-        font-size: 2rem;
+
+    @media (max-width: 980px) {
+      /* Navigation */
+      .nav-wrap {
+        padding: 10px 0;
       }
+      
+      .brand img {
+        height: 44px;
+      }
+      
+      .brand .title {
+        font-size: 0.95rem;
+      }
+      
+      .brand .tag {
+        font-size: 0.7rem;
+      }
+      
+      /* Hero */
+      .hero {
+        padding: 8vh 4%;
+        min-height: 60vh;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p.lead {
+        font-size: 1rem;
+      }
+      
+      /* Sections */
+      section {
+        padding: 48px 4%;
+      }
+      
+      .testimonials-section {
+        padding: 60px 4%;
+      }
+      
+      /* Cards */
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      /* Destinations */
+      .dest-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+      
+      .destination {
+        height: 220px;
+        padding: 16px;
+      }
+      
+      .destination h3 {
+        font-size: 1.1rem;
+      }
+      
+      .destination p {
+        font-size: 0.9rem;
+      }
+      
+      /* Testimonials */
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
       .testimonial-card {
         padding: 20px;
       }
-      .testimonials-stats {
+      
+      .testimonial-header {
         flex-direction: column;
-        gap: 15px;
         text-align: center;
+        gap: 12px;
+      }
+      
+      .testimonial-avatar {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .testimonial-meta {
+        justify-content: center;
+      }
+      
+      /* Stats */
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      
+      .stat {
+        padding: 16px;
+      }
+      
+      .stat .num {
+        font-size: 1.6rem;
+      }
+      
+      /* Contact */
+      .contact-card {
+        padding: 18px;
+      }
+      
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        padding: 14px;
+      }
+      
+      /* Footer */
+      footer {
+        padding: 24px 4%;
+      }
+      
+      .foot-grid {
+        gap: 6px;
+      }
+      
+      footer h2 {
+        font-size: 1rem;
+      }
+      
+      footer p {
+        font-size: 0.9rem;
+      }
+      
+      /* WhatsApp Float */
+      .whatsapp-float {
+        width: 56px;
+        height: 56px;
+        right: 20px;
+        bottom: 20px;
+      }
+      
+      .whatsapp-float svg {
+        width: 30px;
+        height: 30px;
+      }
+      
+      /* Modal */
+      .modal-content {
+        width: 95%;
+        margin: 20px;
+      }
+      
+      .modal-header,
+      .modal-body {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      /* Container */
+      .container {
+        padding: 0 5%;
+      }
+      
+      /* Navigation */
+      .nav-wrap {
+        gap: 12px;
+        padding: 8px 0;
+      }
+      
+      .brand img {
+        height: 40px;
+      }
+      
+      .brand .title {
+        font-size: 0.85rem;
+        letter-spacing: 0.8px;
+      }
+      
+      .brand .tag {
+        font-size: 0.65rem;
+      }
+      
+      nav.primary {
+        top: 65px;
+        padding: 16px 5%;
+        margin: 0 5%;
+        gap: 6px;
+      }
+      
+      nav.primary a {
+        font-size: 0.9rem;
+        padding: 12px 8px;
+      }
+      
+      .lang-switch {
+        gap: 4px;
+      }
+      
+      .lang-switch button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+      
+      .btn-primary {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+      }
+      
+      .burger {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .burger svg {
+        width: 20px;
+        height: 20px;
+      }
+      
+      /* Hero */
+      .hero {
+        padding: 10vh 5%;
+        min-height: 50vh;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+        line-height: 1.1;
+      }
+      
+      .hero p.lead {
+        font-size: 0.95rem;
+        max-width: 100%;
+      }
+      
+      .badges {
+        gap: 8px;
+        justify-content: center;
+      }
+      
+      .badge {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+      }
+      
+      .hero .actions {
+        gap: 10px;
+        margin-top: 16px;
+      }
+      
+      .btn-primary,
+      .btn-outline {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+      
+      /* Sections */
+      section {
+        padding: 36px 5%;
+      }
+      
+      .testimonials-section {
+        padding: 48px 5%;
+      }
+      
+      h2.section-title {
+        font-size: 1.8rem;
+      }
+      
+      .subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+      
+      /* Cards */
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 16px;
+      }
+      
+      .card {
+        padding: 18px;
+      }
+      
+      .card h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+      
+      .card p {
+        font-size: 0.9rem;
+      }
+      
+      /* Stats */
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+      }
+      
+      .stat {
+        padding: 14px;
+      }
+      
+      .stat .num {
+        font-size: 1.4rem;
+      }
+      
+      .stat .muted {
+        font-size: 0.8rem;
+      }
+      
+      /* Destinations */
+      .dest-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      
+      .destination {
+        height: 180px;
+        padding: 14px;
+      }
+      
+      .destination h3 {
+        font-size: 1rem;
+      }
+      
+      .destination p {
+        font-size: 0.85rem;
+      }
+      
+      /* Testimonials */
+      .testimonials-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .testimonials-header p {
+        font-size: 1rem;
+      }
+      
+      .view-controls {
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      
+      .view-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+      
+      .testimonial-card {
+        padding: 16px;
+      }
+      
+      .testimonial-header {
+        margin-bottom: 12px;
+      }
+      
+      .testimonial-avatar {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .testimonial-info h4 {
+        font-size: 1rem;
+      }
+      
+      .testimonial-meta {
+        font-size: 0.8rem;
+      }
+      
+      .verified-badge {
+        font-size: 0.7rem;
+        padding: 1px 6px;
+      }
+      
+      .rating {
+        margin: 8px 0;
+      }
+      
+      .star {
+        font-size: 1rem;
+      }
+      
+      .testimonial-content {
+        padding-left: 16px;
+      }
+      
+      .testimonial-content::before {
+        font-size: 2.5rem;
+        top: -8px;
+      }
+      
+      .testimonial-text {
+        font-size: 0.9rem;
+      }
+      
+      .testimonial-footer {
+        margin-top: 12px;
+        padding-top: 12px;
+      }
+      
+      .project-info {
+        font-size: 0.8rem;
+      }
+      
+      /* Carousel */
+      .carousel-slide {
+        padding: 0 10px;
+      }
+      
+      .carousel-controls {
+        gap: 16px;
+        margin-top: 16px;
+      }
+      
+      .carousel-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+      
+      .indicator {
+        width: 6px;
+        height: 6px;
+      }
+      
+      .indicator.active {
+        width: 20px;
+      }
+      
+      /* Pagination */
+      .pagination {
+        gap: 12px;
+        margin-top: 24px;
+      }
+      
+      .pagination-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+      }
+      
+      .page-dot {
+        width: 6px;
+        height: 6px;
+      }
+      
+      .page-dot.active {
+        width: 20px;
+      }
+      
+      /* Stats Bar */
+      .testimonials-stats {
+        padding: 16px 20px;
+        gap: 20px;
+        margin-top: 24px;
+      }
+      
+      .stat-item {
+        font-size: 0.8rem;
+        gap: 6px;
+      }
+      
+      .stat-item strong {
+        font-size: 1rem;
+      }
+      
+      /* FAQ */
+      .faq-question {
+        padding: 16px;
+        font-size: 0.95rem;
+      }
+      
+      .faq-icon {
+        font-size: 1.2rem;
+      }
+      
+      .faq-answer p {
+        padding: 0 16px 16px;
+        font-size: 0.9rem;
+      }
+      
+      /* Contact */
+      .contact-card {
+        padding: 16px;
+      }
+      
+      .form-group {
+        margin-bottom: 16px;
+      }
+      
+      .form-group label {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+      }
+      
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+      
+      .checkbox-group {
+        gap: 8px;
+      }
+      
+      .checkbox-group input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+      }
+      
+      .checkbox-group label {
+        font-size: 0.85rem;
+      }
+      
+      .contact-card button {
+        padding: 14px;
+        font-size: 0.9rem;
+      }
+      
+      .error-message {
+        font-size: 0.8rem;
+      }
+      
+      .form-status {
+        font-size: 0.85rem;
+        padding: 8px;
+      }
+      
+      /* Footer */
+      footer {
+        padding: 20px 5%;
+      }
+      
+      .foot-grid {
+        gap: 4px;
+      }
+      
+      footer h2 {
+        font-size: 0.95rem;
+      }
+      
+      footer p {
+        font-size: 0.85rem;
+        margin: 4px 0;
+      }
+      
+      /* WhatsApp Float */
+      .whatsapp-float {
+        width: 52px;
+        height: 52px;
+        right: 16px;
+        bottom: 16px;
+      }
+      
+      .whatsapp-float svg {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .whatsapp-float::before {
+        width: 12px;
+        height: 12px;
+        top: -4px;
+        right: -4px;
+      }
+      
+      /* Modal */
+      .modal-content {
+        width: 98%;
+        margin: 10px;
+        max-height: 90vh;
+      }
+      
+      .modal-header {
+        padding: 16px;
+      }
+      
+      .modal-header h3 {
+        font-size: 1.1rem;
+      }
+      
+      .modal-body {
+        padding: 16px;
+      }
+      
+      .modal-body h4 {
+        font-size: 1rem;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+      
+      .modal-body p {
+        font-size: 0.9rem;
+      }
+      
+      .modal-close svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Hero ultra petit */
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+      
+      .hero p.lead {
+        font-size: 0.9rem;
+      }
+      
+      .badge {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+      }
+      
+      /* Sections */
+      h2.section-title {
+        font-size: 1.6rem;
+      }
+      
+      /* Stats */
+      .stat .num {
+        font-size: 1.2rem;
+      }
+      
+      .stat .muted {
+        font-size: 0.75rem;
+      }
+      
+      /* Footer */
+      footer h2 {
+        font-size: 0.9rem;
+      }
+      
+      footer p {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Améliorations tactiles */
+    @media (hover: none) and (pointer: coarse) {
+      /* Augmenter la taille des zones de toucher */
+      button, a, input, textarea, select {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      .burger {
+        min-height: 48px;
+        min-width: 48px;
+      }
+      
+      .lang-switch button {
+        min-height: 40px;
+        min-width: 40px;
+      }
+      
+      .faq-question {
+        min-height: 48px;
+      }
+      
+      .view-btn {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      .carousel-btn {
+        min-height: 48px;
+        min-width: 48px;
+      }
+      
+      .pagination-btn {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      .page-dot {
+        min-height: 12px;
+        min-width: 12px;
+      }
+      
+      .indicator {
+        min-height: 12px;
+        min-width: 12px;
+      }
+      
+      .whatsapp-float {
+        min-height: 60px;
+        min-width: 60px;
+      }
+      
+      /* Améliorer l'espacement pour éviter les clics accidentels */
+      nav.primary a {
+        padding: 12px 8px;
+      }
+      
+      .card {
+        margin: 4px 0;
+      }
+      
+      .destination {
+        margin: 4px 0;
+      }
+      
+      .testimonial-card {
+        margin: 4px 0;
+      }
+      
+      .faq-item {
+        margin: 8px 0;
+      }
+      
+      /* Améliorer la visibilité des états focus */
+      button:focus,
+      a:focus,
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+    }
+
+    /* Optimisations pour iOS Safari */
+    @supports (-webkit-touch-callout: none) {
+      /* Correction du viewport sur iOS */
+      body {
+        -webkit-text-size-adjust: 100%;
+      }
+      
+      /* Amélioration du scrolling */
+      .hero {
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* Correction du positionnement fixe */
+      .whatsapp-float {
+        -webkit-transform: translateZ(0);
+      }
+      
+      header {
+        -webkit-transform: translateZ(0);
+      }
+    }
+
+    /* Optimisations pour Android Chrome */
+    @supports not (-webkit-touch-callout: none) {
+      /* Amélioration du scrolling sur Android */
+      body {
+        overscroll-behavior: contain;
+      }
+    }
+
+    /* Mode paysage mobile */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .hero {
+        min-height: 80vh;
+        padding: 4vh 5%;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p.lead {
+        font-size: 0.9rem;
+      }
+      
+      .badges {
+        margin-top: 8px;
+      }
+      
+      section {
+        padding: 24px 5%;
+      }
+      
+      .testimonials-section {
+        padding: 32px 5%;
+      }
+    }
+
+    /* Haute résolution (Retina) */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .brand img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+      
+      .testimonial-avatar {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+    }
+
+    /* Animation de chargement pour mobile */
+    @media (prefers-reduced-motion: no-preference) {
+      @media (max-width: 640px) {
+        [data-anim] {
+          transition-duration: 0.4s;
+        }
+        
+        .card:hover {
+          transition-duration: 0.2s;
+        }
+        
+        .destination:hover {
+          transition-duration: 0.2s;
+        }
+        
+        .testimonial-card:hover {
+          transition-duration: 0.2s;
+        }
+      }
+    }
+
+    /* Accessibilité améliorée pour mobile */
+    @media (max-width: 640px) {
+      /* Améliorer le contraste en mode clair/sombre */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1a1a1a;
+          --card: #2d2d2d;
+          --dark: #f0f0f0;
+          --muted: #b0b0b0;
+        }
+        
+        .hero {
+          background: linear-gradient(135deg, rgba(23,92,125,0.95), rgba(23,92,125,0.85));
+        }
+        
+        .testimonials-section {
+          background: linear-gradient(135deg, #1a3a52 0%, #2d5a7a 100%);
+        }
+      }
+    }
+
+    /* Performance optimisations */
+    @media (max-width: 640px) {
+      /* Réduire les animations sur mobile pour économiser la batterie */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
       }
     }
   </style>
@@ -800,7 +1646,7 @@
       <nav class="primary" aria-label="Menu principal" role="navigation">
         <a href="#accueil" data-target aria-label="Accueil" data-fr="Accueil" data-en="Home">Accueil</a>
         <a href="#services" data-target aria-label="Nos services" data-fr="Nos services" data-en="Services">Nos services</a>
-        <a href="recherche.html" aria-label="Alternance" data-fr="Alternance" data-en="Work-study">Alternance</a>
+        <a href="recherche-alternance.html" aria-label="Alternance" data-fr="Alternance" data-en="Work-study">Alternance</a>
         <a href="#destinations" data-target aria-label="Destinations" data-fr="Destinations" data-en="Destinations">Destinations</a>
         <a href="#bureaux" data-target aria-label="Bureaux" data-fr="Bureaux" data-en="Offices">Bureaux</a>
         <a href="#temoignages" data-target aria-label="Témoignages" data-fr="Témoignages" data-en="Testimonials">Témoignages</a>
@@ -815,7 +1661,7 @@
         </div>
 
         <!-- MODIFICATION: Modification du bouton "Lancer mon projet" pour rediriger vers la page de recherche d'alternance -->
-        <button class="btn-primary" id="project-btn" aria-label="Lancer mon projet" onclick="window.location.href='recherche.html'">Lancer mon projet</button>
+        <button class="btn-primary" id="project-btn" aria-label="Lancer mon projet" onclick="window.location.href='recherche-alternance.html'">Lancer mon projet</button>
 
         <div class="burger" role="button" aria-label="Menu" aria-expanded="false" tabindex="0">
           <svg class="menu-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1c3450" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -865,7 +1711,7 @@
         <h3 id="card-1" data-fr="🎓 Alternance en France" data-en="🎓 Work-study in France">🎓 Alternance en France</h3>
         <p data-fr="Recherche d'entreprise, optimisation CV, préparation aux entretiens et suivi jusqu'à la signature du contrat." data-en="Company search, CV optimization, interview preparation and follow-up until contract signing.">Recherche d'entreprise, optimisation CV, préparation aux entretiens et suivi jusqu'à la signature du contrat.</p>
         <div style="margin-top: 15px; text-align: center;">
-          <a href="recherche.html" class="btn-primary" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">En savoir plus</a>
+          <a href="recherche-alternance.html" class="btn-primary" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">En savoir plus</a>
         </div>
       </article>
 
@@ -997,7 +1843,7 @@
       </div>
     </div>
 
-    <!-- Pagination for Grid View -->
+!-- Pagination for Grid View -->
     <div id="grid-pagination" class="pagination">
       <button class="pagination-btn" onclick="previousPage()" id="prev-btn">
         <span>‹</span>
