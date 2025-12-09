@@ -1006,26 +1006,44 @@ if (backToTopBtn) {
     }
   });
 }
-
-// Optimisation des images de fond pour mobile
-function optimizeBackgroundImages() {
-  if (window.innerWidth <= 768) {
-    $$('.destination').forEach(dest => {
-      const mobileBg = dest.getAttribute('data-bg-mobile');
-      if (mobileBg) {
-        dest.style.backgroundImage = `url('${mobileBg}')`;
-      }
-    });
-  } else {
-    $$('.destination').forEach(dest => {
-      const desktopBg = dest.getAttribute('data-bg-desktop');
-      if (desktopBg) {
-        dest.style.backgroundImage = `url('${desktopBg}')`;
-      }
-    });
+// Gestion de l'indicateur de chargement
+window.addEventListener('load', function() {
+  const loader = $('#page-loader');
+  if (loader) {
+    loader.classList.add('hidden');
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 300);
   }
-}
+});
 
-// Initialisation et écoute des changements de taille
-//optimizeBackgroundImages();
-//window.addEventListener('resize', optimizeBackgroundImages);
+// Gestion du bouton Retour en haut
+const backToTopBtn = $('#back-to-top');
+
+if (backToTopBtn) {
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  });
+
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Support clavier
+  backToTopBtn.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  });
+}
