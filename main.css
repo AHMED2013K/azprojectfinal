@@ -2824,3 +2824,38 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* ======================================= */
+/* SECURITE : COULEURS DE FOND PAR DEFAUT */
+/* ======================================= */
+
+/* Hero principal */
+.hero {
+  /* Si l'image ne se charge pas, on affiche un dégradé bleu */
+  background: linear-gradient(135deg, var(--primary), var(--primary-2)) !important;
+}
+
+/* Hero de la section alternance */
+#alternance .hero {
+  /* Si l'image ne se charge pas, on affiche un dégradé bleu foncé */
+  background: linear-gradient(135deg, var(--primary), var(--dark)) !important;
+}
+
+/* Toutes les cartes de destination */
+.destination {
+  /* Si l'image ne se charge pas, on affiche une couleur unie */
+  background-color: var(--primary) !important;
+}
+
+/* Toutes les cartes de contenu */
+.card, .alternance-card, .testimonial-card, .pricing-card {
+  /* On s'assure que les cartes ont bien un fond blanc */
+  background-color: var(--card) !important;
+}
+
+/* Sections avec data-anim pour s'assurer qu'elles sont visibles */
+section[data-anim] {
+  /* On s'assure que les sections ont un fond */
+  background-color: var(--bg) !important;
+  min-height: 200px; /* Pour qu'elles prennent de la place même si vides */
+}
