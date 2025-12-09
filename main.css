@@ -1,6 +1,7 @@
 /* --- Correction pour l'affichage des emoji --- */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Noto Sans Symbols";
+  /* On met une police système en premier, au cas où 'Inter' ne se charge pas */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Noto Sans Symbols", 'Inter';
 }
 
 /* ================== VARIABLES ================== */
