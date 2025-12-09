@@ -3,7 +3,6 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Noto Sans Symbols";
 }
 
-
 /* ================== VARIABLES ================== */
 :root{
   --primary:#175c7d;
@@ -2161,5 +2160,583 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
   
   .cta-content p {
     font-size: 1rem;
+  }
+}
+
+/* ================== AMÉLIORATIONS MOBILE SUPPLÉMENTAIRES ================== */
+
+/* Amélioration de la navigation sur mobile */
+@media (max-width: 980px) {
+  /* Amélioration du menu burger */
+  .burger {
+    display: flex;
+    background: rgba(23, 92, 125, 0.05);
+    border: 1px solid rgba(23, 92, 125, 0.1);
+  }
+  
+  .burger.active {
+    background: rgba(23, 92, 125, 0.1);
+  }
+  
+  /* Amélioration du menu déroulant */
+  nav.primary {
+    box-shadow: 0 10px 30px rgba(12, 30, 45, 0.15);
+    border-radius: 16px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  nav.primary a {
+    padding: 14px 10px;
+    border-bottom: 1px solid rgba(23, 92, 125, 0.05);
+    border-radius: 8px;
+    margin-bottom: 4px;
+  }
+  
+  nav.primary a:last-child {
+    border-bottom: none;
+  }
+  
+  /* Amélioration du menu déroulant Alternance */
+  .dropdown {
+    margin-bottom: 8px;
+  }
+  
+  .dropdown-toggle {
+    padding: 14px 10px;
+    font-weight: 700;
+  }
+  
+  .dropdown-menu {
+    background: rgba(23, 92, 125, 0.03);
+    border-radius: 8px;
+    margin-top: 8px;
+    box-shadow: none;
+    border: 1px solid rgba(23, 92, 125, 0.05);
+  }
+  
+  .dropdown-item {
+    padding: 12px 16px;
+  }
+}
+
+/* Amélioration de l'header sur mobile */
+@media (max-width: 640px) {
+  header {
+    padding: 0;
+  }
+  
+  .nav-wrap {
+    padding: 8px 0;
+  }
+  
+  /* Amélioration du logo sur mobile */
+  .brand {
+    gap: 8px;
+  }
+  
+  .brand img {
+    height: 36px;
+  }
+  
+  .brand .title {
+    font-size: 0.8rem;
+    letter-spacing: 0.6px;
+  }
+  
+  .brand .tag {
+    font-size: 0.6rem;
+  }
+  
+  /* Amélioration des boutons */
+  .lang-switch {
+    transform: scale(0.85);
+  }
+  
+  .btn-primary {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Amélioration de la section hero sur mobile */
+@media (max-width: 640px) {
+  .hero {
+    min-height: 60vh;
+    padding: 15vh 5% 10vh;
+  }
+  
+  .hero h1 {
+    font-size: 1.7rem;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  
+  .hero p.lead {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  
+  .badges {
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .badge {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+  
+  .hero .actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  
+  .hero .actions .btn-primary,
+  .hero .actions .btn-outline {
+    width: 100%;
+    padding: 14px;
+    text-align: center;
+  }
+}
+
+/* Amélioration des sections sur mobile */
+@media (max-width: 640px) {
+  section {
+    padding: 40px 5%;
+  }
+  
+  h2.section-title {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+  }
+  
+  /* Amélioration des cartes */
+  .card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .card h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .card p {
+    font-size: 0.85rem;
+  }
+  
+  /* Amélioration des statistiques */
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .stat {
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .stat .num {
+    font-size: 1.3rem;
+  }
+  
+  .stat .muted {
+    font-size: 0.75rem;
+  }
+  
+  /* Amélioration des destinations */
+  .dest-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .destination {
+    height: 200px;
+    border-radius: 12px;
+  }
+  
+  .destination h3 {
+    font-size: 1rem;
+  }
+  
+  .destination p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Amélioration de la section témoignages sur mobile */
+@media (max-width: 640px) {
+  .testimonials-section {
+    padding: 40px 5%;
+  }
+  
+  .testimonials-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .testimonials-header p {
+    font-size: 0.9rem;
+  }
+  
+  .testimonial-card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+  
+  .testimonial-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .testimonial-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .testimonial-info h4 {
+    font-size: 0.95rem;
+  }
+  
+  .testimonial-meta {
+    font-size: 0.8rem;
+    justify-content: center;
+  }
+  
+  .rating {
+    margin: 10px 0;
+  }
+  
+  .star {
+    font-size: 0.9rem;
+  }
+  
+  .testimonial-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Amélioration de la section contact sur mobile */
+@media (max-width: 640px) {
+  .contact-card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 12px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+  
+  .contact-card button {
+    padding: 14px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+}
+
+/* Amélioration du footer sur mobile */
+@media (max-width: 640px) {
+  footer {
+    padding: 20px 5%;
+  }
+  
+  .foot-grid {
+    gap: 6px;
+  }
+  
+  footer h2 {
+    font-size: 0.9rem;
+  }
+  
+  footer p {
+    font-size: 0.8rem;
+    margin: 4px 0;
+  }
+}
+
+/* Amélioration du bouton WhatsApp sur mobile */
+@media (max-width: 640px) {
+  .whatsapp-float {
+    width: 56px;
+    height: 56px;
+    right: 20px;
+    bottom: 20px;
+  }
+  
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Amélioration de la section alternance sur mobile */
+@media (max-width: 640px) {
+  #alternance .hero {
+    min-height: 50vh;
+    padding: 12vh 5% 8vh;
+  }
+  
+  #alternance .hero h1 {
+    font-size: 1.7rem;
+  }
+  
+  #alternance .hero .lead {
+    font-size: 0.9rem;
+  }
+  
+  .pricing-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .pricing-title {
+    font-size: 1.4rem;
+  }
+  
+  .pricing-price {
+    font-size: 2.2rem;
+  }
+  
+  .pricing-item {
+    font-size: 0.9rem;
+  }
+  
+  .pricing-cta {
+    padding: 14px;
+    font-size: 0.9rem;
+  }
+  
+  .steps {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .steps::before {
+    width: 4px;
+    height: 100%;
+    left: 15px;
+  }
+  
+  .step {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .step-number {
+    margin-right: 15px;
+    margin-bottom: 0;
+  }
+}
+
+/* Amélioration de la section alternance internationale sur mobile */
+@media (max-width: 640px) {
+  .alternance-intro {
+    padding: 18px;
+    margin-bottom: 25px;
+  }
+  
+  .intro-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .alternance-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .alternance-card {
+    border-radius: 12px;
+  }
+  
+  .card-header {
+    padding: 15px;
+  }
+  
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+  
+  .card-header h3 {
+    font-size: 1rem;
+  }
+  
+  .card-content {
+    padding: 18px;
+  }
+  
+  .card-content h4 {
+    font-size: 0.95rem;
+  }
+  
+  .benefit-item {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+  
+  .steps-timeline {
+    padding-left: 20px;
+  }
+  
+  .steps-timeline::before {
+    left: 10px;
+  }
+  
+  .timeline-step {
+    margin-bottom: 20px;
+  }
+  
+  .step-number {
+    left: -20px;
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+  }
+  
+  .step-content h4 {
+    font-size: 0.9rem;
+  }
+  
+  .step-content p {
+    font-size: 0.8rem;
+  }
+  
+  .network-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  
+  .stat-number {
+    font-size: 1.3rem;
+  }
+  
+  .stat-label {
+    font-size: 0.7rem;
+  }
+  
+  .cta-section {
+    padding: 25px 15px;
+  }
+  
+  .cta-content h3 {
+    font-size: 1.4rem;
+  }
+  
+  .cta-content p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Amélioration de la section FAQ sur mobile */
+@media (max-width: 640px) {
+  .faq-item {
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  
+  .faq-question {
+    padding: 14px;
+    font-size: 0.9rem;
+  }
+  
+  .faq-icon {
+    font-size: 1rem;
+  }
+  
+  .faq-answer p {
+    padding: 0 14px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Amélioration des animations et transitions sur mobile */
+@media (max-width: 640px) {
+  /* Réduction des animations pour améliorer les performances */
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .destination:hover {
+    transform: translateY(-3px);
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Amélioration des transitions tactiles */
+  .btn-primary,
+  .btn-outline,
+  .burger,
+  .lang-switch button,
+  .faq-question {
+    transition: all 0.2s ease;
+  }
+  
+  /* Ajout d'effet tactile */
+  .btn-primary:active,
+  .btn-outline:active,
+  .burger:active,
+  .lang-switch button:active,
+  .faq-question:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Amélioration de l'accessibilité sur mobile */
+@media (max-width: 640px) {
+  /* Augmentation de la taille des zones cliquables */
+  .btn-primary,
+  .btn-outline {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .burger {
+    min-width: 48px;
+    min-height: 48px;
+  }
+  
+  .lang-switch button {
+    min-height: 40px;
+    min-width: 40px;
+  }
+  
+  .faq-question {
+    min-height: 48px;
+  }
+  
+  /* Amélioration du contraste */
+  .card {
+    box-shadow: 0 8px 24px rgba(23, 92, 125, 0.08);
+  }
+  
+  .testimonial-card {
+    box-shadow: 0 8px 24px rgba(23, 92, 125, 0.08);
   }
 }
