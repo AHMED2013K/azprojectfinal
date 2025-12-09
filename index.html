@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes" />
   <title>Abroad Zone | Votre partenaire de confiance pour la mobilité internationale</title>
   <meta name="description" content="Abroad Zone accompagne les étudiants et professionnels : études, alternance, logement et mobilité internationale. 7+ bureaux, 8 destinations, accompagnement 100% personnalisé." />
   <meta name="keywords" content="alternance France, études à l'étranger, logement étudiant, formation, Ausland, Ausbildung, mobilité internationale, Abroad Zone, études internationales, alternance professionnelle, logement étudiant France, formation Allemagne, études Chypre, études Russie, études Dubaï, études Maroc, études Turquie, études Suisse" />
@@ -54,6 +54,11 @@
 </head>
 
 <body>
+  <!-- Indicateur de chargement -->
+  <div id="page-loader" class="page-loader" role="status" aria-label="Chargement en cours">
+    <div class="loader-spinner"></div>
+  </div>
+
   <!-- HEADER -->
   <header role="banner" aria-label="Barre de navigation">
     <div class="container nav-wrap">
@@ -68,7 +73,7 @@
       <nav class="primary" aria-label="Menu principal" role="navigation">
         <a href="#services" data-target aria-label="Nos services" data-fr="Nos services" data-en="Services">Nos services</a>
 <!-- Menu déroulant Alternance -->
-<div class="dropdown">
+<div class="dropdown" data-mobile-dropdown="true">
   <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
     <span data-fr="Alternance" data-en="Work-study">Alternance</span>
     <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
@@ -138,7 +143,7 @@
     <p class="subtitle" data-fr="Accompagnement sur-mesure pour étudiants et professionnels : alternance, études, logement et intégration." data-en="Tailored support for students and professionals: work-study, studies, housing and integration.">Accompagnement sur-mesure pour étudiants et professionnels : alternance, études, logement et intégration.</p>
 
     <div class="cards" id="services-cards" role="list" aria-label="Liste des services">
-      <article class="card" role="listitem" aria-labelledby="card-1">
+      <article class="card" role="listitem" aria-labelledby="card-1" tabindex="0" onclick="window.location.href='#contact'">
         <h3 id="card-1" data-fr="🎓 Alternance en France" data-en="🎓 Work-study in France">🎓 Alternance en France</h3>
         <p data-fr="Recherche d'entreprise, optimisation CV, préparation aux entretiens et suivi jusqu'à la signature du contrat." data-en="Company search, CV optimization, interview preparation and follow-up until contract signing.">Recherche d'entreprise, optimisation CV, préparation aux entretiens et suivi jusqu'à la signature du contrat.</p>
         <div style="margin-top: 15px; text-align: center;">
@@ -146,17 +151,17 @@
         </div>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="card-2">
+      <article class="card" role="listitem" aria-labelledby="card-2" tabindex="0" onclick="window.location.href='#contact'">
         <h3 id="card-2" data-fr="🏠 Recherche de logement" data-en="🏠 Housing search">🏠 Recherche de logement</h3>
         <p data-fr="Solutions adaptées (logement étudiant, colocations, garanties) et assistance CAF/APL." data-en="Tailored solutions (student housing, shared flats, guarantees) and assistance with housing benefits.">Solutions adaptées (logement étudiant, colocations, garanties) et assistance CAF/APL.</p>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="card-3">
+      <article class="card" role="listitem" aria-labelledby="card-3" tabindex="0" onclick="window.location.href='#contact'">
         <h3 id="card-3" data-fr="🌍 Études à l'international" data-en="🌍 International studies">🌍 Études à l'international</h3>
         <p data-fr="Orientation et accompagnement pour intégrer des universités et écoles en Turquie, Chypre, Russie, Maroc, Dubaï." data-en="Guidance and support to join universities and schools in Turkey, Cyprus, Russia, Morocco, Dubai.">Orientation et accompagnement pour intégrer des universités et écoles en Turquie, Chypre, Russie, Maroc, Dubaï.</p>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="card-4">
+      <article class="card" role="listitem" aria-labelledby="card-4" tabindex="0" onclick="window.location.href='#contact'">
         <h3 id="card-4" data-fr="🇩🇪 Ausbildung & Formations pro" data-en="🇩🇪 Ausbildung & Professional training">🇩🇪 Ausbildung & Formations pro</h3>
         <p data-fr="Programmes d'apprentissage en alternance en Allemagne & Suisse : théorie + pratique en entreprise." data-en="Apprenticeship programs in Germany & Switzerland: theory + practical company experience.">Programmes d'apprentissage en alternance en Allemagne & Suisse : théorie + pratique en entreprise.</p>
       </article>
@@ -168,7 +173,7 @@
   <!-- Hero Alternance -->
   <div class="hero" style="margin-bottom: 40px;">
     <div class="content container" data-anim>
-      <h1 id="alternance-hero-title">Recherche d'Alternance en France</h1>
+      <h2 id="alternance-hero-title">Recherche d'Alternance en France</h2>
       <p class="lead" id="alternance-hero-lead">Accompagnement complet pour décrocher votre alternance, de la recherche d'opportunités jusqu'à votre embauche.</p>
 
       <div class="actions">
@@ -178,7 +183,7 @@
     </div>
   </div>
     <!-- Introduction -->
-    <h2 class="section-title">Vous cherchez une alternance en France ?</h2>
+    <h3 class="section-title">Vous cherchez une alternance en France ?</h3>
     <p class="subtitle">Nous proposons un accompagnement complet pour décrocher votre alternance, même si vous n'êtes pas encore inscrit dans nos établissements partenaires.</p>
 
     <div class="pricing-warning">
@@ -186,22 +191,22 @@
     </div>
 
     <div class="cards">
-      <article class="card" role="listitem" aria-labelledby="alternance-card-1">
+      <article class="card" role="listitem" aria-labelledby="alternance-card-1" tabindex="0">
         <h3 id="alternance-card-1">🔍 Recherche personnalisée</h3>
         <p>Nous identifions les opportunités d'alternance qui correspondent à votre profil, vos compétences et vos aspirations professionnelles.</p>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="alternance-card-2">
+      <article class="card" role="listitem" aria-labelledby="alternance-card-2" tabindex="0">
         <h3 id="alternance-card-2">📝 Préparation aux entretiens</h3>
         <p>Coaching personnalisé pour vous aider à réussir vos entretiens et à vous démarquer des autres candidats.</p>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="alternance-card-3">
+      <article class="card" role="listitem" aria-labelledby="alternance-card-3" tabindex="0">
         <h3 id="alternance-card-3">🤝 Accès à notre réseau</h3>
         <p>Bénéficiez de notre réseau d'entreprises partenaires qui recherchent activement des alternants.</p>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="alternance-card-4">
+      <article class="card" role="listitem" aria-labelledby="alternance-card-4" tabindex="0">
         <h3 id="alternance-card-4">✅ Suivi jusqu'à la signature</h3>
         <p>Nous vous accompagnons à chaque étape jusqu'à la signature de votre contrat d'alternance.</p>
       </article>
@@ -209,7 +214,7 @@
 
     <!-- Process -->
     <section id="processus-alternance" style="margin-top: 60px;" data-anim>
-      <h2 class="section-title">Notre processus en 4 étapes</h2>
+      <h3 class="section-title">Notre processus en 4 étapes</h3>
       <p class="subtitle">Un accompagnement structuré pour maximiser vos chances de succès</p>
 
       <div class="steps-container">
@@ -243,7 +248,7 @@
 
     <!-- Pricing -->
     <section id="pricing" style="margin-top: 60px;" data-anim>
-      <h2 class="section-title">Notre offre</h2>
+      <h3 class="section-title">Notre offre</h3>
       <p class="subtitle">Un tarif transparent pour un accompagnement complet</p>
 
       <div class="pricing-container">
@@ -288,16 +293,16 @@
     <!-- Testimonials Alternance -->
     <section id="temoignages-alternance" style="margin-top: 60px;" data-anim>
       <div class="testimonials-header">
-        <h2>Témoignages Alternance</h2>
+        <h3>Témoignages Alternance</h3>
         <p>Découvrez les expériences de nos étudiants qui ont trouvé leur alternance avec nous</p>
       </div>
 
       <div class="testimonials-grid">
-        <div class="testimonial-card">
+        <div class="testimonial-card" role="article" aria-labelledby="testimonial-name-1" tabindex="0">
           <div class="testimonial-header">
             <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Koussi" class="testimonial-avatar">
             <div class="testimonial-info">
-              <h4>Sarah Koussi</h4>
+              <h4 id="testimonial-name-1">Sarah Koussi</h4>
               <div class="testimonial-meta">
                 <span>🇫🇷</span>
                 <span>France</span>
@@ -321,11 +326,11 @@
           </div>
         </div>
 
-        <div class="testimonial-card">
+        <div class="testimonial-card" role="article" aria-labelledby="testimonial-name-2" tabindex="0">
           <div class="testimonial-header">
             <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Amine Benali" class="testimonial-avatar">
             <div class="testimonial-info">
-              <h4>Amine Benali</h4>
+              <h4 id="testimonial-name-2">Amine Benali</h4>
               <div class="testimonial-meta">
                 <span>🇫🇷</span>
                 <span>France</span>
@@ -349,11 +354,11 @@
           </div>
         </div>
 
-        <div class="testimonial-card">
+        <div class="testimonial-card" role="article" aria-labelledby="testimonial-name-3" tabindex="0">
           <div class="testimonial-header">
             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Léa Martin" class="testimonial-avatar">
             <div class="testimonial-info">
-              <h4>Léa Martin</h4>
+              <h4 id="testimonial-name-3">Léa Martin</h4>
               <div class="testimonial-meta">
                 <span>🇫🇷</span>
                 <span>France</span>
@@ -381,7 +386,7 @@
 
     <!-- FAQ Alternance -->
     <section id="faq-alternance" style="margin-top: 60px;" data-anim>
-      <h2 class="section-title">Questions Fréquentes Alternance</h2>
+      <h3 class="section-title">Questions Fréquentes Alternance</h3>
       <p class="subtitle">Retrouvez les réponses aux questions que vous nous posez le plus souvent sur notre service de recherche d'alternance.</p>
 
       <div class="faq-container">
@@ -444,56 +449,56 @@
     <p class="subtitle" data-fr="Nous travaillons avec des partenaires fiables pour vous proposer des parcours sérieux et tracés." data-en="We work with reliable partners to offer you serious and well-prepared paths.">Nous travaillons avec des partenaires fiables pour vous proposer des parcours sérieux et tracés.</p>
 
     <div class="dest-grid">
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80&fm=webp');" data-fr-title="France" data-en-title="France">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="France" data-en-title="France" data-bg-desktop="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
         <div class="dest-content">
           <h3 data-fr="🇫🇷 France" data-en="🇫🇷 France">🇫🇷 France</h3>
           <p data-fr="Alternance & études supérieures." data-en="Work-study & higher education.">Alternance & études supérieures.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1677023484291-005b9840132f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-fr-title="Chypre du Nord" data-en-title="North Cyprus">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1677023484291-005b9840132f?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Chypre du Nord" data-en-title="North Cyprus" data-bg-desktop="https://images.unsplash.com/photo-1677023484291-005b9840132f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1677023484291-005b9840132f?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
         <div class="dest-content">
           <h3 data-fr="🇨🇾 Chypre du Nord" data-en="🇨🇾 North Cyprus">🇨🇾 Chypre du Nord</h3>
           <p data-fr="Études en anglais avec accompagnement local." data-en="English-taught programs with local support.">Études en anglais avec accompagnement local.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1580837119756-563d608dd119?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-fr-title="Russie" data-en-title="Russia">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1580837119756-563d608dd119?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Russie" data-en-title="Russia" data-bg-desktop="https://images.unsplash.com/photo-1580837119756-563d608dd119?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1580837119756-563d608dd119?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
         <div class="dest-content">
           <h3 data-fr="🇷🇺 Russie" data-en="🇷🇺 Russia">🇷🇺 Russie</h3>
           <p data-fr="Programmes académiques reconnus." data-en="Recognized academic programs.">Programmes académiques reconnus.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1515386474292-47555758ef2e?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-fr-title="Maroc" data-en-title="Morocco">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1515386474292-47555758ef2e?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Maroc" data-en-title="Morocco" data-bg-desktop="https://images.unsplash.com/photo-1515386474292-47555758ef2e?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1515386474292-47555758ef2e?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
         <div class="dest-content">
           <h3 data-fr="🇲🇦 Maroc" data-en="🇲🇦 Morocco">🇲🇦 Maroc</h3>
           <p data-fr="Proximité culturelle et soutien régional." data-en="Cultural proximity and regional support.">Proximité culturelle et soutien régional.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-fr-title="Dubaï" data-en-title="Dubai">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Dubaï" data-en-title="Dubai" data-bg-desktop="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
         <div class="dest-content">
           <h3 data-fr="🇦🇪 Dubaï" data-en="🇦🇪 Dubai">🇦🇪 Dubaï</h3>
           <p data-fr="Innovation et opportunités modernes." data-en="Innovation and modern opportunities.">Innovation et opportunités modernes.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=1421&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-fr-title="Allemagne" data-en-title="Germany">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Allemagne" data-en-title="Germany" data-bg-desktop="https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=1421&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
         <div class="dest-content">
           <h3 data-fr="🇩🇪 Allemagne" data-en="🇩🇪 Germany">🇩🇪 Allemagne</h3>
           <p data-fr="Ausbildung & apprentissage professionnel." data-en="Ausbildung & professional apprenticeships.">Ausbildung & apprentissage professionnel.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-fr-title="Suisse" data-en-title="Switzerland">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Suisse" data-en-title="Switzerland" data-bg-desktop="https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
         <div class="dest-content">
           <h3 data-fr="🇨🇭 Suisse" data-en="🇨🇭 Switzerland">🇨🇭 Suisse</h3>
           <p data-fr="Formations d'excellence." data-en="Top-quality training.">Formations d'excellence.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1589561454226-796a8aa89b05?q=80&w=1467&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');" data-fr-title="Turquie" data-en-title="Turkey">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1589561454226-796a8aa89b05?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Turquie" data-en-title="Turkey" data-bg-desktop="https://images.unsplash.com/photo-1589561454226-796a8aa89b05?q=80&w=1467&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1589561454226-796a8aa89b05?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
         <div class="dest-content">
           <h3 data-fr="🇹🇷 Turquie" data-en="🇹🇷 Turkey">🇹🇷 Turquie</h3>
           <p data-fr="Études de qualité dans un carrefour culturel." data-en="Quality studies in a cultural crossroads.">Études de qualité dans un carrefour culturel.</p>
@@ -508,13 +513,13 @@
     <p class="subtitle" data-fr="Présence locale pour un accompagnement fiable et rapide." data-en="Local presence for reliable and fast support.">Présence locale pour un accompagnement fiable et rapide.</p>
 
     <div class="cards">
-      <div class="card"><h3 data-fr="🇹🇳 Tunisie" data-en="🇹🇳 Tunisia">🇹🇳 Tunisie</h3><p data-fr="Tunis" data-en="Tunis">Tunis</p></div>
-      <div class="card"><h3 data-fr="🇲🇦 Maroc" data-en="🇲🇦 Morocco">🇲🇦 Maroc</h3><p data-fr="Casablanca" data-en="Casablanca">Casablanca</p></div>
-      <div class="card"><h3 data-fr="🇨🇾 Chypre du Nord" data-en="🇨🇾 North Cyprus">🇨🇾 Chypre du Nord</h3><p data-fr="Lefke" data-en="Lefke">Lefke</p></div>
-      <div class="card"><h3 data-fr="🇷🇺 Russie" data-en="🇷🇺 Russia">🇷🇺 Russie</h3><p data-fr="Moscou" data-en="Moscow">Moscou</p></div>
-      <div class="card"><h3 data-fr="🇦🇪 Emirates" data-en="🇦🇪 Emirates">🇦🇪 Emirates</h3><p data-fr="Dubaï" data-en="Dubai">Dubaï</p></div>
-      <div class="card"><h3 data-fr="🇹🇷 Turquie" data-en="🇹🇷 Turkey">🇹🇷 Turquie</h3><p data-fr="Istanbul" data-en="Istanbul">Istanbul</p></div>
-      <div class="card"><h3 data-fr="🇨🇩 Congo" data-en="🇨🇩 Congo">🇨🇩 Congo</h3><p data-fr="Kinshasa" data-en="Kinshasa">Kinshasa</p></div>
+      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇹🇳 Tunisie" data-en="🇹🇳 Tunisia">🇹🇳 Tunisie</h3><p data-fr="Tunis" data-en="Tunis">Tunis</p></div>
+      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇲🇦 Maroc" data-en="🇲🇦 Morocco">🇲🇦 Maroc</h3><p data-fr="Casablanca" data-en="Casablanca">Casablanca</p></div>
+      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇨🇾 Chypre du Nord" data-en="🇨🇾 North Cyprus">🇨🇾 Chypre du Nord</h3><p data-fr="Lefke" data-en="Lefke">Lefke</p></div>
+      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇷🇺 Russie" data-en="🇷🇺 Russia">🇷🇺 Russie</h3><p data-fr="Moscou" data-en="Moscow">Moscou</p></div>
+      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇦🇪 Emirates" data-en="🇦🇪 Emirates">🇦🇪 Emirates</h3><p data-fr="Dubaï" data-en="Dubai">Dubaï</p></div>
+      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇹🇷 Turquie" data-en="🇹🇷 Turkey">🇹🇷 Turquie</h3><p data-fr="Istanbul" data-en="Istanbul">Istanbul</p></div>
+      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇨🇩 Congo" data-en="🇨🇩 Congo">🇨🇩 Congo</h3><p data-fr="Kinshasa" data-en="Kinshasa">Kinshasa</p></div>
     </div>
   </section>
 
@@ -650,17 +655,17 @@
         <p>L'alternance permet de combiner cours théoriques en école et travail en entreprise, offrant ainsi une double compétence très appréciée sur le marché du travail.</p>
         
         <div class="alternance-info">
-          <div className="info-item">
-            <span className="info-label">Âge requis :</span>
-            <span className="info-value">16 à 29 ans</span>
+          <div class="info-item">
+            <span class="info-label">Âge requis :</span>
+            <span class="info-value">16 à 29 ans</span>
           </div>
-          <div className="info-item">
-            <span className="info-label">Documents requis :</span>
-            <span className="info-value">Visa d'études (Campus France)</span>
+          <div class="info-item">
+            <span class="info-label">Documents requis :</span>
+            <span class="info-value">Visa d'études (Campus France)</span>
           </div>
-          <div className="info-item">
-            <span className="info-label">Inscription obligatoire :</span>
-            <span className="info-value">Attestation d'inscription dans une école</span>
+          <div class="info-item">
+            <span class="info-label">Inscription obligatoire :</span>
+            <span class="info-value">Attestation d'inscription dans une école</span>
           </div>
         </div>
 
@@ -886,7 +891,7 @@
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Si malgré nos efforts, vous ne trouvez pas d'alternance, plusieurs options s'offrent à vous : continuer en formation classique (en payant les frais de scolarité complets), reporter votre recherche d'alternance à l'année suivante, ou changer de formation. Notre équipe vous conseillera sur la meilleure option selon votre situation.</p>
+                   <p>Si malgré nos efforts, vous ne trouvez pas d'alternance, plusieurs options s'offrent à vous : continuer en formation classique (en payant les frais de scolarité complets), reporter votre recherche d'alternance à l'année suivante, ou changer de formation. Notre équipe vous conseillera sur la meilleure option selon votre situation.</p>
         </div>
       </div>
     </div>
@@ -899,7 +904,7 @@
       <p>Contactez-nous dès aujourd'hui pour démarrer votre processus d'inscription en alternance et bénéficiez de notre accompagnement personnalisé.</p>
       <div class="cta-actions">
         <button class="btn-primary" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Commencer ma démarche</button>
-        <a href="#contact" className="btn-outline">Poser une question</a>
+        <a href="#contact" class="btn-outline">Poser une question</a>
       </div>
     </div>
   </div>
@@ -917,13 +922,13 @@
         <form id="contact-form" novalidate>
           <div class="form-group">
             <label for="name" data-fr="Nom complet" data-en="Full name">Nom complet</label>
-            <input id="name" name="name" required aria-describedby="name-error" />
+            <input id="name" name="name" required aria-describedby="name-error" autocomplete="name" inputmode="text" />
             <span id="name-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer un nom valide.</span>
           </div>
 
           <div class="form-group">
                         <label for="email" data-fr="Adresse email" data-en="Email address">Adresse email</label>
-            <input id="email" name="email" type="email" required aria-describedby="email-error" />
+            <input id="email" name="email" type="email" required aria-describedby="email-error" autocomplete="email" inputmode="email" />
             <span id="email-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer un email valide.</span>
           </div>
 
@@ -941,7 +946,7 @@
 
           <div class="form-group">
             <label for="message" data-fr="Votre message" data-en="Your message">Votre message</label>
-            <textarea id="message" name="message" rows="6" required aria-describedby="message-error"></textarea>
+            <textarea id="message" name="message" rows="6" required aria-describedby="message-error" inputmode="text"></textarea>
             <span id="message-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer un message.</span>
           </div>
 
@@ -973,9 +978,16 @@
   </footer>
 
   <!-- WHATSAPP FLOAT -->
-  <a id="whatsapp" class="whatsapp-float" href="#" target="_blank" aria-label="Contactez-nous sur WhatsApp" title="Contactez-nous sur WhatsApp">
+  <a id="whatsapp" class="whatsapp-float" href="#" target="_blank" aria-label="Contactez-nous sur WhatsApp" title="Contactez-nous sur WhatsApp" role="button" tabindex="0">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 0C7.1636 0 0 7.1636 0 16 0 19.024 0.951 21.78 2.605 24.09L0.4 31.333 8 29.064C10.19 30.392 13.01 31.333 16 31.333 24.8364 31.333 32 24.1694 32 15.333 32 6.4966 24.8364 0 16 0zM24.769 20.11c-0.333-0.17-2.026-1-2.34-1.116-0.314-0.117-0.54-0.176-0.766 0.174-0.226 0.35-0.873 1.117-1.067 1.343-0.194 0.225-0.387 0.255-0.766 0.087-0.38-0.17-1.612-0.53-3.07-1.687-1.137-1.01-1.904-2.258-2.128-2.654-0.226-0.396-0.02-0.594 0.16-0.77 0.18-0.176 0.403-0.457 0.6-0.684 0.197-0.227 0.268-0.394 0.4-0.664 0.133-0.27 0.066-0.504-0.034-0.702-0.1-0.198-0.9-2.148-1.234-2.938-0.332-0.79-0.648-0.685-0.888-0.697-0.24-0.013-0.507-0.016-0.777-0.016s-0.686.096-1.044.49c-0.36 0.398-1.373 1.36-1.373 3.318 0 1.957 1.386 3.77 1.586 4.04 0.2 0.268 2.78 4.238 6.742 5.941 0.944.408 1.684.674 2.26.86 0.95.307 1.818.264 2.503.16 0.764-0.118 2.356-0.996 2.69-1.953 0.334-0.958 0.332-1.76 0.234-1.93-0.1-0.17-0.37-0.27-0.771-0.48z"/></svg>
   </a>
+
+  <!-- Bouton Retour en haut -->
+  <button id="back-to-top" class="back-to-top" aria-label="Retour en haut de page" title="Retour en haut de page">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M7 14l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 
   <!-- PRIVACY MODAL -->
   <div id="privacy-modal" class="modal" role="dialog" aria-labelledby="privacy-title" aria-hidden="true">
