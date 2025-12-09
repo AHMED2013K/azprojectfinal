@@ -817,7 +817,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }));
   
   // Initialiser les optimisations mobiles
-  initMobileOptimizations();
+  //initMobileOptimizations();
   
   // Contact form validation & WhatsApp redirect
   const contactForm = $('#contact-form');
