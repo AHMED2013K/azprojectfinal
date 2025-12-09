@@ -1027,5 +1027,5 @@ function optimizeBackgroundImages() {
 }
 
 // Initialisation et écoute des changements de taille
-optimizeBackgroundImages();
-window.addEventListener('resize', optimizeBackgroundImages);
+//optimizeBackgroundImages();
+//window.addEventListener('resize', optimizeBackgroundImages);
