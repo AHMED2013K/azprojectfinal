@@ -228,10 +228,10 @@ function renderTestimonialCard(testimonial) {
       
       <div class="testimonial-footer">
         <div class="project-info">
-          <strong>Projet:</strong> ${testimonial.projet}
-        </div>
-        <div class="project-info">
-          <strong>Année:</strong> ${testimonial.annee}
+          <strong>Projet:</strong> ${testimonial.projet}</div>
+          <div class="project-info">
+            <strong>Année:</strong> ${testimonial.annee}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -625,6 +625,13 @@ function setupMobileDropdowns() {
         }
       }
     });
+    
+    // Fermer le dropdown quand on clique ailleurs
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target) && window.innerWidth <= 980) {
+        dropdown.classList.remove('active');
+      }
+    });
   });
 }
 
@@ -987,63 +994,45 @@ if (backToTopBtn) {
       backToTopBtn.classList.remove('visible');
     }
   });
-
-  backToTopBtn.addEventListener('click', function() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-
-  // Support clavier
-  backToTopBtn.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-  });
 }
-// Gestion de l'indicateur de chargement
-window.addEventListener('load', function() {
-  const loader = $('#page-loader');
-  if (loader) {
-    loader.classList.add('hidden');
-    setTimeout(() => {
-      loader.style.display = 'none';
-    }, 300);
-  }
+
+backToTopBtn.addEventListener('click', function() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 });
 
-// Gestion du bouton Retour en haut
-const backToTopBtn = $('#back-to-top');
-
-if (backToTopBtn) {
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  });
-
-  backToTopBtn.addEventListener('click', function() {
+// Support clavier
+backToTopBtn.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   });
-
-  // Support clavier
-  backToTopBtn.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-  });
 }
+
+// Optimisation des images de fond pour mobile
+function optimizeBackgroundImages() {
+  if (window.innerWidth <= 768) {
+    $$('.destination').forEach(dest => {
+      const mobileBg = dest.getAttribute('data-bg-mobile');
+      if (mobileBg) {
+        dest.style.backgroundImage = `url('${mobileBg}')`;
+      }
+    });
+  } else {
+    $$('.destination').forEach(dest => {
+      const desktopBg = dest.getAttribute('data-bg-desktop');
+      if (desktopBg) {
+        dest.style.backgroundImage = `url('${desktopBg}')`;
+      }
+    };
+  }
+}
+
+// Initialisation et écoute des changements de taille
+//optimizeBackgroundImages();
+//window.addEventListener('resize', optimizeBackgroundImages);
