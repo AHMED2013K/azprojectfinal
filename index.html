@@ -41,13 +41,35 @@
   <!-- Lien vers le fichier CSS -->
   <link rel="stylesheet" href="main.css">
 
+  <!-- Gestionnaire d'erreurs global -->
+  <script>
+    window.addEventListener('error', function(e) {
+      console.error('Erreur JavaScript:', e.error);
+      // Cache le loader en cas d'erreur
+      const loader = document.getElementById('page-loader');
+      if (loader) {
+        loader.style.display = 'none';
+      }
+    });
+
+    // Cache le loader après le chargement complet de la page
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('page-loader');
+      if (loader) {
+        loader.classList.add('hidden');
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 300);
+      }
+    });
+  </script>
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHZQS9TNSK"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-KHZQS9TNSK');
   </script>
 
@@ -72,19 +94,19 @@
 
       <nav class="primary" aria-label="Menu principal" role="navigation">
         <a href="#services" data-target aria-label="Nos services" data-fr="Nos services" data-en="Services">Nos services</a>
-<!-- Menu déroulant Alternance -->
-<div class="dropdown" data-mobile-dropdown="true">
-  <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-    <span data-fr="Alternance" data-en="Work-study">Alternance</span>
-    <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
-      <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
-  </button>
-  <div class="dropdown-menu" role="menu">
-    <a href="#alternance-france" class="dropdown-item" role="menuitem" data-fr="Étudiant en France" data-en="Student in France">Étudiant en France</a>
-    <a href="#alternance-internationale" class="dropdown-item" role="menuitem" data-fr="Étudiant International" data-en="International Student">Étudiant International</a>
-  </div>
-</div>
+        <!-- Menu déroulant Alternance -->
+        <div class="dropdown" data-mobile-dropdown="true">
+          <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            <span data-fr="Alternance" data-en="Work-study">Alternance</span>
+            <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="#alternance-france" class="dropdown-item" role="menuitem" data-fr="Étudiant en France" data-en="Student in France">Étudiant en France</a>
+            <a href="#alternance-internationale" class="dropdown-item" role="menuitem" data-fr="Étudiant International" data-en="International Student">Étudiant International</a>
+          </div>
+        </div>
         <a href="#destinations" data-target aria-label="Destinations" data-fr="Destinations" data-en="Destinations">Destinations</a>
         <a href="#bureaux" data-target aria-label="Bureaux" data-fr="Bureaux" data-en="Offices">Bureaux</a>
         <a href="#temoignages" data-target aria-label="Témoignages" data-fr="Témoignages" data-en="Testimonials">Témoignages</a>
@@ -98,7 +120,7 @@
           <button id="lang-en" role="tab" aria-selected="false" aria-label="English">EN</button>
         </div>
 
-        <button class="btn-primary" id="project-btn" aria-label="Lancer mon projet" onclick="showAlternanceMenu()">Lancer mon projet</button>
+        <button class="btn-primary" id="project-btn" aria-label="Lancer mon projet" onclick="document.querySelector('#alternance-france').scrollIntoView({behavior:'smooth'})">Lancer mon projet</button>
 
         <div class="burger" role="button" aria-label="Menu" aria-expanded="false" tabindex="0">
           <svg class="menu-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="#1c3450" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -143,45 +165,46 @@
     <p class="subtitle" data-fr="Accompagnement sur-mesure pour étudiants et professionnels : alternance, études, logement et intégration." data-en="Tailored support for students and professionals: work-study, studies, housing and integration.">Accompagnement sur-mesure pour étudiants et professionnels : alternance, études, logement et intégration.</p>
 
     <div class="cards" id="services-cards" role="list" aria-label="Liste des services">
-      <article class="card" role="listitem" aria-labelledby="card-1" tabindex="0" onclick="window.location.href='#contact'">
+      <article class="card" role="listitem" aria-labelledby="card-1" tabindex="0" onclick="document.querySelector('#alternance-france').scrollIntoView({behavior:'smooth'})">
         <h3 id="card-1" data-fr="🎓 Alternance en France" data-en="🎓 Work-study in France">🎓 Alternance en France</h3>
         <p data-fr="Recherche d'entreprise, optimisation CV, préparation aux entretiens et suivi jusqu'à la signature du contrat." data-en="Company search, CV optimization, interview preparation and follow-up until contract signing.">Recherche d'entreprise, optimisation CV, préparation aux entretiens et suivi jusqu'à la signature du contrat.</p>
         <div style="margin-top: 15px; text-align: center;">
-          <button onclick="showAlternanceMenu()" class="btn-primary" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">En savoir plus</button>
+          <button onclick="document.querySelector('#alternance-france').scrollIntoView({behavior:'smooth'})" class="btn-primary" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">En savoir plus</button>
         </div>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="card-2" tabindex="0" onclick="window.location.href='#contact'">
+      <article class="card" role="listitem" aria-labelledby="card-2" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <h3 id="card-2" data-fr="🏠 Recherche de logement" data-en="🏠 Housing search">🏠 Recherche de logement</h3>
         <p data-fr="Solutions adaptées (logement étudiant, colocations, garanties) et assistance CAF/APL." data-en="Tailored solutions (student housing, shared flats, guarantees) and assistance with housing benefits.">Solutions adaptées (logement étudiant, colocations, garanties) et assistance CAF/APL.</p>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="card-3" tabindex="0" onclick="window.location.href='#contact'">
+      <article class="card" role="listitem" aria-labelledby="card-3" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <h3 id="card-3" data-fr="🌍 Études à l'international" data-en="🌍 International studies">🌍 Études à l'international</h3>
         <p data-fr="Orientation et accompagnement pour intégrer des universités et écoles en Turquie, Chypre, Russie, Maroc, Dubaï." data-en="Guidance and support to join universities and schools in Turkey, Cyprus, Russia, Morocco, Dubai.">Orientation et accompagnement pour intégrer des universités et écoles en Turquie, Chypre, Russie, Maroc, Dubaï.</p>
       </article>
 
-      <article class="card" role="listitem" aria-labelledby="card-4" tabindex="0" onclick="window.location.href='#contact'">
+      <article class="card" role="listitem" aria-labelledby="card-4" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <h3 id="card-4" data-fr="🇩🇪 Ausbildung & Formations pro" data-en="🇩🇪 Ausbildung & Professional training">🇩🇪 Ausbildung & Formations pro</h3>
         <p data-fr="Programmes d'apprentissage en alternance en Allemagne & Suisse : théorie + pratique en entreprise." data-en="Apprenticeship programs in Germany & Switzerland: theory + practical company experience.">Programmes d'apprentissage en alternance en Allemagne & Suisse : théorie + pratique en entreprise.</p>
       </article>
     </div>
   </section>
 
-<!-- SECTION ALTERNANCE COMPLÈTE (Étudiant en France) -->
-<section id="alternance-france" class="container" data-anim>
-  <!-- Hero Alternance -->
-  <div class="hero" style="margin-bottom: 40px;">
-    <div class="content container" data-anim>
-      <h2 id="alternance-hero-title">Recherche d'Alternance en France</h2>
-      <p class="lead" id="alternance-hero-lead">Accompagnement complet pour décrocher votre alternance, de la recherche d'opportunités jusqu'à votre embauche.</p>
+  <!-- SECTION ALTERNANCE COMPLÈTE (Étudiant en France) -->
+  <section id="alternance-france" class="container" data-anim>
+    <!-- Hero Alternance -->
+    <div class="hero" style="margin-bottom: 40px;">
+      <div class="content container" data-anim>
+        <h2 id="alternance-hero-title">Recherche d'Alternance en France</h2>
+        <p class="lead" id="alternance-hero-lead">Accompagnement complet pour décrocher votre alternance, de la recherche d'opportunités jusqu'à votre embauche.</p>
 
-      <div class="actions">
-        <button class="btn-primary" onclick="document.querySelector('#pricing').scrollIntoView({behavior:'smooth'})">Voir nos tarifs</button>
-        <a class="btn-outline" href="#processus-alternance" role="button">Notre processus</a>
+        <div class="actions">
+          <button class="btn-primary" onclick="document.querySelector('#pricing').scrollIntoView({behavior:'smooth'})">Voir nos tarifs</button>
+          <a class="btn-outline" href="#processus-alternance" role="button">Notre processus</a>
+        </div>
       </div>
     </div>
-  </div>
+    
     <!-- Introduction -->
     <h3 class="section-title">Vous cherchez une alternance en France ?</h3>
     <p class="subtitle">Nous proposons un accompagnement complet pour décrocher votre alternance, même si vous n'êtes pas encore inscrit dans nos établissements partenaires.</p>
@@ -449,56 +472,56 @@
     <p class="subtitle" data-fr="Nous travaillons avec des partenaires fiables pour vous proposer des parcours sérieux et tracés." data-en="We work with reliable partners to offer you serious and well-prepared paths.">Nous travaillons avec des partenaires fiables pour vous proposer des parcours sérieux et tracés.</p>
 
     <div class="dest-grid">
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="France" data-en-title="France" data-bg-desktop="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="France" data-en-title="France" data-bg-desktop="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <div class="dest-content">
           <h3 data-fr="🇫🇷 France" data-en="🇫🇷 France">🇫🇷 France</h3>
           <p data-fr="Alternance & études supérieures." data-en="Work-study & higher education.">Alternance & études supérieures.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1677023484291-005b9840132f?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Chypre du Nord" data-en-title="North Cyprus" data-bg-desktop="https://images.unsplash.com/photo-1677023484291-005b9840132f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1677023484291-005b9840132f?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1677023484291-005b9840132f?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="Chypre du Nord" data-en-title="North Cyprus" data-bg-desktop="https://images.unsplash.com/photo-1677023484291-005b9840132f?auto=format&fit=crop&w=1470&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1677023484291-005b9840132f?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <div class="dest-content">
           <h3 data-fr="🇨🇾 Chypre du Nord" data-en="🇨🇾 North Cyprus">🇨🇾 Chypre du Nord</h3>
           <p data-fr="Études en anglais avec accompagnement local." data-en="English-taught programs with local support.">Études en anglais avec accompagnement local.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1580837119756-563d608dd119?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Russie" data-en-title="Russia" data-bg-desktop="https://images.unsplash.com/photo-1580837119756-563d608dd119?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1580837119756-563d608dd119?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1580837119756-563d608dd119?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="Russie" data-en-title="Russia" data-bg-desktop="https://images.unsplash.com/photo-1580837119756-563d608dd119?auto=format&fit=crop&w=1470&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1580837119756-563d608dd119?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <div class="dest-content">
           <h3 data-fr="🇷🇺 Russie" data-en="🇷🇺 Russia">🇷🇺 Russie</h3>
           <p data-fr="Programmes académiques reconnus." data-en="Recognized academic programs.">Programmes académiques reconnus.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1515386474292-47555758ef2e?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Maroc" data-en-title="Morocco" data-bg-desktop="https://images.unsplash.com/photo-1515386474292-47555758ef2e?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1515386474292-47555758ef2e?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1515386474292-47555758ef2e?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="Maroc" data-en-title="Morocco" data-bg-desktop="https://images.unsplash.com/photo-1515386474292-47555758ef2e?auto=format&fit=crop&w=1074&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1515386474292-47555758ef2e?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <div class="dest-content">
           <h3 data-fr="🇲🇦 Maroc" data-en="🇲🇦 Morocco">🇲🇦 Maroc</h3>
           <p data-fr="Proximité culturelle et soutien régional." data-en="Cultural proximity and regional support.">Proximité culturelle et soutien régional.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Dubaï" data-en-title="Dubai" data-bg-desktop="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="Dubaï" data-en-title="Dubai" data-bg-desktop="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=687&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <div class="dest-content">
           <h3 data-fr="🇦🇪 Dubaï" data-en="🇦🇪 Dubai">🇦🇪 Dubaï</h3>
           <p data-fr="Innovation et opportunités modernes." data-en="Innovation and modern opportunities.">Innovation et opportunités modernes.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Allemagne" data-en-title="Germany" data-bg-desktop="https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=1421&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="Allemagne" data-en-title="Germany" data-bg-desktop="https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?auto=format&fit=crop&w=1421&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1618259278412-2819cbdea4dc?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <div class="dest-content">
           <h3 data-fr="🇩🇪 Allemagne" data-en="🇩🇪 Germany">🇩🇪 Allemagne</h3>
           <p data-fr="Ausbildung & apprentissage professionnel." data-en="Ausbildung & professional apprenticeships.">Ausbildung & apprentissage professionnel.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Suisse" data-en-title="Switzerland" data-bg-desktop="https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="Suisse" data-en-title="Switzerland" data-bg-desktop="https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?auto=format&fit=crop&w=1470&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1594069758873-e79e9075eb7d?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <div class="dest-content">
           <h3 data-fr="🇨🇭 Suisse" data-en="🇨🇭 Switzerland">🇨🇭 Suisse</h3>
           <p data-fr="Formations d'excellence." data-en="Top-quality training.">Formations d'excellence.</p>
         </div>
       </div>
 
-      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1589561454226-796a8aa89b05?q=80&w=800&auto=format&fit=crop&fm=webp');" data-fr-title="Turquie" data-en-title="Turkey" data-bg-desktop="https://images.unsplash.com/photo-1589561454226-796a8aa89b05?q=80&w=1467&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-bg-mobile="https://images.unsplash.com/photo-1589561454226-796a8aa89b05?q=80&w=800&auto=format&fit=crop&fm=webp" tabindex="0" onclick="window.location.href='#contact'">
+      <div class="destination" style="background-image:url('https://images.unsplash.com/photo-1589561454226-796a8aa89b05?auto=format&fit=crop&w=800&q=60&fm=webp');" data-fr-title="Turquie" data-en-title="Turkey" data-bg-desktop="https://images.unsplash.com/photo-1589561454226-796a8aa89b05?auto=format&fit=crop&w=1467&q=80&fm=webp" data-bg-mobile="https://images.unsplash.com/photo-1589561454226-796a8aa89b05?auto=format&fit=crop&w=800&q=60&fm=webp" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
         <div class="dest-content">
           <h3 data-fr="🇹🇷 Turquie" data-en="🇹🇷 Turkey">🇹🇷 Turquie</h3>
           <p data-fr="Études de qualité dans un carrefour culturel." data-en="Quality studies in a cultural crossroads.">Études de qualité dans un carrefour culturel.</p>
@@ -513,13 +536,13 @@
     <p class="subtitle" data-fr="Présence locale pour un accompagnement fiable et rapide." data-en="Local presence for reliable and fast support.">Présence locale pour un accompagnement fiable et rapide.</p>
 
     <div class="cards">
-      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇹🇳 Tunisie" data-en="🇹🇳 Tunisia">🇹🇳 Tunisie</h3><p data-fr="Tunis" data-en="Tunis">Tunis</p></div>
-      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇲🇦 Maroc" data-en="🇲🇦 Morocco">🇲🇦 Maroc</h3><p data-fr="Casablanca" data-en="Casablanca">Casablanca</p></div>
-      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇨🇾 Chypre du Nord" data-en="🇨🇾 North Cyprus">🇨🇾 Chypre du Nord</h3><p data-fr="Lefke" data-en="Lefke">Lefke</p></div>
-      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇷🇺 Russie" data-en="🇷🇺 Russia">🇷🇺 Russie</h3><p data-fr="Moscou" data-en="Moscow">Moscou</p></div>
-      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇦🇪 Emirates" data-en="🇦🇪 Emirates">🇦🇪 Emirates</h3><p data-fr="Dubaï" data-en="Dubai">Dubaï</p></div>
-      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇹🇷 Turquie" data-en="🇹🇷 Turkey">🇹🇷 Turquie</h3><p data-fr="Istanbul" data-en="Istanbul">Istanbul</p></div>
-      <div class="card" tabindex="0" onclick="window.location.href='#contact'"><h3 data-fr="🇨🇩 Congo" data-en="🇨🇩 Congo">🇨🇩 Congo</h3><p data-fr="Kinshasa" data-en="Kinshasa">Kinshasa</p></div>
+      <div class="card" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"><h3 data-fr="🇹🇳 Tunisie" data-en="🇹🇳 Tunisia">🇹🇳 Tunisie</h3><p data-fr="Tunis" data-en="Tunis">Tunis</p></div>
+      <div class="card" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"><h3 data-fr="🇲🇦 Maroc" data-en="🇲🇦 Morocco">🇲🇦 Maroc</h3><p data-fr="Casablanca" data-en="Casablanca">Casablanca</p></div>
+      <div class="card" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"><h3 data-fr="🇨🇾 Chypre du Nord" data-en="🇨🇾 North Cyprus">🇨🇾 Chypre du Nord</h3><p data-fr="Lefke" data-en="Lefke">Lefke</p></div>
+      <div class="card" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"><h3 data-fr="🇷🇺 Russie" data-en="🇷🇺 Russia">🇷🇺 Russie</h3><p data-fr="Moscou" data-en="Moscow">Moscou</p></div>
+      <div class="card" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"><h3 data-fr="🇦🇪 Emirates" data-en="🇦🇪 Emirates">🇦🇪 Emirates</h3><p data-fr="Dubaï" data-en="Dubai">Dubaï</p></div>
+      <div class="card" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"><h3 data-fr="🇹🇷 Turquie" data-en="🇹🇷 Turkey">🇹🇷 Turquie</h3><p data-fr="Istanbul" data-en="Istanbul">Istanbul</p></div>
+      <div class="card" tabindex="0" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"><h3 data-fr="🇨🇩 Congo" data-en="🇨🇩 Congo">🇨🇩 Congo</h3><p data-fr="Kinshasa" data-en="Kinshasa">Kinshasa</p></div>
     </div>
   </section>
 
@@ -633,282 +656,283 @@
       </div>
     </div>
   </section>
-<!-- SECTION OPPORTUNITÉS ALTERNANCE POUR ÉTUDIANTS INTERNATIONAUX -->
-<section id="alternance-internationale" class="container" data-anim>
-  <h2 class="section-title">Opportunités d'Alternance pour Étudiants Internationaux</h2>
-  <p class="subtitle">Découvrez comment poursuivre vos études en France tout en acquérant une expérience professionnelle valorisante grâce à notre programme d'alternance dédié aux étudiants hors Union Européenne.</p>
 
-  <div class="alternance-intro">
-    <div class="intro-content">
-      <h3>Inscription en Alternance en France : Accompagnement et Étapes</h3>
-      <p>Vous souhaitez poursuivre vos études en France tout en acquérant une expérience professionnelle concrète ? L'alternance est une solution idéale ! Chez AbroadZone, nous vous accompagnons à chaque étape de votre inscription.</p>
-    </div>
-  </div>
+  <!-- SECTION OPPORTUNITÉS ALTERNANCE POUR ÉTUDIANTS INTERNATIONAUX -->
+  <section id="alternance-internationale" class="container" data-anim>
+    <h2 class="section-title">Opportunités d'Alternance pour Étudiants Internationaux</h2>
+    <p class="subtitle">Découvrez comment poursuivre vos études en France tout en acquérant une expérience professionnelle valorisante grâce à notre programme d'alternance dédié aux étudiants hors Union Européenne.</p>
 
-  <div class="alternance-cards">
-    <div class="alternance-card" data-anim>
-      <div class="card-header">
-        <div class="card-icon">🎓</div>
-        <h3>Comprendre le système de l'alternance en France</h3>
-      </div>
-      <div class="card-content">
-        <p>L'alternance permet de combiner cours théoriques en école et travail en entreprise, offrant ainsi une double compétence très appréciée sur le marché du travail.</p>
-        
-        <div class="alternance-info">
-          <div class="info-item">
-            <span class="info-label">Âge requis :</span>
-            <span class="info-value">16 à 29 ans</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Documents requis :</span>
-            <span class="info-value">Visa d'études (Campus France)</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Inscription obligatoire :</span>
-            <span class="info-value">Attestation d'inscription dans une école</span>
-          </div>
-        </div>
-
-        <h4>Pourquoi choisir l'alternance ?</h4>
-        <div class="benefits-list">
-          <div class="benefit-item">
-            <span class="benefit-icon">💰</span>
-            <span>Frais de scolarité réduits</span>
-          </div>
-          <div class="benefit-item">
-            <span class="benefit-icon">💼</span>
-            <span>Expérience professionnelle valorisante</span>
-          </div>
-          <div class="benefit-item">
-            <span class="benefit-icon">💵</span>
-            <span>Salaire pendant la formation</span>
-          </div>
-          <div class="benefit-item">
-            <span class="benefit-icon">🇫🇷</span>
-            <span>Frais restants pris en charge par l'État dès la signature d'un contrat d'alternance</span>
-          </div>
-        </div>
+    <div class="alternance-intro">
+      <div class="intro-content">
+        <h3>Inscription en Alternance en France : Accompagnement et Étapes</h3>
+        <p>Vous souhaitez poursuivre vos études en France tout en acquérant une expérience professionnelle concrète ? L'alternance est une solution idéale ! Chez AbroadZone, nous vous accompagnons à chaque étape de votre inscription.</p>
       </div>
     </div>
 
-    <div class="alternance-card" data-anim>
-      <div class="card-header">
-        <div class="card-icon">📋</div>
-        <h3>Étapes de la procédure d'inscription</h3>
+    <div class="alternance-cards">
+      <div class="alternance-card" data-anim>
+        <div class="card-header">
+          <div class="card-icon">🎓</div>
+          <h3>Comprendre le système de l'alternance en France</h3>
+        </div>
+        <div class="card-content">
+          <p>L'alternance permet de combiner cours théoriques en école et travail en entreprise, offrant ainsi une double compétence très appréciée sur le marché du travail.</p>
+          
+          <div class="alternance-info">
+            <div class="info-item">
+              <span class="info-label">Âge requis :</span>
+              <span class="info-value">16 à 29 ans</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Documents requis :</span>
+              <span class="info-value">Visa d'études (Campus France)</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Inscription obligatoire :</span>
+              <span class="info-value">Attestation d'inscription dans une école</span>
+            </div>
+          </div>
+
+          <h4>Pourquoi choisir l'alternance ?</h4>
+          <div class="benefits-list">
+            <div class="benefit-item">
+              <span class="benefit-icon">💰</span>
+              <span>Frais de scolarité réduits</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-icon">💼</span>
+              <span>Expérience professionnelle valorisante</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-icon">💵</span>
+              <span>Salaire pendant la formation</span>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-icon">🇫🇷</span>
+              <span>Frais restants pris en charge par l'État dès la signature d'un contrat d'alternance</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card-content">
-        <div class="steps-timeline">
-          <div class="timeline-step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h4>Préparation des documents</h4>
-              <p>Rassemblez tous les documents nécessaires pour votre dossier d'admission.</p>
+
+      <div class="alternance-card" data-anim>
+        <div class="card-header">
+          <div class="card-icon">📋</div>
+          <h3>Étapes de la procédure d'inscription</h3>
+        </div>
+        <div class="card-content">
+          <div class="steps-timeline">
+            <div class="timeline-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Préparation des documents</h4>
+                <p>Rassemblez tous les documents nécessaires pour votre dossier d'admission.</p>
+              </div>
+            </div>
+            
+            <div class="timeline-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Envoi des documents</h4>
+                <p>Transmettez-nous votre dossier complet pour débuter le processus d'admission.</p>
+              </div>
+            </div>
+            
+            <div class="timeline-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Paiement des frais</h4>
+                <p>Réglez les frais de dossier et services pour finaliser votre pré-inscription.</p>
+              </div>
+            </div>
+            
+            <div class="timeline-step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>Validation et inscription</h4>
+                <p>Recevez votre attestation de pré-inscription et préparez votre arrivée en France.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alternance-card" data-anim>
+        <div class="card-header">
+          <div class="card-icon">📄</div>
+          <h3>Documents à fournir</h3>
+        </div>
+        <div class="card-content">
+          <div class="documents-section">
+            <h4>Obligatoires :</h4>
+            <ul class="documents-list">
+              <li>Pièce d'identité ou passeport</li>
+              <li>Diplôme du baccalauréat + relevés de notes</li>
+              <li>Dernier diplôme obtenu + relevés de notes</li>
+              <li>Test de français (TCF B2, DELF B2 ou DALF C1/C2 - valide de moins de 2 ans)</li>
+            </ul>
+            
+            <h4>Optionnels :</h4>
+            <ul class="documents-list">
+              <li>Attestations de travail, de stage ou de formations</li>
+              <li>Certifications professionnelles</li>
+            </ul>
+          </div>
+          
+          <div class="contact-info">
+            <h4>Envoyez vos documents :</h4>
+            <div class="contact-methods">
+              <div class="contact-method">
+                <span class="method-icon">📧</span>
+                <span>admission@abroadzone.com.tn</span>
+              </div>
+              <div class="contact-method">
+                <span class="method-icon">📱</span>
+                <span>WhatsApp : +216 56 59 07 03</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alternance-card" data-anim>
+        <div class="card-header">
+          <div class="card-icon">💳</div>
+          <h3>Frais et paiement</h3>
+        </div>
+        <div class="card-content">
+          <div class="fees-info">
+            <div class="fee-item">
+              <h4>Frais de dossier et services</h4>
+              <div class="fee-amount">1500 TND</div>
+              <p>Frais de dossier non remboursables</p>
+            </div>
+            
+            <div class="fee-item">
+              <h4>Frais d'inscription auprès de l'école</h4>
+              <div class="fee-amount">600 € - 3000 €</div>
+              <p>Tout dépend de l'université/école choisie</p>
             </div>
           </div>
           
-          <div class="timeline-step">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h4>Envoi des documents</h4>
-              <p>Transmettez-nous votre dossier complet pour débuter le processus d'admission.</p>
+          <div class="payment-note">
+            <p>⚠️ Notez que les frais de dossier ne sont pas remboursables. Une fois le paiement effectué, vous recevrez une attestation de pré-inscription qui vous permettra de démarrer les démarches pour votre visa.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="alternance-card" data-anim>
+        <div class="card-header">
+          <div class="card-icon">🇫🇷</div>
+          <h3>Après votre arrivée en France</h3>
+        </div>
+        <div class="card-content">
+          <div class="arrival-steps">
+            <div class="arrival-step">
+              <h4>Installation et démarches administratives</h4>
+              <p>Une fois installé(e) en France, après 3 mois en tant qu'étudiant, vous obtiendrez la carte de séjour.</p>
+            </div>
+            
+            <div class="arrival-step">
+              <h4>Début de l'alternance</h4>
+              <p>Vous pourrez alors débuter votre alternance. Grâce à notre réseau de plus de 850 entreprises partenaires, nous vous aiderons à signer un contrat.</p>
+            </div>
+            
+            <div class="arrival-step">
+              <h4>Prise en charge par l'État</h4>
+              <p>L'État prendra en charge le reste de vos frais scolaires dès la signature de votre contrat d'alternance.</p>
             </div>
           </div>
           
-          <div class="timeline-step">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h4>Paiement des frais</h4>
-              <p>Réglez les frais de dossier et services pour finaliser votre pré-inscription.</p>
-            </div>
-          </div>
-          
-          <div class="timeline-step">
-            <div class="step-number">4</div>
-            <div class="step-content">
-              <h4>Validation et inscription</h4>
-              <p>Recevez votre attestation de pré-inscription et préparez votre arrivée en France.</p>
+          <div class="network-highlight">
+            <div class="network-stats">
+              <div class="stat-item">
+                <div class="stat-number">850+</div>
+                <div class="stat-label">Entreprises partenaires</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Taux de réussite</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">3 mois</div>
+                <div class="stat-label">Délai moyen pour trouver une alternance</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="alternance-card" data-anim>
-      <div class="card-header">
-        <div class="card-icon">📄</div>
-        <h3>Documents à fournir</h3>
-      </div>
-      <div class="card-content">
-        <div class="documents-section">
-          <h4>Obligatoires :</h4>
-          <ul class="documents-list">
-            <li>Pièce d'identité ou passeport</li>
-            <li>Diplôme du baccalauréat + relevés de notes</li>
-            <li>Dernier diplôme obtenu + relevés de notes</li>
-            <li>Test de français (TCF B2, DELF B2 ou DALF C1/C2 - valide de moins de 2 ans)</li>
-          </ul>
-          
-          <h4>Optionnels :</h4>
-          <ul class="documents-list">
-            <li>Attestations de travail, de stage ou de formations</li>
-            <li>Certifications professionnelles</li>
-          </ul>
+    <!-- FAQ SPÉCIFIQUE À L'ALTERNANCE INTERNATIONALE -->
+    <div class="faq-section">
+      <h3 class="section-title">Questions Fréquentes</h3>
+      
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Un compte bloqué ou une prise en charge financière d'un garant en France est-il obligatoire ?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Oui, pour obtenir votre visa étudiant, vous devez généralement justifier de ressources financières suffisantes. Cela peut se faire par un compte bloqué avec le montant requis (environ 615€/mois) ou par une attestation de prise en charge financière d'un garant résidant en France. Notre équipe peut vous guider dans ces démarches.</p>
+          </div>
         </div>
-        
-        <div class="contact-info">
-          <h4>Envoyez vos documents :</h4>
-          <div class="contact-methods">
-            <div class="contact-method">
-              <span class="method-icon">📧</span>
-              <span>admission@abroadzone.com.tn</span>
-            </div>
-            <div class="contact-method">
-              <span class="method-icon">📱</span>
-              <span>WhatsApp : +216 56 59 07 03</span>
-            </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Est-il possible de trouver une alternance dès la première année ?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Trouver une alternance dès la première année est possible mais n'est pas garanti à 100%, surtout pour les nouveaux arrivants sur le territoire français. Cela dépend de votre profil, de votre niveau de français et de votre flexibilité. Notre réseau d'entreprises partenaires augmente considérablement vos chances, et nous vous accompagnons dans votre recherche dès votre arrivée.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Quels sont les délais pour obtenir le visa étudiant ?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Les délais varient selon votre pays d'origine, mais comptez généralement entre 2 semaines et 2 mois après votre entretien consulaire. Nous vous recommandons de démarrer les démarches au moins 3 mois avant la date de rentrée prévue. Notre équipe vous assiste dans la préparation de votre dossier Campus France pour optimiser vos chances.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Puis-je travailler en plus de mon alternance ?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>En tant qu'étudiant international en alternance, vous êtes autorisé à travailler jusqu'à 964 heures par an en plus de votre contrat d'alternance (soit environ 20h par semaine). Cependant, nous vous conseillons de vous concentrer sur vos études et votre alternance, qui représentent déjà une charge de travail importante.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Que se passe-t-il si je ne trouve pas d'alternance ?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Si malgré nos efforts, vous ne trouvez pas d'alternance, plusieurs options s'offrent à vous : continuer en formation classique (en payant les frais de scolarité complets), reporter votre recherche d'alternance à l'année suivante, ou changer de formation. Notre équipe vous conseillera sur la meilleure option selon votre situation.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="alternance-card" data-anim>
-      <div class="card-header">
-        <div class="card-icon">💳</div>
-        <h3>Frais et paiement</h3>
-      </div>
-      <div class="card-content">
-        <div class="fees-info">
-          <div class="fee-item">
-            <h4>Frais de dossier et services</h4>
-            <div class="fee-amount">1500 TND</div>
-            <p>Frais de dossier non remboursables</p>
-          </div>
-          
-          <div class="fee-item">
-            <h4>Frais d'inscription auprès de l'école</h4>
-            <div class="fee-amount">600 € - 3000 €</div>
-            <p>Tout dépend de l'université/école choisie</p>
-          </div>
-        </div>
-        
-        <div class="payment-note">
-          <p>⚠️ Notez que les frais de dossier ne sont pas remboursables. Une fois le paiement effectué, vous recevrez une attestation de pré-inscription qui vous permettra de démarrer les démarches pour votre visa.</p>
+    <!-- CALL TO ACTION -->
+    <div class="cta-section">
+      <div class="cta-content">
+        <h3>Prêt à commencer votre avenir en France ?</h3>
+        <p>Contactez-nous dès aujourd'hui pour démarrer votre processus d'inscription en alternance et bénéficiez de notre accompagnement personnalisé.</p>
+        <div class="cta-actions">
+          <button class="btn-primary" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Commencer ma démarche</button>
+          <a href="#contact" class="btn-outline">Poser une question</a>
         </div>
       </div>
     </div>
-
-    <div class="alternance-card" data-anim>
-      <div class="card-header">
-        <div class="card-icon">🇫🇷</div>
-        <h3>Après votre arrivée en France</h3>
-      </div>
-      <div class="card-content">
-        <div class="arrival-steps">
-          <div class="arrival-step">
-            <h4>Installation et démarches administratives</h4>
-            <p>Une fois installé(e) en France, après 3 mois en tant qu'étudiant, vous obtiendrez la carte de séjour.</p>
-          </div>
-          
-          <div class="arrival-step">
-            <h4>Début de l'alternance</h4>
-            <p>Vous pourrez alors débuter votre alternance. Grâce à notre réseau de plus de 850 entreprises partenaires, nous vous aiderons à signer un contrat.</p>
-          </div>
-          
-          <div class="arrival-step">
-            <h4>Prise en charge par l'État</h4>
-            <p>L'État prendra en charge le reste de vos frais scolaires dès la signature de votre contrat d'alternance.</p>
-          </div>
-        </div>
-        
-        <div class="network-highlight">
-          <div class="network-stats">
-            <div class="stat-item">
-              <div class="stat-number">850+</div>
-              <div class="stat-label">Entreprises partenaires</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">95%</div>
-              <div class="stat-label">Taux de réussite</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">3 mois</div>
-              <div class="stat-label">Délai moyen pour trouver une alternance</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FAQ SPÉCIFIQUE À L'ALTERNANCE INTERNATIONALE -->
-  <div class="faq-section">
-    <h3 class="section-title">Questions Fréquentes</h3>
-    
-    <div class="faq-container">
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span>Un compte bloqué ou une prise en charge financière d'un garant en France est-il obligatoire ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>Oui, pour obtenir votre visa étudiant, vous devez généralement justifier de ressources financières suffisantes. Cela peut se faire par un compte bloqué avec le montant requis (environ 615€/mois) ou par une attestation de prise en charge financière d'un garant résidant en France. Notre équipe peut vous guider dans ces démarches.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span>Est-il possible de trouver une alternance dès la première année ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>Trouver une alternance dès la première année est possible mais n'est pas garanti à 100%, surtout pour les nouveaux arrivants sur le territoire français. Cela dépend de votre profil, de votre niveau de français et de votre flexibilité. Notre réseau d'entreprises partenaires augmente considérablement vos chances, et nous vous accompagnons dans votre recherche dès votre arrivée.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span>Quels sont les délais pour obtenir le visa étudiant ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>Les délais varient selon votre pays d'origine, mais comptez généralement entre 2 semaines et 2 mois après votre entretien consulaire. Nous vous recommandons de démarrer les démarches au moins 3 mois avant la date de rentrée prévue. Notre équipe vous assiste dans la préparation de votre dossier Campus France pour optimiser vos chances.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span>Puis-je travailler en plus de mon alternance ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>En tant qu'étudiant international en alternance, vous êtes autorisé à travailler jusqu'à 964 heures par an en plus de votre contrat d'alternance (soit environ 20h par semaine). Cependant, nous vous conseillons de vous concentrer sur vos études et votre alternance, qui représentent déjà une charge de travail importante.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" aria-expanded="false">
-          <span>Que se passe-t-il si je ne trouve pas d'alternance ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-                   <p>Si malgré nos efforts, vous ne trouvez pas d'alternance, plusieurs options s'offrent à vous : continuer en formation classique (en payant les frais de scolarité complets), reporter votre recherche d'alternance à l'année suivante, ou changer de formation. Notre équipe vous conseillera sur la meilleure option selon votre situation.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CALL TO ACTION -->
-  <div class="cta-section">
-    <div class="cta-content">
-      <h3>Prêt à commencer votre avenir en France ?</h3>
-      <p>Contactez-nous dès aujourd'hui pour démarrer votre processus d'inscription en alternance et bénéficiez de notre accompagnement personnalisé.</p>
-      <div class="cta-actions">
-        <button class="btn-primary" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Commencer ma démarche</button>
-        <a href="#contact" class="btn-outline">Poser une question</a>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- CONTACT -->
   <section id="contact" class="container" data-anim>
@@ -927,7 +951,7 @@
           </div>
 
           <div class="form-group">
-                        <label for="email" data-fr="Adresse email" data-en="Email address">Adresse email</label>
+            <label for="email" data-fr="Adresse email" data-en="Email address">Adresse email</label>
             <input id="email" name="email" type="email" required aria-describedby="email-error" autocomplete="email" inputmode="email" />
             <span id="email-error" class="error-message" role="alert" aria-live="polite" style="font-size:0.9rem;display:none;">Veuillez entrer un email valide.</span>
           </div>
