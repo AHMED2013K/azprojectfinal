@@ -240,70 +240,50 @@ function renderTestimonialCard(testimonial) {
 
 function showGridView() {
   currentView = 'grid';
-  const gridView = $('#grid-view');
-  const carouselView = $('#carousel-view');
-  const gridPagination = $('#grid-pagination');
-  
-  if (gridView) gridView.style.display = 'grid';
-  if (carouselView) carouselView.style.display = 'none';
-  if (gridPagination) gridPagination.style.display = 'flex';
+  $('#grid-view').style.display = 'grid';
+  $('#carousel-view').style.display = 'none';
+  $('#grid-pagination').style.display = 'flex';
   
   // Update button states
   $$('.view-btn').forEach(btn => btn.classList.remove('active'));
-  if(event && event.target) event.target.classList.add('active');
+  event.target.classList.add('active');
   
   renderGridView();
 }
 
 function showCarouselView() {
   currentView = 'carousel';
-  const gridView = $('#grid-view');
-  const carouselView = $('#carousel-view');
-  const gridPagination = $('#grid-pagination');
-  
-  if (gridView) gridView.style.display = 'none';
-  if (carouselView) carouselView.style.display = 'block';
-  if (gridPagination) gridPagination.style.display = 'none';
+  $('#grid-view').style.display = 'none';
+  $('#carousel-view').style.display = 'block';
+  $('#grid-pagination').style.display = 'none';
   
   // Update button states
   $$('.view-btn').forEach(btn => btn.classList.remove('active'));
-  if(event && event.target) event.target.classList.add('active');
+  event.target.classList.add('active');
   
   renderCarouselView();
 }
 
 function renderGridView() {
-  const gridView = $('#grid-view');
-  if (!gridView) return;
-  
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const pageTestimonials = testimonials.slice(startIndex, endIndex);
   
   const gridHTML = pageTestimonials.map(renderTestimonialCard).join('');
-  gridView.innerHTML = gridHTML;
+  $('#grid-view').innerHTML = gridHTML;
   
   renderPagination();
 }
 
 function renderCarouselView() {
-  const carouselTrack = $('#carousel-track');
-  if (!carouselTrack) return;
-  
   const carouselHTML = testimonials.map(renderTestimonialCard).join('');
-  carouselTrack.innerHTML = carouselHTML;
+  $('#carousel-track').innerHTML = carouselHTML;
   
   renderCarouselIndicators();
   updateCarouselPosition();
 }
 
 function renderPagination() {
-  const pageIndicators = $('#page-indicators');
-  const prevBtn = $('#prev-btn');
-  const nextBtn = $('#next-btn');
-  
-  if (!pageIndicators) return;
-  
   const totalPages = Math.ceil(testimonials.length / itemsPerPage);
   let indicatorsHTML = '';
   
@@ -311,30 +291,25 @@ function renderPagination() {
     indicatorsHTML += `<div class="page-dot ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})"></div>`;
   }
   
-  pageIndicators.innerHTML = indicatorsHTML;
+  $('#page-indicators').innerHTML = indicatorsHTML;
   
   // Update button states
-  if (prevBtn) prevBtn.disabled = currentPage === 0;
-  if (nextBtn) nextBtn.disabled = currentPage === totalPages - 1;
+  $('#prev-btn').disabled = currentPage === 0;
+  $('#next-btn').disabled = currentPage === totalPages - 1;
 }
 
 function renderCarouselIndicators() {
-  const carouselIndicators = $('#carousel-indicators');
-  if (!carouselIndicators) return;
-  
   let indicatorsHTML = '';
   
   for (let i = 0; i < testimonials.length; i++) {
     indicatorsHTML += `<div class="indicator ${i === currentSlide ? 'active' : ''}" onclick="goToSlide(${i})"></div>`;
   }
   
-  carouselIndicators.innerHTML = indicatorsHTML;
+  $('#carousel-indicators').innerHTML = indicatorsHTML;
 }
 
 function updateCarouselPosition() {
   const track = $('#carousel-track');
-  if (!track) return;
-  
   const slideWidth = 100 / testimonials.length;
   track.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
 }
@@ -404,51 +379,43 @@ function validateForm() {
   
   // Validate name
   const name = $('#name');
-  if (!name || !name.value || !name.value.trim()) {
-    const nameError = $('#name-error');
-    if (nameError) nameError.style.display = 'block';
+  if (!name.value || !name.value.trim()) {
+    $('#name-error').style.display = 'block';
     valid = false;
   }
   
   // Validate email
   const email = $('#email');
-  if (!email || !email.value || !email.value.trim()) {
-    const emailError = $('#email-error');
-    if (emailError) emailError.style.display = 'block';
+  if (!email.value || !email.value.trim()) {
+    $('#email-error').style.display = 'block';
     valid = false;
   } else {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!re.test(email.value)) {
-      const emailError = $('#email-error');
-      if (emailError) {
-        emailError.textContent = currentLang === 'en' ? 'Please enter a valid email address.' : 'Veuillez entrer une adresse email valide.';
-        emailError.style.display = 'block';
-      }
+      $('#email-error').textContent = currentLang === 'en' ? 'Please enter a valid email address.' : 'Veuillez entrer une adresse email valide.';
+      $('#email-error').style.display = 'block';
       valid = false;
     }
   }
   
   // Validate service
   const service = $('#service');
-  if (!service || !service.value) {
-    const serviceError = $('#service-error');
-    if (serviceError) serviceError.style.display = 'block';
+  if (!service.value) {
+    $('#service-error').style.display = 'block';
     valid = false;
   }
   
   // Validate message
   const message = $('#message');
-  if (!message || !message.value || !message.value.trim()) {
-    const messageError = $('#message-error');
-    if (messageError) messageError.style.display = 'block';
+  if (!message.value || !message.value.trim()) {
+    $('#message-error').style.display = 'block';
     valid = false;
   }
   
   // Validate consent
   const consent = $('#consent');
-  if (!consent || !consent.checked) {
-    const consentError = $('#consent-error');
-    if (consentError) consentError.style.display = 'block';
+  if (!consent.checked) {
+    $('#consent-error').style.display = 'block';
     valid = false;
   }
   
@@ -461,28 +428,17 @@ function applyLanguage(lang) {
   document.documentElement.lang = currentLang;
   try { localStorage.setItem('abroad_lang', currentLang); } catch(e) {}
   
-  const langEn = $('#lang-en');
-  const langFr = $('#lang-fr');
-  
   if(currentLang === 'en') { 
-    if (langEn) {
-      langEn.classList.add('active'); 
-      langEn.setAttribute('aria-selected','true'); 
-    }
-    if (langFr) {
-      langFr.classList.remove('active'); 
-      langFr.setAttribute('aria-selected','false'); 
-    }
+    $('#lang-en').classList.add('active'); 
+    $('#lang-en').setAttribute('aria-selected','true'); 
+    $('#lang-fr').classList.remove('active'); 
+    $('#lang-fr').setAttribute('aria-selected','false'); 
   }
   else { 
-    if (langFr) {
-      langFr.classList.add('active'); 
-      langFr.setAttribute('aria-selected','true'); 
-    }
-    if (langEn) {
-      langEn.classList.remove('active'); 
-      langEn.setAttribute('aria-selected','false'); 
-    }
+    $('#lang-fr').classList.add('active'); 
+    $('#lang-fr').setAttribute('aria-selected','true'); 
+    $('#lang-en').classList.remove('active'); 
+    $('#lang-en').setAttribute('aria-selected','false'); 
   }
 
   // Translate elements that have data-fr / data-en
@@ -512,10 +468,8 @@ function setWhatsAppLink(lang) {
   const waLinkFooter = $('#wa-number-footer');
   
   if(whatsappBtn) whatsappBtn.setAttribute('href', link);
-  if(waLinkFooter) {
-    waLinkFooter.setAttribute('href', link);
-    waLinkFooter.textContent = '+' + WA_NUMBER;
-  }
+  if(waLinkFooter) waLinkFooter.setAttribute('href', link);
+  if(waLinkFooter) waLinkFooter.textContent = '+' + WA_NUMBER;
 }
 
 // ===== Fonctions pour le menu mobile =====
@@ -525,21 +479,57 @@ function toggleMobileMenu() {
   
   if(!nav) return;
   nav.classList.toggle('show');
-  if (burger) {
-    burger.classList.toggle('active');
-    const expanded = burger.classList.contains('active');
-    burger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    const menuIcon = burger.querySelector('.menu-icon');
-    const closeIcon = burger.querySelector('.close-icon');
-    if(menuIcon && closeIcon){
-      if(expanded){ 
-        menuIcon.style.display='none'; 
-        closeIcon.style.display='block'; 
-      } else { 
-        menuIcon.style.display='block'; 
-        closeIcon.style.display='none'; 
-      }
+  burger.classList.toggle('active');
+  const expanded = burger.classList.contains('active');
+  burger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  const menuIcon = burger.querySelector('.menu-icon');
+  const closeIcon = burger.querySelector('.close-icon');
+  if(menuIcon && closeIcon){
+    if(expanded){ 
+      menuIcon.style.display='none'; 
+      closeIcon.style.display='block'; 
+    } else { 
+      menuIcon.style.display='block'; 
+      closeIcon.style.display='none'; 
     }
+  }
+}
+
+// ===== Fonctions pour le fil d'Ariane =====
+function updateBreadcrumb() {
+  const breadcrumb = $('.breadcrumb ol');
+  if (!breadcrumb) return;
+  
+  const sections = $$('section[id], main[id]');
+  let currentSection = '';
+  let minDistance = Infinity;
+  
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    const distance = Math.abs(rect.top);
+    
+    if (distance < minDistance && rect.top <= 200) {
+      minDistance = distance;
+      currentSection = section.id;
+    }
+  });
+  
+  if (currentSection && currentSection !== 'accueil') {
+    const sectionTitle = $(`#${currentSection} h2.section-title`);
+    if (sectionTitle) {
+      const titleText = currentLang === 'en' && sectionTitle.getAttribute('data-en') 
+        ? sectionTitle.getAttribute('data-en') 
+        : sectionTitle.textContent;
+      
+      breadcrumb.innerHTML = `
+        <li><a href="#accueil" data-fr="Accueil" data-en="Home">Accueil</a></li>
+        <li>${titleText}</li>
+      `;
+    }
+  } else {
+    breadcrumb.innerHTML = `
+      <li><a href="#accueil" data-fr="Accueil" data-en="Home">Accueil</a></li>
+    `;
   }
 }
 
@@ -576,7 +566,7 @@ function openPrivacyModal() {
     }
   });
   
-  if (firstElement) firstElement.focus();
+  firstElement.focus();
 }
 
 function closePrivacyModal() {
@@ -587,231 +577,10 @@ function closePrivacyModal() {
   document.body.style.overflow = '';
 }
 
-// =================== NOUVELLES FONCTIONS POUR L'OPTIMISATION MOBILE ===================
-
-// Gestion du swipe pour le carrousel sur mobile
-let touchStartX = 0;
-let touchEndX = 0;
-const swipeThreshold = 50; // Distance minimale pour un swipe
-
-function handleTouchStart(e) {
-  touchStartX = e.changedTouches[0].screenX;
-}
-
-function handleTouchEnd(e) {
-  touchEndX = e.changedTouches[0].screenX;
-  handleSwipe();
-}
-
-function handleSwipe() {
-  if (currentView !== 'carousel') return;
-  
-  if (touchEndX < touchStartX - swipeThreshold) {
-    // Swipe gauche - slide suivant
-    nextSlide();
-  }
-  
-  if (touchEndX > touchStartX + swipeThreshold) {
-    // Swipe droit - slide précédent
-    previousSlide();
-  }
-}
-
-// Amélioration de la gestion du menu mobile avec support tactile
-function setupMobileMenu() {
-  const nav = $('.nav-wrap nav.primary');
-  const burger = $('.burger');
-  
-  if (!nav || !burger) return;
-  
-  // Fermer le menu en cliquant à l'extérieur
-  document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 980 && 
-        nav.classList.contains('show') && 
-        !nav.contains(e.target) && 
-        !burger.contains(e.target)) {
-      toggleMobileMenu();
-    }
-  });
-  
-  // Fermer le menu avec le bouton Échap
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('show')) {
-      toggleMobileMenu();
-    }
-  });
-}
-
-// Amélioration des dropdowns sur mobile
-function setupMobileDropdowns() {
-  const dropdowns = $$('.dropdown');
-  
-  dropdowns.forEach(dropdown => {
-    const toggle = dropdown.querySelector('.dropdown-toggle');
-    const menu = dropdown.querySelector('.dropdown-menu');
-    
-    if (!toggle || !menu) return;
-    
-    toggle.addEventListener('click', (e) => {
-      if (window.innerWidth <= 980) {
-        e.preventDefault();
-        
-        // Fermer les autres dropdowns
-        dropdowns.forEach(otherDropdown => {
-          if (otherDropdown !== dropdown) {
-            otherDropdown.classList.remove('active');
-          }
-        });
-        
-        dropdown.classList.toggle('active');
-        
-        // Faire défiler jusqu'au menu si ouvert
-        if (dropdown.classList.contains('active')) {
-          setTimeout(() => {
-            menu.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }, 100);
-        }
-      }
-    });
-    
-    // Fermer le dropdown quand on clique ailleurs
-    document.addEventListener('click', (e) => {
-      if (!dropdown.contains(e.target) && window.innerWidth <= 980) {
-        dropdown.classList.remove('active');
-      }
-    });
-  });
-}
-
-// Optimisation des animations pour mobile
-function setupMobileAnimations() {
-  // Réduire le seuil de déclenchement des animations sur mobile
-  const isMobile = window.innerWidth <= 640;
-  const threshold = isMobile ? 0.05 : 0.18;
-  
-  const animEls = $$('[data-anim]');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Ajouter un délai plus court sur mobile pour une meilleure réactivité
-        const delay = isMobile ? 50 : 100;
-        setTimeout(() => entry.target.classList.add('in'), delay);
-      }
-    });
-  }, { threshold });
-  
-  animEls.forEach(el => observer.observe(el));
-}
-
-// Amélioration de l'accessibilité sur mobile
-function setupMobileAccessibility() {
-  // S'assurer que tous les éléments interactifs ont une taille de clic suffisante
-  const interactiveElements = $$('a, button, input, textarea, select, .card, .destination, .stat, .step');
-  
-  interactiveElements.forEach(el => {
-    // Vérifier si l'élément a une taille suffisante pour le tactile
-    const rect = el.getBoundingClientRect();
-    const minSize = 44; // Taille minimale recommandée par Apple
-    
-    if (rect.width < minSize || rect.height < minSize) {
-      el.style.minWidth = `${minSize}px`;
-      el.style.minHeight = `${minSize}px`;
-      el.style.display = 'flex';
-      el.style.alignItems = 'center';
-      el.style.justifyContent = 'center';
-    }
-  });
-}
-
-// Optimisation du carrousel pour mobile
-function setupMobileCarousel() {
-  const carouselTrack = $('#carousel-track');
-  if (!carouselTrack) return;
-  
-  // Ajouter les écouteurs d'événements tactiles
-  carouselTrack.addEventListener('touchstart', handleTouchStart, { passive: true });
-  carouselTrack.addEventListener('touchend', handleTouchEnd, { passive: true });
-  
-  // Optimiser la taille des slides sur mobile
-  const updateSlideSize = () => {
-    const isMobile = window.innerWidth <= 640;
-    const slides = $$('.carousel-slide');
-    
-    slides.forEach(slide => {
-      if (isMobile) {
-        slide.style.padding = '0 10px';
-      } else {
-        slide.style.padding = '0 15px';
-      }
-    });
-  };
-  
-  updateSlideSize();
-  window.addEventListener('resize', updateSlideSize);
-}
-
-// Amélioration de la navigation par ancre sur mobile
-function setupMobileAnchors() {
-  $$('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', function(e) {
-      const id = this.getAttribute('href');
-      if (id && id.startsWith('#')) {
-        e.preventDefault();
-        
-        const targetSection = document.querySelector(id);
-        if (targetSection) {
-          // Fermer le menu mobile si ouvert
-          const nav = $('.nav-wrap nav.primary');
-          if (nav && nav.classList.contains('show')) {
-            toggleMobileMenu();
-          }
-          
-          // Forcer l'affichage de la section de destination
-          targetSection.classList.add('in');
-          
-          // Forcer l'affichage de tous les éléments animés à l'intérieur
-          const animatedChildren = targetSection.querySelectorAll('[data-anim]');
-          animatedChildren.forEach(child => child.classList.add('in'));
-          
-          // Faire défiler en douceur vers la section avec un décalage pour le header
-          const header = $('header');
-          const headerHeight = header ? header.offsetHeight : 0;
-          const targetPosition = targetSection.offsetTop - headerHeight - 20;
-          
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }
-    });
-  });
-}
-
-// Fonction pour détecter si l'utilisateur est sur mobile
-function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-         (window.innerWidth <= 768 && 'ontouchstart' in window);
-}
-
-// Initialisation des améliorations mobiles
-function initMobileOptimizations() {
-  // Ne pas exécuter sur desktop
-  if (!isMobileDevice()) return;
-  
-  setupMobileMenu();
-  setupMobileDropdowns();
-  setupMobileAnimations();
-  setupMobileAccessibility();
-  setupMobileCarousel();
-  setupMobileAnchors();
-}
-
-// ===== FONCTION D'INITIALISATION COMPLÈTE ET À JOUR =====
+// ===== Initialisation =====
 document.addEventListener('DOMContentLoaded', function() {
   // Set year
-  const yearElement = $('#year');
-  if (yearElement) yearElement.textContent = new Date().getFullYear();
+  $('#year').textContent = new Date().getFullYear();
   
   // Initialize language
   const saved = (localStorage.getItem('abroad_lang') || '').toLowerCase();
@@ -838,9 +607,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     scrollTimer = window.requestAnimationFrame(() => {
-      if (header && window.scrollY > 50) {
+      if (window.scrollY > 50) {
         header.classList.add('scrolled');
-      } else if (header) {
+      } else {
         header.classList.remove('scrolled');
       }
     });
@@ -866,8 +635,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if(nav && nav.classList.contains('show')) toggleMobileMenu(); 
   }));
   
-  // Initialiser les optimisations mobiles
-  initMobileOptimizations();
+  // Scroll reveal
+  const animEls = $$('[data-anim]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { 
+      if(entry.isIntersecting) entry.target.classList.add('in'); 
+    });
+  }, { threshold: 0.18 });
+  animEls.forEach(el => observer.observe(el));
   
   // Contact form validation & WhatsApp redirect
   const contactForm = $('#contact-form');
@@ -886,10 +661,8 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       
       if (!validateForm()) {
-        if (formStatus) {
-          formStatus.textContent = translations[currentLang].formFill;
-          formStatus.className = 'form-status error';
-        }
+        formStatus.textContent = translations[currentLang].formFill;
+        formStatus.className = 'form-status error';
         return;
       }
       
@@ -919,16 +692,12 @@ document.addEventListener('DOMContentLoaded', function() {
       // Redirect to WhatsApp
       window.location.href = `https://wa.me/${WA_NUMBER}?text=${whatsappMessage}`;
       
-      if (formStatus) {
-        formStatus.textContent = currentLang === 'en' ? 'Redirecting to WhatsApp...' : 'Redirection vers WhatsApp...';
-        formStatus.className = 'form-status success';
-      }
+      formStatus.textContent = currentLang === 'en' ? 'Redirecting to WhatsApp...' : 'Redirection vers WhatsApp...';
+      formStatus.className = 'form-status success';
       
       setTimeout(() => {
-        if (formStatus) {
-          formStatus.textContent = '';
-          formStatus.className = 'form-status';
-        }
+        formStatus.textContent = '';
+        formStatus.className = 'form-status';
       }, 3000);
       
       contactForm.reset();
@@ -936,15 +705,40 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Language switch
-  const langFr = $('#lang-fr');
-  const langEn = $('#lang-en');
-  if (langFr) langFr.addEventListener('click', () => applyLanguage('fr'));
-  if (langEn) langEn.addEventListener('click', () => applyLanguage('en'));
+  $('#lang-fr').addEventListener('click', () => applyLanguage('fr'));
+  $('#lang-en').addEventListener('click', () => applyLanguage('en'));
+  
+ // Smooth anchors avec correction d'affichage
+ $$('a[href^="#"]').forEach(a => { 
+  a.addEventListener('click', function(e){ 
+    const id = this.getAttribute('href'); 
+    if(id && id.startsWith('#')){ 
+      e.preventDefault(); // Empêche le saut brutal du navigateur
+      
+      const targetSection = document.querySelector(id); 
+      if(targetSection) {
+        // Étape 1: Forcer l'affichage de la section de destination
+        targetSection.classList.add('in');
+        
+        // Étape 2: Forcer l'affichage de tous les éléments animés à l'intérieur
+        const animatedChildren = targetSection.querySelectorAll('[data-anim]');
+        animatedChildren.forEach(child => child.classList.add('in'));
+
+        // Étape 3: Maintenant, faire défiler en douceur vers la section
+        targetSection.scrollIntoView({behavior:'smooth', block:'start'}); 
+      }
+    } 
+  }); 
+});
   
   // Accessibility: keyboard tabbing detection
   document.addEventListener('keydown', (e) => { 
     if(e.key === 'Tab') document.body.classList.add('user-is-tabbing'); 
   });
+  
+  // Breadcrumb update
+  window.addEventListener('scroll', updateBreadcrumb);
+  updateBreadcrumb();
   
   // FAQ Accordion
   $$('button.faq-question').forEach(button => {
@@ -1007,21 +801,19 @@ document.addEventListener('DOMContentLoaded', function() {
   dropdowns.forEach(dropdown => {
     const toggle = dropdown.querySelector('.dropdown-toggle');
     
-    if (toggle) {
-      toggle.addEventListener('click', (e) => {
-        if (window.innerWidth <= 980) {
-          e.preventDefault();
-          dropdown.classList.toggle('active');
-          
-          // Fermer les autres dropdowns
-          dropdowns.forEach(otherDropdown => {
-            if (otherDropdown !== dropdown) {
-              otherDropdown.classList.remove('active');
-            }
-          });
-        }
-      });
-    }
+    toggle.addEventListener('click', (e) => {
+      if (window.innerWidth <= 980) {
+        e.preventDefault();
+        dropdown.classList.toggle('active');
+        
+        // Fermer les autres dropdowns
+        dropdowns.forEach(otherDropdown => {
+          if (otherDropdown !== dropdown) {
+            otherDropdown.classList.remove('active');
+          }
+        });
+      }
+    });
     
     // Fermer le dropdown quand on clique ailleurs
     document.addEventListener('click', (e) => {
@@ -1031,68 +823,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
-// Gestion de l'indicateur de chargement
-window.addEventListener('load', function() {
-  const loader = $('#page-loader');
-  if (loader) {
-    loader.classList.add('hidden');
-    setTimeout(() => {
-      loader.style.display = 'none';
-    }, 300);
-  }
-});
-
-// Gestion du bouton Retour en haut
-const backToTopBtn = $('#back-to-top');
-
-if (backToTopBtn) {
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  });
-  
-  backToTopBtn.addEventListener('click', function() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-  
-  // Support clavier
-  backToTopBtn.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-  });
-}
-
-// Optimisation des images de fond pour mobile
-function optimizeBackgroundImages() {
-  if (window.innerWidth <= 768) {
-    $$('.destination').forEach(dest => {
-      const mobileBg = dest.getAttribute('data-bg-mobile');
-      if (mobileBg) {
-        dest.style.backgroundImage = `url('${mobileBg}')`;
-      }
-    });
-  } else {
-    $$('.destination').forEach(dest => {
-      const desktopBg = dest.getAttribute('data-bg-desktop');
-      if (desktopBg) {
-        dest.style.backgroundImage = `url('${desktopBg}')`;
-      }
-    });
-  }
-}
-
-// Initialisation et écoute des changements de taille
-optimizeBackgroundImages();
-window.addEventListener('resize', optimizeBackgroundImages);
