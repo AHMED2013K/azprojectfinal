@@ -450,7 +450,18 @@ export default function App() {
                  <div className="bg-white/5 border border-white/10 p-5 rounded-2xl text-xs mb-8 opacity-80">
                     <strong>Paiement en 2 étapes :</strong> 150€ upfront / 250€ après premier salaire.
                  </div>
-                 <a href="https://gateway.konnect.network/pay?payment_ref=693042fe7f6493f1d231e7d4" target="_blank" rel="noopener noreferrer" className="block w-full bg-blue-600 text-center py-5 rounded-2xl font-black uppercase text-white hover:bg-blue-700 transition-all shadow-lg">S'inscrire maintenant</a>
+                 <a
+  href="https://gateway.konnect.network/pay?payment_ref=693042fe7f6493f1d231e7d4"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="block w-full text-center py-5 rounded-2xl font-black uppercase text-white shadow-lg transition-all"
+  style={{ backgroundColor: '#175c7d' }}
+  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#13445a')}
+  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#175c7d')}
+>
+  S'inscrire maintenant
+</a>
+
               </div>
             </div>
           </div>
@@ -484,7 +495,13 @@ export default function App() {
               <p className="text-xl text-gray-500 mb-16">{t.stdOfficeDesc}</p>
               <div className="flex flex-wrap justify-center gap-6">
                  {["Tunisie", "Maroc", "Chypre", "Russie", "Emirates", "Turquie", "Congo"].map(o => (
-                   <div key={o} className="bg-gray-50 px-8 py-4 rounded-2xl font-black text-blue-700 border border-gray-100 hover:shadow-lg transition-all">{o}</div>
+                   <div
+  key={o}
+  className="bg-gray-50 px-8 py-4 rounded-2xl font-black border border-gray-100 hover:shadow-lg transition-all"
+  style={{ color: '#175c7d' }}
+>
+  {o}
+</div>
                  ))}
               </div>
            </div>
@@ -516,21 +533,42 @@ export default function App() {
                  <input type="checkbox" required className="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600" />
                  <span>{t.stdConsent}</span>
                </div>
-               <button type="submit" className="w-full bg-blue-700 text-white py-5 rounded-2xl font-black text-xl hover:bg-blue-800 transition-all shadow-xl shadow-blue-200">{t.stdFormSubmit}</button>
+               <button
+  type="submit"
+  className="w-full text-white py-5 rounded-2xl font-black text-xl shadow-xl transition-all"
+  style={{ backgroundColor: '#175c7d', boxShadow: '0 4px 6px rgba(23, 92, 125, 0.3)' }}
+  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#13445a')}
+  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#175c7d')}
+>
+  {t.stdFormSubmit}
+</button>
+
             </form>
           </div>
         </section>
 
         <footer className="py-20 px-8 bg-white border-t text-center text-gray-900">
-           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-              <div className="flex items-center gap-3 font-black text-2xl tracking-tighter">
-                <div className="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center overflow-hidden">
-                  <img src={STUDENT_LOGO_URL} className="w-full h-full object-contain" alt="Student Logo" onError={(e) => e.target.style.display = 'none'} />
-                </div>Abroad Zone
-              </div>
-              <p className="text-xs font-black text-gray-300 uppercase tracking-widest">© 2024 Abroadzone Group • Tunisia • UK • UAE</p>
-           </div>
-        </footer>
+  <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
+    <div className="flex items-center gap-3 font-black text-2xl tracking-tighter">
+      <div 
+        className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden" 
+        style={{ backgroundColor: '#175c7d' }}
+      >
+        <img 
+          src={STUDENT_LOGO_URL} 
+          className="w-full h-full object-contain" 
+          alt="Student Logo" 
+          onError={(e) => e.target.style.display = 'none'} 
+        />
+      </div>
+      Abroad Zone
+    </div>
+    <p className="text-xs font-black text-gray-300 uppercase tracking-widest">
+      © 2024 Abroadzone Group • Tunisia • UK • UAE
+    </p>
+  </div>
+</footer>
+
       </div>
     );
   }
