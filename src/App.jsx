@@ -219,9 +219,10 @@ const Modal = ({ isOpen, onClose, title, lang }) => {
           <X size={20} className="text-gray-400" />
         </button>
         <div className="mb-6 text-gray-900">
-          <div className="w-12 h-12 bg-blue-50 text-[#005A9C] rounded-xl flex items-center justify-center mb-4">
-            <Sparkles size={24} />
-          </div>
+       <div className="w-12 h-12 bg-blue-50 text-brandBlue rounded-xl flex items-center justify-center mb-4">
+  <Sparkles size={24} />
+</div>
+
           <h3 className="text-2xl font-bold">{title}</h3>
           <p className="text-gray-500 mt-2">
             {lang === 'en' ? "Enter your details and our team will contact you within 4 hours." : "Entrez vos coordonnées et notre équipe vous contactera sous 4 heures."}
@@ -270,7 +271,10 @@ export default function App() {
                <GraduationCap className="w-12 h-12 text-white" />
             </div>
             <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tighter uppercase">{t.gateStudent}</h1>
-            <p className="text-xl text-blue-100 mb-12 max-w-sm font-medium leading-relaxed opacity-80">{t.gateStudentDesc}</p>
+           <p className="text-xl mb-12 max-w-sm font-medium leading-relaxed opacity-80 text-[#175c7d]">
+  {t.gateStudentDesc}
+</p>
+
             <button onClick={() => setCurrentView('student')} className="group bg-white text-[#005A9C] px-10 py-5 rounded-[2rem] font-black text-xl hover:shadow-2xl transition-all flex items-center gap-3">
               {t.gateStudentBtn} <ArrowRight size={24} />
             </button>
@@ -299,20 +303,40 @@ export default function App() {
       <div className="min-h-screen bg-white font-sans scroll-smooth text-gray-900">
         <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b px-8 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-             <div className="w-10 h-10 bg-blue-700 rounded-xl overflow-hidden flex items-center justify-center shadow-sm">
-                <img src={STUDENT_LOGO_URL} className="w-full h-full object-contain" alt="Student Logo" onError={(e) => e.target.style.display = 'none'} />
-                <Globe2 className="text-white absolute pointer-events-none opacity-20" />
-             </div>
-             <span className="text-2xl font-black tracking-tighter text-blue-700 uppercase">Abroad Zone</span>
+             <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-sm bg-[#175c7d]">
+  <img
+    src={STUDENT_LOGO_URL}
+    className="w-full h-full object-contain"
+    alt="Student Logo"
+    onError={(e) => (e.target.style.display = 'none')}
+  />
+  <Globe2 className="text-white absolute pointer-events-none opacity-20" />
+</div>
+
+             <span className="text-2xl font-black tracking-tighter uppercase text-[#175c7d]"> Abroad Zone
+</span>
           </div>
-          <div className="hidden lg:flex items-center gap-10 text-sm font-bold text-gray-500">
-            <a href="#std-services" className="hover:text-blue-700 uppercase">{t.navServices}</a>
-            <a href="#std-destinations" className="hover:text-blue-700 uppercase">{t.navDestinations}</a>
-            <a href="#std-bureaux" className="hover:text-blue-700 uppercase">{t.navOffices}</a>
-            <a href="#std-contact" className="hover:text-blue-700 uppercase">{t.navContact}</a>
-            <button onClick={() => setLang(lang === 'en' ? 'fr' : 'en')} className="bg-gray-100 px-3 py-1 rounded-lg text-blue-700 border border-blue-100 uppercase font-black">{lang.toUpperCase()}</button>
-            <button onClick={() => setCurrentView('gate')} className="flex items-center gap-2 hover:text-blue-700 border-l pl-8"><Home size={16} /> {t.navPortal}</button>
-          </div>
+         <div className="hidden lg:flex items-center gap-10 text-sm font-bold text-gray-500">
+  <a href="#std-services" className="hover:text-[#175c7d] uppercase">{t.navServices}</a>
+  <a href="#std-destinations" className="hover:text-[#175c7d] uppercase">{t.navDestinations}</a>
+  <a href="#std-bureaux" className="hover:text-[#175c7d] uppercase">{t.navOffices}</a>
+  <a href="#std-contact" className="hover:text-[#175c7d] uppercase">{t.navContact}</a>
+
+  <button 
+    onClick={() => setLang(lang === 'en' ? 'fr' : 'en')} 
+    className="bg-gray-100 px-3 py-1 rounded-lg text-[#175c7d] border border-[#175c7d] uppercase font-black"
+  >
+    {lang.toUpperCase()}
+  </button>
+
+  <button 
+    onClick={() => setCurrentView('gate')} 
+    className="flex items-center gap-2 hover:text-[#175c7d] border-l pl-8"
+  >
+    <Home size={16} /> {t.navPortal}
+  </button>
+</div>
+
         </nav>
 
         <header className="pt-44 pb-32 px-8 bg-[#175c7d] text-white relative overflow-hidden">
@@ -329,10 +353,14 @@ export default function App() {
         {/* Stats */}
         <section className="py-16 px-8 text-gray-900">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-            <div><div className="text-5xl font-black text-blue-700 mb-2">7+</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">Bureaux Internationaux</div></div>
-            <div><div className="text-5xl font-black text-blue-700 mb-2">8</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">Destinations</div></div>
-            <div><div className="text-5xl font-black text-blue-700 mb-2">100%</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">Accompagnement</div></div>
-            <div><div className="text-5xl font-black text-blue-700 mb-2">24/7</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">Support</div></div>
+            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div>
+<div className="text-xs font-bold uppercase tracking-widest text-gray-400">Bureaux Internationaux</div></div>
+            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div>
+<div className="text-xs font-bold uppercase tracking-widest text-gray-400">Destinations</div></div>
+            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div>
+<div className="text-xs font-bold uppercase tracking-widest text-gray-400">Accompagnement</div></div>
+            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div>
+<div className="text-xs font-bold uppercase tracking-widest text-gray-400">Support</div></div>
           </div>
         </section>
 
@@ -350,10 +378,13 @@ export default function App() {
                 { k: 'stdAusbildung', icon: Zap }
               ].map((s, i) => (
                 <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all group">
-                  <div className="w-12 h-12 bg-blue-50 text-blue-700 rounded-xl flex items-center justify-center mb-6 transition-colors group-hover:bg-blue-700 group-hover:text-white"><s.icon size={24}/></div>
-                  <h3 className="text-xl font-black mb-4 uppercase tracking-tight text-blue-700">{t[s.k]}</h3>
+                  <<div className="w-12 h-12 bg-[#E3F0FA] text-[#175c7d] rounded-xl flex items-center justify-center mb-6 transition-colors group-hover:bg-[#175c7d] group-hover:text-white">
+  <s.icon size={24}/>
+</div>
+
+                  <h3 className="text-xl font-black mb-4 uppercase tracking-tight text-[#175c7d]">{t[s.k]}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-8">{t[`${s.k}Desc`]}</p>
-                  <div className="h-1 w-12 bg-blue-700 group-hover:w-full transition-all duration-500"></div>
+                  <div className="h-1 w-12 bg-[#175c7d] group-hover:w-full transition-all duration-500"></div>
                 </div>
               ))}
             </div>
@@ -363,15 +394,26 @@ export default function App() {
         {/* Alternance France Section */}
         <section id="std-alternance" className="py-32 px-8 bg-white">
           <div className="max-w-6xl mx-auto text-gray-900">
-            <div className="bg-blue-50 rounded-[3rem] p-12 md:p-20 relative overflow-hidden mb-20">
+            <div className="bg-[#e0f0fa] rounded-[3rem] p-12 md:p-20 relative overflow-hidden mb-20">
                <div className="relative z-10">
-                  <h2 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight text-blue-900">{t.stdAlternanceHeroTitle}</h2>
-                  <p className="text-xl text-blue-800/70 mb-10 max-w-2xl">{t.stdAlternanceHeroDesc}</p>
+                  <h2 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight text-[#175c7d]">
+  {t.stdAlternanceHeroTitle}
+</h2>
+                  <p className="text-xl mb-10 max-w-2xl text-[#175c7d]/70">
+  {t.stdAlternanceHeroDesc}
+</p>
                   <div className="flex gap-4">
-                     <button onClick={() => document.getElementById('std-pricing').scrollIntoView()} className="bg-blue-700 text-white px-8 py-4 rounded-2xl font-black uppercase">Voir les tarifs</button>
+                     <button
+  onClick={() => document.getElementById('std-pricing').scrollIntoView()}
+  className="bg-[#175c7d] text-white px-8 py-4 rounded-2xl font-black uppercase"
+>
+  Voir les tarifs
+</button>
                   </div>
                </div>
-               <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none text-blue-900"><CheckCircle2 size={300}/></div>
+               <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none" style={{ color: '#175c7d' }}>
+  <CheckCircle2 size={300} />
+</div>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-10">
@@ -385,7 +427,12 @@ export default function App() {
                     { t: "Accompagnement signature", d: "Aide à la négociation et signature de votre contrat." }
                   ].map((step, i) => (
                     <div key={i} className="flex gap-6 items-start">
-                      <div className="w-12 h-12 bg-blue-700 text-white rounded-full flex items-center justify-center font-black shrink-0 shadow-lg">{i+1}</div>
+                      <div
+  className="w-12 h-12 text-white rounded-full flex items-center justify-center font-black shrink-0 shadow-lg"
+  style={{ backgroundColor: '#175c7d' }}
+>
+  {i + 1}
+</div>
                       <div><h4 className="text-xl font-bold uppercase text-gray-900">{step.t}</h4><p className="text-gray-500">{step.d}</p></div>
                     </div>
                   ))}
