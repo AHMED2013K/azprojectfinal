@@ -1,16 +1,1 @@
-# Task: Add exact "Abroad Zone" and "EduGrowth Outsourcing" pages from past site
-
-## Steps:
-- [ ] 1. Clone past repo (temp_azprojectfinal)
-- [ ] 2. Explore cloned repo structure and identify page files
-- [ ] 3. Read key files from past site for exact content/design
-- [x] 4. Create src/pages/AbroadZonePage.jsx with ported content
-- [x] 5. Create src/pages/EduGrowthOutsourcingPage.jsx with ported content
-- [x] 6. Add routing to App.jsx/main.jsx for new pages (Navbar links)
-- [x] 7. Update Navbar.jsx with links to new pages
-- [ ] 8. Port assets to public/, update data.js/SEO
-- [ ] 9. Test locally `npm run dev`
-- [ ] 10. Update TODO.md complete, attempt_completion
-
-Keep existing portal logic unchanged.
-
+# Loading Delay Fix - TODO&#10;&#10;## Status: In Progress ✅&#10;&#10;1. [x] Create TODO.md (done)&#10;2. [] Read src/components/PortalSelector.jsx fully&#10;3. [] Edit PortalSelector.jsx: Lazy load AnimatedBackground with Suspense + skeleton&#10;4. [] Clean public/: Remove unused large images (1.5M+ PNGs), fix 0B PDF&#10;5. [] Test: npm run build &amp;&amp; npm run preview + Lighthouse&#10;6. [] Update TODO.md on completion&#10;7. [] attempt_completion

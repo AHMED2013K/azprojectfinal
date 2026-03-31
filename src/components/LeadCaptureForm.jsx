@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { trackEvent } from '../utils/tracking';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 
@@ -23,10 +24,34 @@ export default function LeadCaptureForm({
   heading = 'Get Your Free Consultation',
   buttonLabel = 'Get My Free Consultation',
 }) {
+  const { lang } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const utm = useMemo(() => extractUtm(location.search), [location.search]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const copy = {
+    en: {
+      helper: '30-second form. Our team replies quickly on WhatsApp.',
+      name: 'Full name',
+      email: 'Email',
+      phone: 'Phone / WhatsApp',
+      organization: 'School / Agency / University (optional)',
+      objective: 'What is your goal?',
+      submitting: 'Submitting...',
+      leadTitle: 'New Funnel Lead',
+    },
+    fr: {
+      helper: "Formulaire de 30 secondes. Notre équipe vous répond rapidement sur WhatsApp.",
+      name: 'Nom complet',
+      email: 'Email',
+      phone: 'Téléphone / WhatsApp',
+      organization: 'École / agence / université (optionnel)',
+      objective: 'Quel est votre objectif ?',
+      submitting: 'Envoi en cours...',
+      leadTitle: 'Nouveau lead funnel',
+    },
+  }[lang];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,7 +84,7 @@ export default function LeadCaptureForm({
     });
 
     const message = [
-      'New Funnel Lead',
+      copy.leadTitle,
       `Segment: ${segment}`,
       `Source page: ${sourcePage}`,
       `Name: ${lead.name}`,
@@ -84,39 +109,44 @@ export default function LeadCaptureForm({
 
   return (
     <div className="rounded-3xl bg-white p-7 shadow-xl">
-      <h2 className="text-2xl font-black text-slate-900">{heading}</h2>
-      <p className="mt-2 text-sm text-slate-600">30-second form. Our team replies quickly on WhatsApp.</p>
+      <h2 className="text-2xl font-black text-slate-900" data-i18n="lead_form.heading">{heading}</h2>
+      <p className="mt-2 text-sm text-slate-600" data-i18n="lead_form.helper">{copy.helper}</p>
 
       <form onSubmit={handleSubmit} className="mt-5 space-y-3">
         <input
           name="name"
           required
-          placeholder="Full Name"
+          placeholder={copy.name}
+          data-i18n-placeholder="lead_form.name"
           className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]"
         />
         <input
           name="email"
           type="email"
           required
-          placeholder="Email"
+          placeholder={copy.email}
+          data-i18n-placeholder="lead_form.email"
           className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]"
         />
         <input
           name="phone"
           required
-          placeholder="Phone / WhatsApp"
+          placeholder={copy.phone}
+          data-i18n-placeholder="lead_form.phone"
           className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]"
         />
         <input
           name="organization"
-          placeholder="School / Agency / University (optional)"
+          placeholder={copy.organization}
+          data-i18n-placeholder="lead_form.organization"
           className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]"
         />
         <textarea
           name="objective"
           rows="3"
           required
-          placeholder="What is your goal?"
+          placeholder={copy.objective}
+          data-i18n-placeholder="lead_form.objective"
           className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]"
         />
         <button
@@ -124,7 +154,7 @@ export default function LeadCaptureForm({
           disabled={isSubmitting}
           className="w-full rounded-xl bg-[#005A9C] px-4 py-3 font-black text-white transition hover:bg-blue-700 disabled:opacity-60"
         >
-          {isSubmitting ? 'Submitting...' : buttonLabel}
+          {isSubmitting ? copy.submitting : buttonLabel}
         </button>
       </form>
     </div>

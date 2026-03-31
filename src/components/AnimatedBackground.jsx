@@ -1,78 +1,123 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-const AnimatedBackground = () => {
+const AnimatedBackground = ({ delay = 0 }) => {
   const vantaRef = useRef(null);
+  const vantaEffect = useRef(null);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Dynamically load VANTA and Three.js
-    const loadVanta = async () => {
-      if (!window.THREE && !vantaRef.current.vanta) {
-        // Load Three.js
-        if (!document.querySelector('script[src*="three.min.js"]')) {
-          const threeScript = document.createElement('script');
-          threeScript.src = 'https://cdn.skypack.dev/three@0.134.0/build/three.min.js';
-          threeScript.async = true;
-          document.head.appendChild(threeScript);
-          
-          await new Promise((resolve) => {
-            threeScript.onload = resolve;
-          });
-        }
-
-        // Load VANTA.NET
-        if (!document.querySelector('script[src*="vanta.net.min.js"]')) {
-          const vantaScript = document.createElement('script');
-          vantaScript.src = 'https://cdn.skypack.dev/vanta@0.5.24/dist/vanta.net.min.js';
-          vantaScript.async = true;
-          document.head.appendChild(vantaScript);
-          
-          await new Promise((resolve) => {
-            vantaScript.onload = resolve;
-          });
-        }
-
-        // Wait a bit for scripts to be ready
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-
-      // Initialize VANTA if element ready and not already initialized
-      if (vantaRef.current && !vantaRef.current.vanta?.NET && window.VANTA?.NET) {
-        vantaRef.current.vanta = window.VANTA.NET({
-          el: vantaRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.00,
-          minWidth: 200.00,
-          scale: 1.00,
-          scaleMobile: 1.00,
-          color: 0x175c7d,      // Brand blue
-          backgroundColor: 0x0a0f1e, // Dark premium slate
-          maxDistance: 20.00,
-          spacing: 15.00,        // Subtle density
-          showDots: false
-        });
-      }
+    // Check if scripts are already loaded
+    const checkScriptsReady = () => {
+      return window.THREE && window.VANTA?.NET;
     };
 
-    loadVanta();
+    // If scripts are ready, set ready immediately
+    if (checkScriptsReady()) {
+      setIsReady(true);
+      return;
+    }
+
+    // Otherwise, wait for scripts to load
+    const checkInterval = setInterval(() => {
+      if (checkScriptsReady()) {
+        setIsReady(true);
+        clearInterval(checkInterval);
+      }
+    }, 50); // Check every 50ms
+
+    // Fallback timeout in case scripts fail to load
+    const fallbackTimer = setTimeout(() => {
+      clearInterval(checkInterval);
+      setIsReady(true); // Set ready even if scripts failed
+    }, 3000); // 3 second fallback
 
     return () => {
-      // Cleanup
-      if (vantaRef.current?.vanta) {
-        vantaRef.current.vanta.destroy();
-      }
+      clearInterval(checkInterval);
+      clearTimeout(fallbackTimer);
     };
   }, []);
 
+  useEffect(() => {
+    // Only initialize VANTA after delay and when scripts are ready
+    if (!isReady || !vantaRef.current) return;
+
+    // Wait for scripts to be available
+    const initVanta = () => {
+      if (!window.THREE || !window.VANTA?.NET) {
+        // Retry after a short delay if scripts not ready
+        setTimeout(initVanta, 100);
+        return;
+      }
+
+      // Destroy existing effect
+      if (vantaEffect.current) {
+        vantaEffect.current.destroy();
+      }
+
+      // VANTA initialization
+      vantaEffect.current = window.VANTA.NET({
+        el: vantaRef.current,
+        THREE: window.THREE,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x3b82f6,
+        backgroundColor: 0x0a0f1e,
+        points: 12.0,
+        maxDistance: 25.0,
+        spacing: 16.0,
+        showDots: false
+      });
+
+      // Resize observer for dynamic viewport changes
+      const resizeObserver = new ResizeObserver(() => {
+        if (vantaEffect.current) {
+          vantaEffect.current.resize();
+        }
+      });
+      if (vantaRef.current) {
+        resizeObserver.observe(vantaRef.current);
+      }
+
+      return () => {
+        if (vantaEffect.current) {
+          vantaEffect.current.destroy();
+        }
+        resizeObserver.disconnect();
+      };
+    };
+
+    initVanta();
+  }, [isReady]);
+
+  // Don't render until ready to prevent flicker
+  if (!isReady) {
+    return (
+      <div
+        className="fixed inset-0 z-0 w-screen h-screen overflow-hidden pointer-events-none bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-900"
+        aria-hidden="true"
+      />
+    );
+  }
+
   return (
-    <div 
+    <div
       ref={vantaRef}
-      className="fixed inset-0 z-0 overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950/80 to-slate-900"
+      className="fixed inset-0 z-0 w-screen h-screen overflow-hidden pointer-events-none bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-900 opacity-100 transition-opacity duration-300"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh'
+      }}
       aria-hidden="true"
     />
   );
 };
 
 export default AnimatedBackground;
-

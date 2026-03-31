@@ -5,7 +5,7 @@ const Layout = ({ children }) => (
   <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
     <header className="sticky top-0 bg-white shadow-sm z-50 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-        <NavLink to="/" className="font-black text-xl uppercase text-blue-700">Edugrowth Outsourcing</NavLink>
+        <NavLink to="/" className="font-black text-xl uppercase text-blue-700">EduGrowth</NavLink>
         <nav className="flex items-center gap-3 text-sm font-semibold text-gray-600">
           <NavLink to="/" className={({ isActive }) => isActive ? 'text-blue-600' : ''}>Home</NavLink>
           <NavLink to="/partners" className={({ isActive }) => isActive ? 'text-blue-600' : ''}>Partners</NavLink>
@@ -17,7 +17,7 @@ const Layout = ({ children }) => (
     </header>
     {children}
     <footer className="bg-white border-t border-gray-100 py-10 text-center text-gray-700">
-      <p className="font-semibold">© 2026 Edugrowth Outsourcing • Tunisia • Dubai • UK • UAE</p>
+      <p className="font-semibold">© 2026 EduGrowth • Tunisia • Dubai • UK • UAE</p>
     </footer>
   </div>
 );

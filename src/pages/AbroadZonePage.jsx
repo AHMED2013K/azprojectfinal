@@ -4,6 +4,8 @@ import { ChevronRight, CheckCircle2, MessageSquare, Home as HomeIcon, Globe2, Za
 import SEOHelmet from '../components/SEOHelmet';
 import { destinationsData } from '../components/data.js'; // Reuse/add from current
 import { trackEvent } from '../utils/tracking';
+import LanguageSwitch from '../components/LanguageSwitch';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 
@@ -79,12 +81,89 @@ const translations = {
     stdFormSubmit: "Connect on WhatsApp",
     stdConsent: "I agree to the processing of my data in accordance with the privacy policy.",
   },
-  // Add fr if needed, but default en for now
+  fr: {
+    stdHeroTitle: "Votre passerelle vers l'éducation internationale",
+    stdHeroSubtitle: "Un accompagnement expert pour vos études, formations professionnelles et projets de mobilité depuis la Tunisie.",
+    stdHeroCTA: 'Commencer maintenant',
+    stdHeroSecondary: 'Voir tous les services',
+    stdServiceTitle: 'Notre expertise premium',
+    stdServiceDesc: "Un accompagnement complet pour naviguer avec confiance dans la complexité des études et carrières à l'international.",
+    stdAlternance: 'Alternance en France',
+    stdAlternanceDesc: "Accompagnement complet pour trouver votre alternance en France : optimisation du CV, préparation des entretiens et signature du contrat.",
+    stdLogement: 'Recherche de logement',
+    stdLogementDesc: "Aide rapide et fiable pour trouver un logement dans votre pays de destination, avec support administratif et garanties.",
+    stdEtudes: 'Admissions universitaires',
+    stdEtudesDesc: 'Accompagnement stratégique pour les candidatures universitaires en Turquie, à Chypre, en Russie, au Maroc, à Dubai et au-delà.',
+    stdAusbildung: 'Ausbildung en Allemagne',
+    stdAusbildungDesc: "Programmes de formation duale en Allemagne et en Suisse, mêlant théorie de qualité et expérience pratique rémunérée.",
+    stdDestTitle: 'Destinations stratégiques',
+    stdDestDesc: "Nous travaillons avec des institutions internationales reconnues pour vous proposer des parcours fiables, reconnus et de haute qualité.",
+    stdOfficeTitle: 'Notre présence internationale',
+    stdOfficeDesc: 'Des bureaux locaux pour un support fiable, rapide et personnalisé dans plusieurs pays.',
+    stdAlternanceHeroTitle: 'Lancez votre carrière en France',
+    stdAlternanceHeroDesc: "Un accompagnement complet pour décrocher votre contrat d'alternance grâce à notre réseau étendu d'entreprises partenaires.",
+    stdPackTitle: 'Pack alternance complet',
+    stdPackPrice: '400€',
+    stdFormTitle: 'Commencez votre parcours',
+    stdFormName: 'Nom complet',
+    stdFormEmail: 'Adresse email',
+    stdFormService: 'Service souhaité',
+    stdFormMessage: 'Comment pouvons-nous vous aider ?',
+    stdFormSubmit: 'Nous contacter sur WhatsApp',
+    stdConsent: 'J’accepte le traitement de mes données conformément à la politique de confidentialité.',
+  },
 };
 
 const AbroadZonePage = () => {
-  const lang = 'en'; // Fix or use state/context
+  const { lang, toggleLanguage } = useLanguage();
   const t = translations[lang];
+  const ui = lang === 'fr'
+    ? {
+        navServices: 'Services',
+        navDestinations: 'Destinations',
+        navOffices: 'Bureaux',
+        navContact: 'Contact',
+        consultation: 'Consultation gratuite',
+        back: 'Retour au portail',
+        stats: ['Bureaux internationaux', 'Destinations', 'Services support', 'Support'],
+        guides: "Guides populaires pour étudier à l'étranger",
+        pricing: 'Voir les tarifs',
+        process: 'Notre process en 4 étapes',
+        processSteps: [
+          { title: 'Analyse du profil', desc: 'Étude de votre parcours et définition de vos objectifs professionnels.' },
+          { title: 'Recherche d’opportunités', desc: 'Offres ciblées issues de notre réseau d’entreprises partenaires.' },
+          { title: 'Préparation entretien', desc: 'Coaching intensif pour vous aider à vous démarquer.' },
+          { title: 'Signature du contrat', desc: 'Aide à la négociation et finalisation du contrat.' },
+        ],
+        packPoints: ['Suivi personnalisé des candidatures', 'Accès à un réseau de 850+ entreprises', 'Support administratif'],
+        payment: 'Paiement en 2 étapes : 150€ au départ / 250€ après le premier salaire.',
+        signup: "S'inscrire maintenant",
+        contactText: 'Prêt à démarrer votre projet ? Remplissez le formulaire ou envoyez-nous un message WhatsApp.',
+        serviceOptions: ['Alternance en France', 'Logement', 'Études', 'Ausbildung'],
+      }
+    : {
+        navServices: 'Services',
+        navDestinations: 'Destinations',
+        navOffices: 'Offices',
+        navContact: 'Contact',
+        consultation: 'Free Consultation',
+        back: 'Back to Portal',
+        stats: ['International Offices', 'Destinations', 'Support Services', 'Support'],
+        guides: 'Popular Study Abroad Guides',
+        pricing: 'See Pricing',
+        process: 'Our 4-Step Process',
+        processSteps: [
+          { title: 'Profile Analysis', desc: 'Study your background and define professional goals.' },
+          { title: 'Opportunity Search', desc: 'Targeted offers from our partner companies.' },
+          { title: 'Interview Preparation', desc: 'Intensive coaching to help you stand out.' },
+          { title: 'Contract Signing', desc: 'Negotiation assistance and contract finalization.' },
+        ],
+        packPoints: ['Personalized application follow-up', 'Access to 850+ company network', 'Administrative support'],
+        payment: 'Payment in 2 stages: 150€ upfront / 250€ after first salary.',
+        signup: 'Sign Up Now',
+        contactText: 'Ready to start your project? Fill out the form or send us a WhatsApp message.',
+        serviceOptions: ['Work-study France', 'Housing', 'Studies', 'Ausbildung'],
+      };
 
   const handleWA = (e) => {
     e.preventDefault();
@@ -106,6 +185,7 @@ const AbroadZonePage = () => {
         description="Étudier à l'étranger depuis la Tunisie: orientation, admission, visa étudiant et accompagnement complet vers la France, l'Allemagne, le Canada et plus."
         canonical="https://edugrowth.tn/abroad-zone"
         structuredData={abroadStructuredData}
+        lang={lang}
       />
       <div className="min-h-screen bg-white font-sans scroll-smooth text-gray-900">
         {/* Navbar - copy from past, adapt */}
@@ -113,20 +193,23 @@ const AbroadZonePage = () => {
           {/* Logo & title */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-sm" style={{backgroundColor: '#175c7d'}}>
-              <img src="/abraod.jpeg" alt="Abroad Zone" className="w-full h-full object-contain" />
+              <picture>
+                <source srcSet="/abraod.webp" type="image/webp" />
+                <img src="/abraod.jpeg" alt="Abroad Zone" className="w-full h-full object-contain" />
+              </picture>
             </div>
             <span className="text-2xl font-black tracking-tighter uppercase" style={{color: '#175c7d'}}>Abroad Zone</span>
           </div>
           {/* Links */}
           <div className="hidden lg:flex items-center gap-10 text-sm font-bold text-gray-500">
-            <a href="#std-services" className="hover:text-[#175c7d] uppercase">Services</a>
-            <a href="#std-destinations" className="hover:text-[#175c7d] uppercase">Destinations</a>
-            <a href="#std-bureaux" className="hover:text-[#175c7d] uppercase">Offices</a>
-            <a href="#std-contact" className="hover:text-[#175c7d] uppercase">Contact</a>
-            <Link to="/book-consultation" className="hover:text-[#175c7d] uppercase">Free Consultation</Link>
-            {/* Lang toggle if needed */}
+            <a href="#std-services" className="hover:text-[#175c7d] uppercase">{ui.navServices}</a>
+            <a href="#std-destinations" className="hover:text-[#175c7d] uppercase">{ui.navDestinations}</a>
+            <a href="#std-bureaux" className="hover:text-[#175c7d] uppercase">{ui.navOffices}</a>
+            <a href="#std-contact" className="hover:text-[#175c7d] uppercase">{ui.navContact}</a>
+            <Link to="/book-consultation" className="hover:text-[#175c7d] uppercase">{ui.consultation}</Link>
+            <LanguageSwitch lang={lang} onToggle={toggleLanguage} />
             <Link to="/" className="flex items-center gap-2 hover:text-[#175c7d] border-l pl-8">
-              <HomeIcon size={16} /> Back to Portal
+              <HomeIcon size={16} /> {ui.back}
             </Link>
           </div>
         </nav>
@@ -150,7 +233,7 @@ const AbroadZonePage = () => {
                 {t.stdHeroCTA}
               </button>
               <Link to="/book-consultation" className="bg-[#0b3853] border-2 border-white/40 px-10 py-6 rounded-[2rem] font-black text-xl hover:bg-[#0f4668] transition-all uppercase">
-                Book Free Consultation
+                {ui.consultation}
               </Link>
               <button onClick={() => document.getElementById('std-services')?.scrollIntoView({behavior: 'smooth'})} 
                 className="bg-transparent border-2 border-white/30 px-10 py-6 rounded-[2rem] font-black text-xl hover:bg-white/10 transition-all uppercase">
@@ -163,16 +246,16 @@ const AbroadZonePage = () => {
         {/* Stats */}
         <section className="py-16 px-8">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">International Offices</div></div>
-            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">Destinations</div></div>
-            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">Support Services</div></div>
-            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>24/7</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">Support</div></div>
+            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">{ui.stats[0]}</div></div>
+            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">{ui.stats[1]}</div></div>
+            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>7+</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">{ui.stats[2]}</div></div>
+            <div><div className="text-5xl font-black mb-2" style={{ color: '#175c7d' }}>24/7</div><div className="text-xs font-bold uppercase tracking-widest text-gray-400">{ui.stats[3]}</div></div>
           </div>
         </section>
 
         <section className="pb-16 px-8">
           <div className="max-w-6xl mx-auto rounded-[2rem] border border-slate-200 bg-white p-8">
-            <h2 className="text-2xl font-black text-slate-900">Popular Study Abroad Guides</h2>
+            <h2 className="text-2xl font-black text-slate-900">{ui.guides}</h2>
             <div className="mt-4 flex flex-wrap gap-3 text-sm font-bold text-[#175c7d]">
               <Link to="/etudier-en-france-depuis-tunisie">Étudier en France depuis la Tunisie</Link>
               <Link to="/etudier-en-allemagne-depuis-tunisie">Étudier en Allemagne depuis la Tunisie</Link>
@@ -226,21 +309,16 @@ const AbroadZonePage = () => {
                 </p>
                 <button onClick={() => document.getElementById('std-pricing')?.scrollIntoView({behavior: 'smooth'})} 
                   className="bg-[#175c7d] text-white px-8 py-4 rounded-2xl font-black uppercase hover:shadow-xl transition-all">
-                  See Pricing
+                  {ui.pricing}
                 </button>
               </div>
               <CheckCircle2 className="absolute top-0 right-0 p-10 opacity-5" size={300} style={{ color: '#175c7d' }} />
             </div>
             <div className="grid lg:grid-cols-3 gap-10">
               <div className="lg:col-span-2 space-y-10">
-                <h3 className="text-3xl font-black uppercase tracking-tight">Our 4-Step Process</h3>
+                <h3 className="text-3xl font-black uppercase tracking-tight">{ui.process}</h3>
                 <div className="space-y-6">
-                  {[
-                    { title: "Profile Analysis", desc: "Study your background and define professional goals." },
-                    { title: "Opportunity Search", desc: "Targeted offers from our partner companies." },
-                    { title: "Interview Preparation", desc: "Intensive coaching to help you stand out." },
-                    { title: "Contract Signing", desc: "Negotiation assistance and contract finalization." }
-                  ].map((step, i) => (
+                  {ui.processSteps.map((step, i) => (
                     <div key={i} className="flex gap-6 items-start">
                       <div className="w-12 h-12 text-white rounded-full flex items-center justify-center font-black shrink-0 shadow-lg" style={{ backgroundColor: '#175c7d' }}>
                         {i + 1}
@@ -256,18 +334,18 @@ const AbroadZonePage = () => {
               <div id="std-pricing" className="bg-gray-900 text-white p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl" />
                 <h3 className="text-2xl font-black mb-4 uppercase">{t.stdPackTitle}</h3>
-                <div className="text-6xl font-black mb-8 text-blue-400">{t.stdPackPrice}</div>
+                <div className="text-6xl font-black mb-8" style={{ color: '#175c7d' }}>{t.stdPackPrice}</div>
                 <div className="space-y-4 mb-10 text-sm font-medium text-gray-400 leading-relaxed">
-                  <p className="flex items-center gap-2"><CheckCircle2 size={16} className="text-blue-400" /> Personalized application follow-up</p>
-                  <p className="flex items-center gap-2"><CheckCircle2 size={16} className="text-blue-400" /> Access to 850+ company network</p>
-                  <p className="flex items-center gap-2"><CheckCircle2 size={16} className="text-blue-400" /> Administrative support</p>
+                  {ui.packPoints.map((point) => (
+                    <p key={point} className="flex items-center gap-2"><CheckCircle2 size={16} style={{ color: '#175c7d' }} /> {point}</p>
+                  ))}
                 </div>
                 <div className="bg-white/5 border border-white/10 p-5 rounded-2xl text-xs mb-8 opacity-80">
-                  <strong>Payment in 2 stages:</strong> 150€ upfront / 250€ after first salary.
+                  <strong>{ui.payment}</strong>
                 </div>
                 <a href="https://gateway.konnect.network/pay?payment_ref=693042fe7f6493f1d231e7d4" target="_blank" rel="noopener noreferrer" 
                    className="block w-full text-center py-5 rounded-2xl font-black uppercase text-white shadow-lg transition-all" style={{ backgroundColor: '#175c7d' }}>
-                  Sign Up Now
+                  {ui.signup}
                 </a>
               </div>
             </div>
@@ -316,7 +394,7 @@ const AbroadZonePage = () => {
           <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
             <div>
               <h2 className="text-5xl font-black mb-8 uppercase tracking-tight">{t.stdFormTitle}</h2>
-              <p className="text-xl text-gray-400 mb-12 font-medium">Ready to start your project? Fill out the form or send us a WhatsApp message.</p>
+              <p className="text-xl text-gray-400 mb-12 font-medium">{ui.contactText}</p>
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-blue-400"><Mail size={20} /></div>
@@ -333,9 +411,9 @@ const AbroadZonePage = () => {
               <input type="email" name="email" required placeholder={t.stdFormEmail} className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold" />
               <select name="service" required className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold appearance-none">
                 <option value="">{t.stdFormService}</option>
-                <option value="alternance">Work-study France</option>
-                <option value="logement">Housing</option>
-                <option value="etudes">Studies</option>
+                <option value="alternance">{ui.serviceOptions[0]}</option>
+                <option value="logement">{ui.serviceOptions[1]}</option>
+                <option value="etudes">{ui.serviceOptions[2]}</option>
                 <option value="ausbildung">Ausbildung</option>
               </select>
               <textarea name="message" rows="4" placeholder={t.stdFormMessage} className="w-full px-6 py-4 bg-gray-50 rounded-2xl border-none outline-none font-bold resize-none" />

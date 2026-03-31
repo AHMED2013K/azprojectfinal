@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Zap, CheckCircle2, BarChart3, Users, Globe2, ShieldCheck, LayoutDashboard, Mail, Phone, Home as HomeIcon, Clock, MessageSquare } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
 import { trackEvent } from '../utils/tracking';
+import LanguageSwitch from '../components/LanguageSwitch';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 
@@ -41,6 +43,41 @@ const translations = {
     savingsLabel1: "Internal Team Costs",
     savingsLabel2: "EduGrowth Managed Operations",
     footerText: "Your nearshore partner for scalable student recruitment and education BPO. Headquartered in Tunisia, serving the global Higher Ed community.",
+  },
+  fr: {
+    heroBadge: "HUB STRATÉGIQUE D'OUTSOURCING ÉDUCATIF",
+    heroTitle: "Développez vos admissions",
+    heroTitleSpan: "depuis la Tunisie.",
+    heroDesc: "L'alternative rentable au recrutement local. Déployez des experts éducatifs multilingues en 72 heures et réduisez jusqu'à 60% vos coûts opérationnels.",
+    heroCTA: 'Parler à nos experts',
+    stat1: 'Support multilingue',
+    stat2: 'Réduction des coûts',
+    stat3: 'Avantage nearshore',
+    stat4: 'Onboarding rapide',
+    serviceTitle: 'Partenaire opérationnel',
+    serviceTitleSpan: 'Higher Ed',
+    serviceDesc: "Nous agissons comme une extension fluide de votre université, école de langue ou agence éducative, en gérant tout le parcours étudiant du premier contact jusqu'à l'inscription.",
+    s1Title: 'Gestion des demandes étudiantes',
+    s1Desc: 'Qualification experte et temps de réponse rapides en anglais, français et arabe pour maximiser vos conversions.',
+    s2Title: 'Qualification globale des leads',
+    s2Desc: "Nos agents filtrent et nourrissent les leads afin que votre équipe admissions parle uniquement à des candidats qualifiés.",
+    s3Title: 'Admissions & conformité',
+    s3Desc: 'Support administratif complet, vérification documentaire et guidance visa pour les principales destinations.',
+    s4Title: 'Relations partenaires (B2B)',
+    s4Desc: "Gestion et développement de votre réseau d'agents éducatifs et de conseillers scolaires sur plusieurs marchés.",
+    s5Title: 'CRM & intégration tech',
+    s5Desc: 'Intégration poussée avec HubSpot, Salesforce et Zoho pour un reporting temps réel et des décisions pilotées par la donnée.',
+    s6Title: 'Recherche marché & stratégie',
+    s6Desc: 'Des insights data pour entrer et grandir sur de nouveaux territoires de recrutement étudiant avec confiance.',
+    pricingTitle: 'Modèle opérationnel flexible',
+    pricingFixed: 'Fixe standard',
+    pricingHybrid: 'Performance hybride',
+    perfModelTitle: "Modèle aligné sur la performance",
+    perfModelDesc: 'Réduisez vos coûts fixes mensuels jusqu’à 33% avec notre modèle hybride basé sur le succès. Nous gagnons quand vous inscrivez des étudiants.',
+    savingsTitle: 'Tunisie vs équipe interne (UE/RU)',
+    savingsLabel1: "Coûts de l'équipe interne",
+    savingsLabel2: 'Opérations gérées par EduGrowth',
+    footerText: "Votre partenaire nearshore pour un recrutement étudiant scalable et un BPO éducatif structuré, basé en Tunisie au service du Higher Ed mondial.",
   },
 };
 
@@ -111,9 +148,63 @@ const outsourcingStructuredData = {
 };
 
 const EduGrowthOutsourcingPage = () => {
+  const { lang, toggleLanguage } = useLanguage();
   const [isHybrid, setIsHybrid] = useState(false);
-  const [lang] = useState('en');
   const t = translations[lang];
+
+  const ui = lang === 'fr'
+    ? {
+        navServices: 'Services',
+        navPricing: 'Tarifs',
+        back: 'Retour au portail',
+        consultation: 'Consultation gratuite',
+        demo: 'Réserver une démo',
+        consultationButton: 'Réserver une consultation gratuite',
+        betterTitle: 'Mieux qu’un recrutement',
+        betterTitleAccent: 'interne.',
+        betterText:
+          "Déployer une équipe interne coûte bien plus que le salaire. Nous vous offrons jusqu'à 60% d'économie sur les frais fixes avec de meilleurs résultats.",
+        auditBadge: 'Audit B2B gratuit',
+        auditTitle: 'Recevez votre plan d’économie outsourcing',
+        auditText:
+          'Partagez votre volume mensuel de leads et votre organisation actuelle. Nous vous enverrons un plan de transition réaliste avec KPI opérationnels.',
+        auditPoints: ['1. Diagnostic des temps de réponse', '2. Estimation des coûts interne vs externalisé', '3. Scénario de lancement en 30 jours'],
+        name: 'Nom complet',
+        organization: "Nom de l'organisation",
+        email: 'Email professionnel',
+        volume: 'Volume mensuel de leads',
+        less: 'Moins de 300',
+        medium: '300 - 1000',
+        more: 'Plus de 1000',
+        need: 'Que souhaitez-vous externaliser en premier ?',
+        submit: 'Demander ma consultation gratuite',
+      }
+    : {
+        navServices: 'Services',
+        navPricing: 'Pricing',
+        back: 'Back to Portal',
+        consultation: 'Free Consultation',
+        demo: 'Book Demo',
+        consultationButton: 'Book a Free Consultation',
+        betterTitle: 'Better than',
+        betterTitleAccent: 'Internal Hiring.',
+        betterText:
+          'Deploying an internal team costs more than just salary. We offer a 60% saving on overhead with better results.',
+        auditBadge: 'Free B2B Audit',
+        auditTitle: 'Get Your Outsourcing Cost-Saving Plan',
+        auditText:
+          'Share your monthly lead volume and current team setup. We will send a realistic transition plan with operational KPIs.',
+        auditPoints: ['1. Response-time diagnosis', '2. In-house vs outsourced cost estimate', '3. 30-day launch scenario'],
+        name: 'Full name',
+        organization: 'Organization name',
+        email: 'Work email',
+        volume: 'Monthly lead volume',
+        less: 'Less than 300',
+        medium: '300 - 1000',
+        more: 'More than 1000',
+        need: 'What do you want to outsource first?',
+        submit: 'Request My Free Consultation',
+      };
 
   const openDemo = () => {
     // Modal or WA
@@ -149,13 +240,14 @@ const EduGrowthOutsourcingPage = () => {
         description="Externalisez vos admissions et opérations de recrutement étudiant en Tunisie. Réduisez vos coûts, déployez en quelques jours et scalez votre conversion."
         canonical="https://edugrowth.tn/outsourcing"
         structuredData={outsourcingStructuredData}
+        lang={lang}
       />
       <div className="min-h-screen bg-[#FDFDFF] font-sans text-gray-900 scroll-smooth">
         {/* Navbar */}
         <nav className="flex items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
           <div className="flex items-center gap-2 cursor-pointer group">
             <div className="w-10 h-10 bg-[#005A9C] rounded-xl flex items-center justify-center overflow-hidden shadow-sm group-hover:rotate-6">
-              <img src="/Simplified logo ful.png" alt="EduGrowth" className="w-full h-full object-contain" />
+              <img src="/Simplified logo ful.webp" alt="EduGrowth" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold leading-none uppercase">EduGrowth</span>
@@ -163,16 +255,17 @@ const EduGrowthOutsourcingPage = () => {
             </div>
           </div>
           <div className="hidden lg:flex items-center gap-10 text-sm font-semibold text-gray-500">
-            <a href="#services" className="hover:text-[#005A9C] uppercase">Services</a>
-            <a href="#pricing" className="hover:text-[#005A9C] uppercase">Pricing</a>
+            <a href="#services" className="hover:text-[#005A9C] uppercase">{ui.navServices}</a>
+            <a href="#pricing" className="hover:text-[#005A9C] uppercase">{ui.navPricing}</a>
+            <LanguageSwitch lang={lang} onToggle={toggleLanguage} />
             <Link to="/" className="flex items-center gap-2 hover:text-[#005A9C] border-l pl-8">
-              <HomeIcon size={16} /> Back to Portal
+              <HomeIcon size={16} /> {ui.back}
             </Link>
             <Link to="/book-consultation" className="hover:text-[#005A9C] uppercase">
-              Free Consultation
+              {ui.consultation}
             </Link>
             <button onClick={openDemo} className="bg-[#005A9C] text-white px-6 py-2.5 rounded-xl shadow-md">
-              Book Demo
+              {ui.demo}
             </button>
           </div>
         </nav>
@@ -197,7 +290,7 @@ const EduGrowthOutsourcingPage = () => {
                 {t.heroCTA}
               </button>
               <Link to="/book-consultation" className="rounded-[2rem] border-2 border-[#005A9C] px-10 py-6 text-xl font-black text-[#005A9C] transition hover:bg-blue-50">
-                Book a Free Consultation
+                {ui.consultationButton}
               </Link>
             </div>
           </div>
@@ -260,9 +353,9 @@ const EduGrowthOutsourcingPage = () => {
               <span className={`text-lg font-bold ${isHybrid ? 'text-[#2E8B57] scale-110' : 'text-gray-400'}`}>{t.pricingHybrid}</span>
             </div>
             <div className="grid lg:grid-cols-3 gap-10 items-end">
-              <PricingCard title="Starter" price="€1700" agents="1" leads="350" sla="24h" isHybrid={isHybrid} hybridPrice="" lang={lang} onSelect={openDemo} />
-              <PricingCard title="Growth Engine" price="€3000" agents="2" leads="800" sla="12h" isFeatured={true} isHybrid={isHybrid} hybridPrice="€2000" lang={lang} onSelect={openDemo} />
-              <PricingCard title="Elite Enterprise" price="Quote" agents="3-5+" leads="Unlimited" sla="4h" isHybrid={isHybrid} hybridPrice="€4000" lang={lang} onSelect={openDemo} />
+              <PricingCard title="Starter" price="€800" agents="1" leads="350" sla="24h" isHybrid={isHybrid} hybridPrice="" lang={lang} onSelect={openDemo} />
+              <PricingCard title="Growth Engine" price="€1500" agents="2" leads="800" sla="12h" isFeatured={true} isHybrid={isHybrid} hybridPrice="€1200" lang={lang} onSelect={openDemo} />
+              <PricingCard title="Elite Enterprise" price="€3000+" agents="3-5+" leads="Unlimited" sla="4h" isHybrid={isHybrid} hybridPrice="€2500" lang={lang} onSelect={openDemo} />
             </div>
             {isHybrid && (
               <div className="mt-20 max-w-2xl mx-auto bg-[#2E8B57]/5 border border-[#2E8B57]/20 p-8 rounded-[2rem] flex items-start gap-6 shadow-sm">
@@ -282,8 +375,8 @@ const EduGrowthOutsourcingPage = () => {
         <section className="py-32 px-8 bg-white">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-black mb-6 uppercase tracking-tight text-gray-900">Better than <span className="text-[#005A9C]">Internal Hiring.</span></h2>
-              <p className="text-gray-500 font-medium leading-relaxed mb-8">Deploying an internal team costs more than just salary. We offer a 60% saving on overhead with better results.</p>
+              <h2 className="text-4xl font-black mb-6 uppercase tracking-tight text-gray-900">{ui.betterTitle} <span className="text-[#005A9C]">{ui.betterTitleAccent}</span></h2>
+              <p className="text-gray-500 font-medium leading-relaxed mb-8">{ui.betterText}</p>
             </div>
             <div className="bg-gray-900 rounded-[2.5rem] p-10 text-white shadow-2xl">
               <h3 className="text-2xl font-black mb-8">{t.savingsTitle}</h3>
@@ -313,34 +406,32 @@ const EduGrowthOutsourcingPage = () => {
           <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
             <div>
               <p className="inline-flex rounded-full bg-white/10 px-4 py-1 text-xs font-black uppercase tracking-[0.2em] text-blue-200">
-                Free B2B Audit
+                {ui.auditBadge}
               </p>
               <h2 className="mt-6 text-4xl font-black uppercase tracking-tight">
-                Get Your Outsourcing Cost-Saving Plan
+                {ui.auditTitle}
               </h2>
               <p className="mt-5 max-w-xl text-slate-300">
-                Share your monthly lead volume and current team setup. We will send a realistic transition plan with operational KPIs.
+                {ui.auditText}
               </p>
               <div className="mt-8 space-y-3 text-sm text-slate-300">
-                <p>1. Response-time diagnosis</p>
-                <p>2. In-house vs outsourced cost estimate</p>
-                <p>3. 30-day launch scenario</p>
+                {ui.auditPoints.map((point) => <p key={point}>{point}</p>)}
               </div>
             </div>
             <form onSubmit={handleLeadSubmit} className="rounded-3xl bg-white p-8 text-slate-900 shadow-2xl">
               <div className="space-y-4">
-                <input name="name" required placeholder="Full name" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
-                <input name="organization" required placeholder="Organization name" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
-                <input name="email" type="email" required placeholder="Work email" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
+                <input name="name" required placeholder={ui.name} className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
+                <input name="organization" required placeholder={ui.organization} className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
+                <input name="email" type="email" required placeholder={ui.email} className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
                 <select name="volume" required className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]">
-                  <option value="">Monthly lead volume</option>
-                  <option value="<300">Less than 300</option>
-                  <option value="300-1000">300 - 1000</option>
-                  <option value="1000+">More than 1000</option>
+                  <option value="">{ui.volume}</option>
+                  <option value="<300">{ui.less}</option>
+                  <option value="300-1000">{ui.medium}</option>
+                  <option value="1000+">{ui.more}</option>
                 </select>
-                <textarea name="need" rows="4" required placeholder="What do you want to outsource first?" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
+                <textarea name="need" rows="4" required placeholder={ui.need} className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
                 <button type="submit" className="w-full rounded-xl bg-[#005A9C] px-4 py-3 font-black text-white transition hover:bg-blue-700">
-                  Request My Free Consultation
+                  {ui.submit}
                 </button>
               </div>
             </form>
@@ -353,7 +444,7 @@ const EduGrowthOutsourcingPage = () => {
             <div className="max-w-sm">
               <div className="flex items-center gap-3 mb-8 font-black text-2xl tracking-tighter">
                 <div className="w-10 h-10 bg-[#005A9C] rounded flex items-center justify-center overflow-hidden shadow-sm">
-                  <img src="/Simplified logo ful.png" alt="EduGrowth" className="w-full h-full object-contain" />
+                  <img src="/Simplified logo ful.webp" alt="EduGrowth" className="w-full h-full object-contain" />
                 </div>
                 EduGrowth
               </div>

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import SEOHelmet from '../components/SEOHelmet';
+import LanguageSwitch from '../components/LanguageSwitch';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const topics = [
   'Comment étudier en France depuis la Tunisie',
@@ -60,6 +62,8 @@ const topics = [
 ];
 
 export default function BlogHubPage() {
+  const { lang, toggleLanguage } = useLanguage();
+
   const published = [
     { slug: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Comment étudier en France depuis la Tunisie' },
     { slug: '/blog/cout-des-etudes-a-l-etranger', label: "Coût des études à l'étranger" },
@@ -69,18 +73,51 @@ export default function BlogHubPage() {
     { slug: '/blog/top-pays-pour-etudier', label: 'Top pays pour étudier à l’étranger' },
   ];
 
+  const copy = {
+    en: {
+      title: 'Study Abroad & Outsourcing Tunisia Blog | EduGrowth',
+      description: 'Practical guides for study abroad and admissions outsourcing from Tunisia.',
+      heading: 'Blog SEO Hub: Study Abroad + Outsourcing Tunisia',
+      intro:
+        'Editorial cluster designed to capture high-intent Tunisian search demand across student and B2B topics.',
+      published: 'Published Articles',
+      ideas: '50+ Article Ideas',
+      cta: 'Editorial CTA',
+      ctaText:
+        'Each article should include a CTA toward a free consultation, a WhatsApp link, and a related service page.',
+    },
+    fr: {
+      title: "Blog Étudier à l'étranger & Outsourcing Tunisie | EduGrowth",
+      description: "Guides pratiques pour étudier à l'étranger et externaliser admissions et recrutement depuis la Tunisie.",
+      heading: 'Blog SEO Hub : Études à l’étranger + Outsourcing Tunisie',
+      intro:
+        'Cluster éditorial pour capter les requêtes transactionnelles et informationnelles FR/EN du marché tunisien.',
+      published: 'Articles publiés',
+      ideas: "50+ idées d'articles",
+      cta: 'CTA éditorial',
+      ctaText:
+        'Chaque article doit inclure un CTA vers une consultation gratuite, un lien WhatsApp et une page service associée.',
+    },
+  }[lang];
+
   return (
     <>
       <SEOHelmet
-        title="Blog Étudier à l'Étranger & Outsourcing Tunisie | EduGrowth"
-        description="Guides pratiques pour étudier à l'étranger et externaliser admissions/recrutement depuis la Tunisie."
+        title={copy.title}
+        description={copy.description}
         canonical="https://edugrowth.tn/blog"
+        lang={lang}
       />
 
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
         <div className="mx-auto max-w-5xl rounded-3xl bg-white p-8 shadow-sm">
-          <h1 className="text-4xl font-black">Blog SEO Hub: Study Abroad + Outsourcing Tunisia</h1>
-          <p className="mt-3 text-slate-600">Cluster éditorial pour capter les requêtes transactionnelles et informationnelles FR/EN du marché tunisien.</p>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h1 className="text-4xl font-black" data-i18n="blog_hub.heading">{copy.heading}</h1>
+              <p className="mt-3 text-slate-600" data-i18n="blog_hub.intro">{copy.intro}</p>
+            </div>
+            <LanguageSwitch lang={lang} onToggle={toggleLanguage} />
+          </div>
 
           <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-[#005A9C]">
             <Link to="/abroad-zone">Abroad Zone</Link>
@@ -92,7 +129,7 @@ export default function BlogHubPage() {
           </div>
 
           <section className="mt-8">
-            <h2 className="text-2xl font-black">Articles publiés</h2>
+            <h2 className="text-2xl font-black">{copy.published}</h2>
             <div className="mt-4 flex flex-col gap-2 text-sm font-bold text-[#005A9C]">
               {published.map((post) => (
                 <Link key={post.slug} to={post.slug}>
@@ -103,7 +140,7 @@ export default function BlogHubPage() {
           </section>
 
           <section className="mt-10">
-            <h2 className="text-2xl font-black">50+ idées d'articles</h2>
+            <h2 className="text-2xl font-black">{copy.ideas}</h2>
             <ul className="mt-4 space-y-2 text-slate-700">
               {topics.map((topic) => (
                 <li key={topic}>• {topic}</li>
@@ -112,8 +149,8 @@ export default function BlogHubPage() {
           </section>
 
           <section className="mt-10 rounded-2xl bg-slate-950 p-6 text-white">
-            <h2 className="text-2xl font-black">CTA éditorial</h2>
-            <p className="mt-2 text-slate-300">Chaque article doit inclure un CTA vers consultation gratuite + lien WhatsApp + lien page service associée.</p>
+            <h2 className="text-2xl font-black">{copy.cta}</h2>
+            <p className="mt-2 text-slate-300">{copy.ctaText}</p>
           </section>
         </div>
       </div>

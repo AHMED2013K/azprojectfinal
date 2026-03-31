@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { CheckCircle2, Home, MessageCircle } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
+import LanguageSwitch from '../components/LanguageSwitch';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 
@@ -62,8 +64,42 @@ const countryData = {
 };
 
 export default function CountryGuidePage() {
+  const { lang, toggleLanguage } = useLanguage();
   const { pathname } = useLocation();
   const data = countryData[pathname] || countryData['/etudier-en-france-depuis-tunisie'];
+  const copy = lang === 'fr'
+    ? {
+        back: 'Retour à Abroad Zone',
+        advisor: 'Conseiller WhatsApp',
+        advisorText: `Bonjour EduGrowth, je veux étudier en ${data.country}.`,
+        badge: "Guide d'études à l'étranger",
+        tuition: 'Estimation des frais',
+        visa: 'Parcours visa',
+        timeline: 'Timeline recommandée',
+        supportTitle: "Besoin d'un accompagnement personnalisé ?",
+        supportText:
+          'Nos conseillers vous aident à choisir le bon programme, préparer le dossier et sécuriser votre visa.',
+        consultation: 'Réserver une consultation gratuite',
+        whatsappNow: 'WhatsApp maintenant',
+        supportWhatsapp: `Je souhaite un accompagnement pour étudier en ${data.country}.`,
+        related: 'Guides liés',
+      }
+    : {
+        back: 'Back to Abroad Zone',
+        advisor: 'WhatsApp Advisor',
+        advisorText: `Hello EduGrowth, I want to study in ${data.country}.`,
+        badge: 'Study Abroad Guide',
+        tuition: 'Tuition Estimate',
+        visa: 'Visa Path',
+        timeline: 'Recommended Timeline',
+        supportTitle: 'Need personalized guidance?',
+        supportText:
+          'Our advisors help you choose the right program, prepare your application, and secure your visa.',
+        consultation: 'Book Free Consultation',
+        whatsappNow: 'WhatsApp Now',
+        supportWhatsapp: `I want personalized guidance to study in ${data.country}.`,
+        related: 'Related Guides',
+      };
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -91,44 +127,48 @@ export default function CountryGuidePage() {
         description={data.description}
         canonical={`https://edugrowth.tn${pathname}`}
         structuredData={structuredData}
+        lang={lang}
       />
 
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-8 flex flex-wrap items-center gap-3">
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-3">
             <Link to="/abroad-zone" className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-100">
-              <Home size={16} /> Back to Abroad Zone
+              <Home size={16} /> {copy.back}
             </Link>
             <a
-              href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Bonjour EduGrowth, je veux étudier en ${data.country}.`)}`}
+              href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(copy.advisorText)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white hover:bg-emerald-700"
             >
-              <MessageCircle size={16} /> WhatsApp Advisor
+              <MessageCircle size={16} /> {copy.advisor}
             </a>
+            </div>
+            <LanguageSwitch lang={lang} onToggle={toggleLanguage} />
           </div>
 
           <article className="rounded-3xl bg-white p-8 shadow-sm">
             <p className="inline-flex rounded-full bg-blue-50 px-4 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#005A9C]">
-              Study Abroad Guide
+              {copy.badge}
             </p>
             <h1 className="mt-4 text-4xl font-black leading-tight">{data.h1}</h1>
             <p className="mt-4 text-slate-600">{data.description}</p>
 
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               <div className="rounded-2xl border border-slate-200 p-5">
-                <h2 className="text-sm font-black uppercase text-slate-500">Tuition Estimate</h2>
+                <h2 className="text-sm font-black uppercase text-slate-500">{copy.tuition}</h2>
                 <p className="mt-2 font-semibold">{data.tuition}</p>
               </div>
               <div className="rounded-2xl border border-slate-200 p-5">
-                <h2 className="text-sm font-black uppercase text-slate-500">Visa Path</h2>
+                <h2 className="text-sm font-black uppercase text-slate-500">{copy.visa}</h2>
                 <p className="mt-2 font-semibold">{data.visa}</p>
               </div>
             </div>
 
             <section className="mt-10">
-              <h2 className="text-2xl font-black">Timeline recommandé</h2>
+              <h2 className="text-2xl font-black">{copy.timeline}</h2>
               <div className="mt-4 space-y-3">
                 {data.timeline.map((step) => (
                   <p key={step} className="flex items-center gap-3 text-slate-700">
@@ -139,17 +179,17 @@ export default function CountryGuidePage() {
             </section>
 
             <section className="mt-10 rounded-2xl bg-slate-950 p-6 text-white">
-              <h2 className="text-2xl font-black">Besoin d'un accompagnement personnalisé ?</h2>
-              <p className="mt-2 text-slate-300">Nos conseillers vous aident à choisir le bon programme, préparer le dossier et sécuriser votre visa.</p>
+              <h2 className="text-2xl font-black">{copy.supportTitle}</h2>
+              <p className="mt-2 text-slate-300">{copy.supportText}</p>
               <div className="mt-5 flex flex-wrap gap-3">
-                <Link to="/book-consultation" className="rounded-xl bg-[#005A9C] px-5 py-3 text-sm font-black">Book Free Consultation</Link>
-                <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Je souhaite un accompagnement pour étudier en ${data.country}.`)}`} target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/30 px-5 py-3 text-sm font-black">WhatsApp Now</a>
+                <Link to="/book-consultation" className="rounded-xl bg-[#005A9C] px-5 py-3 text-sm font-black">{copy.consultation}</Link>
+                <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(copy.supportWhatsapp)}`} target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/30 px-5 py-3 text-sm font-black">{copy.whatsappNow}</a>
               </div>
             </section>
           </article>
 
           <section className="mt-8 rounded-3xl bg-white p-6 shadow-sm">
-            <h3 className="text-lg font-black">Guides liés</h3>
+            <h3 className="text-lg font-black">{copy.related}</h3>
             <div className="mt-3 flex flex-wrap gap-3 text-sm font-bold text-[#005A9C]">
               <Link to="/etudier-en-france-depuis-tunisie">Étudier en France</Link>
               <Link to="/etudier-en-allemagne-depuis-tunisie">Étudier en Allemagne</Link>

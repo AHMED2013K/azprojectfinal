@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const siteUrl = 'https://edugrowth.tn/';
 const defaultImage = 'https://edugrowth.tn/og-image.png';
@@ -11,10 +12,12 @@ const SEOHelmet = ({
   robotsContent = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   image = defaultImage,
   type = 'website',
-  lang = 'en',
+  lang = null,
   structuredData = null
 }) => {
-  const locale = lang === 'fr' ? 'fr_FR' : 'en_US';
+  const { lang: activeLanguage } = useLanguage();
+  const resolvedLanguage = lang || activeLanguage || 'en';
+  const locale = resolvedLanguage === 'fr' ? 'fr_FR' : 'en_US';
   const normalizedCanonical = canonical || siteUrl;
   const hreflangAlternates = alternates || [
     { href: siteUrl, hreflang: 'en' },
@@ -63,7 +66,7 @@ const SEOHelmet = ({
         "url": normalizedCanonical,
         "name": title,
         "description": description,
-        "inLanguage": lang,
+        "inLanguage": resolvedLanguage,
         "isPartOf": {
           "@id": `${siteUrl}#website`
         },
@@ -86,7 +89,7 @@ const SEOHelmet = ({
 
   return (
     <Helmet prioritizeSeoTags>
-      <html lang={lang} />
+      <html lang={resolvedLanguage} />
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={normalizedCanonical} />

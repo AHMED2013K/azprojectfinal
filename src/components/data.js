@@ -1,10 +1,15 @@
 export const destinationsData = [
   { name: 'France', img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=400&q=80', desc: 'Alternance, études, vie parisienne' },
-  { name: 'Germany', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=400&q=80', desc: 'Ausbildung, excellence technique' },
+  { name: 'Germany', img: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=400&q=80', desc: 'Ausbildung, excellence technique' },
   { name: 'Canada', img: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=400&q=80', desc: 'Études, immigration, nature' },
-  { name: 'UAE', img: 'https://images.unsplash.com/photo-1524498250077-390f9e378356?auto=format&fit=crop&w=400&q=80', desc: 'Luxury, business, opportunities' },
+  { name: 'UAE', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=80', desc: 'Luxury, business, opportunities' },
   { name: 'UK', img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=400&q=80', desc: 'History, education, finance' },
-  { name: 'Turkey', img: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=400&q=80', desc: 'Culture, studies, affordability' }
+  { name: 'Turkey', img: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=400&q=80', desc: 'Culture, studies, affordability' },
+  { name: 'North Cyprus', img: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=400&q=80', desc: 'Mediterranean education, EU standards' },
+  { name: 'Russia', img: 'https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=400&q=80', desc: 'Engineering excellence, affordable tuition' },
+  { name: 'Italy', img: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=400&q=80', desc: 'Art, fashion, culinary studies' },
+  { name: 'Morocco', img: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=400&q=80', desc: 'Arabic studies, cultural immersion' },
+  { name: 'USA', img: 'https://images.unsplash.com/photo-1496588152823-86ff7695e68f?auto=format&fit=crop&w=400&q=80', desc: 'World-class universities, innovation' }
 ];
 
 export const services = [

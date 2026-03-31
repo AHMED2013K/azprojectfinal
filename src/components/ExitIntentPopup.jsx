@@ -2,13 +2,37 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { trackEvent } from '../utils/tracking';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 const STORAGE_KEY = 'eg_exit_popup_seen';
 
 export default function ExitIntentPopup() {
+  const { lang } = useLanguage();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+
+  const copy = lang === 'fr'
+    ? {
+        title: 'Avant de partir',
+        description:
+          "Recevez gratuitement notre étude de cas et checklist d'action pour étudier à l'étranger ou développer vos admissions grâce à l'outsourcing en Tunisie.",
+        download: 'Télécharger le PDF gratuit',
+        consultation: 'Réserver une consultation gratuite',
+        whatsapp: 'Recevoir la checklist sur WhatsApp',
+        whatsappText: 'Bonjour EduGrowth, je veux la checklist et une consultation rapide.',
+        close: 'Fermer',
+      }
+    : {
+        title: 'Before You Leave',
+        description:
+          'Get our free case study and action checklist to study abroad or scale admissions with outsourcing in Tunisia.',
+        download: 'Download Free PDF',
+        consultation: 'Book Free Consultation',
+        whatsapp: 'WhatsApp Me The Checklist',
+        whatsappText: 'Hello EduGrowth, I want the checklist and a quick consultation.',
+        close: 'Close',
+      };
 
   useEffect(() => {
     if (pathname === '/book-consultation' || pathname === '/thank-you' || pathname.startsWith('/lp/')) return;
@@ -32,20 +56,17 @@ export default function ExitIntentPopup() {
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm">
       <div className="w-full max-w-lg rounded-3xl bg-white p-7 shadow-2xl">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl font-black text-slate-900">Before You Leave</h2>
+          <h2 className="text-2xl font-black text-slate-900" data-i18n="exit_popup.title">{copy.title}</h2>
           <button
             onClick={() => setOpen(false)}
             className="rounded-full p-2 text-slate-500 hover:bg-slate-100"
-            aria-label="Close"
+            aria-label={copy.close}
           >
             <X size={18} />
           </button>
         </div>
 
-        <p className="text-sm leading-7 text-slate-600">
-          Get our free case study + action checklist to study abroad or scale admissions with
-          outsourcing in Tunisia.
-        </p>
+        <p className="text-sm leading-7 text-slate-600" data-i18n="exit_popup.description">{copy.description}</p>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <a
@@ -57,7 +78,7 @@ export default function ExitIntentPopup() {
             }
             className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-black text-white hover:bg-black"
           >
-            Download Free PDF
+            {copy.download}
           </a>
           <Link
             to="/book-consultation"
@@ -66,20 +87,20 @@ export default function ExitIntentPopup() {
             }
             className="inline-flex items-center justify-center rounded-xl bg-[#005A9C] px-4 py-3 text-sm font-black text-white hover:bg-blue-700"
           >
-            Book Free Consultation
+            {copy.consultation}
           </Link>
         </div>
 
         <a
           href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-            'Hello EduGrowth, I want the checklist and a quick consultation.'
+            copy.whatsappText
           )}`}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent('cta_click', { cta_type: 'exit_popup_whatsapp', page: pathname })}
           className="mt-3 inline-flex w-full items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-black text-emerald-700 hover:bg-emerald-100"
         >
-          WhatsApp Me The Checklist
+          {copy.whatsapp}
         </a>
       </div>
     </div>
