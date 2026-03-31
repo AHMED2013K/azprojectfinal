@@ -3,11 +3,20 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from the root directory
+app.use(express.static(path.join(__dirname, '..')));
+
+// API routes
 app.post('/api/contact', async (req, res) => {
   const { name, email, organization, message } = req.body;
   if (!name || !email || !organization || !message) {
