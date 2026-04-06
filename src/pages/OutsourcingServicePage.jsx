@@ -1,8 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
-import { CheckCircle2, Home, MessageCircle } from 'lucide-react';
+import { CheckCircle2, Home, MessageCircle, Star } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
 import LanguageSwitch from '../components/LanguageSwitch';
 import { useLanguage } from '../context/LanguageContext.jsx';
+import { b2bOutsourcingTestimonials } from '../components/TestimonialsData.js';
 
 const WA_NUMBER = '21656590703';
 
@@ -98,6 +99,38 @@ export default function OutsourcingServicePage() {
             <div className="mt-4 flex flex-wrap gap-3">
               <Link to="/book-consultation" className="rounded-xl bg-[#005A9C] px-5 py-3 text-sm font-black">{copy.consultation}</Link>
               <Link to="/outsourcing#consultation" className="rounded-xl border border-white/30 px-5 py-3 text-sm font-black">{copy.leadForm}</Link>
+            </div>
+          </section>
+
+          {/* Testimonials Section */}
+          <section className="mt-12 py-12 bg-gray-50 rounded-2xl">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+                What Real CEOs Say About Our Outsourcing
+              </h2>
+              <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">
+                Trusted by global businesses who switched to Tunisia for superior results.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {b2bOutsourcingTestimonials.slice(0, 6).map((testimonial, index) => (
+                <div key={index} className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+                  <div className="flex items-center mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-6 italic text-lg">"{testimonial.content}"</p>
+                  <div className="flex items-center">
+                    <img src={testimonial.avatar} alt={testimonial.name} className="w-12 h-12 rounded-2xl mr-4" />
+                    <div>
+                      <div className="font-bold text-gray-900 text-lg">{testimonial.name}</div>
+                      <div className="text-sm text-gray-600">{testimonial.role}, {testimonial.company}</div>
+                      <div className="text-xs font-bold text-green-600 mt-1">{testimonial.result}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
 

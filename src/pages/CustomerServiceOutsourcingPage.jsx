@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, CheckCircle2, MessageSquare, Home as HomeIcon, Globe2, Zap, Mail, Phone, ArrowRight, Users, Building2, Clock, DollarSign, MapPin, Headphones, Shield, BarChart3 } from 'lucide-react';
+import { ChevronRight, CheckCircle2, MessageSquare, Home as HomeIcon, Globe2, Zap, Mail, Phone, ArrowRight, Users, Building2, Clock, DollarSign, MapPin, Headphones, Shield, BarChart3, Star } from 'lucide-react';
+import { b2bOutsourcingTestimonials } from '../components/TestimonialsData.js';
 import SEOHelmet from '../components/SEOHelmet';
 import { trackEvent } from '../utils/tracking';
 import LanguageSwitch from '../components/LanguageSwitch';
@@ -245,6 +246,38 @@ const CustomerServiceOutsourcingPage = () => {
                 <h3 className="font-bold text-xl mb-2">{t.service4Title}</h3>
                 <p className="text-gray-600">{t.service4Desc}</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6">
+                What Real CEOs Say About Our Customer Service Outsourcing
+              </h2>
+              <p className="text-xl text-gray-500 font-medium max-w-2xl mx-auto">Trusted by global businesses who switched to Tunisia for superior support.</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {b2bOutsourcingTestimonials.slice(0, 6).map((testimonial, index) => (
+                <div key={index} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+                  <div className="flex items-center mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-6 italic text-lg">"{testimonial.content}"</p>
+                  <div className="flex items-center">
+                    <img src={testimonial.avatar} alt={testimonial.name} className="w-12 h-12 rounded-2xl mr-4" />
+                    <div>
+                      <div className="font-bold text-gray-900 text-lg">{testimonial.name}</div>
+                      <div className="text-sm text-gray-600">{testimonial.role}, {testimonial.company}</div>
+                      <div className="text-xs font-bold text-green-600 mt-1">{testimonial.result}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

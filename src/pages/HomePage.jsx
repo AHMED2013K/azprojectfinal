@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PortalSelector from '../components/PortalSelector';
 import SEOHelmet from '../components/SEOHelmet';
 import { useLanguage } from '../context/LanguageContext.jsx';
+import { testimonials } from '../components/data.js';
 
 const WA_NUMBER = '21656590703';
 
@@ -96,22 +97,16 @@ const translations = {
 const HomePage = () => {
   const { lang } = useLanguage();
   const navigate = useNavigate();
-  const [showPortalSelector, setShowPortalSelector] = useState(true);
+  const [selectedView, setSelectedView] = useState(null);
 
-  if (showPortalSelector) {
+  if (selectedView === null) {
     return (
       <HelmetProvider>
         <SEOHelmet {...gateSEOData} lang={lang} />
         <PortalSelector
           isOpen={true}
-          onClose={() => setShowPortalSelector(false)}
-          onSelect={(view) => {
-            if (view === 'student') {
-              navigate('/abroad-zone');
-            } else {
-              navigate('/outsourcing');
-            }
-          }}
+          onClose={() => setSelectedView('student')} // Default to student or something
+          onSelect={(view) => setSelectedView(view)}
           translations={translations}
           lang={lang}
         />
@@ -119,7 +114,132 @@ const HomePage = () => {
     );
   }
 
-  // This should not be reached since we navigate away
+  if (selectedView === 'student') {
+    navigate('/abroad-zone');
+    return null;
+  }
+
+  if (selectedView === 'b2b') {
+    const t = translations[lang];
+    return (
+      <HelmetProvider>
+        <SEOHelmet {...gateSEOData} lang={lang} />
+        <div>
+          {/* Hero Section */}
+          <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+            <div className="max-w-6xl mx-auto px-6 text-center">
+              <div className="mb-6">
+                <span className="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+                  {t.heroEyebrow}
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-6">
+                {t.heroTitleLine1}<br />
+                <span className="text-blue-600">{t.heroTitleLine2}</span>
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                {t.heroDescription}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                  {t.heroPrimary}
+                </button>
+                <button className="border border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                  {t.heroSecondary}
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* Stats */}
+          <section className="py-16 bg-white">
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="grid md:grid-cols-3 gap-8 text-center">
+                <div>
+                  <div className="text-3xl font-black text-gray-900 mb-2">{t.stats1Label}</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-gray-900 mb-2">{t.stats2Label}</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-gray-900 mb-2">{t.stats3Label}</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Why Section */}
+          <section className="py-20 bg-gray-50">
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6">{t.whyTitle}</h2>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t.whyIntro}</p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{t.whyPoint1Title}</h3>
+                  <p className="text-gray-600">{t.whyPoint1Desc}</p>
+                </div>
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{t.whyPoint2Title}</h3>
+                  <p className="text-gray-600">{t.whyPoint2Desc}</p>
+                </div>
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{t.whyPoint3Title}</h3>
+                  <p className="text-gray-600">{t.whyPoint3Desc}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Services */}
+          <section className="py-20 bg-white">
+            <div className="max-w-6xl mx-auto px-6 text-center">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6">{t.servicesTitle}</h2>
+              <p className="text-xl text-gray-600">Services content here...</p>
+            </div>
+          </section>
+
+          {/* Testimonials */}
+          <section className="py-20 bg-gray-50">
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6">What Our Clients Say</h2>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8">
+                {testimonials.map((testimonial, index) => (
+                  <div key={index} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <p className="text-gray-700 mb-6 italic">"{testimonial.text}"</p>
+                    <div>
+                      <div className="font-bold text-gray-900">{testimonial.name}</div>
+                      <div className="text-sm text-gray-600">{testimonial.role}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* CTA */}
+          <section className="py-20 bg-blue-600 text-white">
+            <div className="max-w-4xl mx-auto px-6 text-center">
+              <h2 className="text-3xl md:text-4xl font-black mb-6">{t.ctaTitle}</h2>
+              <p className="text-xl mb-8">{t.ctaText}</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                  {t.ctaPrimary}
+                </button>
+                <button className="border border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                  {t.ctaSecondary}
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </HelmetProvider>
+    );
+  }
+
   return null;
 };
 

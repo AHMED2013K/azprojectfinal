@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Zap, CheckCircle2, BarChart3, Users, Globe2, ShieldCheck, LayoutDashboard, Mail, Phone, Home as HomeIcon, Clock, MessageSquare } from 'lucide-react';
+import { b2bOutsourcingTestimonials } from '../components/TestimonialsData.js';
 import SEOHelmet from '../components/SEOHelmet';
 import { trackEvent } from '../utils/tracking';
 import LanguageSwitch from '../components/LanguageSwitch';
@@ -233,6 +234,8 @@ const EduGrowthOutsourcingPage = () => {
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
+  const b2bTestimonials = b2bOutsourcingTestimonials;
+
   return (
     <>
       <SEOHelmet 
@@ -398,6 +401,35 @@ const EduGrowthOutsourcingPage = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+<section id="testimonials" className="min-h-screen py-32 px-8 bg-gray-50 scroll-mt-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-20">
+              <h2 className="text-5xl font-black mb-6 uppercase tracking-tight">Client Testimonials</h2>
+              <p className="text-xl text-gray-500 font-medium max-w-2xl mx-auto">See how we've helped agencies and companies scale their operations with high-performing outsourced teams.</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {b2bTestimonials.map((t, i) => (
+                <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-center gap-4 mb-8">
+                    <img src={t.avatar} alt={t.name} className="w-14 h-14 rounded-2xl object-cover shadow-sm" />
+                    <div>
+                      <h3 className="font-black text-gray-900 leading-tight">{t.name}</h3>
+                      <p className="text-xs font-bold text-[#005A9C] uppercase tracking-widest">{t.role} • {t.industry}</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 italic mb-8 leading-relaxed">"{t.content}"</p>
+                  <div className="mt-auto pt-6 border-t border-gray-50">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-[#2E8B57] rounded-xl text-xs font-black uppercase tracking-widest">
+                      <CheckCircle2 size={14} /> {t.result}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

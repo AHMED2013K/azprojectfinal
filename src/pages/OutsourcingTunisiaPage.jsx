@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, CheckCircle2, MessageSquare, Home as HomeIcon, Globe2, Zap, Mail, Phone, ArrowRight, Calculator, Users, Building2, Clock, DollarSign, MapPin, Headphones, Shield, BarChart3, Star, Award, TrendingUp, Target, CheckCircle, X } from 'lucide-react';
+import { b2bOutsourcingTestimonials } from '../components/TestimonialsData.js';
 import SEOHelmet from '../components/SEOHelmet';
 import { trackEvent } from '../utils/tracking';
 import LanguageSwitch from '../components/LanguageSwitch';
@@ -93,32 +94,7 @@ const outsourcingTunisiaStructuredData = {
   ]
 };
 
-const testimonials = [
-  {
-    name: "Marie Dubois",
-    company: "French Education Agency",
-    role: "Operations Director",
-    content: "EduGrowth transformed our admissions process. Their Tunisia-based team handles 200+ inquiries daily with perfect French communication. We've reduced response time by 80% while cutting costs by 55%.",
-    rating: 5,
-    avatar: "🇫🇷"
-  },
-  {
-    name: "Ahmed Al-Rashid",
-    company: "UAE Business Solutions",
-    role: "CEO",
-    content: "The cultural alignment and language skills are exceptional. Our Middle Eastern clients feel understood, and the European timezone means real-time support. ROI exceeded our expectations.",
-    rating: 5,
-    avatar: "🇦🇪"
-  },
-  {
-    name: "John Mitchell",
-    company: "UK Tech Startup",
-    role: "Customer Success Manager",
-    content: "Quality is superior to Indian providers we've used before. English fluency is excellent, and the attention to detail in customer service is remarkable. Highly recommend for B2B support.",
-    rating: 5,
-    avatar: "🇬🇧"
-  }
-];
+const testimonials = b2bOutsourcingTestimonials;
 
 const caseStudies = [
   {

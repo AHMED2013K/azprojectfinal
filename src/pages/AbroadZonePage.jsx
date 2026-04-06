@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, CheckCircle2, MessageSquare, Home as HomeIcon, Globe2, Zap, Mail, Phone, ArrowRight, GraduationCap, Building2 } from 'lucide-react';
+import { ChevronRight, CheckCircle2, MessageSquare, Home as HomeIcon, Globe2, Zap, Mail, Phone, ArrowRight, GraduationCap, Building2, Star } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
 import { destinationsData } from '../components/data.js'; // Reuse/add from current
+import { studentAbroadTestimonials } from '../components/TestimonialsData.js';
 import { trackEvent } from '../utils/tracking';
 import LanguageSwitch from '../components/LanguageSwitch';
 import { useLanguage } from '../context/LanguageContext.jsx';
@@ -178,6 +179,8 @@ const AbroadZonePage = () => {
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
+  const studentTestimonials = studentAbroadTestimonials;
+
   return (
     <>
       <SEOHelmet 
@@ -189,16 +192,19 @@ const AbroadZonePage = () => {
       />
       <div className="min-h-screen bg-white font-sans scroll-smooth text-gray-900">
         {/* Navbar - copy from past, adapt */}
-        <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b px-8 py-5 flex items-center justify-between">
+        <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b px-4 py-4 sm:px-8 sm:py-5 flex items-center justify-between">
           {/* Logo & title */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-sm" style={{backgroundColor: '#175c7d'}}>
-              <picture>
-                <source srcSet="/abraod.webp" type="image/webp" />
-                <img src="/abraod.jpeg" alt="Abroad Zone" className="w-full h-full object-contain" />
-              </picture>
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="h-10 w-10 flex-shrink-0 rounded-xl overflow-hidden flex items-center justify-center shadow-sm ring-1 ring-slate-200" style={{ backgroundColor: '#175c7d' }}>
+              <img
+                src="/abroad.webp"
+                alt="Abroad Zone"
+                width="40"
+                height="40"
+                className="block h-10 w-10 scale-[1.8] object-cover"
+              />
             </div>
-            <span className="text-2xl font-black tracking-tighter uppercase" style={{color: '#175c7d'}}>Abroad Zone</span>
+            <span className="truncate text-lg font-black tracking-tight uppercase sm:text-2xl" style={{color: '#175c7d'}}>Abroad Zone</span>
           </div>
           {/* Links */}
           <div className="hidden lg:flex items-center gap-10 text-sm font-bold text-gray-500">
@@ -389,6 +395,35 @@ const AbroadZonePage = () => {
           </div>
         </section>
 
+        {/* Testimonials */}
+<section id="testimonials" className="min-h-screen py-32 px-8 bg-gray-50 scroll-mt-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-black mb-6 uppercase tracking-tight">Student Testimonials</h2>
+              <p className="text-xl text-gray-500 font-medium max-w-2xl mx-auto">Real stories from Tunisian students who successfully studied abroad with our guidance.</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-10">
+              {studentTestimonials.map((testimonial, index) => (
+                <div key={index} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                  <div className="flex items-center mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-6 italic text-lg">"{testimonial.content}"</p>
+                  <div className="flex items-center">
+                    <div className="text-2xl mr-3">{testimonial.avatar}</div>
+                    <div>
+                      <div className="font-bold text-gray-900 text-lg">{testimonial.name}</div>
+                      <div className="text-sm text-gray-600">{testimonial.program} in {testimonial.destination}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Contact */}
         <section id="std-contact" className="py-32 px-8 bg-gray-900 text-white">
           <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
@@ -433,7 +468,7 @@ const AbroadZonePage = () => {
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="flex items-center gap-3 font-black text-2xl tracking-tighter">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#175c7d' }}>
-                <img src="/abraod.jpeg" alt="Abroad Zone" className="w-full h-full object-contain" />
+                <img src="/abroad.webp" alt="Abroad Zone" className="w-full h-full object-contain" />
               </div>
               Abroad Zone
             </div>

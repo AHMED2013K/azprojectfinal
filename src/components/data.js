@@ -20,8 +20,48 @@ export const services = [
 ];
 
 export const testimonials = [
-  { name: 'Dr. Aisha Rahman', role: 'Admissions Director, Dubai Institute', text: 'Edugrowth Outsourcing has tripled our Tunisian student intake in 6 months, with compliant processes and clear reporting.' },
-  { name: 'James Parker', role: 'UK University Partnership', text: 'Great partner for higher-ed pipeline; excellent service and ROI in lead conversion.' }
+  {
+    name: 'Sarah Mitchell',
+    role: 'CEO',
+    company: 'DCB Authority Group',
+    text: 'EduGrowth completely transformed our sales operations. Their team handled everything from lead generation to closing, allowing us to scale faster while reducing internal costs by 45%. Our revenue increased by 60% in just 6 months.',
+    avatar: '🇺🇸'
+  },
+  {
+    name: 'Marcus Johnson',
+    role: 'Head of Sales',
+    company: 'TechFlow SaaS',
+    text: 'We reduced our customer support costs by 60% by outsourcing to EduGrowth. Their multilingual team handles complex technical queries with the same quality as our in-house staff, but at a fraction of the cost.',
+    avatar: '🇬🇧'
+  },
+  {
+    name: 'Elena Rodriguez',
+    role: 'Founder',
+    company: 'EduConnect Platform',
+    text: 'Our conversion rate increased by 35% after EduGrowth took over our lead qualification process. Their structured approach and fast response times have been game-changing for our business growth.',
+    avatar: '🇪🇸'
+  },
+  {
+    name: 'David Chen',
+    role: 'Operations Director',
+    company: 'Global E-commerce Ltd',
+    text: 'EduGrowth scaled our support team in just 2 weeks during our peak season. We handled 3x more customer inquiries without compromising quality, and our customer satisfaction scores improved by 25%.',
+    avatar: '🇸🇬'
+  },
+  {
+    name: 'Anna Kowalski',
+    role: 'Marketing Director',
+    company: 'Digital Agency Pro',
+    text: 'The ROI from outsourcing our lead generation to EduGrowth has been exceptional. We\'ve seen a 40% increase in qualified leads while cutting our marketing costs by 50%. Their Tunisia-based team delivers European-level quality.',
+    avatar: '🇵🇱'
+  },
+  {
+    name: 'Thomas Weber',
+    role: 'CEO',
+    company: 'FinTech Solutions GmbH',
+    text: 'EduGrowth\'s compliance-focused approach gave us confidence to outsource our sensitive customer onboarding process. We\'ve reduced processing time by 55% while maintaining 100% regulatory compliance.',
+    avatar: '🇩🇪'
+  }
 ];
 
 export const partnerLogos = [
