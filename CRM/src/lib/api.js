@@ -1,6 +1,9 @@
+export const API_URL = (import.meta.env.VITE_API_URL || 'https://edugrowth-crm-api.onrender.com').replace(/\/$/, '');
+
 export async function apiRequest(path, { method = 'GET', body, token, headers = {}, retryOnAuthError = true } = {}) {
   const csrfToken = sessionStorage.getItem('crm_csrf_token') || '';
-  const response = await fetch(path, {
+  const requestUrl = path.startsWith('http') ? path : `${API_URL}${path}`;
+  const response = await fetch(requestUrl, {
     method,
     credentials: 'include',
     headers: {
@@ -13,7 +16,7 @@ export async function apiRequest(path, { method = 'GET', body, token, headers = 
   });
 
   if (response.status === 401 && retryOnAuthError && !path.includes('/api/auth/refresh')) {
-    const refreshResponse = await fetch('/api/auth/refresh', {
+    const refreshResponse = await fetch(`${API_URL}/api/auth/refresh`, {
       method: 'POST',
       credentials: 'include',
     });

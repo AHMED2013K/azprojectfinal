@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Download, Link2, Lock, MessageSquareMore, Search, Upload } from 'lucide-react';
 import { apiRequest } from '../lib/api';
+import { API_URL } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { formatDate, getLeadRowTone, getLeadStatusTone } from '../lib/format';
@@ -166,7 +167,7 @@ export default function Leads() {
   }
 
   async function handleExport() {
-    const response = await fetch('/api/leads/export', {
+    const response = await fetch(`${API_URL}/api/leads/export`, {
       credentials: 'include',
       headers: {
         Authorization: `Bearer ${token}`,
