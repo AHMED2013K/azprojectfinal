@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+.github
+CRM/node_modules
+CRM/dist
+coverage
+npm-debug.log*
+*.local
+*.env

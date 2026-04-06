@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crm-api
+  namespace: edugrowth
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: crm-api
+  template:
+    metadata:
+      labels:
+        app: crm-api
+    spec:
+      containers:
+        - name: crm-api
+          image: ghcr.io/your-org/edugrowth-crm-api:latest
+          ports:
+            - containerPort: 4000
+          envFrom:
+            - secretRef:
+                name: crm-api-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crm-api
+  namespace: edugrowth
+spec:
+  selector:
+    app: crm-api
+  ports:
+    - port: 4000
+      targetPort: 4000
