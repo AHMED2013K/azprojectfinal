@@ -9,7 +9,7 @@ export function getCsrfCookieOptions() {
   const env = getEnv();
   return {
     httpOnly: false,
-    sameSite: 'strict',
+    sameSite: env.COOKIE_SAME_SITE,
     secure: env.NODE_ENV === 'production',
     path: '/',
     maxAge: 1000 * 60 * 60 * 24 * 14,

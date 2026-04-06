@@ -4,13 +4,15 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).optional().default('development'),
   PORT: z.coerce.number().int().positive().optional().default(4000),
   CLIENT_URL: z.string().trim().min(1).optional().default('http://localhost:5173'),
-  MONGODB_URI: z.string().trim().min(1, 'MONGODB_URI is required'),
+  MONGODB_URI: z.string().trim().optional().default(''),
+  MONGO_URI: z.string().trim().optional().default(''),
   JWT_SECRET: z.string().trim().min(32, 'JWT_SECRET must be at least 32 characters long').optional(),
   JWT_EXPIRES_IN: z.string().trim().min(2).optional().default('15m'),
   JWT_REFRESH_EXPIRES_IN: z.string().trim().min(2).optional().default('7d'),
   ALLOWED_ORIGINS: z.string().trim().optional().default(''),
   PUBLIC_FORM_ALLOWED_ORIGINS: z.string().trim().optional().default(''),
   CRM_ALLOWED_IPS: z.string().trim().optional().default(''),
+  COOKIE_SAME_SITE: z.enum(['strict', 'lax', 'none']).optional().default('strict'),
   TRUST_PROXY: z.enum(['true', 'false']).optional().default('false'),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).optional().default('info'),
   SEED_ADMIN_NAME: z.string().trim().optional().default('EduGrowth Admin'),
@@ -37,6 +39,11 @@ export function getEnv() {
   const parsed = envSchema.parse(process.env);
   const generatedDevSecret = 'development-only-secret-change-me-1234567890';
   const jwtSecret = parsed.JWT_SECRET || generatedDevSecret;
+  const mongoUri = parsed.MONGODB_URI || parsed.MONGO_URI;
+
+  if (!mongoUri) {
+    throw new Error('MONGODB_URI or MONGO_URI is required');
+  }
 
   if (parsed.NODE_ENV === 'production') {
     if (!parsed.JWT_SECRET || parsed.JWT_SECRET === generatedDevSecret) {
@@ -49,6 +56,7 @@ export function getEnv() {
 
   cachedEnv = {
     ...parsed,
+    MONGODB_URI: mongoUri,
     JWT_SECRET: jwtSecret,
     ALLOWED_ORIGINS_LIST: Array.from(new Set([
       parsed.CLIENT_URL,
