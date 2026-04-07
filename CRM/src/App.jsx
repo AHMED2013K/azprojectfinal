@@ -13,6 +13,7 @@ const Pipeline = lazy(() => import('./pages/Pipeline'));
 const Chat = lazy(() => import('./pages/Chat'));
 const Tracking = lazy(() => import('./pages/Tracking'));
 const Team = lazy(() => import('./pages/Team'));
+const Backups = lazy(() => import('./pages/Backups'));
 const Settings = lazy(() => import('./pages/Settings'));
 const PublicLeadForm = lazy(() => import('./pages/PublicLeadForm'));
 const LinkedInApplicationForm = lazy(() => import('./pages/LinkedInApplicationForm'));
@@ -47,6 +48,7 @@ export default function App() {
                   <Route path="/chat" element={<Chat />} />
                   <Route path="/tracking" element={<Tracking />} />
                   <Route path="/team" element={<ProtectedRoute roles={['admin']}><Team /></ProtectedRoute>} />
+                  <Route path="/backups" element={<ProtectedRoute roles={['admin']}><Backups /></ProtectedRoute>} />
                   <Route path="/settings" element={<Settings />} />
                 </Route>
               </Routes>

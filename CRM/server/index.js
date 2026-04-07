@@ -20,6 +20,7 @@ import announcementRoutes from './src/routes/announcements.routes.js';
 import inviteRoutes from './src/routes/invites.routes.js';
 import chatRoutes from './src/routes/chat.routes.js';
 import notificationRoutes from './src/routes/notifications.routes.js';
+import backupRoutes from './src/routes/backups.routes.js';
 import { getEnv } from './src/config/env.js';
 import { createIpAllowlistMiddleware, createOriginChecker } from './src/utils/security.js';
 import { requestLogger } from './src/utils/logger.js';
@@ -108,13 +109,18 @@ app.use('/api/tracking', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALL
 app.use('/api/announcements', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, announcementRoutes);
 app.use('/api/chat', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, chatRoutes);
 app.use('/api/notifications', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, notificationRoutes);
+app.use('/api/backups', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, backupRoutes);
 
 app.use(errorHandler);
 
 io.use(socketAuthMiddleware);
 attachSocketHandlers(io);
 
-const port = env.PORT;
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 async function bootstrap() {
   await connectDatabase();

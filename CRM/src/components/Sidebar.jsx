@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield } from 'lucide-react';
+import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield, Database } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
@@ -18,6 +18,7 @@ export default function Sidebar() {
 
   if (user?.role === 'admin') {
     navItems.splice(5, 0, { to: '/team', icon: Shield, label: 'Team' });
+    navItems.splice(6, 0, { to: '/backups', icon: Database, label: 'Backups' });
   }
 
   return (
