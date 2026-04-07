@@ -320,7 +320,12 @@ export default function HomePage() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <LanguageSwitch lang={lang} onToggle={toggleLanguage} />
+              <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-2 py-2 shadow-sm">
+                <span className="hidden text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 sm:inline">
+                  {lang === 'en' ? 'Version FR' : 'English'}
+                </span>
+                <LanguageSwitch lang={lang} onToggle={toggleLanguage} className="border-0 bg-transparent px-3 py-1.5 shadow-none hover:bg-blue-50" />
+              </div>
               <a
                 href={applyUrl}
                 onClick={() => trackEvent('cta_click', { cta_type: 'homepage_nav_apply', page: '/' })}

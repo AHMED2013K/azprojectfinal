@@ -1,8 +1,48 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
-const PortalSelector = ({ isOpen, onClose, onSelect, translations, lang }) => {
+const portalCopy = {
+  en: {
+    welcome: 'Welcome to EduGrowth',
+    language: 'FR',
+    studentRole: 'I am a student',
+    studentDescription:
+      'Discover international study opportunities, personalized guidance, and expert support for your educational journey abroad.',
+    studentFeatures: ['Study destination guides', 'Application assistance', 'WhatsApp support'],
+    studentCta: 'Start Your Journey',
+    studentAction: 'Explore',
+    partnerRole: 'I am a partner',
+    partnerTitle: 'B2B Partnership',
+    partnerDescription:
+      'Scale your admissions operations with professional outsourcing services, multilingual support, and structured workflows.',
+    partnerFeatures: ['Lead qualification & CRM', 'Multilingual conversion', 'Admissions support'],
+    partnerCta: 'Scale Your Operations',
+    partnerAction: 'Enter Platform',
+    footer: 'Choose the option that best fits your needs. You can switch between them anytime.',
+  },
+  fr: {
+    welcome: 'Bienvenue chez EduGrowth',
+    language: 'EN',
+    studentRole: 'Je suis étudiant(e)',
+    studentDescription:
+      "Découvrez des opportunités d'études à l'international, un accompagnement personnalisé et un support expert pour votre projet.",
+    studentFeatures: ["Guides destinations", 'Aide à la candidature', 'Support WhatsApp'],
+    studentCta: 'Commencer mon projet',
+    studentAction: 'Explorer',
+    partnerRole: 'Je suis partenaire',
+    partnerTitle: 'Partenariat B2B',
+    partnerDescription:
+      "Développez vos opérations admissions avec des services d'outsourcing structurés, multilingues et orientés performance.",
+    partnerFeatures: ['Qualification des leads & CRM', 'Conversion multilingue', 'Support admissions'],
+    partnerCta: 'Développer mes opérations',
+    partnerAction: 'Entrer',
+    footer: "Choisissez l'option qui correspond à votre besoin. Vous pourrez changer à tout moment.",
+  },
+};
+
+const PortalSelector = ({ isOpen, onClose, onSelect, onToggleLanguage, translations, lang }) => {
   const t = translations[lang];
+  const copy = portalCopy[lang] || portalCopy.en;
   const [isLoading, setIsLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const vantaRef = useRef(null);
@@ -149,9 +189,18 @@ const PortalSelector = ({ isOpen, onClose, onSelect, translations, lang }) => {
         <div className="px-4 py-4 sm:px-6 sm:py-6 h-full flex flex-col max-h-[95vh] overflow-y-auto">
           {/* Title section */}
           <div className="mb-4 sm:mb-6 text-center flex-shrink-0">
-            <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-[#175c7d]/30 bg-[#175c7d]/20 px-3 py-1.5 sm:px-4 sm:py-2 text-xs font-bold uppercase tracking-wider text-white">
-              <Sparkles size={14} className="text-[#eebc39]" />
-              Welcome to EduGrowth
+            <div className="mb-3 flex items-center justify-center gap-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#175c7d]/30 bg-[#175c7d]/20 px-3 py-1.5 sm:px-4 sm:py-2 text-xs font-bold uppercase tracking-wider text-white">
+                <Sparkles size={14} className="text-[#eebc39]" />
+                {copy.welcome}
+              </div>
+              <button
+                type="button"
+                onClick={onToggleLanguage}
+                className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-white transition hover:bg-white/15"
+              >
+                {copy.language}
+              </button>
             </div>
             <h1 id="portal-selector-title" className="mb-3 text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight text-white flex-shrink-0 px-2">
               {t.gateTitle}
@@ -186,7 +235,7 @@ const PortalSelector = ({ isOpen, onClose, onSelect, translations, lang }) => {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-sm sm:text-base lg:text-lg font-bold uppercase tracking-wider text-blue-200/80 mb-1">
-                      I am a student
+                      {copy.studentRole}
                     </div>
                     <div className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-tight">
                       Abroad Zone
@@ -196,32 +245,26 @@ const PortalSelector = ({ isOpen, onClose, onSelect, translations, lang }) => {
 
                 {/* Description */}
                 <p className="mb-4 sm:mb-6 lg:mb-8 text-sm sm:text-base lg:text-lg leading-relaxed text-slate-300">
-                  Discover international study opportunities, personalized guidance, and expert support for your educational journey abroad.
+                  {copy.studentDescription}
                 </p>
 
                 {/* Features */}
                 <div className="mb-4 sm:mb-6 lg:mb-8 space-y-2 sm:space-y-3 lg:space-y-4">
-                  <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base text-slate-300">
-                    <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 lg:h-3 lg:w-3 rounded-full bg-blue-400 flex-shrink-0" />
-                    <span className="font-medium">Study destination guides</span>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base text-slate-300">
-                    <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 lg:h-3 lg:w-3 rounded-full bg-blue-400 flex-shrink-0" />
-                    <span className="font-medium">Application assistance</span>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base text-slate-300">
-                    <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 lg:h-3 lg:w-3 rounded-full bg-blue-400 flex-shrink-0" />
-                    <span className="font-medium">WhatsApp support</span>
-                  </div>
+                  {copy.studentFeatures.map((feature) => (
+                    <div key={feature} className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base text-slate-300">
+                      <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 lg:h-3 lg:w-3 rounded-full bg-blue-400 flex-shrink-0" />
+                      <span className="font-medium">{feature}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* CTA */}
                 <div className="flex items-center justify-between rounded-xl sm:rounded-2xl border-2 border-white/20 bg-white/10 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 transition-all group-hover:border-blue-300/30 group-hover:bg-blue-500/10 min-h-[44px]">
                   <div className="text-base sm:text-lg font-bold text-white">
-                    Start Your Journey
+                    {copy.studentCta}
                   </div>
                   <div className="inline-flex items-center gap-2 sm:gap-3 text-blue-100 transition-transform group-hover:translate-x-1">
-                    <span className="text-sm sm:text-base lg:text-lg font-bold">Explore</span>
+                    <span className="text-sm sm:text-base lg:text-lg font-bold">{copy.studentAction}</span>
                     <ArrowRight size={18} className="sm:w-5 sm:h-5" />
                   </div>
                 </div>
@@ -251,42 +294,36 @@ const PortalSelector = ({ isOpen, onClose, onSelect, translations, lang }) => {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-sm sm:text-base lg:text-lg font-bold uppercase tracking-wider text-emerald-200/80 mb-1">
-                      I am a partner
+                      {copy.partnerRole}
                     </div>
                     <div className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-tight">
-                      B2B Partnership
+                      {copy.partnerTitle}
                     </div>
                   </div>
                 </div>
 
                 {/* Description */}
                 <p className="mb-4 sm:mb-6 lg:mb-8 text-sm sm:text-base lg:text-lg leading-relaxed text-slate-300">
-                  Scale your admissions operations with professional outsourcing services, multilingual support, and structured workflows.
+                  {copy.partnerDescription}
                 </p>
 
                 {/* Features */}
                 <div className="mb-4 sm:mb-6 lg:mb-8 space-y-2 sm:space-y-3 lg:space-y-4">
-                  <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base text-slate-300">
-                    <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 lg:h-3 lg:w-3 rounded-full bg-emerald-400 flex-shrink-0" />
-                    <span className="font-medium">Lead qualification & CRM</span>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base text-slate-300">
-                    <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 lg:h-3 lg:w-3 rounded-full bg-emerald-400 flex-shrink-0" />
-                    <span className="font-medium">Multilingual conversion</span>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base text-slate-300">
-                    <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 lg:h-3 lg:w-3 rounded-full bg-emerald-400 flex-shrink-0" />
-                    <span className="font-medium">Admissions support</span>
-                  </div>
+                  {copy.partnerFeatures.map((feature) => (
+                    <div key={feature} className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base text-slate-300">
+                      <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 lg:h-3 lg:w-3 rounded-full bg-emerald-400 flex-shrink-0" />
+                      <span className="font-medium">{feature}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* CTA */}
                 <div className="flex items-center justify-between rounded-xl sm:rounded-2xl border-2 border-white/20 bg-white/10 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 transition-all group-hover:border-emerald-300/30 group-hover:bg-emerald-500/10 min-h-[44px]">
                   <div className="text-base sm:text-lg font-bold text-white">
-                    Scale Your Operations
+                    {copy.partnerCta}
                   </div>
                   <div className="inline-flex items-center gap-2 sm:gap-3 text-emerald-100 transition-transform group-hover:translate-x-1">
-                    <span className="text-sm sm:text-base lg:text-lg font-bold">Enter Platform</span>
+                    <span className="text-sm sm:text-base lg:text-lg font-bold">{copy.partnerAction}</span>
                     <ArrowRight size={18} className="sm:w-5 sm:h-5" />
                   </div>
                 </div>
@@ -297,7 +334,7 @@ const PortalSelector = ({ isOpen, onClose, onSelect, translations, lang }) => {
           {/* Footer note */}
           <div className="mt-4 text-center border-t border-white/5 pt-3 sm:pt-4 flex-shrink-0">
             <p className="text-sm sm:text-base text-slate-500 leading-relaxed">
-              Choose the option that best fits your needs. You can switch between them anytime.
+              {copy.footer}
             </p>
           </div>
         </div>
