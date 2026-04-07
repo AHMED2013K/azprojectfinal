@@ -10,6 +10,17 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 
+function buildApplyUrl(source, lang) {
+  const params = new URLSearchParams({
+    utm_source: 'website',
+    utm_medium: 'student_funnel',
+    utm_campaign: source,
+    utm_content: lang,
+  });
+
+  return `https://app.edugrowth.tn/apply?${params.toString()}`;
+}
+
 const abroadStructuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -141,6 +152,16 @@ const AbroadZonePage = () => {
         signup: "S'inscrire maintenant",
         contactText: 'Prêt à démarrer votre projet ? Remplissez le formulaire ou envoyez-nous un message WhatsApp.',
         serviceOptions: ['Alternance en France', 'Logement', 'Études', 'Ausbildung'],
+        applyTitle: 'Postulez directement dans notre CRM',
+        applyText:
+          "Si vous êtes prêt(e) à avancer, le formulaire apply est le chemin le plus rapide pour envoyer votre profil, être qualifié(e) et être suivi(e) par notre équipe.",
+        applyPoints: [
+          'Candidature centralisée et structurée',
+          'Suivi plus rapide que WhatsApp seul',
+          'Attribution de la source pour notre équipe admissions',
+        ],
+        applyPrimary: 'Remplir le formulaire apply',
+        applySecondary: 'Parler à un conseiller',
       }
     : {
         navServices: 'Services',
@@ -164,6 +185,16 @@ const AbroadZonePage = () => {
         signup: 'Sign Up Now',
         contactText: 'Ready to start your project? Fill out the form or send us a WhatsApp message.',
         serviceOptions: ['Work-study France', 'Housing', 'Studies', 'Ausbildung'],
+        applyTitle: 'Apply directly into our CRM',
+        applyText:
+          'If you are ready to move, the apply form is the fastest path to send your profile, get qualified, and be followed up by our admissions team.',
+        applyPoints: [
+          'Structured application intake',
+          'Faster follow-up than WhatsApp alone',
+          'Clear source attribution for our admissions team',
+        ],
+        applyPrimary: 'Open the apply form',
+        applySecondary: 'Talk to an advisor',
       };
 
   const handleWA = (e) => {
@@ -180,6 +211,7 @@ const AbroadZonePage = () => {
   };
 
   const studentTestimonials = studentAbroadTestimonials;
+  const applyUrl = buildApplyUrl('abroad_zone', lang);
 
   return (
     <>
@@ -234,10 +266,13 @@ const AbroadZonePage = () => {
             <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter uppercase">{t.stdHeroTitle}</h1>
             <p className="text-2xl opacity-90 mb-12 max-w-2xl mx-auto">{t.stdHeroSubtitle}</p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button onClick={() => document.getElementById('std-contact')?.scrollIntoView({behavior: 'smooth'})} 
-                className="bg-white text-[#175c7d] px-10 py-6 rounded-[2rem] font-black text-xl shadow-2xl hover:scale-105 transition-all uppercase">
+              <a
+                href={applyUrl}
+                onClick={() => trackEvent('cta_click', { cta_type: 'abroad_zone_apply_hero', page: '/abroad-zone' })}
+                className="bg-white text-[#175c7d] px-10 py-6 rounded-[2rem] font-black text-xl shadow-2xl hover:scale-105 transition-all uppercase"
+              >
                 {t.stdHeroCTA}
-              </button>
+              </a>
               <Link to="/book-consultation" className="bg-[#0b3853] border-2 border-white/40 px-10 py-6 rounded-[2rem] font-black text-xl hover:bg-[#0f4668] transition-all uppercase">
                 {ui.consultation}
               </Link>
@@ -271,6 +306,64 @@ const AbroadZonePage = () => {
               <Link to="/agence-etude-etranger-sousse">Agence à Sousse</Link>
               <Link to="/agence-etude-etranger-sfax">Agence à Sfax</Link>
               <Link to="/blog">Blog Guides</Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-16 px-8">
+          <div className="max-w-6xl mx-auto rounded-[2.5rem] bg-[linear-gradient(135deg,#175c7d_0%,#0f4668_55%,#082b43_100%)] p-8 text-white shadow-2xl md:p-12">
+            <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-cyan-100">
+                  <GraduationCap size={14} />
+                  CRM Apply Funnel
+                </div>
+                <h2 className="mt-5 text-4xl font-black uppercase tracking-tight">{ui.applyTitle}</h2>
+                <p className="mt-4 max-w-2xl text-lg text-cyan-50/90">{ui.applyText}</p>
+                <div className="mt-6 space-y-3">
+                  {ui.applyPoints.map((point) => (
+                    <div key={point} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-white/90">
+                      <CheckCircle2 size={18} className="mt-0.5 text-cyan-200" />
+                      <span>{point}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur">
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-2xl bg-white/10 p-4">
+                    <div className="text-3xl font-black">2 min</div>
+                    <div className="mt-2 text-xs font-black uppercase tracking-[0.2em] text-cyan-100/80">form fill</div>
+                  </div>
+                  <div className="rounded-2xl bg-white/10 p-4">
+                    <div className="text-3xl font-black">CRM</div>
+                    <div className="mt-2 text-xs font-black uppercase tracking-[0.2em] text-cyan-100/80">direct intake</div>
+                  </div>
+                  <div className="rounded-2xl bg-white/10 p-4">
+                    <div className="text-3xl font-black">2026</div>
+                    <div className="mt-2 text-xs font-black uppercase tracking-[0.2em] text-cyan-100/80">alternance funnel</div>
+                  </div>
+                </div>
+                <div className="mt-6 flex flex-col gap-3">
+                  <a
+                    href={applyUrl}
+                    onClick={() => trackEvent('cta_click', { cta_type: 'abroad_zone_apply_section', page: '/abroad-zone' })}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-4 text-sm font-black uppercase tracking-[0.18em] text-[#175c7d] transition hover:bg-slate-100"
+                  >
+                    {ui.applyPrimary}
+                    <ArrowRight size={16} />
+                  </a>
+                  <a
+                    href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lang === 'fr' ? "Bonjour EduGrowth, je veux de l'aide pour l'alternance en France." : 'Hello EduGrowth, I want help with alternance in France.')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('cta_click', { cta_type: 'abroad_zone_apply_whatsapp', page: '/abroad-zone' })}
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-5 py-4 text-sm font-black uppercase tracking-[0.18em] text-white transition hover:bg-white/15"
+                  >
+                    {ui.applySecondary}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -313,7 +406,7 @@ const AbroadZonePage = () => {
                 <p className="text-xl mb-10 max-w-2xl text-[#175c7d]/70">
                   {t.stdAlternanceHeroDesc}
                 </p>
-                <button onClick={() => document.getElementById('std-pricing')?.scrollIntoView({behavior: 'smooth'})} 
+                <button onClick={() => document.getElementById('std-pricing')?.scrollIntoView({behavior: 'smooth'})}
                   className="bg-[#175c7d] text-white px-8 py-4 rounded-2xl font-black uppercase hover:shadow-xl transition-all">
                   {ui.pricing}
                 </button>

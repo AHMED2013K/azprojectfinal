@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CheckCircle2, GraduationCap, BriefcaseBusiness, Globe2 } from 'lucide-react';
 import { apiRequest } from '../lib/api';
+import { trackMetaEvent, trackMetaStandardEvent } from '../lib/marketing';
 
 const initialForm = {
   name: '',
@@ -72,10 +73,23 @@ export default function LinkedInApplicationForm() {
         method: 'POST',
         body: payload,
       });
+      trackMetaEvent('crm_apply_submit', {
+        source: 'apply',
+        country: payload.country || 'unknown',
+        studyLevel: payload.studyLevel || 'unknown',
+      });
+      trackMetaStandardEvent('Lead', {
+        content_name: 'EduGrowth Apply Form',
+        content_category: 'student_application',
+      });
+      trackMetaStandardEvent('CompleteRegistration', {
+        content_name: 'EduGrowth Apply Form',
+      });
       setSubmitted(true);
       setForm(initialForm);
     } catch (submitError) {
       setError(submitError.message);
+      trackMetaEvent('crm_apply_error', { source: 'apply' });
     } finally {
       setSubmitting(false);
     }

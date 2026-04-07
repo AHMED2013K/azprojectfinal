@@ -1,6 +1,7 @@
-import React, { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { Suspense, lazy, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage.jsx';
+import { initMarketing, trackPageView } from './utils/marketing.js';
 
 // Lazy loading all pages for better initial loading performance
 const AbroadZonePage = lazy(() => import('./pages/AbroadZonePage.jsx'));
@@ -35,9 +36,24 @@ const LoadingFallback = () => (
   </div>
 );
 
+function RouteTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    initMarketing();
+  }, []);
+
+  useEffect(() => {
+    trackPageView(`${location.pathname}${location.search}${location.hash}`);
+  }, [location]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <>
+      <RouteTracker />
       <Routes>
         <Route path="/" element={
           <Suspense fallback={<LoadingFallback />}>

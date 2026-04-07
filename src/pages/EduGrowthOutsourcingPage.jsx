@@ -9,6 +9,12 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 
+function buildB2BMessage(source, lang) {
+  return lang === 'fr'
+    ? `Bonjour EduGrowth, je souhaite un échange B2B sur vos services outsourcing en Tunisie. Source: ${source}`
+    : `Hello EduGrowth, I want a B2B conversation about your outsourcing services in Tunisia. Source: ${source}`;
+}
+
 const translations = {
   en: {
     heroBadge: "STRATEGIC EDUCATION OUTSOURCING HUB",
@@ -179,6 +185,26 @@ const EduGrowthOutsourcingPage = () => {
         more: 'Plus de 1000',
         need: 'Que souhaitez-vous externaliser en premier ?',
         submit: 'Demander ma consultation gratuite',
+        roiTitle: 'Pourquoi un acheteur B2B agit vite',
+        roiText:
+          "Les directions admissions, sales ops et support client n'achètent pas seulement un prestataire. Elles cherchent un levier de marge, de vitesse de réponse et de couverture multilingue.",
+        roiBlocks: [
+          { title: 'ROI clair', body: 'Réduction des coûts fixes, meilleure capacité de traitement et moins de pression sur les équipes internes.' },
+          { title: 'Nearshore Tunisie', body: "Fuseau compatible Europe, talents francophones, anglophones et arabophones, onboarding rapide." },
+          { title: 'Exécution mesurable', body: 'SLA, KPI de réponse, volume traité, qualification et reporting CRM structurés.' },
+        ],
+        buyerTitle: 'Idéal pour',
+        buyerItems: [
+          'Universités privées et écoles supérieures',
+          "Agences d'éducation et student recruitment firms",
+          'Équipes customer support, sales ops et back-office',
+        ],
+        roiStatsTitle: 'Projection ROI 12 mois',
+        roiStats: [
+          { label: 'Coût équipe interne Europe', value: '€75k - €110k' },
+          { label: 'Modèle EduGrowth Tunisie', value: '€36k - €54k' },
+          { label: 'Délai de mise en route', value: '72h à 14 jours' },
+        ],
       }
     : {
         navServices: 'Services',
@@ -205,12 +231,32 @@ const EduGrowthOutsourcingPage = () => {
         more: 'More than 1000',
         need: 'What do you want to outsource first?',
         submit: 'Request My Free Consultation',
+        roiTitle: 'Why B2B buyers move fast',
+        roiText:
+          'Admissions leaders, sales ops managers, and customer support teams are not buying a vendor only. They are buying margin improvement, faster response times, and multilingual execution.',
+        roiBlocks: [
+          { title: 'Clear ROI', body: 'Lower fixed costs, more processing capacity, and less pressure on internal teams.' },
+          { title: 'Tunisia nearshore advantage', body: 'Europe-compatible timezone, multilingual talent, and fast onboarding.' },
+          { title: 'Measurable execution', body: 'Structured SLA, KPI reporting, qualified pipeline handling, and CRM visibility.' },
+        ],
+        buyerTitle: 'Best fit for',
+        buyerItems: [
+          'Private universities and higher-ed institutions',
+          'Education agencies and student recruitment firms',
+          'Customer support, sales ops, and back-office teams',
+        ],
+        roiStatsTitle: '12-month ROI snapshot',
+        roiStats: [
+          { label: 'Internal Europe team cost', value: '€75k - €110k' },
+          { label: 'EduGrowth Tunisia model', value: '€36k - €54k' },
+          { label: 'Go-live timeline', value: '72h to 14 days' },
+        ],
       };
 
-  const openDemo = () => {
+  const openDemo = (source = 'outsourcing_page') => {
     // Modal or WA
-    trackEvent('cta_click', { cta_type: 'outsourcing_demo_whatsapp' });
-    window.open(`https://wa.me/${WA_NUMBER}?text=Demo request from Outsourcing page`, '_blank');
+    trackEvent('cta_click', { cta_type: 'outsourcing_demo_whatsapp', source });
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(buildB2BMessage(source, lang))}`, '_blank');
   };
 
   const handleLeadSubmit = (event) => {
@@ -289,10 +335,10 @@ const EduGrowthOutsourcingPage = () => {
             </h1>
             <p className="text-2xl text-gray-500 mb-14 max-w-3xl mx-auto font-medium leading-relaxed">{t.heroDesc}</p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <button onClick={openDemo} className="bg-[#005A9C] text-white px-10 py-6 rounded-[2rem] font-black text-xl shadow-xl hover:-translate-y-1 transition-all">
+              <button onClick={() => openDemo('hero_demo')} className="bg-[#005A9C] text-white px-10 py-6 rounded-[2rem] font-black text-xl shadow-xl hover:-translate-y-1 transition-all">
                 {t.heroCTA}
               </button>
-              <Link to="/book-consultation" className="rounded-[2rem] border-2 border-[#005A9C] px-10 py-6 text-xl font-black text-[#005A9C] transition hover:bg-blue-50">
+              <Link to="/book-consultation" onClick={() => trackEvent('cta_click', { cta_type: 'outsourcing_consultation_hero', page: '/outsourcing' })} className="rounded-[2rem] border-2 border-[#005A9C] px-10 py-6 text-xl font-black text-[#005A9C] transition hover:bg-blue-50">
                 {ui.consultationButton}
               </Link>
             </div>
@@ -313,6 +359,51 @@ const EduGrowthOutsourcingPage = () => {
                 <div className="text-sm font-bold text-blue-400 uppercase tracking-widest">{stat.l}</div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="pb-24 px-8">
+          <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="rounded-[2.5rem] bg-white p-10 shadow-sm border border-slate-100">
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#005A9C]">{ui.roiTitle}</p>
+              <h2 className="mt-4 text-4xl font-black tracking-tight text-gray-900">{ui.roiTitle}</h2>
+              <p className="mt-4 text-lg leading-8 text-gray-500">{ui.roiText}</p>
+              <div className="mt-8 space-y-4">
+                {ui.roiBlocks.map((block) => (
+                  <div key={block.title} className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
+                    <h3 className="text-lg font-black text-gray-900">{block.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-gray-600">{block.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2.5rem] bg-[linear-gradient(135deg,#0f172a_0%,#1e3a5f_55%,#1b7e6d_100%)] p-10 text-white shadow-2xl">
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-100">{ui.buyerTitle}</p>
+              <h2 className="mt-4 text-4xl font-black tracking-tight">{ui.buyerTitle}</h2>
+              <div className="mt-6 space-y-4">
+                {ui.buyerItems.map((item) => (
+                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm font-semibold text-slate-100">
+                    <CheckCircle2 size={18} className="mt-0.5 text-cyan-200" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
+                <h3 className="text-lg font-black">{ui.roiStatsTitle}</h3>
+                <div className="mt-4 space-y-4">
+                  {ui.roiStats.map((item) => (
+                    <div key={item.label} className="flex items-center justify-between gap-4 border-b border-white/10 pb-3 last:border-b-0">
+                      <span className="text-sm text-slate-200">{item.label}</span>
+                      <span className="text-base font-black text-white">{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <button onClick={() => openDemo('roi_section')} className="mt-8 w-full rounded-2xl bg-white px-5 py-4 text-sm font-black uppercase tracking-[0.18em] text-[#0f172a] transition hover:bg-slate-100">
+                {ui.demo}
+              </button>
+            </div>
           </div>
         </section>
 
@@ -356,9 +447,9 @@ const EduGrowthOutsourcingPage = () => {
               <span className={`text-lg font-bold ${isHybrid ? 'text-[#2E8B57] scale-110' : 'text-gray-400'}`}>{t.pricingHybrid}</span>
             </div>
             <div className="grid lg:grid-cols-3 gap-10 items-end">
-              <PricingCard title="Starter" price="€800" agents="1" leads="350" sla="24h" isHybrid={isHybrid} hybridPrice="" lang={lang} onSelect={openDemo} />
-              <PricingCard title="Growth Engine" price="€1500" agents="2" leads="800" sla="12h" isFeatured={true} isHybrid={isHybrid} hybridPrice="€1200" lang={lang} onSelect={openDemo} />
-              <PricingCard title="Elite Enterprise" price="€3000+" agents="3-5+" leads="Unlimited" sla="4h" isHybrid={isHybrid} hybridPrice="€2500" lang={lang} onSelect={openDemo} />
+              <PricingCard title="Starter" price="€800" agents="1" leads="350" sla="24h" isHybrid={isHybrid} hybridPrice="" lang={lang} onSelect={() => openDemo('pricing_starter')} />
+              <PricingCard title="Growth Engine" price="€1500" agents="2" leads="800" sla="12h" isFeatured={true} isHybrid={isHybrid} hybridPrice="€1200" lang={lang} onSelect={() => openDemo('pricing_growth')} />
+              <PricingCard title="Elite Enterprise" price="€3000+" agents="3-5+" leads="Unlimited" sla="4h" isHybrid={isHybrid} hybridPrice="€2500" lang={lang} onSelect={() => openDemo('pricing_enterprise')} />
             </div>
             {isHybrid && (
               <div className="mt-20 max-w-2xl mx-auto bg-[#2E8B57]/5 border border-[#2E8B57]/20 p-8 rounded-[2rem] flex items-start gap-6 shadow-sm">
@@ -462,9 +553,9 @@ const EduGrowthOutsourcingPage = () => {
                   <option value="1000+">{ui.more}</option>
                 </select>
                 <textarea name="need" rows="4" required placeholder={ui.need} className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
-                <button type="submit" className="w-full rounded-xl bg-[#005A9C] px-4 py-3 font-black text-white transition hover:bg-blue-700">
-                  {ui.submit}
-                </button>
+              <button type="submit" className="w-full rounded-xl bg-[#005A9C] px-4 py-3 font-black text-white transition hover:bg-blue-700">
+                {ui.submit}
+              </button>
               </div>
             </form>
           </div>

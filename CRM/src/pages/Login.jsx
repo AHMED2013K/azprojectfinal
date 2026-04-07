@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { trackMetaEvent, trackMetaStandardEvent } from '../lib/marketing';
 
 export default function Login() {
   const { user, login } = useAuth();
@@ -19,8 +20,11 @@ export default function Login() {
 
     try {
       await login(form.email, form.password);
+      trackMetaEvent('crm_login_success', { area: 'crm_login' });
+      trackMetaStandardEvent('Login', { content_name: 'EduGrowth CRM Login' });
     } catch (submitError) {
       setError(submitError.message);
+      trackMetaEvent('crm_login_error', { area: 'crm_login' });
     } finally {
       setSubmitting(false);
     }

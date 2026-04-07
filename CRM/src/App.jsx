@@ -1,10 +1,11 @@
-import { Suspense, lazy } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { SocketProvider } from './context/SocketContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
+import { initMarketing, trackPageView } from './lib/marketing';
 
 const Login = lazy(() => import('./pages/Login'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -22,9 +23,24 @@ function AppLoader() {
   return <div className="min-h-screen bg-slate-950 text-slate-200 flex items-center justify-center">Loading...</div>;
 }
 
+function RouteTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    initMarketing();
+  }, []);
+
+  useEffect(() => {
+    trackPageView(`${location.pathname}${location.search}${location.hash}`);
+  }, [location]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <RouteTracker />
       <ThemeProvider>
         <AuthProvider>
           <SocketProvider>
