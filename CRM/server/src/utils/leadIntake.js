@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import Notification from '../models/Notification.js';
 import User from '../models/User.js';
+import LeadSubmissionBackup from '../models/LeadSubmissionBackup.js';
 
 function parseBirthDate(value) {
   const [day, month, year] = String(value || '').split('/').map((item) => Number(item));
@@ -40,26 +41,33 @@ export function calculateAgeFromBirthDate(value) {
 }
 
 export async function backupLeadSubmission(lead, meta = {}) {
+  const payload = {
+    backedUpAt: new Date().toISOString(),
+    leadId: lead._id?.toString?.() || '',
+    source: lead.source,
+    campaign: lead.campaign,
+    name: lead.name,
+    email: lead.email,
+    phone: lead.phone,
+    country: lead.country,
+    details: lead.details,
+    meta,
+  };
+
+  await LeadSubmissionBackup.create({
+    ...payload,
+    backedUpAt: new Date(payload.backedUpAt),
+  });
+
   const backupDir = path.join(process.cwd(), 'server', 'backups');
   const backupFile = path.join(backupDir, 'lead-submissions.jsonl');
 
   await fs.mkdir(backupDir, { recursive: true });
-  await fs.appendFile(
-    backupFile,
-    `${JSON.stringify({
-      backedUpAt: new Date().toISOString(),
-      leadId: lead._id?.toString?.() || '',
-      source: lead.source,
-      campaign: lead.campaign,
-      name: lead.name,
-      email: lead.email,
-      phone: lead.phone,
-      country: lead.country,
-      details: lead.details,
-      meta,
-    })}\n`,
-    'utf8',
-  );
+  try {
+    await fs.appendFile(backupFile, `${JSON.stringify(payload)}\n`, 'utf8');
+  } catch (error) {
+    console.warn('Lead JSONL backup write failed', error?.message || error);
+  }
 }
 
 export async function notifyNewLead(req, lead) {
