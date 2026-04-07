@@ -1,4 +1,4 @@
-export const API_URL = (import.meta.env.VITE_API_URL || 'https://edugrowth-crm-api.onrender.com').replace(/\/$/, '');
+export const API_URL = (import.meta.env.VITE_API_URL || 'https://backedugrowth.onrender.com').replace(/\/$/, '');
 
 export async function apiRequest(path, { method = 'GET', body, token, headers = {}, retryOnAuthError = true } = {}) {
   const csrfToken = sessionStorage.getItem('crm_csrf_token') || '';
