@@ -116,17 +116,15 @@ app.use(errorHandler);
 io.use(socketAuthMiddleware);
 attachSocketHandlers(io);
 
-const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 4000;
 
 async function bootstrap() {
   await connectDatabase();
   await seedDefaults();
-  server.listen(port, () => {
-    console.log(`EduGrowth CRM API listening on http://localhost:${port}`);
+
+  server.listen(PORT, "0.0.0.0", () => {
+    console.log(`EduGrowth CRM API listening on port ${PORT}`);
   });
 }
 
