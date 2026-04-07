@@ -100,6 +100,37 @@ export default function BlogHubPage() {
     },
   }[lang];
 
+  const clusters = {
+    en: [
+      {
+        title: 'Study abroad Tunisia cluster',
+        items: ['France applications', 'Student visa guides', 'Budget and housing content'],
+      },
+      {
+        title: 'Alternance France cluster',
+        items: ['Work-study rules', 'CV and interview help', 'Student timeline content'],
+      },
+      {
+        title: 'Outsourcing Tunisia cluster',
+        items: ['BPO comparisons', 'Customer service outsourcing', 'Hiring cost analysis'],
+      },
+    ],
+    fr: [
+      {
+        title: "Cluster étude à l'étranger Tunisie",
+        items: ['Candidature France', 'Guides visa étudiant', 'Budget et logement'],
+      },
+      {
+        title: 'Cluster alternance France',
+        items: ['Règles de travail-études', 'CV et entretien', 'Timeline candidat'],
+      },
+      {
+        title: 'Cluster outsourcing Tunisie',
+        items: ['Comparatifs BPO', 'Customer service outsourcing', 'Analyse des coûts de recrutement'],
+      },
+    ],
+  }[lang];
+
   return (
     <>
       <SEOHelmet
@@ -109,8 +140,8 @@ export default function BlogHubPage() {
         lang={lang}
       />
 
-      <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
-        <div className="mx-auto max-w-5xl rounded-3xl bg-white p-8 shadow-sm">
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top,#eef6ff_0%,#ffffff_44%,#edf7fb_100%)] px-6 py-12 text-slate-900">
+        <div className="mx-auto max-w-6xl rounded-[2rem] bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           <div className="flex items-start justify-between gap-4">
             <div>
               <h1 className="text-4xl font-black" data-i18n="blog_hub.heading">{copy.heading}</h1>
@@ -139,18 +170,45 @@ export default function BlogHubPage() {
             </div>
           </section>
 
+          <section className="mt-10 grid gap-5 lg:grid-cols-3">
+            {clusters.map((cluster) => (
+              <article key={cluster.title} className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+                <h2 className="text-xl font-black text-slate-900">{cluster.title}</h2>
+                <ul className="mt-4 space-y-3 text-sm font-semibold text-slate-700">
+                  {cluster.items.map((item) => (
+                    <li key={item}>• {item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </section>
+
           <section className="mt-10">
             <h2 className="text-2xl font-black">{copy.ideas}</h2>
-            <ul className="mt-4 space-y-2 text-slate-700">
+            <ul className="mt-4 grid gap-2 text-slate-700 md:grid-cols-2">
               {topics.map((topic) => (
                 <li key={topic}>• {topic}</li>
               ))}
             </ul>
           </section>
 
-          <section className="mt-10 rounded-2xl bg-slate-950 p-6 text-white">
+          <section className="mt-10 rounded-[1.75rem] bg-[linear-gradient(135deg,#1c3450_0%,#175c7d_60%,#39a0c8_100%)] p-6 text-white">
             <h2 className="text-2xl font-black">{copy.cta}</h2>
             <p className="mt-2 text-slate-300">{copy.ctaText}</p>
+            <div className="mt-5 flex flex-wrap gap-3 text-sm font-black">
+              <Link to="/abroad-zone" className="rounded-full bg-white px-4 py-3 text-[#1c3450]">
+                Abroad Zone
+              </Link>
+              <Link to="/outsourcing" className="rounded-full border border-white/20 bg-white/10 px-4 py-3 text-white">
+                Outsourcing
+              </Link>
+              <a
+                href="https://app.edugrowth.tn/apply?utm_source=website&utm_medium=blog_hub&utm_campaign=content_cluster"
+                className="rounded-full border border-white/20 bg-white/10 px-4 py-3 text-white"
+              >
+                Apply Funnel
+              </a>
+            </div>
           </section>
         </div>
       </div>
