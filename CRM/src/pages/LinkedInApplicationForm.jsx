@@ -143,7 +143,7 @@ export default function LinkedInApplicationForm() {
                   rel="noreferrer"
                   className="mt-6 inline-flex rounded-2xl border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:bg-white/15"
                 >
-                  Suivez-nous sur LinkedIn pour rester informe(e) de nos nouvelles
+                  Cliquez ici pour nous suivre sur LinkedIn afin de rester informé(e) de nos nouveautés
                 </a>
               </div>
             ) : (
@@ -213,7 +213,7 @@ export default function LinkedInApplicationForm() {
                 </div>
 
                 <div>
-                  <p className="mb-2 text-sm font-medium leading-6 text-cyan-100">Êtes-vous informé(e) que l’alternance pour les étudiants internationaux (première arrivée en France) est généralement possible à partir de la 2ᵉ année ? *</p>
+                  <p className="mb-2 text-sm font-medium leading-6 text-cyan-100">Êtes-vous informé(e) que l’alternance pour les étudiants internationaux (première arrivée en France) est généralement possible qu'à partir de la 2ᵉ année ? *</p>
                     <Select required value={form.alternanceAwareness} onChange={(event) => setForm((current) => ({ ...current, alternanceAwareness: event.target.value }))}>
                     <option value="">Choisissez une réponse</option>
                     <option value="Oui, je suis informé(e)">Oui, je suis informé(e)</option>

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { apiRequest } from '../lib/api';
 
 const AuthContext = createContext(null);
+
 const TOKEN_KEY = 'crm_token';
 const CSRF_KEY = 'crm_csrf_token';
 
@@ -11,12 +12,14 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // 🔁 Restore session au chargement
   useEffect(() => {
     async function restoreSession() {
-      const activeToken = sessionStorage.getItem(TOKEN_KEY) || token;
-
       try {
-        if (!activeToken) {
+        const storedToken = sessionStorage.getItem(TOKEN_KEY);
+
+        // 👉 Si pas de token → essayer refresh (cookies)
+        if (!storedToken) {
           const refreshData = await apiRequest('/api/auth/refresh', {
             method: 'POST',
             retryOnAuthError: false,
@@ -24,23 +27,27 @@ export function AuthProvider({ children }) {
 
           sessionStorage.setItem(TOKEN_KEY, refreshData.token);
           sessionStorage.setItem(CSRF_KEY, refreshData.csrfToken);
+
           setToken(refreshData.token);
           setCsrfToken(refreshData.csrfToken);
           setUser(refreshData.user);
-          setLoading(false);
           return;
         }
 
-        const data = await apiRequest('/api/auth/me', { token: activeToken });
+        // 👉 Si token existe → récupérer user
+        const data = await apiRequest('/api/auth/me', {
+          token: storedToken,
+        });
+
         setUser(data.user);
+        setToken(storedToken);
         setCsrfToken(sessionStorage.getItem(CSRF_KEY) || '');
-        const storedToken = sessionStorage.getItem(TOKEN_KEY);
-        if (storedToken !== activeToken) {
-          setToken(storedToken || token);
-        }
-      } catch {
+      } catch (err) {
+        console.warn('Session restore failed:', err.message);
+
         sessionStorage.removeItem(TOKEN_KEY);
         sessionStorage.removeItem(CSRF_KEY);
+
         setToken('');
         setCsrfToken('');
         setUser(null);
@@ -50,56 +57,80 @@ export function AuthProvider({ children }) {
     }
 
     restoreSession();
-  }, [token]);
+  }, []);
 
+  // 🔐 LOGIN
   async function login(email, password) {
-    const data = await apiRequest('/api/auth/login', {
-      method: 'POST',
-      body: { email, password },
-    });
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(CSRF_KEY);
-    sessionStorage.setItem(TOKEN_KEY, data.token);
-    sessionStorage.setItem(CSRF_KEY, data.csrfToken);
-    setToken(data.token);
-    setCsrfToken(data.csrfToken);
-    setUser(data.user);
+    try {
+      const data = await apiRequest('/api/auth/login', {
+        method: 'POST',
+        body: { email, password },
+      });
+
+      sessionStorage.setItem(TOKEN_KEY, data.token);
+      sessionStorage.setItem(CSRF_KEY, data.csrfToken);
+
+      setToken(data.token);
+      setCsrfToken(data.csrfToken);
+      setUser(data.user);
+    } catch (err) {
+      console.error('Login error:', err);
+      throw new Error('Email ou mot de passe incorrect');
+    }
   }
 
+  // 🚪 LOGOUT
   async function logout() {
     try {
       if (token) {
-        await apiRequest('/api/auth/logout', { method: 'POST', token });
+        await apiRequest('/api/auth/logout', {
+          method: 'POST',
+          token,
+        });
       }
+    } catch (err) {
+      console.warn('Logout error:', err.message);
     } finally {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(CSRF_KEY);
       sessionStorage.removeItem(TOKEN_KEY);
       sessionStorage.removeItem(CSRF_KEY);
+
       setToken('');
       setCsrfToken('');
       setUser(null);
     }
   }
 
+  // 🔄 REFRESH USER
   async function refreshUser() {
-    if (!token) {
-      return;
-    }
+    if (!token) return;
 
-    const data = await apiRequest('/api/auth/me', { token });
-    setUser(data.user);
-    setToken(sessionStorage.getItem(TOKEN_KEY) || token);
-    setCsrfToken(sessionStorage.getItem(CSRF_KEY) || '');
+    try {
+      const data = await apiRequest('/api/auth/me', { token });
+      setUser(data.user);
+    } catch (err) {
+      console.warn('Refresh user failed:', err.message);
+    }
   }
 
   return (
-    <AuthContext.Provider value={{ token, csrfToken, user, loading, login, logout, refreshUser, setUser }}>
+    <AuthContext.Provider
+      value={{
+        token,
+        csrfToken,
+        user,
+        loading,
+        login,
+        logout,
+        refreshUser,
+        setUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
+// Hook
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
