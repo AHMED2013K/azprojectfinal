@@ -99,6 +99,9 @@ app.use('/api/invites/public', rateLimit({
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, service: 'EduGrowth CRM API' });
 });
+app.get('/', (req, res) => {
+  res.send('EduGrowth CRM API is running 🚀');
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/invites', inviteRoutes);
