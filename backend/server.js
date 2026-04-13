@@ -90,6 +90,11 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// SPA fallback: return index.html for any non-API GET request so client-side routes work on refresh/direct access.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
 const PORT = process.env.PORT || process.env.API_PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
