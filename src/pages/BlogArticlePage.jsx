@@ -12,29 +12,39 @@ const posts = {
     description: 'Étapes, coûts, dossier Campus France, visa étudiant et erreurs à éviter pour étudier en France depuis la Tunisie.',
     h1: 'Comment étudier en France depuis la Tunisie',
     sections: [
-      { h2: '1) Choisir la formation adaptée', text: 'Commencez par définir votre objectif: licence, master, école spécialisée ou alternance. Le bon choix réduit les refus et accélère le visa.' },
-      { h2: '2) Préparer le dossier Campus France', text: 'Respectez les dates, préparez des documents propres et cohérents, puis validez votre projet académique avec des preuves solides.' },
-      { h2: '3) Anticiper budget et logement', text: 'Préparez les frais de scolarité, de visa et de vie quotidienne. Avoir un plan financier clair renforce votre dossier.' },
-      { h2: '4) Finaliser le visa étudiant', text: 'Après admission, constituez le dossier visa sans incohérence et préparez l\'entretien si nécessaire.' },
+      { h2: '1. Définir un projet d’études cohérent', text: 'Le point de départ est de choisir un niveau, un domaine et des établissements réellement alignés avec votre dossier académique et votre budget.' },
+      { h2: '2. Préparer le dossier Campus France', text: 'Un dossier propre, cohérent et complet reste un facteur décisif. Les incohérences entre projet, notes et motivation coûtent cher.' },
+      { h2: '3. Budgéter logement, frais et preuve financière', text: 'Il faut regarder la scolarité, la vie quotidienne, les frais administratifs et la stratégie de financement globale.' },
+      { h2: '4. Anticiper le visa étudiant', text: 'Le visa se prépare bien en amont. L’erreur la plus fréquente est de traiter cette étape trop tard.' },
     ],
     faq: [
       ['Combien de temps faut-il pour préparer un dossier ?', 'En général 3 à 6 mois avec une préparation sérieuse.'],
-      ['Peut-on être accompagné de A à Z ?', 'Oui, de l\'orientation initiale jusqu\'au départ.'],
+      ['Peut-on être accompagné de A à Z ?', 'Oui, de l’orientation initiale jusqu’au départ.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Landing page France' },
+      { to: '/blog/campus-france-tunisie-etapes', label: 'Campus France Tunisie : étapes' },
+      { to: '/blog/refus-visa-etudiant-france-erreurs', label: 'Refus visa étudiant : erreurs' },
     ],
   },
-  '/blog/cout-des-etudes-a-l-etranger': {
-    title: 'Coût des études à l\'étranger: budget réaliste pour étudiants tunisiens',
-    description: 'Frais de scolarité, logement, visa, assurance et dépenses mensuelles: méthode simple pour budgéter vos études à l\'étranger.',
-    h1: 'Coût des études à l\'étranger: le vrai budget à prévoir',
+  '/blog/campus-france-tunisie-etapes': {
+    title: 'Campus France Tunisie: étapes, calendrier et erreurs à éviter',
+    description: 'Guide Campus France Tunisie: étapes, documents, calendrier, entretien et erreurs fréquentes.',
+    h1: 'Campus France Tunisie: étapes, calendrier et erreurs à éviter',
     sections: [
-      { h2: '1) Frais académiques', text: 'Ils varient selon pays, université et niveau. Comparez toujours public/privé et frais annexes.' },
-      { h2: '2) Dépenses de vie', text: 'Logement, transport, alimentation et assurance représentent souvent le poste le plus élevé.' },
-      { h2: '3) Coûts administratifs', text: 'Incluez visa, traductions, attestations, tests linguistiques et billets.' },
-      { h2: '4) Plan de financement', text: 'Combinez apport familial, bourse, et plan de paiement réaliste pour sécuriser le projet.' },
+      { h2: '1. Quand commencer Campus France ?', text: 'Commencez le plus tôt possible pour sécuriser le choix de formation, les pièces du dossier et le visa.' },
+      { h2: '2. Quels documents préparer ?', text: 'Relevés, diplômes, identité, justificatifs et tout élément soutenant la cohérence du projet.' },
+      { h2: '3. Comment éviter les refus ?', text: 'Les refus viennent souvent d’un projet flou, d’un calendrier subi ou d’un dossier mal structuré.' },
+      { h2: '4. Comment préparer l’entretien ?', text: 'Il faut savoir expliquer clairement pourquoi cette formation, ce pays, ce budget et ce parcours.' },
     ],
     faq: [
-      ['Quel budget mensuel prévoir ?', 'Cela dépend de la destination, mais il faut planifier avec une marge de sécurité.'],
-      ['EduGrowth peut-il aider à optimiser le budget ?', 'Oui, via choix destination/programme et stratégie financière.'],
+      ['Campus France est-il obligatoire ?', 'Pour beaucoup de parcours vers la France, oui, c’est une étape centrale du processus.'],
+      ['Quand préparer son entretien ?', 'Dès que le projet est stabilisé et que le dossier prend une forme cohérente.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Guide France' },
+      { to: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Étudier en France depuis la Tunisie' },
+      { to: '/book-consultation', label: 'Réserver une consultation' },
     ],
   },
   '/blog/visa-etudiant-guide': {
@@ -42,14 +52,159 @@ const posts = {
     description: 'Checklist visa étudiant, documents critiques et erreurs fréquentes qui causent les refus.',
     h1: 'Visa étudiant: guide pratique',
     sections: [
-      { h2: '1) Comprendre les exigences du pays', text: 'Chaque destination impose des preuves spécifiques: fonds, admission, assurance, hébergement.' },
-      { h2: '2) Préparer un dossier cohérent', text: 'Le fond et la forme comptent: cohérence académique, documents clairs et justificatifs complets.' },
-      { h2: '3) Préparer l\'entretien', text: 'Soyez capable d\'expliquer votre projet d\'étude, votre financement et votre plan post-diplôme.' },
-      { h2: '4) Anticiper les délais', text: 'Déposez le plus tôt possible pour éviter les retards de rentrée.' },
+      { h2: '1. Comprendre les exigences du pays', text: 'Chaque destination impose ses propres attentes sur l’admission, le financement, l’assurance ou l’hébergement.' },
+      { h2: '2. Préparer un dossier cohérent', text: 'Le dossier doit raconter un projet crédible et complet, pas juste empiler des documents.' },
+      { h2: '3. Préparer l’entretien', text: 'Un entretien se joue sur la clarté du projet, la logique du parcours et la maîtrise du financement.' },
+      { h2: '4. Anticiper les délais', text: 'Le plus gros risque reste la préparation tardive, qui provoque stress et oublis.' },
     ],
     faq: [
       ['Pourquoi les visas sont refusés ?', 'Dossier incomplet, incohérences, ou financement insuffisant.'],
       ['Un coaching entretien est-il utile ?', 'Oui, il augmente la clarté et la confiance du candidat.'],
+    ],
+    relatedLinks: [
+      { to: '/blog/refus-visa-etudiant-france-erreurs', label: 'Erreurs qui causent un refus visa' },
+      { to: '/book-consultation', label: 'Réserver une consultation' },
+      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+    ],
+  },
+  '/blog/refus-visa-etudiant-france-erreurs': {
+    title: 'Refus de visa étudiant France: 12 erreurs qui bloquent les dossiers',
+    description: 'Les erreurs les plus fréquentes qui causent un refus de visa étudiant France pour les candidats tunisiens.',
+    h1: 'Refus de visa étudiant France: les erreurs qui bloquent les dossiers',
+    sections: [
+      { h2: '1. Projet d’études mal expliqué', text: 'Un projet flou ou non crédible fragilise immédiatement le dossier.' },
+      { h2: '2. Financement mal présenté', text: 'Le financement doit être lisible, justifié et cohérent avec les dépenses prévues.' },
+      { h2: '3. Documents incomplets ou incohérents', text: 'La moindre incohérence sur l’identité, les études ou le parcours peut faire douter.' },
+      { h2: '4. Préparation tardive', text: 'Commencer trop tard réduit la qualité du dossier et augmente les erreurs.' },
+    ],
+    faq: [
+      ['Peut-on corriger un dossier après un refus ?', 'Oui, mais il faut comprendre précisément la faiblesse du premier dossier et repartir de façon plus structurée.'],
+      ['Le refus vient-il toujours du financement ?', 'Non, le projet académique et la cohérence globale comptent autant.'],
+    ],
+    relatedLinks: [
+      { to: '/blog/visa-etudiant-guide', label: 'Guide visa étudiant' },
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Guide France' },
+      { to: '/blog/campus-france-tunisie-etapes', label: 'Campus France Tunisie' },
+    ],
+  },
+  '/blog/cout-des-etudes-a-l-etranger': {
+    title: "Coût des études à l'étranger: budget réaliste pour étudiants tunisiens",
+    description: 'Frais de scolarité, logement, visa, assurance et dépenses mensuelles: méthode simple pour budgéter vos études à l’étranger.',
+    h1: "Coût des études à l'étranger: le vrai budget à prévoir",
+    sections: [
+      { h2: '1. Frais académiques', text: 'Ils varient selon pays, université et niveau. Il faut comparer public, privé et frais annexes.' },
+      { h2: '2. Dépenses de vie', text: 'Logement, transport, alimentation et assurance représentent souvent la plus grosse charge.' },
+      { h2: '3. Coûts administratifs', text: 'Visa, traductions, attestations, tests linguistiques et billets doivent être intégrés dès le départ.' },
+      { h2: '4. Plan de financement', text: 'Un budget sérieux repose sur une vision réaliste, pas seulement sur un montant de scolarité.' },
+    ],
+    faq: [
+      ['Quel budget mensuel prévoir ?', 'Cela dépend de la destination, mais il faut planifier avec une marge de sécurité.'],
+      ['EduGrowth peut-il aider à optimiser le budget ?', 'Oui, via le choix destination/programme et la stratégie financière.'],
+    ],
+    relatedLinks: [
+      { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses pour Tunisiens à l’étranger' },
+      { to: '/blog/top-pays-pour-etudier', label: 'Top pays pour étudier' },
+      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+    ],
+  },
+  '/blog/bourses-etudes-etranger-tunisiens': {
+    title: 'Bourses d’études à l’étranger pour les Tunisiens: méthodes et sources',
+    description: 'Comment chercher des bourses d’études à l’étranger pour les étudiants tunisiens et mieux structurer son financement.',
+    h1: 'Bourses d’études à l’étranger pour les Tunisiens',
+    sections: [
+      { h2: '1. Les bourses ne remplacent pas toujours tout le budget', text: 'Il faut distinguer bourse partielle, exonération, aide logement et financement complémentaire.' },
+      { h2: '2. Où chercher les bonnes opportunités', text: 'Le bon réflexe est de combiner universités, programmes publics, organismes internationaux et aides spécifiques.' },
+      { h2: '3. Comment augmenter ses chances', text: 'Un bon dossier repose sur une candidature claire, un projet réaliste et une bonne anticipation.' },
+      { h2: '4. Quelle stratégie adopter si on n’a pas de bourse complète ?', text: 'Construire un plan mixte reste souvent la meilleure approche pour débloquer le projet.' },
+    ],
+    faq: [
+      ['Existe-t-il des bourses 100% ?', 'Oui, mais elles sont rares et très compétitives.'],
+      ['Faut-il attendre une bourse pour commencer les démarches ?', 'Non. Il vaut mieux avancer en parallèle sur le projet et le budget global.'],
+    ],
+    relatedLinks: [
+      { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Coût des études à l’étranger' },
+      { to: '/etudier-au-canada-depuis-tunisie', label: 'Guide Canada' },
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
+    ],
+  },
+  '/blog/top-pays-pour-etudier': {
+    title: "Top pays pour étudier à l'étranger en 2026",
+    description: 'France, Allemagne, Canada, Chypre et autres destinations: comment choisir selon budget, visa et objectif carrière.',
+    h1: "Top pays pour étudier à l'étranger",
+    sections: [
+      { h2: '1. France', text: 'Écosystème académique fort, nombreuses options et alternance attractive.' },
+      { h2: '2. Allemagne', text: 'Opportunités solides et coût souvent compétitif dans le public.' },
+      { h2: '3. Canada', text: 'Environnement international et parcours académiques reconnus.' },
+      { h2: '4. Chypre / Turquie / Dubai', text: 'Options flexibles pour profils recherchant accessibilité ou spécialisation.' },
+    ],
+    faq: [
+      ['Quel pays choisir ?', 'Celui qui aligne budget, niveau linguistique et objectif professionnel.'],
+      ['Faut-il passer par une agence ?', 'Un accompagnement expert réduit les erreurs et les délais.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Guide France' },
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
+      { to: '/etudier-au-canada-depuis-tunisie', label: 'Guide Canada' },
+    ],
+  },
+  '/blog/alternance-france-pour-tunisiens': {
+    title: 'Alternance France pour les Tunisiens: comment trouver un contrat',
+    description: 'Guide concret pour trouver une alternance en France depuis la Tunisie: profil, CV, candidatures et contrat.',
+    h1: 'Alternance France pour les Tunisiens',
+    sections: [
+      { h2: '1. Comprendre ce que cherche l’entreprise', text: 'Le recruteur achète d’abord un profil utile, motivé et compréhensible rapidement.' },
+      { h2: '2. Optimiser CV, message et candidature', text: 'Le CV et le pitch doivent être orientés poste, pas juste scolaire.' },
+      { h2: '3. Organiser un volume de candidatures maîtrisé', text: 'Une alternance se gagne souvent avec rigueur, relances et suivi structuré.' },
+      { h2: '4. Sécuriser contrat et administratif', text: 'Le succès vient autant de la signature que de la bonne préparation en amont.' },
+    ],
+    faq: [
+      ['Peut-on trouver une alternance depuis la Tunisie ?', 'Oui, mais il faut une méthode, un bon positionnement et un suivi intensif.'],
+      ['Quel est le plus gros blocage ?', 'Le manque de volume et de qualité dans les candidatures.'],
+    ],
+    relatedLinks: [
+      { to: '/programmes/alternance-france', label: 'Programme alternance France' },
+      { to: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Étudier en France depuis la Tunisie' },
+      { to: '/book-consultation', label: 'Réserver une consultation' },
+    ],
+  },
+  '/blog/etudier-en-allemagne-depuis-la-tunisie': {
+    title: 'Étudier en Allemagne depuis la Tunisie: universités, visa et compte bloqué',
+    description: 'Guide pour étudier en Allemagne depuis la Tunisie: admission, langue, compte bloqué, visa et budget.',
+    h1: 'Étudier en Allemagne depuis la Tunisie',
+    sections: [
+      { h2: '1. Choisir entre université et Ausbildung', text: 'Le bon choix dépend du profil, des objectifs et du niveau linguistique.' },
+      { h2: '2. Comprendre la logique du compte bloqué', text: 'Le compte bloqué est souvent central dans la stratégie de financement du dossier.' },
+      { h2: '3. Préparer le visa étudiant', text: 'Admission, langue et financement doivent former un ensemble cohérent.' },
+      { h2: '4. Budgéter ville, logement et installation', text: 'La différence de coût entre villes change fortement la faisabilité du projet.' },
+    ],
+    faq: [
+      ['L’allemand est-il obligatoire ?', 'Pas toujours, mais il devient souvent un atout majeur pour les études et la vie quotidienne.'],
+      ['L’Allemagne est-elle moins chère que le Canada ?', 'Souvent oui sur certains parcours, mais le budget réel dépend de la ville et du logement.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
+      { to: '/programmes/ausbildung-allemagne', label: 'Guide Ausbildung' },
+      { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses à l’étranger' },
+    ],
+  },
+  '/blog/etudier-au-canada-depuis-la-tunisie': {
+    title: 'Étudier au Canada depuis la Tunisie: admission, permis et budget',
+    description: 'Guide complet pour étudier au Canada depuis la Tunisie: admission, permis d’études, financement et installation.',
+    h1: 'Étudier au Canada depuis la Tunisie',
+    sections: [
+      { h2: '1. Choisir province et type d’établissement', text: 'Le Canada n’est pas un bloc unique. Province, langue et budget changent complètement la stratégie.' },
+      { h2: '2. Préparer admission et preuve de fonds', text: 'Le dossier doit être solide à la fois académiquement et financièrement.' },
+      { h2: '3. Sécuriser le permis d’études', text: 'Le permis demande cohérence, lisibilité et anticipation.' },
+      { h2: '4. Préparer le coût réel de la vie sur place', text: 'La réussite du projet dépend autant de l’installation que de l’admission.' },
+    ],
+    faq: [
+      ['Le Québec est-il le meilleur choix pour un Tunisien francophone ?', 'Souvent oui, mais pas automatiquement. Le bon choix dépend du programme et du budget.' },
+      ['Peut-on combiner études et projet d’installation ?', 'Oui, mais le dossier doit rester sérieux et bien structuré.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-au-canada-depuis-tunisie', label: 'Guide Canada' },
+      { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Budget études à l’étranger' },
+      { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses à l’étranger' },
     ],
   },
   '/blog/pourquoi-externaliser-ses-admissions': {
@@ -57,61 +212,59 @@ const posts = {
     description: 'Comment les institutions réduisent les coûts et améliorent la conversion en externalisant admissions et lead qualification.',
     h1: 'Pourquoi externaliser ses admissions',
     sections: [
-      { h2: '1) Réduction des coûts', text: 'L\'externalisation limite les charges fixes tout en conservant un haut niveau d\'exécution.' },
-      { h2: '2) Déploiement rapide', text: 'Vous activez une équipe opérationnelle en jours plutôt qu\'en mois.' },
-      { h2: '3) Multilingue et conversion', text: 'Des équipes FR/AR/EN améliorent la réactivité et la qualité du suivi candidat.' },
-      { h2: '4) Pilotage KPI', text: 'SLA, taux de réponse, taux de conversion et visibilité CRM deviennent pilotables en continu.' },
+      { h2: '1. Réduction des coûts', text: 'L’externalisation limite les charges fixes tout en conservant un bon niveau d’exécution.' },
+      { h2: '2. Déploiement rapide', text: 'Vous activez une équipe opérationnelle en jours plutôt qu’en mois.' },
+      { h2: '3. Multilingue et conversion', text: 'Des équipes FR/AR/EN améliorent la réactivité et la qualité du suivi candidat.' },
+      { h2: '4. Pilotage KPI', text: 'SLA, taux de réponse et taux de conversion deviennent pilotables.' },
     ],
     faq: [
-      ['À qui cela s\'adresse ?', 'Universités, écoles de langues et agences éducatives.'],
+      ['À qui cela s’adresse ?', 'Universités, écoles de langues et agences éducatives.'],
       ['Comment démarrer ?', 'Par un audit gratuit puis un pilote court avec objectifs mesurables.'],
+    ],
+    relatedLinks: [
+      { to: '/outsourcing', label: 'Page outsourcing' },
+      { to: '/education-outsourcing-tunisia', label: 'Education outsourcing Tunisia' },
+      { to: '/book-consultation', label: 'Réserver un appel' },
     ],
   },
   '/blog/outsourcing-tunisie-avantages': {
     title: 'Outsourcing Tunisie: les avantages clés pour les institutions éducatives',
-    description: 'Tunisie comme hub nearshore: coûts, langue, proximité et qualité opérationnelle pour l\'éducation.',
+    description: 'Tunisie comme hub nearshore: coûts, langue, proximité et qualité opérationnelle pour l’éducation.',
     h1: 'Outsourcing Tunisie: avantages concrets',
     sections: [
-      { h2: '1) Avantage coût / qualité', text: 'La Tunisie offre un excellent ratio coût-compétence pour les opérations éducatives.' },
-      { h2: '2) Proximité horaire', text: 'Le fuseau facilite la coordination avec l\'Europe et la région MENA.' },
-      { h2: '3) Compétence linguistique', text: 'FR/AR/EN permet une couverture candidate étendue.' },
-      { h2: '4) Scalabilité', text: 'Vous augmentez la capacité sans alourdir la structure interne.' },
+      { h2: '1. Avantage coût / qualité', text: 'La Tunisie offre un excellent ratio coût-compétence pour les opérations éducatives.' },
+      { h2: '2. Proximité horaire', text: 'Le fuseau facilite la coordination avec l’Europe et la région MENA.' },
+      { h2: '3. Compétence linguistique', text: 'FR/AR/EN permet une couverture candidate étendue.' },
+      { h2: '4. Scalabilité', text: 'Vous augmentez la capacité sans alourdir la structure interne.' },
     ],
     faq: [
       ['Nearshore ou offshore ?', 'Pour ce secteur, le nearshore tunisien est souvent plus agile et plus aligné.'],
       ['Quels services externaliser en premier ?', 'Lead qualification et admissions follow-up sont les plus rapides à rentabiliser.'],
     ],
-  },
-  '/blog/top-pays-pour-etudier': {
-    title: 'Top pays pour étudier à l\'étranger en 2026',
-    description: 'France, Allemagne, Canada, Chypre et autres destinations: comment choisir selon budget, visa et objectif carrière.',
-    h1: 'Top pays pour étudier à l\'étranger',
-    sections: [
-      { h2: '1) France', text: 'Écosystème académique fort, nombreuses options et alternance attractive.' },
-      { h2: '2) Allemagne', text: 'Opportunités techniques solides et coût souvent compétitif en public.' },
-      { h2: '3) Canada', text: 'Environnement international et parcours académiques reconnus.' },
-      { h2: '4) Chypre / Turquie / UAE', text: 'Options flexibles pour profils recherchant accessibilité ou spécialisation.' },
-    ],
-    faq: [
-      ['Quel pays choisir ?', 'Celui qui aligne budget, niveau linguistique et objectif professionnel.'],
-      ['Faut-il passer par une agence ?', 'Un accompagnement expert réduit les erreurs et les délais.'],
+    relatedLinks: [
+      { to: '/outsourcing-tunisia', label: 'Outsourcing Tunisia' },
+      { to: '/outsource-customer-service-tunisia', label: 'Customer service outsourcing' },
+      { to: '/book-consultation', label: 'Réserver un appel' },
     ],
   },
   '/blog/why-tunisia-better-than-india-outsourcing': {
     title: 'Why Tunisia is Better Than India for Outsourcing: 2026 Comparison',
-    description: 'Tunisia vs India outsourcing: cost, quality, language skills, timezone, and cultural fit. Why European companies choose Tunisia.',
+    description: 'Tunisia vs India outsourcing: cost, quality, language skills, timezone, and cultural fit.',
     h1: 'Why Tunisia is Better Than India for Outsourcing',
     sections: [
-      { h2: '1) Superior Language Skills', text: 'Native French and Arabic speakers with excellent English proficiency vs Indian accent challenges.' },
-      { h2: '2) European Timezone Advantage', text: 'GMT+1 alignment with European business hours vs 4-5 hour difference with India.' },
-      { h2: '3) Cultural Alignment', text: 'Western business culture and work ethic vs cultural differences that can impact service quality.' },
-      { h2: '4) Cost-Effective Quality', text: 'Competitive rates with higher quality output compared to Indian providers.' },
-      { h2: '5) Lower Attrition Rates', text: 'Stable workforce vs high turnover in Indian outsourcing industry.' },
+      { h2: '1. Superior language skills', text: 'French and Arabic fluency plus strong English changes conversion and service quality.' },
+      { h2: '2. European timezone advantage', text: 'GMT+1 creates easier collaboration for European teams.' },
+      { h2: '3. Cultural alignment', text: 'Business communication is often smoother for European-facing operations.' },
+      { h2: '4. Cost-effective quality', text: 'Tunisia balances affordability and operational quality.' },
     ],
     faq: [
-      ['Is Tunisia really cheaper than India?', 'Yes, with better quality and timezone alignment.'],
+      ['Is Tunisia really cheaper than India?', 'Not always cheaper on paper, but often stronger on value.'],
       ['What languages do Tunisian agents speak?', 'English, French, and Arabic fluently.'],
-      ['How is the internet connectivity?', 'Excellent infrastructure with low latency to Europe.'],
+    ],
+    relatedLinks: [
+      { to: '/outsourcing-tunisia', label: 'Outsourcing Tunisia' },
+      { to: '/blog/outsourcing-tunisia-vs-india', label: 'Tunisia vs India' },
+      { to: '/book-consultation', label: 'Book a strategy call' },
     ],
   },
   '/blog/cost-comparison-outsourcing-tunisia-vs-europe': {
@@ -119,16 +272,19 @@ const posts = {
     description: 'Detailed cost analysis: Tunisia outsourcing costs vs UK, France, Germany. ROI calculations and hidden savings.',
     h1: 'Cost Comparison: Outsourcing Tunisia vs Europe',
     sections: [
-      { h2: '1) Base Salary Costs', text: '€800-1200/month in Tunisia vs €2500-4000/month in Europe for similar roles.' },
-      { h2: '2) Training & Onboarding', text: '30-50% lower training costs with faster ramp-up time.' },
-      { h2: '3) Infrastructure Savings', text: 'No office space, equipment, or overhead costs.' },
-      { h2: '4) Quality Assurance', text: 'Structured QA processes at lower cost than European standards.' },
-      { h2: '5) Scalability Benefits', text: 'Easy team expansion without recruitment delays.' },
+      { h2: '1. Base salary costs', text: 'Tunisia remains significantly cheaper than most in-house European structures.' },
+      { h2: '2. Training and onboarding', text: 'Ramp-up costs can be lower with a ready outsourcing setup.' },
+      { h2: '3. Infrastructure savings', text: 'You avoid office, equipment and some fixed operational overhead.' },
+      { h2: '4. Scalability benefits', text: 'Teams can be expanded faster than classic in-house recruitment.' },
     ],
     faq: [
-      ['What\'s the actual ROI?', 'Typically 40-60% cost reduction with maintained quality.'],
-      ['Are there hidden costs?', 'Minimal - mainly technology integration and initial training.'],
-      ['How long to see savings?', 'Usually within 1-2 months of implementation.'],
+      ['What’s the actual ROI?', 'It depends on process, staffing and conversion gains, but cost reduction is often meaningful.'],
+      ['Are there hidden costs?', 'Integration and training still matter, but the structure is lighter than an in-house build.'],
+    ],
+    relatedLinks: [
+      { to: '/outsourcing-cost-calculator', label: 'Cost calculator' },
+      { to: '/outsourcing', label: 'Outsourcing page' },
+      { to: '/book-consultation', label: 'Book a strategy call' },
     ],
   },
   '/blog/top-benefits-outsourcing-tunisia': {
@@ -136,17 +292,19 @@ const posts = {
     description: 'Complete guide to Tunisia outsourcing advantages: cost savings, quality, language, location, and business benefits.',
     h1: 'Top Benefits of Outsourcing to Tunisia',
     sections: [
-      { h2: '1) Significant Cost Reduction', text: '40-60% savings on operational costs while maintaining quality standards.' },
-      { h2: '2) Multilingual Capabilities', text: 'Native proficiency in English, French, and Arabic.' },
-      { h2: '3) Strategic Location', text: 'Perfect timezone alignment with European and Middle Eastern markets.' },
-      { h2: '4) Skilled Workforce', text: 'Well-educated professionals with strong technical and communication skills.' },
-      { h2: '5) Business Process Expertise', text: 'Proven track record in customer service, data processing, and administrative tasks.' },
-      { h2: '6) Quality Assurance', text: 'Structured processes with regular monitoring and performance metrics.' },
+      { h2: '1. Significant cost reduction', text: 'Lower delivery costs can coexist with solid quality when operations are structured well.' },
+      { h2: '2. Multilingual capabilities', text: 'French, Arabic and English are a strong differentiator.' },
+      { h2: '3. Strategic location', text: 'The timezone is a strong fit for Europe and parts of MENA.' },
+      { h2: '4. Skilled workforce', text: 'Tunisia offers a strong pool of educated operational talent.' },
     ],
     faq: [
-      ['Is the quality really as good?', 'Yes, with proper training and supervision.'],
-      ['What about data security?', 'GDPR compliant with secure infrastructure.'],
-      ['Can I start small?', 'Yes, begin with pilot projects and scale as needed.'],
+      ['Is the quality really as good?', 'Yes with the right process and supervision.'],
+      ['What about data security?', 'It depends on provider setup, process and compliance standards.'],
+    ],
+    relatedLinks: [
+      { to: '/outsourcing-tunisia', label: 'Outsourcing Tunisia' },
+      { to: '/blog/why-tunisia-better-than-india-outsourcing', label: 'Tunisia vs India' },
+      { to: '/book-consultation', label: 'Book a strategy call' },
     ],
   },
   '/blog/french-customer-support-outsourcing': {
@@ -154,16 +312,19 @@ const posts = {
     description: 'Outsource French customer service to Tunisia. Native French speakers, cultural understanding, and cost-effective solutions.',
     h1: 'French Customer Support Outsourcing to Tunisia',
     sections: [
-      { h2: '1) Native French Language Skills', text: 'Tunisian agents speak French as a native or second language with perfect accent.' },
-      { h2: '2) Cultural Understanding', text: 'Deep understanding of French business culture and customer expectations.' },
-      { h2: '3) Cost Advantages', text: 'Significant savings compared to French or Belgian operations.' },
-      { h2: '4) Timezone Compatibility', text: 'Overlapping hours with French business schedules.' },
-      { h2: '5) Quality Training', text: 'Specialized training in French customer service protocols.' },
+      { h2: '1. Native French language skills', text: 'French fluency is one of Tunisia’s strongest outsourcing advantages.' },
+      { h2: '2. Cultural understanding', text: 'French-speaking customer interactions often feel more natural and effective.' },
+      { h2: '3. Cost advantages', text: 'Businesses can reduce support costs compared with in-market teams.' },
+      { h2: '4. Timezone compatibility', text: 'Response management is easier for France and nearby markets.' },
     ],
     faq: [
-      ['Do they understand French culture?', 'Yes, extensive cultural training and native understanding.'],
-      ['What\'s the accent like?', 'Neutral, professional French pronunciation.'],
-      ['Can they handle complex French queries?', 'Yes, with proper training and support tools.'],
+      ['Do they understand French culture?', 'Usually far better than many offshore alternatives.'],
+      ['Can they handle complex queries?', 'Yes, with proper training and QA.'],
+    ],
+    relatedLinks: [
+      { to: '/outsource-customer-service-tunisia', label: 'Customer service outsourcing page' },
+      { to: '/outsourcing', label: 'Outsourcing page' },
+      { to: '/book-consultation', label: 'Book a strategy call' },
     ],
   },
   '/blog/hire-call-center-tunisia': {
@@ -171,17 +332,19 @@ const posts = {
     description: 'How to hire a call center in Tunisia. Process, costs, quality standards, and integration for global businesses.',
     h1: 'Hire Call Center Tunisia: Complete Guide',
     sections: [
-      { h2: '1) Understanding Tunisia\'s Call Center Landscape', text: 'Modern facilities, skilled agents, and international certifications.' },
-      { h2: '2) Recruitment Process', text: 'Rigorous selection, language testing, and skills assessment.' },
-      { h2: '3) Training Programs', text: 'Comprehensive onboarding and product-specific training.' },
-      { h2: '4) Technology Integration', text: 'CRM systems, call tracking, and quality monitoring tools.' },
-      { h2: '5) Quality Assurance', text: 'Regular monitoring, feedback, and performance improvement.' },
-      { h2: '6) Cost Structure', text: 'Transparent pricing with volume discounts available.' },
+      { h2: '1. Understand the local BPO landscape', text: 'Choosing Tunisia means evaluating language fit, process maturity and management quality.' },
+      { h2: '2. Recruitment process', text: 'A strong team depends on screening, language testing and role fit.' },
+      { h2: '3. Training programs', text: 'Good onboarding drives quality faster than cheap headcount alone.' },
+      { h2: '4. Quality assurance', text: 'The provider must monitor output continuously, not just promise results.' },
     ],
     faq: [
-      ['How long does setup take?', 'Usually 2-4 weeks for a basic team.'],
-      ['What technology do you use?', 'Modern cloud-based systems with real-time monitoring.'],
-      ['Can I visit the facilities?', 'Yes, virtual tours available, physical visits welcome.'],
+      ['How long does setup take?', 'It depends on scope, but outsourcing is usually much faster than building in-house.'],
+      ['Can I start small?', 'Yes, pilot teams are often the best entry point.'],
+    ],
+    relatedLinks: [
+      { to: '/outsourcing', label: 'Outsourcing page' },
+      { to: '/outsourcing-cost-calculator', label: 'Cost calculator' },
+      { to: '/book-consultation', label: 'Book a strategy call' },
     ],
   },
   '/blog/outsourcing-tunisia-vs-india': {
@@ -189,17 +352,19 @@ const posts = {
     description: 'Tunisia vs India outsourcing comparison: costs, quality, language, culture, and business advantages.',
     h1: 'Outsourcing Tunisia vs India: Complete Comparison',
     sections: [
-      { h2: '1) Cost Analysis', text: 'Tunisia: $8-12/hour vs India: $6-10/hour, but quality justifies premium.' },
-      { h2: '2) Language Capabilities', text: 'Tunisia: EN/FR/AR native vs India: EN with varying accents.' },
-      { h2: '3) Timezone Advantages', text: 'Tunisia: GMT+1 (Europe) vs India: GMT+5.5 (4-5 hour difference).' },
-      { h2: '4) Cultural Alignment', text: 'Tunisia: Western business culture vs India: Different work styles.' },
-      { h2: '5) Infrastructure Quality', text: 'Both excellent, but Tunisia has better European connectivity.' },
-      { h2: '6) Business Environment', text: 'Tunisia: Stable, business-friendly vs India: Complex regulations.' },
+      { h2: '1. Cost analysis', text: 'India can appear cheaper, but Tunisia often competes better on fit and execution.' },
+      { h2: '2. Language capabilities', text: 'Tunisia’s multilingual advantage matters greatly for European and MENA-facing teams.' },
+      { h2: '3. Timezone advantages', text: 'Tunisia is easier for Europe in day-to-day operations.' },
+      { h2: '4. Cultural alignment', text: 'Communication and operational rhythm often feel more natural for Western-facing businesses.' },
     ],
     faq: [
-      ['Which is cheaper?', 'India on paper, but Tunisia offers better value.'],
-      ['For European companies?', 'Tunisia is usually the better choice.'],
-      ['Quality differences?', 'Tunisia often provides more consistent quality.'],
+      ['Which is cheaper?', 'India can be cheaper on some roles, but Tunisia often brings better value.'],
+      ['For European companies?', 'Tunisia is frequently the stronger fit.'],
+    ],
+    relatedLinks: [
+      { to: '/outsourcing-tunisia', label: 'Outsourcing Tunisia' },
+      { to: '/blog/why-tunisia-better-than-india-outsourcing', label: 'Why Tunisia is better than India' },
+      { to: '/book-consultation', label: 'Book a strategy call' },
     ],
   },
   '/blog/outsourcing-tunisia-vs-philippines': {
@@ -207,17 +372,19 @@ const posts = {
     description: 'Compare Tunisia and Philippines outsourcing: costs, skills, language, and suitability for different business needs.',
     h1: 'Outsourcing Tunisia vs Philippines: Value Comparison',
     sections: [
-      { h2: '1) Cost Structure', text: 'Similar pricing, but Tunisia offers better European alignment.' },
-      { h2: '2) Language Skills', text: 'Tunisia: EN/FR/AR vs Philippines: EN/Spanish - depends on market.' },
-      { h2: '3) Timezone Coverage', text: 'Tunisia: Europe/MENA vs Philippines: Asia/Pacific.' },
-      { h2: '4) Cultural Fit', text: 'Tunisia: Mediterranean business culture vs Philippines: Asian work ethic.' },
-      { h2: '5) Education Level', text: 'Both high, but Tunisia has more technical graduates.' },
-      { h2: '6) Business Maturity', text: 'Philippines more mature BPO industry vs Tunisia growing rapidly.' },
+      { h2: '1. Cost structure', text: 'Both can be competitive, but market fit matters more than pure hourly rate.' },
+      { h2: '2. Language skills', text: 'Tunisia has a stronger edge for French and Arabic coverage.' },
+      { h2: '3. Timezone coverage', text: 'Tunisia usually wins for Europe and nearby regions.' },
+      { h2: '4. Business maturity', text: 'Philippines has maturity, Tunisia has strong geographic and language advantages.' },
     ],
     faq: [
-      ['For US companies?', 'Philippines might have slight edge in English.'],
-      ['For European companies?', 'Tunisia is clearly better.'],
-      ['Which has better infrastructure?', 'Both excellent, Philippines slightly more mature.'],
+      ['For US companies?', 'Philippines can be strong in English-heavy support.'],
+      ['For European companies?', 'Tunisia is often more aligned.'],
+    ],
+    relatedLinks: [
+      { to: '/outsourcing-tunisia', label: 'Outsourcing Tunisia' },
+      { to: '/book-consultation', label: 'Book a strategy call' },
+      { to: '/blog/top-benefits-outsourcing-tunisia', label: 'Benefits of outsourcing to Tunisia' },
     ],
   },
 };
@@ -234,6 +401,7 @@ export default function BlogArticlePage() {
         consultation: 'Réserver une consultation gratuite',
         whatsapp: 'Conseiller WhatsApp',
         whatsappText: 'Bonjour EduGrowth, je veux un accompagnement personnalisé.',
+        related: 'Articles et pages liés',
       }
     : {
         back: 'Back to Blog',
@@ -242,7 +410,42 @@ export default function BlogArticlePage() {
         consultation: 'Book Free Consultation',
         whatsapp: 'WhatsApp Advisor',
         whatsappText: 'Hello EduGrowth, I want personalized guidance.',
+        related: 'Related resources',
       };
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: post.h1,
+        description: post.description,
+        author: {
+          '@type': 'Organization',
+          name: 'EduGrowth Outsourcing',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'EduGrowth Outsourcing',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://edugrowth.tn/Submark.png',
+          },
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: post.faq.map(([q, a]) => ({
+          '@type': 'Question',
+          name: q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: a,
+          },
+        })),
+      },
+    ],
+  };
 
   return (
     <>
@@ -251,6 +454,7 @@ export default function BlogArticlePage() {
         description={post.description}
         canonical={`https://edugrowth.tn${pathname}`}
         lang={lang}
+        structuredData={structuredData}
       />
 
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
@@ -307,6 +511,17 @@ export default function BlogArticlePage() {
                   <p className="font-black">{q}</p>
                   <p className="mt-1 text-slate-600">{a}</p>
                 </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-10">
+            <h3 className="text-xl font-black">{copy.related}</h3>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              {(post.relatedLinks || []).map((item) => (
+                <Link key={item.to} to={item.to} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 font-bold text-[#005A9C] transition hover:-translate-y-0.5 hover:shadow-sm">
+                  {item.label}
+                </Link>
               ))}
             </div>
           </section>

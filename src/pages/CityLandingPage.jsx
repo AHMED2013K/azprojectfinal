@@ -12,18 +12,36 @@ const cityData = {
     h1: "Agence étude à l'étranger à Tunis",
     title: "Agence étude à l'étranger Tunis | EduGrowth",
     description: "Conseillers study abroad à Tunis: orientation, admission, visa étudiant, suivi dossier et préparation départ.",
+    links: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Étudier en France depuis la Tunisie' },
+      { to: '/blog/campus-france-tunisie-etapes', label: 'Campus France Tunisie : étapes' },
+      { to: '/blog/refus-visa-etudiant-france-erreurs', label: 'Erreurs visa étudiant France' },
+      { to: '/book-consultation', label: 'Réserver une consultation' },
+    ],
   },
   '/agence-etude-etranger-sousse': {
     city: 'Sousse',
     h1: "Agence étude à l'étranger à Sousse",
     title: "Agence étude à l'étranger Sousse | EduGrowth",
     description: "Accompagnement complet pour étudier à l'étranger depuis Sousse: choix pays, dossier, admission, visa.",
+    links: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Étudier en France depuis la Tunisie' },
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Étudier en Allemagne depuis la Tunisie' },
+      { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses à l’étranger' },
+      { to: '/book-consultation', label: 'Réserver une consultation' },
+    ],
   },
   '/agence-etude-etranger-sfax': {
     city: 'Sfax',
     h1: "Agence étude à l'étranger à Sfax",
     title: "Agence étude à l'étranger Sfax | EduGrowth",
     description: "Service local à Sfax pour étudiants: stratégie d'admission internationale, préparation visa et support WhatsApp.",
+    links: [
+      { to: '/etudier-au-canada-depuis-tunisie', label: 'Étudier au Canada depuis la Tunisie' },
+      { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Coût des études à l’étranger' },
+      { to: '/blog/top-pays-pour-etudier', label: 'Top pays pour étudier' },
+      { to: '/book-consultation', label: 'Réserver une consultation' },
+    ],
   },
 };
 
@@ -43,6 +61,7 @@ export default function CityLandingPage() {
         consultation: 'Réserver une consultation gratuite',
         whatsappText: `Bonjour, je suis à ${data.city} et je veux étudier à l'étranger.`,
         localTitle: 'Présence locale + accompagnement digital',
+        related: 'Guides utiles depuis votre ville',
         localText:
           'Notre équipe suit votre dossier en continu avec un support rapide sur WhatsApp et une méthode structurée jusqu’au départ.',
       }
@@ -57,6 +76,7 @@ export default function CityLandingPage() {
         consultation: 'Book Free Consultation',
         whatsappText: `Hello, I am based in ${data.city} and I want to study abroad.`,
         localTitle: 'Local presence + digital guidance',
+        related: 'Useful guides from your city',
         localText:
           'Our team follows your file continuously with fast WhatsApp support and a structured method until departure.',
       };
@@ -117,6 +137,17 @@ export default function CityLandingPage() {
               Mots-clés locaux: agence étude à l'étranger {data.city.toLowerCase()} · study abroad agency Tunisia ·
               الدراسة بالخارج تونس
             </p>
+          </section>
+
+          <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <h2 className="text-2xl font-black">{copy.related}</h2>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              {data.links.map((item) => (
+                <Link key={item.to} to={item.to} className="rounded-2xl border border-slate-200 bg-white px-4 py-4 font-bold text-[#005A9C] transition hover:-translate-y-0.5 hover:shadow-sm">
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </section>
         </div>
       </div>

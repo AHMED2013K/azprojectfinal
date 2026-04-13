@@ -101,6 +101,42 @@ const translations = {
     britishColumbiaTitle: "Colombie-Britannique",
     britishColumbiaDesc: "Vancouver: qualité de vie exceptionnelle, nature",
 
+    checklistTitle: "Checklist Canada pour un étudiant tunisien",
+    checklistItems: [
+      "Comparer province, langue d’enseignement et budget total annuel",
+      "Constituer un dossier admission cohérent avec votre projet académique",
+      "Préparer la preuve de fonds et l’ensemble des justificatifs IRCC",
+      "Anticiper assurance santé, logement et arrivée dans la province choisie",
+    ],
+
+    faqTitle: "FAQ études au Canada depuis la Tunisie",
+    faq: [
+      {
+        q: "Quel budget prévoir pour étudier au Canada ?",
+        a: "Il faut additionner frais de scolarité, logement, alimentation, transport, assurance et les preuves financières exigées pour le permis d’études.",
+      },
+      {
+        q: "Le Québec est-il plus adapté aux Tunisiens francophones ?",
+        a: "Le Québec est souvent un choix naturel pour les profils francophones, mais le bon choix dépend aussi du programme, du budget et du projet pro.",
+      },
+      {
+        q: "Combien de temps faut-il pour préparer le permis d’études ?",
+        a: "Mieux vaut viser plusieurs mois d’avance afin de sécuriser admission, preuve de fonds, biométrie et délais administratifs.",
+      },
+      {
+        q: "Peut-on être accompagné de A à Z ?",
+        a: "Oui, l’accompagnement couvre le cadrage du projet, l’admission, le permis d’études et la préparation de l’installation.",
+      },
+    ],
+
+    relatedTitle: "Ressources utiles pour le Canada",
+    relatedLinks: [
+      { to: "/blog/etudier-au-canada-depuis-la-tunisie", label: "Article complet : étudier au Canada" },
+      { to: "/blog/bourses-etudes-etranger-tunisiens", label: "Bourses pour Tunisiens à l’étranger" },
+      { to: "/book-consultation", label: "Réserver une consultation gratuite" },
+      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+    ],
+
     ctaTitle: "Prêt à étudier au Canada ?",
     ctaText: "Notre équipe vous accompagne pour maximiser vos chances d'admission et faciliter votre installation.",
     ctaPrimary: "Commencer maintenant",
@@ -264,6 +300,49 @@ const CanadaStudyPage = () => {
                 <h3 className="font-bold text-lg mb-2">{t.costCategory4}</h3>
                 <p className="text-gray-600">{t.costCategory4Desc}</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-black text-center mb-12">{t.checklistTitle}</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {t.checklistItems.map((item) => (
+                <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
+                  <p className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 size={18} className="mt-0.5 text-emerald-600" />
+                    <span>{item}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-black text-center mb-12">{t.faqTitle}</h2>
+            <div className="space-y-4">
+              {t.faq.map((item) => (
+                <div key={item.q} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-xl font-black">{item.q}</h3>
+                  <p className="mt-3 text-gray-600">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 bg-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <h2 className="text-3xl font-black text-center mb-10">{t.relatedTitle}</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {t.relatedLinks.map((item) => (
+                <Link key={item.to} to={item.to} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-lg font-bold text-red-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </div>
         </section>

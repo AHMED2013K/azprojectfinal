@@ -93,6 +93,42 @@ const translations = {
     costCategory4: "Assurance & Divers",
     costCategory4Desc: "60€/mois assurance santé + frais administratifs",
 
+    checklistTitle: "Checklist étudiant tunisien pour la France",
+    checklistItems: [
+      "Choisir 3 à 5 formations cohérentes avec votre niveau et votre projet",
+      "Préparer les relevés, diplômes, traductions et justificatifs financiers",
+      "Structurer un calendrier Campus France, admission, logement et visa",
+      "Prévoir un budget réaliste pour la province ou Paris",
+    ],
+
+    faqTitle: "FAQ études en France depuis la Tunisie",
+    faq: [
+      {
+        q: "Quand commencer Campus France depuis la Tunisie ?",
+        a: "L’idéal est de commencer 8 à 10 mois avant la rentrée pour éviter les retards sur le dossier, le financement et le visa.",
+      },
+      {
+        q: "Combien coûte la vie étudiante en France ?",
+        a: "En province, beaucoup d’étudiants visent un budget de 700 à 1000€ par mois. Paris demande souvent davantage.",
+      },
+      {
+        q: "L’alternance est-elle possible pour un étudiant tunisien ?",
+        a: "Oui, selon le programme, le niveau d’études et la capacité à décrocher un contrat avec une entreprise.",
+      },
+      {
+        q: "EduGrowth peut-il aider pour Campus France et le visa ?",
+        a: "Oui, l’accompagnement couvre l’orientation, le dossier, la préparation des étapes visa et le suivi global.",
+      },
+    ],
+
+    relatedTitle: "Ressources utiles pour continuer",
+    relatedLinks: [
+      { to: "/programmes/alternance-france", label: "Guide alternance France" },
+      { to: "/blog/comment-etudier-en-france-depuis-la-tunisie", label: "Article complet études en France" },
+      { to: "/blog/campus-france-tunisie-etapes", label: "Campus France Tunisie : étapes" },
+      { to: "/blog/refus-visa-etudiant-france-erreurs", label: "Erreurs de refus visa étudiant" },
+    ],
+
     ctaTitle: "Prêt à étudier en France ?",
     ctaText: "Notre équipe vous accompagne de A à Z pour maximiser vos chances de réussite.",
     ctaPrimary: "Commencer maintenant",
@@ -235,6 +271,49 @@ const FranceStudyPage = () => {
                 <h3 className="font-bold text-lg mb-2">{t.costCategory4}</h3>
                 <p className="text-gray-600">{t.costCategory4Desc}</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-black text-center mb-12">{t.checklistTitle}</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {t.checklistItems.map((item) => (
+                <div key={item} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 size={18} className="mt-0.5 text-emerald-600" />
+                    <span>{item}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-black text-center mb-12">{t.faqTitle}</h2>
+            <div className="space-y-4">
+              {t.faq.map((item) => (
+                <div key={item.q} className="rounded-2xl border border-slate-200 p-6 shadow-sm">
+                  <h3 className="text-xl font-black">{item.q}</h3>
+                  <p className="mt-3 text-gray-600">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 bg-slate-50">
+          <div className="max-w-5xl mx-auto px-6">
+            <h2 className="text-3xl font-black text-center mb-10">{t.relatedTitle}</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {t.relatedLinks.map((item) => (
+                <Link key={item.to} to={item.to} className="rounded-2xl border border-slate-200 bg-white p-5 text-lg font-bold text-[#005A9C] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </div>
         </section>

@@ -11,12 +11,24 @@ const programData = {
     description:
       "Tout savoir pour trouver une alternance en France: candidature, entreprise, contrat et visa.",
     h1: 'Alternance en France depuis la Tunisie',
+    relatedLinks: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Guide études en France' },
+      { to: '/blog/alternance-france-pour-tunisiens', label: 'Article alternance France pour les Tunisiens' },
+      { to: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Étudier en France depuis la Tunisie' },
+      { to: '/book-consultation', label: 'Réserver une consultation' },
+    ],
   },
   '/programmes/ausbildung-allemagne': {
     title: 'Ausbildung en Allemagne depuis la Tunisie | EduGrowth',
     description:
       "Guide complet Ausbildung: conditions, langue, dossier, contrat et installation en Allemagne.",
     h1: 'Ausbildung en Allemagne depuis la Tunisie',
+    relatedLinks: [
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
+      { to: '/blog/etudier-en-allemagne-depuis-la-tunisie', label: 'Article complet Allemagne' },
+      { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses à l’étranger' },
+      { to: '/book-consultation', label: 'Réserver une consultation' },
+    ],
   },
 };
 
@@ -34,6 +46,7 @@ export default function ProgramGuidePage() {
           '4. Signature du contrat et dossier visa.',
         ],
         supportTitle: "Besoin d'un accompagnement personnalisé ?",
+        related: 'Ressources liées',
         consultation: 'Réserver une consultation gratuite',
         whatsapp: 'Conseiller WhatsApp',
         whatsappText: 'Bonjour EduGrowth, je veux un accompagnement pour ce programme.',
@@ -47,6 +60,7 @@ export default function ProgramGuidePage() {
           '4. Finalize the contract and visa file.',
         ],
         supportTitle: 'Need personalized guidance?',
+        related: 'Related resources',
         consultation: 'Book Free Consultation',
         whatsapp: 'WhatsApp Advisor',
         whatsappText: 'Hello EduGrowth, I want guidance for this program.',
@@ -89,6 +103,17 @@ export default function ProgramGuidePage() {
               >
                 {copy.whatsapp}
               </a>
+            </div>
+          </section>
+
+          <section className="mt-8">
+            <h2 className="text-2xl font-black">{copy.related}</h2>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              {data.relatedLinks.map((item) => (
+                <Link key={item.to} to={item.to} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 font-bold text-[#005A9C] transition hover:-translate-y-0.5 hover:shadow-sm">
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </section>
         </div>

@@ -66,8 +66,14 @@ export default function BlogHubPage() {
 
   const published = [
     { slug: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Comment étudier en France depuis la Tunisie' },
+    { slug: '/blog/campus-france-tunisie-etapes', label: 'Campus France Tunisie : étapes' },
     { slug: '/blog/cout-des-etudes-a-l-etranger', label: "Coût des études à l'étranger" },
     { slug: '/blog/visa-etudiant-guide', label: 'Visa étudiant: guide pratique' },
+    { slug: '/blog/refus-visa-etudiant-france-erreurs', label: 'Refus visa étudiant France : erreurs' },
+    { slug: '/blog/alternance-france-pour-tunisiens', label: 'Alternance France pour les Tunisiens' },
+    { slug: '/blog/etudier-en-allemagne-depuis-la-tunisie', label: 'Étudier en Allemagne depuis la Tunisie' },
+    { slug: '/blog/etudier-au-canada-depuis-la-tunisie', label: 'Étudier au Canada depuis la Tunisie' },
+    { slug: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses d’études à l’étranger pour les Tunisiens' },
     { slug: '/blog/pourquoi-externaliser-ses-admissions', label: 'Pourquoi externaliser ses admissions ?' },
     { slug: '/blog/outsourcing-tunisie-avantages', label: 'Outsourcing Tunisie: avantages' },
     { slug: '/blog/top-pays-pour-etudier', label: 'Top pays pour étudier à l’étranger' },

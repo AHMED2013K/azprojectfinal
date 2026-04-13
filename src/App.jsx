@@ -97,8 +97,14 @@ export default function App() {
 
         <Route path="/blog" element={<Suspense fallback={<LoadingFallback />}><BlogHubPage /></Suspense>} />
         <Route path="/blog/comment-etudier-en-france-depuis-la-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/campus-france-tunisie-etapes" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/cout-des-etudes-a-l-etranger" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/visa-etudiant-guide" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/refus-visa-etudiant-france-erreurs" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/alternance-france-pour-tunisiens" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/etudier-en-allemagne-depuis-la-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/etudier-au-canada-depuis-la-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/bourses-etudes-etranger-tunisiens" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/pourquoi-externaliser-ses-admissions" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/outsourcing-tunisie-avantages" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/top-pays-pour-etudier" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
