@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { LEAD_STATUSES } from '../constants/index.js';
+import { LEAD_BUCKETS, LEAD_STATUSES } from '../constants/index.js';
 
 const objectIdSchema = z.string().regex(/^[a-f\d]{24}$/i, 'Invalid identifier');
 const emailSchema = z.string().email('A valid email is required').transform((value) => value.toLowerCase());
@@ -28,10 +28,11 @@ export const updateLeadSchema = z.object({
   body: z.object({
     name: leadBase.name.optional(),
     email: emailSchema.optional(),
-    phone: leadBase.phone,
-    country: leadBase.country,
-    campaign: leadBase.campaign,
+    phone: z.string().trim().max(30, 'Phone is too long').optional(),
+    country: z.string().trim().max(80, 'Country is too long').optional(),
+    campaign: z.string().trim().max(120, 'Campaign is too long').optional(),
     status: z.enum(LEAD_STATUSES).optional(),
+    bucket: z.enum(LEAD_BUCKETS).optional(),
     assignedTo: objectIdSchema.nullable().optional(),
   }),
 });
@@ -70,6 +71,7 @@ export const leadQuerySchema = z.object({
   query: z.object({
     search: z.string().optional().default(''),
     status: z.enum(['', ...LEAD_STATUSES]).optional().default(''),
+    bucket: z.enum(['', ...LEAD_BUCKETS]).optional().default(''),
     page: z.coerce.number().int().min(1).optional().default(1),
     limit: z.coerce.number().int().min(1).max(50).optional().default(10),
   }),

@@ -1,2 +1,3 @@
-export const LEAD_STATUSES = ['New', 'Contacted', 'Not Interested', 'Converted'];
+export const LEAD_STATUSES = ['New', 'Contacted', 'Non Qualified', 'Not Interested', 'Interested'];
+export const LEAD_BUCKETS = ['leads', 'treated'];
 export const USER_ROLES = ['admin', 'commercial'];

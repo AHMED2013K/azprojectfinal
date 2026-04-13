@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import StatCard from '../components/StatCard';
 import { formatDate } from '../lib/format';
+import { getLeadStatusLabel } from '../lib/leads';
 
 const CHART_COLORS = ['#0891b2', '#0284c7', '#059669', '#d97706', '#db2777', '#7c3aed', '#e11d48', '#64748b'];
 
@@ -76,9 +77,9 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard title="Total Leads" value={data.stats.totalLeads} subtitle="All records in the CRM" />
-        <StatCard title="Active Leads" value={data.stats.activeLeads} subtitle="New, contacted, and qualified" />
-        <StatCard title="Converted Leads" value={data.stats.convertedLeads} subtitle="Closed successfully" />
+        <StatCard title="Total Leads" value={data.stats.totalLeads} subtitle="Tous les leads dans le CRM" />
+        <StatCard title="Rubrique Leads" value={data.stats.openLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.openLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
+        <StatCard title="Rubrique Traites" value={data.stats.treatedLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.treatedLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
         <StatCard title="Agents Active" value={data.stats.agentsActivity} subtitle={`${data.stats.unreadNotifications} unread notifications`} />
       </section>
 
@@ -94,7 +95,7 @@ export default function Dashboard() {
                     <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>{lead.email} · {lead.country || 'No country'}</p>
                   </div>
                   <div className="text-right">
-                    <p className="inline-flex rounded-full bg-cyan-500/10 px-3 py-1 text-sm text-cyan-200">{lead.status}</p>
+                    <p className="inline-flex rounded-full bg-cyan-500/10 px-3 py-1 text-sm text-cyan-200">{getLeadStatusLabel(lead.status)}</p>
                     <p className={theme === 'dark' ? 'mt-2 text-xs text-slate-400' : 'mt-2 text-xs text-slate-500'}>{formatDate(lead.createdAt)}</p>
                   </div>
                 </div>
@@ -110,8 +111,8 @@ export default function Dashboard() {
               {data.statusBreakdown.map((item) => (
                 <div key={item.label}>
                   <div className={theme === 'dark' ? 'mb-2 flex items-center justify-between text-sm text-slate-300' : 'mb-2 flex items-center justify-between text-sm text-slate-600'}>
-                    <span>{item.label}</span>
-                    <span>{item.value}</span>
+                    <span>{getLeadStatusLabel(item.label)}</span>
+                    <span>{item.value} · {data.stats.totalLeads ? ((item.value / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}%</span>
                   </div>
                   <div className={theme === 'dark' ? 'h-3 rounded-full bg-slate-800' : 'h-3 rounded-full bg-slate-200'}>
                     <div
@@ -147,6 +148,23 @@ export default function Dashboard() {
                     <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>{item.action}</p>
                   </div>
                   <p className={theme === 'dark' ? 'text-sm text-cyan-200' : 'text-sm text-sky-700'}>{formatDate(item.createdAt)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+            <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Analyse mensuelle</h3>
+            <div className="mt-5 space-y-4">
+              {data.monthlyBreakdown.map((month) => (
+                <div key={month.label} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                  <div className="flex items-center justify-between gap-4">
+                    <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{month.label}</p>
+                    <p className={theme === 'dark' ? 'text-sm text-cyan-200' : 'text-sm text-sky-700'}>{month.total} leads</p>
+                  </div>
+                  <p className={theme === 'dark' ? 'mt-3 text-sm text-slate-300' : 'mt-3 text-sm text-slate-600'}>
+                    Nouveaux {month.newCount} · Contactes {month.contacted} · Non qualifies {month.nonQualified} · Pas interesses {month.notInterested} · Interesses {month.interested}
+                  </p>
                 </div>
               ))}
             </div>

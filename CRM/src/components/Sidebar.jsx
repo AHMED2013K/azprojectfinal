@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield, Database } from 'lucide-react';
+import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield, Database, Inbox } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
@@ -10,6 +10,7 @@ export default function Sidebar() {
   const navItems = [
     { to: '/dashboard', icon: BarChart3, label: 'Dashboard' },
     { to: '/leads', icon: Users, label: 'Leads' },
+    { to: '/treated', icon: Inbox, label: 'Traites' },
     { to: '/pipeline', icon: KanbanSquare, label: 'Pipeline' },
     { to: '/chat', icon: MessageSquare, label: 'Chat' },
     { to: '/tracking', icon: Clock3, label: 'Tracking' },

@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { apiRequest } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { getLeadStatusLabel, LEAD_STATUS_OPTIONS } from '../lib/leads';
 
-const stages = ['New', 'Contacted', 'Not Interested', 'Converted'];
+const stages = LEAD_STATUS_OPTIONS;
 
 export default function Pipeline() {
   const { token } = useAuth();
@@ -11,7 +12,7 @@ export default function Pipeline() {
   const [leads, setLeads] = useState([]);
 
   useEffect(() => {
-    apiRequest('/api/leads?limit=50&page=1', { token }).then((data) => setLeads(data.leads)).catch(() => {});
+    apiRequest('/api/leads?limit=50&page=1&bucket=leads', { token }).then((data) => setLeads(data.leads)).catch(() => {});
   }, [token]);
 
   const grouped = useMemo(
@@ -40,7 +41,7 @@ export default function Pipeline() {
         {grouped.map((column) => (
           <div key={column.stage} className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-5' : 'rounded-3xl border border-slate-200 bg-white p-5 shadow-sm'}>
             <div className="mb-5 flex items-center justify-between">
-              <h2 className={theme === 'dark' ? 'text-lg font-semibold text-white' : 'text-lg font-semibold text-slate-900'}>{column.stage}</h2>
+              <h2 className={theme === 'dark' ? 'text-lg font-semibold text-white' : 'text-lg font-semibold text-slate-900'}>{getLeadStatusLabel(column.stage)}</h2>
               <span className={theme === 'dark' ? 'rounded-full bg-white/10 px-3 py-1 text-sm text-slate-300' : 'rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-600'}>{column.leads.length}</span>
             </div>
 
@@ -52,7 +53,7 @@ export default function Pipeline() {
                   <div className="mt-4 flex flex-wrap gap-2">
                     {stages.filter((stage) => stage !== lead.status).map((stage) => (
                       <button key={stage} type="button" onClick={() => moveLead(lead.id, stage)} className="table-action">
-                        {stage}
+                        {getLeadStatusLabel(stage)}
                       </button>
                     ))}
                   </div>

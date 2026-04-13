@@ -11,7 +11,7 @@ export function sanitizeUser(user) {
   };
 }
 
-export function serializeLead(lead) {
+export function serializeLead(lead, metadata = {}) {
   return {
     id: lead._id.toString(),
     name: lead.name,
@@ -21,10 +21,16 @@ export function serializeLead(lead) {
     campaign: lead.campaign,
     source: lead.source,
     status: lead.status,
+    bucket: lead.bucket || 'leads',
+    sequenceNumber: metadata.sequenceNumber || null,
+    monthlySequence: metadata.monthlySequence || null,
+    leadCode: metadata.leadCode || null,
+    monthCode: metadata.monthCode || null,
     statusTimeline: {
       contactedAt: lead.statusTimeline?.contactedAt || null,
+      nonQualifiedAt: lead.statusTimeline?.nonQualifiedAt || null,
       notInterestedAt: lead.statusTimeline?.notInterestedAt || null,
-      convertedAt: lead.statusTimeline?.convertedAt || null,
+      interestedAt: lead.statusTimeline?.interestedAt || null,
     },
     details: {
       dateOfBirth: lead.details?.dateOfBirth || '',

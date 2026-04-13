@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { LEAD_STATUSES } from '../constants/index.js';
+import { LEAD_BUCKETS, LEAD_STATUSES } from '../constants/index.js';
 
 const noteSchema = new mongoose.Schema({
   body: { type: String, required: true, trim: true },
@@ -14,13 +14,15 @@ const leadSchema = new mongoose.Schema({
   campaign: { type: String, default: '' },
   source: { type: String, default: 'manual' },
   status: { type: String, enum: LEAD_STATUSES, default: 'New' },
+  bucket: { type: String, enum: LEAD_BUCKETS, default: 'leads' },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   inviteToken: { type: String, default: '' },
   statusTimeline: {
     contactedAt: { type: Date, default: null },
+    nonQualifiedAt: { type: Date, default: null },
     notInterestedAt: { type: Date, default: null },
-    convertedAt: { type: Date, default: null },
+    interestedAt: { type: Date, default: null },
   },
   details: {
     dateOfBirth: { type: String, default: '' },

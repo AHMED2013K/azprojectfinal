@@ -8,6 +8,8 @@ import AuditLog from '../models/AuditLog.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { serializeLead, sanitizeUser } from '../utils/serializers.js';
 import { buildLeadAccessQuery, isAdmin } from '../utils/access.js';
+import { buildLeadMetadataMap } from '../utils/leadMetadata.js';
+import { migrateLegacyLeadStatuses } from '../utils/leadStatus.js';
 
 const router = express.Router();
 
@@ -25,7 +27,44 @@ async function aggregateByFieldWithMatch(path, match) {
   }));
 }
 
+async function aggregateMonthlyBreakdown(match) {
+  const results = await Lead.aggregate([
+    { $match: match },
+    {
+      $group: {
+        _id: {
+          year: { $year: '$createdAt' },
+          month: { $month: '$createdAt' },
+        },
+        total: { $sum: 1 },
+        newCount: { $sum: { $cond: [{ $eq: ['$status', 'New'] }, 1, 0] } },
+        contacted: { $sum: { $cond: [{ $eq: ['$status', 'Contacted'] }, 1, 0] } },
+        nonQualified: { $sum: { $cond: [{ $eq: ['$status', 'Non Qualified'] }, 1, 0] } },
+        notInterested: { $sum: { $cond: [{ $eq: ['$status', 'Not Interested'] }, 1, 0] } },
+        interested: { $sum: { $cond: [{ $eq: ['$status', 'Interested'] }, 1, 0] } },
+      },
+    },
+    { $sort: { '_id.year': -1, '_id.month': -1 } },
+    { $limit: 12 },
+  ]);
+
+  return results.map((item) => {
+    const date = new Date(Date.UTC(item._id.year, item._id.month - 1, 1));
+    return {
+      label: date.toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' }),
+      total: item.total,
+      newCount: item.newCount,
+      contacted: item.contacted,
+      nonQualified: item.nonQualified,
+      notInterested: item.notInterested,
+      interested: item.interested,
+    };
+  });
+}
+
 router.get('/', asyncHandler(async (req, res) => {
+  await migrateLegacyLeadStatuses();
+
   const leadScope = buildLeadAccessQuery(req.user);
   const auditQuery = isAdmin(req.user) ? {} : { actor: req.user._id };
   const workLogQuery = isAdmin(req.user) ? {} : { user: req.user._id };
@@ -33,8 +72,8 @@ router.get('/', asyncHandler(async (req, res) => {
 
   const [
     totalLeads,
-    activeLeads,
-    convertedLeads,
+    openLeads,
+    interestedLeads,
     users,
     recentLeads,
     announcements,
@@ -43,15 +82,18 @@ router.get('/', asyncHandler(async (req, res) => {
     auditFeed,
     newLeads,
     contactedLeads,
+    nonQualifiedLeads,
     notInterestedLeads,
     studyFieldBreakdown,
     studyLevelBreakdown,
     financialBreakdown,
     awarenessBreakdown,
+    monthlyBreakdown,
+    leadIds,
   ] = await Promise.all([
     Lead.countDocuments(leadScope),
-    Lead.countDocuments({ ...leadScope, status: { $in: ['New', 'Contacted'] } }),
-    Lead.countDocuments({ ...leadScope, status: 'Converted' }),
+    Lead.countDocuments({ ...leadScope, bucket: 'leads' }),
+    Lead.countDocuments({ ...leadScope, status: 'Interested' }),
     isAdmin(req.user) ? User.find().sort({ name: 1 }) : User.find({ _id: req.user._id }).sort({ name: 1 }),
     Lead.find(recentLeadsQuery).sort({ createdAt: -1 }).limit(6).populate('createdBy').populate('assignedTo').populate('notes.author'),
     Announcement.find().sort({ createdAt: -1 }).limit(5).populate('author'),
@@ -60,27 +102,39 @@ router.get('/', asyncHandler(async (req, res) => {
     AuditLog.find(auditQuery).sort({ createdAt: -1 }).limit(10).populate('actor'),
     Lead.countDocuments({ ...leadScope, status: 'New' }),
     Lead.countDocuments({ ...leadScope, status: 'Contacted' }),
+    Lead.countDocuments({ ...leadScope, status: 'Non Qualified' }),
     Lead.countDocuments({ ...leadScope, status: 'Not Interested' }),
     aggregateByFieldWithMatch('details.studyField', leadScope),
     aggregateByFieldWithMatch('details.studyLevel', leadScope),
     aggregateByFieldWithMatch('details.financialSituation', leadScope),
     aggregateByFieldWithMatch('details.alternanceAwareness', leadScope),
+    aggregateMonthlyBreakdown(leadScope),
+    Lead.find({}, '_id createdAt').sort({ createdAt: 1, _id: 1 }),
   ]);
+  const metadataMap = buildLeadMetadataMap(leadIds);
 
   res.json({
     stats: {
       totalLeads,
-      activeLeads,
-      convertedLeads,
+      openLeads,
+      activeLeads: newLeads + contactedLeads + interestedLeads,
+      convertedLeads: interestedLeads,
+      treatedLeads: totalLeads - openLeads,
       agentsActivity: users.filter((user) => user.isOnline).length,
       unreadNotifications,
     },
     statusBreakdown: [
       { label: 'New', value: newLeads },
       { label: 'Contacted', value: contactedLeads },
+      { label: 'Non Qualified', value: nonQualifiedLeads },
       { label: 'Not Interested', value: notInterestedLeads },
-      { label: 'Converted', value: convertedLeads },
+      { label: 'Interested', value: interestedLeads },
     ],
+    bucketBreakdown: [
+      { label: 'Leads', value: openLeads },
+      { label: 'Traites', value: totalLeads - openLeads },
+    ],
+    monthlyBreakdown,
     formBreakdowns: {
       studyField: studyFieldBreakdown,
       studyLevel: studyLevelBreakdown,
@@ -88,7 +142,7 @@ router.get('/', asyncHandler(async (req, res) => {
       alternanceAwareness: awarenessBreakdown,
     },
     users: users.map(sanitizeUser),
-    recentLeads: recentLeads.map(serializeLead),
+    recentLeads: recentLeads.map((lead) => serializeLead(lead, metadataMap.get(lead._id.toString()))),
     announcements: announcements.map((announcement) => ({
       id: announcement._id.toString(),
       title: announcement.title,

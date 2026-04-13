@@ -10,6 +10,7 @@ import { initMarketing, trackPageView } from './lib/marketing';
 const Login = lazy(() => import('./pages/Login'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Leads = lazy(() => import('./pages/Leads'));
+const Treated = lazy(() => import('./pages/Treated'));
 const Pipeline = lazy(() => import('./pages/Pipeline'));
 const Chat = lazy(() => import('./pages/Chat'));
 const Tracking = lazy(() => import('./pages/Tracking'));
@@ -60,6 +61,7 @@ export default function App() {
                   <Route path="/" element={<Navigate to="/dashboard" replace />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/leads" element={<Leads />} />
+                  <Route path="/treated" element={<Treated />} />
                   <Route path="/pipeline" element={<Pipeline />} />
                   <Route path="/chat" element={<Chat />} />
                   <Route path="/tracking" element={<Tracking />} />

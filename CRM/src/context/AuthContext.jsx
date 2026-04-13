@@ -18,7 +18,6 @@ export function AuthProvider({ children }) {
       try {
         const storedToken = sessionStorage.getItem(TOKEN_KEY);
 
-        // 👉 Si pas de token → essayer refresh (cookies)
         if (!storedToken) {
           const refreshData = await apiRequest('/api/auth/refresh', {
             method: 'POST',
@@ -34,14 +33,27 @@ export function AuthProvider({ children }) {
           return;
         }
 
-        // 👉 Si token existe → récupérer user
-        const data = await apiRequest('/api/auth/me', {
-          token: storedToken,
-        });
+        try {
+          const data = await apiRequest('/api/auth/me', {
+            token: storedToken,
+          });
 
-        setUser(data.user);
-        setToken(storedToken);
-        setCsrfToken(sessionStorage.getItem(CSRF_KEY) || '');
+          setUser(data.user);
+          setToken(storedToken);
+          setCsrfToken(sessionStorage.getItem(CSRF_KEY) || '');
+        } catch (_meError) {
+          const refreshData = await apiRequest('/api/auth/refresh', {
+            method: 'POST',
+            retryOnAuthError: false,
+          });
+
+          sessionStorage.setItem(TOKEN_KEY, refreshData.token);
+          sessionStorage.setItem(CSRF_KEY, refreshData.csrfToken);
+
+          setToken(refreshData.token);
+          setCsrfToken(refreshData.csrfToken);
+          setUser(refreshData.user);
+        }
       } catch (err) {
         console.warn('Session restore failed:', err.message);
 
