@@ -198,7 +198,7 @@ const posts = {
       { h2: '4. Préparer le coût réel de la vie sur place', text: 'La réussite du projet dépend autant de l’installation que de l’admission.' },
     ],
     faq: [
-      ['Le Québec est-il le meilleur choix pour un Tunisien francophone ?', 'Souvent oui, mais pas automatiquement. Le bon choix dépend du programme et du budget.' },
+      ['Le Québec est-il le meilleur choix pour un Tunisien francophone ?', 'Souvent oui, mais pas automatiquement. Le bon choix dépend du programme et du budget.'],
       ['Peut-on combiner études et projet d’installation ?', 'Oui, mais le dossier doit rester sérieux et bien structuré.'],
     ],
     relatedLinks: [

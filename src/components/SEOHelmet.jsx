@@ -141,7 +141,7 @@ const SEOHelmet = ({
       <meta name="twitter:image" content={image} />
 
       {hreflangAlternates.map(({ href, hreflang }) => (
-        <link key={hreflang} rel="alternate" href={href} hreflang={hreflang} />
+        <link key={hreflang} rel="alternate" href={href} hrefLang={hreflang} />
       ))}
 
       <script type="application/ld+json">
