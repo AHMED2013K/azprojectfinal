@@ -25,6 +25,25 @@ const calculatorStructuredData = {
   ]
 };
 
+const calculatorFaqItems = [
+  {
+    question: 'How accurate is the outsourcing cost calculator for Tunisia?',
+    answer: 'The calculator gives a realistic first estimate based on common service rates in Tunisia. A final quote depends on languages, SLA, training needs, schedule coverage, and reporting requirements.',
+  },
+  {
+    question: 'What services can I estimate with this calculator?',
+    answer: 'You can estimate customer service, data entry, and sales support scenarios. It is designed to help companies compare in-house or current vendor costs with a Tunisia-based outsourcing model.',
+  },
+  {
+    question: 'How much can companies usually save by outsourcing to Tunisia?',
+    answer: 'Savings vary by team size and workflow complexity, but many companies reduce operating costs significantly while keeping strong French, Arabic, and English coverage.',
+  },
+  {
+    question: 'What should I do after seeing the calculator result?',
+    answer: 'The best next step is to request a custom analysis so EduGrowth can review staffing assumptions, implementation timeline, and the most suitable service model for your business.',
+  },
+];
+
 const translations = {
   en: {
     heroTitle: "Free Outsourcing Cost Calculator: Tunisia vs Your Current Costs",
@@ -128,6 +147,7 @@ const CostCalculatorPage = () => {
         description="Free outsourcing cost calculator. Compare Tunisia outsourcing costs vs current expenses. Get instant ROI projections for customer service and BPO."
         canonical="https://edugrowth.tn/outsourcing-cost-calculator"
         structuredData={calculatorStructuredData}
+        faqItems={calculatorFaqItems}
         lang="en"
       />
 
@@ -257,6 +277,33 @@ const CostCalculatorPage = () => {
               <div className="flex items-center space-x-4">
                 <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
                 <span className="text-gray-700">{t.benefit4}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="rounded-2xl border border-gray-200 p-8">
+              <h2 className="text-3xl font-black text-gray-900">Outsourcing Calculator FAQ</h2>
+              <div className="mt-6 space-y-4">
+                {calculatorFaqItems.map((item) => (
+                  <div key={item.question} className="rounded-xl bg-gray-50 p-5">
+                    <h3 className="text-lg font-bold text-gray-900">{item.question}</h3>
+                    <p className="mt-2 text-gray-600">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 flex flex-wrap gap-3 text-sm font-bold text-green-700">
+                <Link to="/outsourcing-tunisia" className="rounded-full bg-green-50 px-4 py-2">
+                  Tunisia outsourcing guide
+                </Link>
+                <Link to="/outsource-customer-service-tunisia" className="rounded-full bg-green-50 px-4 py-2">
+                  Customer service outsourcing
+                </Link>
+                <Link to="/book-consultation" className="rounded-full bg-green-50 px-4 py-2">
+                  Book a custom analysis
+                </Link>
               </div>
             </div>
           </div>

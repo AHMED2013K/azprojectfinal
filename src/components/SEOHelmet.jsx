@@ -13,7 +13,8 @@ const SEOHelmet = ({
   image = defaultImage,
   type = 'website',
   lang = null,
-  structuredData = null
+  structuredData = null,
+  faqItems = null
 }) => {
   const { lang: activeLanguage } = useLanguage();
   const resolvedLanguage = lang || activeLanguage || 'en';
@@ -85,6 +86,33 @@ const SEOHelmet = ({
     ]
   };
 
+  const faqStructuredData = faqItems?.length
+    ? {
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map(({ question, answer }) => ({
+          '@type': 'Question',
+          name: question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: answer,
+          },
+        })),
+      }
+    : null;
+
+  const baseStructuredData = structuredData || defaultStructuredData;
+  const resolvedStructuredData = faqStructuredData
+    ? Array.isArray(baseStructuredData?.['@graph'])
+      ? {
+          ...baseStructuredData,
+          '@graph': [...baseStructuredData['@graph'], faqStructuredData],
+        }
+      : {
+          '@context': 'https://schema.org',
+          '@graph': [baseStructuredData, faqStructuredData],
+        }
+    : baseStructuredData;
+
   return (
     <Helmet prioritizeSeoTags>
       <html lang={resolvedLanguage} />
@@ -117,7 +145,7 @@ const SEOHelmet = ({
       ))}
 
       <script type="application/ld+json">
-        {JSON.stringify(structuredData || defaultStructuredData)}
+        {JSON.stringify(resolvedStructuredData)}
       </script>
     </Helmet>
   );

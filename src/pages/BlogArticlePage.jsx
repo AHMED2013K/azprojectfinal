@@ -207,6 +207,206 @@ const posts = {
       { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses à l’étranger' },
     ],
   },
+  '/blog/entretien-campus-france-questions-reponses': {
+    title: 'Entretien Campus France Tunisie: questions et réponses pour réussir',
+    description: 'Préparez votre entretien Campus France Tunisie avec les questions fréquentes, les erreurs à éviter et une méthode de réponse claire.',
+    h1: 'Entretien Campus France Tunisie: questions et réponses',
+    sections: [
+      { h2: '1. Ce que veut vérifier Campus France', text: 'L’entretien sert surtout à mesurer la cohérence du projet, la compréhension du parcours choisi et la crédibilité globale du dossier.' },
+      { h2: '2. Les questions les plus fréquentes', text: 'Pourquoi la France, pourquoi cette formation, quel budget, quel projet après les études: ces thèmes reviennent presque toujours.' },
+      { h2: '3. Comment structurer des réponses solides', text: 'Une bonne réponse reste simple, logique et alignée avec les documents du dossier. Il faut éviter les phrases vagues et les contradictions.' },
+      { h2: '4. Les erreurs qui font douter l’examinateur', text: 'Les réponses improvisées, le manque de clarté sur le financement et l’absence de projet professionnel fragilisent fortement l’entretien.' },
+    ],
+    faq: [
+      ['Combien de temps dure un entretien Campus France ?', 'La durée varie, mais le plus important reste la qualité des réponses et la cohérence du projet.'],
+      ['Faut-il apprendre des réponses par cœur ?', 'Non. Il faut surtout comprendre son dossier et savoir l’expliquer clairement.'],
+    ],
+    relatedLinks: [
+      { to: '/blog/campus-france-tunisie-etapes', label: 'Campus France Tunisie : étapes' },
+      { to: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Étudier en France depuis la Tunisie' },
+      { to: '/book-consultation', label: 'Préparer son entretien avec un conseiller' },
+    ],
+  },
+  '/blog/lettre-motivation-campus-france-exemple': {
+    title: 'Lettre de motivation Campus France: exemple et structure efficace',
+    description: 'Guide pratique pour rédiger une lettre de motivation Campus France claire, crédible et cohérente pour un étudiant tunisien.',
+    h1: 'Lettre de motivation Campus France: exemple et structure',
+    sections: [
+      { h2: '1. Ce que doit montrer la lettre', text: 'La lettre doit relier votre parcours, votre choix de formation et votre objectif professionnel dans une logique simple et crédible.' },
+      { h2: '2. La structure qui fonctionne', text: 'Introduction courte, parcours académique, raisons du choix, projet professionnel et conclusion claire: la structure compte autant que le style.' },
+      { h2: '3. Les erreurs les plus fréquentes', text: 'Les modèles copiés, les phrases trop générales et l’absence de lien avec le dossier rendent la lettre faible.' },
+      { h2: '4. Comment personnaliser sans compliquer', text: 'Une bonne personnalisation vient de détails vrais: votre parcours, votre niveau, votre objectif et la cohérence du pays choisi.' },
+    ],
+    faq: [
+      ['Faut-il écrire une lettre différente pour chaque projet ?', 'Oui, au minimum la lettre doit être adaptée au programme, au niveau d’études et à votre logique de parcours.'],
+      ['La lettre de motivation suffit-elle pour convaincre ?', 'Non, elle doit renforcer un dossier déjà cohérent académiquement et financièrement.'],
+    ],
+    relatedLinks: [
+      { to: '/blog/campus-france-tunisie-etapes', label: 'Étapes Campus France' },
+      { to: '/blog/refus-visa-etudiant-france-erreurs', label: 'Erreurs qui bloquent un dossier' },
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Guide France' },
+    ],
+  },
+  '/blog/compte-bloque-allemagne-tunisie': {
+    title: 'Compte bloqué Allemagne Tunisie: montant, étapes et erreurs à éviter',
+    description: 'Comprendre le compte bloqué Allemagne depuis la Tunisie: montant, justificatifs, calendrier et rôle dans le visa étudiant.',
+    h1: 'Compte bloqué Allemagne Tunisie: guide pratique',
+    sections: [
+      { h2: '1. À quoi sert le compte bloqué', text: 'Le compte bloqué aide à prouver votre capacité financière pour les études en Allemagne et joue un rôle important dans le dossier visa.' },
+      { h2: '2. Quand l’ouvrir et comment le préparer', text: 'Il faut l’anticiper assez tôt pour éviter qu’un bon projet soit bloqué par une contrainte de calendrier ou de transfert.' },
+      { h2: '3. Les documents et vérifications utiles', text: 'Avant d’ouvrir le compte, mieux vaut vérifier l’admission, le budget total, les délais et les autres pièces du dossier.' },
+      { h2: '4. Les erreurs qui coûtent du temps', text: 'Attendre trop tard, sous-estimer les coûts annexes ou ne pas comprendre les conditions du visa crée du stress et des retards.' },
+    ],
+    faq: [
+      ['Le compte bloqué est-il toujours obligatoire ?', 'Selon le profil et la voie choisie, il reste souvent central dans la démonstration financière.'],
+      ['L’Allemagne est-elle accessible avec un budget limité ?', 'Oui sur certains parcours, mais il faut chiffrer tout le projet et pas seulement le compte bloqué.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
+      { to: '/programmes/ausbildung-allemagne', label: 'Programme Ausbildung' },
+      { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses à l’étranger' },
+    ],
+  },
+  '/blog/quel-pays-etudier-petit-budget': {
+    title: 'Quel pays choisir pour étudier avec un petit budget ?',
+    description: 'Comparatif simple pour choisir un pays d’études avec un budget limité quand on est étudiant tunisien.',
+    h1: 'Quel pays choisir pour étudier avec un petit budget ?',
+    sections: [
+      { h2: '1. Commencer par le budget réel', text: 'Le bon pays n’est pas celui qui paraît le moins cher, mais celui que vous pouvez financer de façon réaliste du dossier au départ.' },
+      { h2: '2. Comparer coût, visa et difficulté', text: 'Il faut regarder en même temps les frais, la vie sur place, la langue, la difficulté d’admission et la logique visa.' },
+      { h2: '3. Les destinations souvent étudiées par les Tunisiens', text: 'France, Allemagne, Chypre, Turquie et parfois Dubai reviennent souvent selon le profil académique et financier.' },
+      { h2: '4. Comment éviter le mauvais choix', text: 'Le plus grand risque est de viser un pays très populaire mais mal adapté à votre niveau, votre budget ou votre timing.' },
+    ],
+    faq: [
+      ['La France est-elle toujours le meilleur choix ?', 'Pas automatiquement. Elle reste forte, mais le bon choix dépend de votre projet, budget et capacité à préparer le dossier.'],
+      ['Comment comparer plusieurs destinations ?', 'Il faut utiliser une grille simple: budget, langue, admission, visa, débouchés et délais.'],
+    ],
+    relatedLinks: [
+      { to: '/blog/top-pays-pour-etudier', label: 'Top pays pour étudier' },
+      { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Budget études à l’étranger' },
+      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+    ],
+  },
+  '/blog/logement-etudiant-france-depuis-tunisie': {
+    title: 'Logement étudiant en France depuis la Tunisie: options et budget',
+    description: 'Trouver un logement étudiant en France depuis la Tunisie: résidences, colocation, budget et conseils pratiques.',
+    h1: 'Logement étudiant en France depuis la Tunisie',
+    sections: [
+      { h2: '1. Les grandes options de logement', text: 'Résidence universitaire, colocation, studio privé ou hébergement temporaire: chaque solution a ses avantages selon la ville et le budget.' },
+      { h2: '2. Quel budget prévoir', text: 'Le logement est souvent la plus grosse dépense après l’admission. Il faut intégrer caution, charges, transport et installation.' },
+      { h2: '3. Quand commencer la recherche', text: 'Plus la destination est demandée, plus il faut s’y prendre tôt pour éviter un mauvais choix ou un budget explosif.' },
+      { h2: '4. Les erreurs à éviter avant le départ', text: 'Signer trop vite, mal comprendre les conditions ou sous-estimer le coût réel complique fortement les premières semaines en France.' },
+    ],
+    faq: [
+      ['Peut-on trouver un logement avant le visa ?', 'Oui, mais il faut avancer avec méthode et garder une stratégie flexible.'],
+      ['Quelle ville est la plus abordable ?', 'Cela dépend du type de logement et du programme, mais les grandes métropoles coûtent souvent plus cher.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Guide France' },
+      { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Budget études à l’étranger' },
+      { to: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Étudier en France depuis la Tunisie' },
+    ],
+  },
+  '/blog/master-france-apres-licence-tunisie': {
+    title: 'Master en France après une licence en Tunisie: stratégie de candidature',
+    description: 'Guide pour candidater en master en France après une licence en Tunisie: choix du programme, dossier et logique académique.',
+    h1: 'Master en France après une licence en Tunisie',
+    sections: [
+      { h2: '1. Choisir un master cohérent', text: 'La cohérence entre licence, projet professionnel et programme visé reste un facteur décisif pour le dossier.' },
+      { h2: '2. Construire un dossier solide', text: 'Notes, lettre, CV, projet et stratégie de choix doivent former un ensemble lisible et crédible.' },
+      { h2: '3. Éviter les candidatures trop larges', text: 'Candidater partout sans logique fragilise la qualité du dossier et complique le suivi.' },
+      { h2: '4. Préparer financement et visa', text: 'Le master ne se joue pas seulement sur l’admission: il faut anticiper les étapes qui suivent pour sécuriser le projet.' },
+    ],
+    faq: [
+      ['Peut-on candidater à un master différent de sa licence ?', 'Oui, dans certains cas, mais il faut justifier clairement la transition.'],
+      ['Faut-il viser seulement les universités les plus connues ?', 'Non. Il vaut mieux viser les programmes les plus adaptés à votre profil et à votre budget.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Guide France' },
+      { to: '/blog/lettre-motivation-campus-france-exemple', label: 'Lettre de motivation Campus France' },
+      { to: '/book-consultation', label: 'Construire une stratégie de candidature' },
+    ],
+  },
+  '/blog/etudier-a-chypre-depuis-la-tunisie': {
+    title: 'Étudier à Chypre depuis la Tunisie: admission, coût et visa',
+    description: 'Guide complet pour étudier à Chypre depuis la Tunisie: universités, budget, visa et étapes du dossier.',
+    h1: 'Étudier à Chypre depuis la Tunisie',
+    sections: [
+      { h2: '1. Pourquoi Chypre attire certains profils', text: 'Chypre est souvent étudiée pour son accessibilité relative, ses admissions flexibles et certaines options anglophones.' },
+      { h2: '2. Budget et coût réel', text: 'Avant de choisir Chypre, il faut regarder scolarité, logement, frais administratifs et coût de vie sur place.' },
+      { h2: '3. Admission et documents', text: 'Le succès dépend d’un dossier clair, d’un calendrier maîtrisé et d’une bonne compréhension des attentes de l’établissement.' },
+      { h2: '4. Visa et préparation départ', text: 'Comme pour toute destination, le visa et l’installation doivent être anticipés dès le départ.' },
+    ],
+    faq: [
+      ['Chypre est-elle plus facile que la France ?', 'Sur certains profils, elle peut être plus accessible, mais le choix doit rester stratégique et pas seulement “plus simple”.'],
+      ['Pour quels étudiants Chypre est-elle pertinente ?', 'Elle convient souvent aux profils cherchant une solution rapide et plus flexible selon budget et programme.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-a-chypre-depuis-tunisie', label: 'Guide Chypre' },
+      { to: '/blog/quel-pays-etudier-petit-budget', label: 'Quel pays choisir avec petit budget' },
+      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+    ],
+  },
+  '/blog/etudier-en-turquie-depuis-la-tunisie': {
+    title: 'Étudier en Turquie depuis la Tunisie: universités, budget et visa',
+    description: 'Guide pratique pour étudier en Turquie depuis la Tunisie: admission, coûts, visa et choix du bon programme.',
+    h1: 'Étudier en Turquie depuis la Tunisie',
+    sections: [
+      { h2: '1. Pourquoi la Turquie peut être une option', text: 'La Turquie attire des étudiants cherchant un équilibre entre accessibilité, offre académique et proximité culturelle.' },
+      { h2: '2. Bien choisir université et langue', text: 'Le choix du programme, de la ville et de la langue d’enseignement influence fortement la réussite du projet.' },
+      { h2: '3. Budget et installation', text: 'Même quand les frais paraissent abordables, il faut chiffrer le logement, la vie quotidienne et les coûts administratifs.' },
+      { h2: '4. Démarches visa et départ', text: 'La phase finale doit être préparée tôt pour éviter les retards et mieux sécuriser l’installation.' },
+    ],
+    faq: [
+      ['La Turquie est-elle adaptée après le bac ?', 'Oui pour certains profils, surtout si le projet et le budget sont bien cadrés.'],
+      ['Faut-il parler turc ?', 'Pas toujours, mais il faut bien comprendre la langue d’enseignement et la vie quotidienne sur place.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-turquie-depuis-tunisie', label: 'Guide Turquie' },
+      { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Budget études à l’étranger' },
+      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+    ],
+  },
+  '/blog/etudier-a-dubai-depuis-la-tunisie': {
+    title: 'Étudier à Dubai depuis la Tunisie: programmes, budget et admission',
+    description: 'Guide pour étudier à Dubai depuis la Tunisie: universités, coûts, dossier, visa et opportunités.',
+    h1: 'Étudier à Dubai depuis la Tunisie',
+    sections: [
+      { h2: '1. À qui cette destination convient', text: 'Dubai peut être pertinente pour les étudiants cherchant un environnement international avec certaines spécialisations fortes.' },
+      { h2: '2. Comprendre le budget réel', text: 'Le coût total doit intégrer scolarité, logement, transport et niveau de vie local avant toute décision.' },
+      { h2: '3. Admission et sélection du programme', text: 'Le bon choix dépend du domaine, de la reconnaissance du diplôme et de la faisabilité financière du projet.' },
+      { h2: '4. Préparer les prochaines étapes', text: 'Une destination ambitieuse exige un dossier bien structuré et une vraie maîtrise du financement.' },
+    ],
+    faq: [
+      ['Dubai est-elle une destination coûteuse ?', 'Souvent oui, ce qui impose une analyse budgétaire sérieuse avant de candidater.'],
+      ['Quels profils choisissent Dubai ?', 'Souvent des étudiants cherchant un environnement international ou des domaines spécifiques bien représentés sur place.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-a-dubai-depuis-tunisie', label: 'Guide Dubai' },
+      { to: '/blog/quel-pays-etudier-petit-budget', label: 'Quel pays choisir avec petit budget' },
+      { to: '/book-consultation', label: 'Évaluer votre projet avec un conseiller' },
+    ],
+  },
+  '/blog/documents-admission-internationale-tunisie': {
+    title: 'Documents pour une admission internationale depuis la Tunisie: checklist',
+    description: 'Checklist des documents à préparer pour une admission internationale depuis la Tunisie: dossier, traductions, justificatifs et calendrier.',
+    h1: 'Documents pour une admission internationale depuis la Tunisie',
+    sections: [
+      { h2: '1. Les documents académiques de base', text: 'Diplômes, relevés, attestations et parfois programmes détaillés doivent être préparés tôt et dans le bon format.' },
+      { h2: '2. Les pièces d’identité et justificatifs', text: 'Passeport, photos, preuves financières et documents administratifs doivent être vérifiés avant les phases critiques.' },
+      { h2: '3. Les documents de projet', text: 'CV, lettre de motivation, projet d’études et parfois recommandations structurent la crédibilité du dossier.' },
+      { h2: '4. Comment éviter les oublis', text: 'La meilleure méthode reste une checklist ordonnée par priorité, par pays et par échéance.' },
+    ],
+    faq: [
+      ['Faut-il préparer tous les documents avant de choisir le pays ?', 'Il vaut mieux préparer une base solide puis ajuster selon la destination visée.'],
+      ['Les traductions sont-elles toujours obligatoires ?', 'Cela dépend du pays et de l’établissement, mais il faut l’anticiper très tôt.'],
+    ],
+    relatedLinks: [
+      { to: '/blog/campus-france-tunisie-etapes', label: 'Campus France Tunisie' },
+      { to: '/blog/visa-etudiant-guide', label: 'Guide visa étudiant' },
+      { to: '/book-consultation', label: 'Obtenir une checklist personnalisée' },
+    ],
+  },
   '/blog/pourquoi-externaliser-ses-admissions': {
     title: 'Pourquoi externaliser ses admissions: ROI, vitesse et qualité',
     description: 'Comment les institutions réduisent les coûts et améliorent la conversion en externalisant admissions et lead qualification.',

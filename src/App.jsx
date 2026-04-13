@@ -105,6 +105,16 @@ export default function App() {
         <Route path="/blog/etudier-en-allemagne-depuis-la-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/etudier-au-canada-depuis-la-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/bourses-etudes-etranger-tunisiens" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/entretien-campus-france-questions-reponses" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/lettre-motivation-campus-france-exemple" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/compte-bloque-allemagne-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/quel-pays-etudier-petit-budget" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/logement-etudiant-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/master-france-apres-licence-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/etudier-a-chypre-depuis-la-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/etudier-en-turquie-depuis-la-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/etudier-a-dubai-depuis-la-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/documents-admission-internationale-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/pourquoi-externaliser-ses-admissions" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/outsourcing-tunisie-avantages" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/top-pays-pour-etudier" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
