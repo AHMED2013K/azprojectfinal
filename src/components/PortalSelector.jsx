@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { loadVantaDependencies } from '../utils/loadExternalScript.js';
 
 const portalCopy = {
   en: {
@@ -104,42 +105,38 @@ const PortalSelector = ({ isOpen, onClose, onSelect, onToggleLanguage, translati
   // Initialize VANTA when background div is rendered
   useEffect(() => {
     if (!isLoading && vantaRef.current && !vantaRef.current.vantaEffect) {
-      const initVanta = () => {
-        if (window.VANTA?.NET && window.THREE) {
-          try {
-            // Destroy any existing effect first
-            if (vantaRef.current.vantaEffect) {
-              vantaRef.current.vantaEffect.destroy();
-              vantaRef.current.vantaEffect = null;
-            }
-
-            vantaRef.current.vantaEffect = window.VANTA.NET({
-              el: vantaRef.current,
-              mouseControls: true,
-              touchControls: true,
-              gyroControls: false,
-              minHeight: 100.00,
-              minWidth: 100.00,
-              scale: 1.00,
-              scaleMobile: 1.00,
-              color: 0x0066cc, // More vibrant blue
-              backgroundColor: 0x1e293b, // Dark slate color to match gradient
-              points: 20.00,
-              maxDistance: 30.00,
-              spacing: 14.00,
-              showDots: true,
-              speed: 1.5
-            });
-          } catch (error) {
-            console.warn('VANTA initialization failed:', error);
+      loadVantaDependencies()
+        .then(() => {
+          if (!vantaRef.current) {
+            return;
           }
-        } else {
-          // Wait for scripts to load
-          setTimeout(initVanta, 100);
-        }
-      };
 
-      initVanta();
+          if (vantaRef.current.vantaEffect) {
+            vantaRef.current.vantaEffect.destroy();
+            vantaRef.current.vantaEffect = null;
+          }
+
+          vantaRef.current.vantaEffect = window.VANTA.NET({
+            el: vantaRef.current,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 100.00,
+            minWidth: 100.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x0066cc,
+            backgroundColor: 0x1e293b,
+            points: 20.00,
+            maxDistance: 30.00,
+            spacing: 14.00,
+            showDots: true,
+            speed: 1.5,
+          });
+        })
+        .catch((error) => {
+          console.warn('VANTA initialization failed:', error);
+        });
     }
   }, [isLoading]);
 

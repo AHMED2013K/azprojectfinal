@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { loadVantaDependencies } from '../utils/loadExternalScript.js';
 
 const AnimatedBackground = ({ delay = 0 }) => {
   const vantaRef = useRef(null);
@@ -6,34 +7,22 @@ const AnimatedBackground = ({ delay = 0 }) => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Check if scripts are already loaded
-    const checkScriptsReady = () => {
-      return window.THREE && window.VANTA?.NET;
-    };
+    let mounted = true;
 
-    // If scripts are ready, set ready immediately
-    if (checkScriptsReady()) {
-      setIsReady(true);
-      return;
-    }
-
-    // Otherwise, wait for scripts to load
-    const checkInterval = setInterval(() => {
-      if (checkScriptsReady()) {
-        setIsReady(true);
-        clearInterval(checkInterval);
-      }
-    }, 50); // Check every 50ms
-
-    // Fallback timeout in case scripts fail to load
-    const fallbackTimer = setTimeout(() => {
-      clearInterval(checkInterval);
-      setIsReady(true); // Set ready even if scripts failed
-    }, 3000); // 3 second fallback
+    loadVantaDependencies()
+      .then(() => {
+        if (mounted) {
+          setIsReady(true);
+        }
+      })
+      .catch(() => {
+        if (mounted) {
+          setIsReady(true);
+        }
+      });
 
     return () => {
-      clearInterval(checkInterval);
-      clearTimeout(fallbackTimer);
+      mounted = false;
     };
   }, []);
 

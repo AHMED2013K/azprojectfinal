@@ -22,6 +22,7 @@ const CanadaStudyPage = lazy(() => import('./pages/CanadaStudyPage.jsx'));
 const CustomerServiceOutsourcingPage = lazy(() => import('./pages/CustomerServiceOutsourcingPage.jsx'));
 const CostCalculatorPage = lazy(() => import('./pages/CostCalculatorPage.jsx'));
 const OutsourcingTunisiaPage = lazy(() => import('./pages/OutsourcingTunisiaPage.jsx'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
 const StickyCTA = lazy(() => import('./components/StickyCTA.jsx'));
 const ExitIntentPopup = lazy(() => import('./components/ExitIntentPopup.jsx'));
@@ -60,11 +61,7 @@ export default function App() {
             <HomePage />
           </Suspense>
         } />
-        <Route path="*" element={
-          <Suspense fallback={<LoadingFallback />}>
-            <HomePage />
-          </Suspense>
-        } />
+        <Route path="*" element={<Suspense fallback={<LoadingFallback />}><NotFoundPage /></Suspense>} />
         
         <Route path="/abroad-zone" element={<Suspense fallback={<LoadingFallback />}><AbroadZonePage /></Suspense>} />
         <Route path="/outsourcing" element={<Suspense fallback={<LoadingFallback />}><EduGrowthOutsourcingPage /></Suspense>} />

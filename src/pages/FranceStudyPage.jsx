@@ -107,7 +107,7 @@ const FranceStudyPage = () => {
   const handleCTA = () => {
     trackEvent('generate_lead', {
       lead_source: 'france_study_page',
-      page_location: '/etudier-en-france-tunisie',
+      page_location: '/etudier-en-france-depuis-tunisie',
       value: 1,
       currency: 'EUR',
     });
@@ -119,7 +119,7 @@ const FranceStudyPage = () => {
       <SEOHelmet
         title="Étudier en France depuis la Tunisie | Guide Complet Campus France 2026"
         description="Étudier en France depuis la Tunisie : accompagnement Campus France, visa étudiant, admissions et financement. Guide complet pour étudiants tunisiens."
-        canonical="https://edugrowth.tn/etudier-en-france-tunisie"
+        canonical="https://edugrowth.tn/etudier-en-france-depuis-tunisie"
         structuredData={franceStudyStructuredData}
         lang="fr"
       />

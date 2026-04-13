@@ -115,7 +115,7 @@ const CanadaStudyPage = () => {
   const handleCTA = () => {
     trackEvent('generate_lead', {
       lead_source: 'canada_study_page',
-      page_location: '/etudier-au-canada-tunisie',
+      page_location: '/etudier-au-canada-depuis-tunisie',
       value: 1,
       currency: 'CAD',
     });
@@ -127,7 +127,7 @@ const CanadaStudyPage = () => {
       <SEOHelmet
         title="Étudier au Canada pour les Tunisiens | Guide Complet Permis d'Études 2026"
         description="Étudier au Canada depuis la Tunisie : admissions, permis d'études, financement et installation. Guide complet pour étudiants tunisiens."
-        canonical="https://edugrowth.tn/etudier-au-canada-tunisie"
+        canonical="https://edugrowth.tn/etudier-au-canada-depuis-tunisie"
         structuredData={canadaStudyStructuredData}
         lang="fr"
       />

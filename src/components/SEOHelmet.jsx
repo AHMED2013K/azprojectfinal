@@ -20,9 +20,7 @@ const SEOHelmet = ({
   const locale = resolvedLanguage === 'fr' ? 'fr_FR' : 'en_US';
   const normalizedCanonical = canonical || siteUrl;
   const hreflangAlternates = alternates || [
-    { href: siteUrl, hreflang: 'en' },
-    { href: siteUrl, hreflang: 'fr' },
-    { href: siteUrl, hreflang: 'x-default' },
+    { href: normalizedCanonical, hreflang: 'x-default' },
   ];
 
   const defaultStructuredData = {

@@ -1,28 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import sitemap from 'vite-plugin-sitemap';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    sitemap({
-      hostname: 'https://edugrowth.tn',
-      urls: [
-        '/',
-        '/abroad-zone',
-        '/outsourcing',
-        '/outsourcing-tunisia',
-        '/education-outsourcing-tunisia',
-        '/outsource-customer-service-tunisia',
-        '/programmes/alternance-france',
-        '/etudier-en-france-depuis-tunisie',
-        '/etudier-en-allemagne-depuis-tunisie',
-        '/etudier-au-canada-depuis-tunisie',
-        '/book-consultation',
-        '/blog',
-      ],
-    }),
-  ],
+  plugins: [react()],
   base: '/',
   build: {
     rollupOptions: {
