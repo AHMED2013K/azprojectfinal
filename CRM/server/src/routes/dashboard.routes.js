@@ -62,6 +62,17 @@ async function aggregateMonthlyBreakdown(match) {
   });
 }
 
+function withLeadBucketScope(query, bucket) {
+  if (bucket === 'leads') {
+    return {
+      ...query,
+      $or: [...(query.$or || []), { bucket: 'leads' }, { bucket: { $exists: false } }, { bucket: null }, { bucket: '' }],
+    };
+  }
+
+  return { ...query, bucket };
+}
+
 router.get('/', asyncHandler(async (req, res) => {
   await migrateLegacyLeadStatuses();
 
@@ -69,6 +80,8 @@ router.get('/', asyncHandler(async (req, res) => {
   const auditQuery = isAdmin(req.user) ? {} : { actor: req.user._id };
   const workLogQuery = isAdmin(req.user) ? {} : { user: req.user._id };
   const recentLeadsQuery = leadScope;
+
+  const openLeadScope = withLeadBucketScope(leadScope, 'leads');
 
   const [
     totalLeads,
@@ -92,7 +105,7 @@ router.get('/', asyncHandler(async (req, res) => {
     leadIds,
   ] = await Promise.all([
     Lead.countDocuments(leadScope),
-    Lead.countDocuments({ ...leadScope, bucket: 'leads' }),
+    Lead.countDocuments(openLeadScope),
     Lead.countDocuments({ ...leadScope, status: 'Interested' }),
     isAdmin(req.user) ? User.find().sort({ name: 1 }) : User.find({ _id: req.user._id }).sort({ name: 1 }),
     Lead.find(recentLeadsQuery).sort({ createdAt: -1 }).limit(6).populate('createdBy').populate('assignedTo').populate('notes.author'),

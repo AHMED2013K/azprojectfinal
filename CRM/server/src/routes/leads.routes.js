@@ -95,6 +95,15 @@ async function fetchBucketSummary(query) {
   };
 }
 
+function applyBucketFilter(query, bucket) {
+  if (bucket === 'leads') {
+    query.$or = [...(query.$or || []), { bucket: 'leads' }, { bucket: { $exists: false } }, { bucket: null }, { bucket: '' }];
+    return;
+  }
+
+  query.bucket = bucket;
+}
+
 router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
   await migrateLegacyLeadStatuses();
 
@@ -107,13 +116,8 @@ router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
   }
 
   const normalizedBucket = bucket && LEAD_BUCKETS.includes(bucket) ? bucket : 'leads';
-  query.bucket = normalizedBucket;
-  summaryQuery.bucket = normalizedBucket;
-
-  if (!bucket) {
-    query.bucket = 'leads';
-    summaryQuery.bucket = 'leads';
-  }
+  applyBucketFilter(query, normalizedBucket);
+  applyBucketFilter(summaryQuery, normalizedBucket);
 
   if (search) {
     const safeSearch = escapeRegExp(search);
