@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage.jsx';
+import PortalGatePage from './pages/PortalGatePage.jsx';
 import { initMarketing, trackPageView } from './utils/marketing.js';
 
 // Lazy loading all pages for better initial loading performance
@@ -57,6 +58,11 @@ export default function App() {
       <RouteTracker />
       <Routes>
         <Route path="/" element={
+          <Suspense fallback={<LoadingFallback />}>
+            <PortalGatePage />
+          </Suspense>
+        } />
+        <Route path="/home" element={
           <Suspense fallback={<LoadingFallback />}>
             <HomePage />
           </Suspense>
