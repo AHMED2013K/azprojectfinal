@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, BadgeCheck, BookOpen, Building2, Globe2, GraduationCap, MessageCircle, PhoneCall, Search, ShieldCheck, Sparkles, TrendingUp, Users } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
 import LanguageSwitch from '../components/LanguageSwitch';
+import PortalSelector from '../components/PortalSelector';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { testimonials } from '../components/data.js';
 import { trackEvent } from '../utils/tracking';
@@ -26,6 +28,9 @@ const translations = {
       'EduGrowth helps Tunisian students study abroad and helps international companies outsource customer service, virtual teams, and education operations from Tunisia.',
     badge: 'Tunisia growth platform for students and companies',
     heroTitle: 'Study abroad, alternance, and outsourcing from Tunisia.',
+    gateTitle: 'Choose your portal',
+    gateSubtitle: 'Access Abroad Zone for student guidance or EduGrowth for outsourcing and B2B services from Tunisia.',
+    portalButton: 'Portal',
     heroText:
       'EduGrowth connects Tunisian students with international opportunities and helps companies in Europe, North America, and the Gulf build multilingual offshore teams in Tunisia.',
     heroPrimary: 'Apply Now',
@@ -137,6 +142,9 @@ const translations = {
       "EduGrowth aide les étudiants tunisiens à étudier à l'étranger et accompagne les entreprises internationales avec des services d'outsourcing, customer service et équipes offshore depuis la Tunisie.",
     badge: 'Plateforme de croissance tunisienne pour étudiants et entreprises',
     heroTitle: "Étudier à l'étranger, alternance et outsourcing depuis la Tunisie.",
+    gateTitle: 'Choisissez votre portail',
+    gateSubtitle: "Accédez à Abroad Zone pour l'accompagnement étudiant ou à EduGrowth pour l'outsourcing et les services B2B depuis la Tunisie.",
+    portalButton: 'Portail',
     heroText:
       "EduGrowth relie les étudiants tunisiens aux opportunités internationales et aide les entreprises en Europe, Amérique du Nord et Golfe à déployer des équipes multilingues offshore en Tunisie.",
     heroPrimary: 'Postuler maintenant',
@@ -283,6 +291,8 @@ const homeStructuredData = {
 
 export default function HomePage() {
   const { lang, toggleLanguage } = useLanguage();
+  const navigate = useNavigate();
+  const [isPortalOpen, setIsPortalOpen] = useState(false);
   const copy = translations[lang];
   const applyUrl = buildApplyUrl('homepage_apply', lang);
   const whatsappText =
@@ -290,16 +300,27 @@ export default function HomePage() {
       ? 'Bonjour EduGrowth, je veux une consultation rapide pour mes études ou mon projet outsourcing.'
       : 'Hello EduGrowth, I want a quick consultation for study abroad or outsourcing.';
 
+  const handleSelectPortal = (view) => {
+    trackEvent('portal_select', { portal: view, page: '/' });
+    setIsPortalOpen(false);
+    navigate(view === 'student' ? '/abroad-zone' : '/outsourcing');
+  };
+
+  const handleClosePortal = () => setIsPortalOpen(false);
+  const handleOpenPortal = () => {
+    trackEvent('portal_open', { page: '/' });
+    setIsPortalOpen(true);
+  };
+
   return (
     <>
       <SEOHelmet
         title={copy.seoTitle}
         description={copy.seoDescription}
-        canonical="https://edugrowth.tn/"
+        canonical="https://edugrowth.tn/home"
         lang={lang}
         structuredData={homeStructuredData}
       />
-
       <div className="min-h-screen bg-[radial-gradient(circle_at_top,#eef6ff_0%,#ffffff_46%,#ecf7fb_100%)] text-slate-900">
         <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 backdrop-blur">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
@@ -320,6 +341,16 @@ export default function HomePage() {
             </nav>
 
             <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  trackEvent('cta_click', { cta_type: 'homepage_nav_portal', page: '/home' });
+                  handleOpenPortal();
+                }}
+                className="hidden rounded-full border border-[#175c7d]/20 bg-white/90 px-4 py-2 text-sm font-black text-[#175c7d] shadow-sm transition hover:bg-[#eef7fb] sm:inline-flex"
+              >
+                {copy.portalButton}
+              </button>
               <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-2 py-2 shadow-sm">
                 <span className="hidden text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 sm:inline">
                   {lang === 'en' ? 'Version FR' : 'English'}
@@ -611,6 +642,14 @@ export default function HomePage() {
           </section>
         </main>
       </div>
+      <PortalSelector
+        isOpen={isPortalOpen}
+        onClose={handleClosePortal}
+        onSelect={handleSelectPortal}
+        onToggleLanguage={toggleLanguage}
+        translations={translations}
+        lang={lang}
+      />
     </>
   );
 }
