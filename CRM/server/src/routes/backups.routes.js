@@ -38,6 +38,10 @@ router.get('/', asyncHandler(async (req, res) => {
 
   res.json({
     backups: backups.map(serializeBackup),
+    summary: {
+      latestBackupAt: backups[0]?.backedUpAt || null,
+      latestBackupSource: backups[0]?.source || '',
+    },
     pagination: {
       total,
       page,

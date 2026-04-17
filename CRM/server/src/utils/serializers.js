@@ -7,6 +7,9 @@ export function sanitizeUser(user) {
     avatar: user.avatar || user.name.split(' ').map((part) => part[0]).join('').slice(0, 2).toUpperCase(),
     isOnline: Boolean(user.isOnline),
     lastSeenAt: user.lastSeenAt,
+    failedLoginCount: user.failedLoginCount || 0,
+    lastFailedLoginAt: user.lastFailedLoginAt || null,
+    lockUntil: user.lockUntil || null,
     createdAt: user.createdAt,
   };
 }

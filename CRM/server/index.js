@@ -22,6 +22,7 @@ import inviteRoutes from './src/routes/invites.routes.js';
 import chatRoutes from './src/routes/chat.routes.js';
 import notificationRoutes from './src/routes/notifications.routes.js';
 import backupRoutes from './src/routes/backups.routes.js';
+import adminRoutes from './src/routes/admin.routes.js';
 import { getEnv } from './src/config/env.js';
 import { createIpAllowlistMiddleware, createOriginChecker } from './src/utils/security.js';
 import { logAppEvent, requestLogger } from './src/utils/logger.js';
@@ -133,6 +134,7 @@ app.use('/api/announcements', authMiddleware, createIpAllowlistMiddleware(env.CR
 app.use('/api/chat', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, chatRoutes);
 app.use('/api/notifications', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, notificationRoutes);
 app.use('/api/backups', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, backupRoutes);
+app.use('/api/admin', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, adminRoutes);
 
 app.use(errorHandler);
 

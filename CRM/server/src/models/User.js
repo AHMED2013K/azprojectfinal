@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
   avatar: { type: String, default: '' },
   isOnline: { type: Boolean, default: false },
   lastSeenAt: { type: Date },
+  failedLoginCount: { type: Number, default: 0 },
+  lastFailedLoginAt: { type: Date, default: null },
+  lockUntil: { type: Date, default: null },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

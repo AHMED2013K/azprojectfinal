@@ -11,6 +11,7 @@ import { changePasswordSchema, loginSchema } from '../validators/auth.validators
 import { createAuditLog } from '../utils/audit.js';
 import { createCsrfToken, getCsrfCookieOptions } from '../utils/csrf.js';
 import { logAppEvent } from '../utils/logger.js';
+import { getEnv } from '../config/env.js';
 
 const router = express.Router();
 
@@ -23,24 +24,54 @@ function logAuthFailure(req, reason, email = '') {
   }, 'warn');
 }
 
+async function recordAuthFailure(req, { reason, email = '', actor = null }) {
+  logAuthFailure(req, reason, email);
+  await createAuditLog({
+    actor,
+    action: 'auth.failure',
+    targetType: 'user',
+    details: {
+      email,
+      reason,
+      ip: req.ip,
+      requestId: req.requestId || '',
+    },
+  });
+}
+
 router.post('/login', validate(loginSchema), asyncHandler(async (req, res) => {
   const email = String(req.validated.body.email || '').trim().toLowerCase();
   const { password } = req.validated.body;
+  const env = getEnv();
 
   const user = await User.findOne({ email });
   if (!user) {
-    logAuthFailure(req, 'user_not_found', email);
+    await recordAuthFailure(req, { reason: 'user_not_found', email });
     return res.status(401).json({ message: 'Invalid credentials' });
+  }
+
+  if (user.lockUntil && user.lockUntil > new Date()) {
+    await recordAuthFailure(req, { reason: 'user_locked', email, actor: user._id });
+    return res.status(429).json({ message: `Account locked until ${user.lockUntil.toISOString()}` });
   }
 
   const matches = await bcrypt.compare(password, user.passwordHash);
   if (!matches) {
-    logAuthFailure(req, 'invalid_password', email);
+    user.failedLoginCount = (user.failedLoginCount || 0) + 1;
+    user.lastFailedLoginAt = new Date();
+    if (user.failedLoginCount >= env.LOGIN_MAX_FAILURES) {
+      user.lockUntil = new Date(Date.now() + env.LOGIN_LOCKOUT_MINUTES * 60 * 1000);
+    }
+    await user.save();
+    await recordAuthFailure(req, { reason: 'invalid_password', email, actor: user._id });
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 
   user.isOnline = true;
   user.lastSeenAt = new Date();
+  user.failedLoginCount = 0;
+  user.lastFailedLoginAt = null;
+  user.lockUntil = null;
   const refreshToken = signRefreshToken(user);
   const csrfToken = createCsrfToken();
   user.refreshTokenHash = await bcrypt.hash(refreshToken, 12);
@@ -69,7 +100,7 @@ router.get('/me', authMiddleware, asyncHandler(async (req, res) => {
 router.post('/refresh', asyncHandler(async (req, res) => {
   const refreshToken = req.cookies.crm_refresh_token;
   if (!refreshToken) {
-    logAuthFailure(req, 'missing_refresh_cookie');
+    await recordAuthFailure(req, { reason: 'missing_refresh_cookie' });
     return res.status(401).json({ message: 'Refresh token is required' });
   }
 
@@ -77,24 +108,24 @@ router.post('/refresh', asyncHandler(async (req, res) => {
   try {
     payload = verifyToken(refreshToken);
   } catch {
-    logAuthFailure(req, 'invalid_refresh_token');
+    await recordAuthFailure(req, { reason: 'invalid_refresh_token' });
     return res.status(401).json({ message: 'Invalid refresh token' });
   }
 
   if (payload.type !== 'refresh') {
-    logAuthFailure(req, 'wrong_refresh_token_type');
+    await recordAuthFailure(req, { reason: 'wrong_refresh_token_type' });
     return res.status(401).json({ message: 'Invalid refresh token' });
   }
 
   const user = await User.findById(payload.sub);
   if (!user?.refreshTokenHash) {
-    logAuthFailure(req, 'missing_refresh_hash');
+    await recordAuthFailure(req, { reason: 'missing_refresh_hash' });
     return res.status(401).json({ message: 'Invalid refresh token' });
   }
 
   const matches = await bcrypt.compare(refreshToken, user.refreshTokenHash);
   if (!matches) {
-    logAuthFailure(req, 'refresh_hash_mismatch', user.email);
+    await recordAuthFailure(req, { reason: 'refresh_hash_mismatch', email: user.email, actor: user._id });
     return res.status(401).json({ message: 'Invalid refresh token' });
   }
 

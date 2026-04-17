@@ -18,6 +18,8 @@ const envSchema = z.object({
   REQUEST_TIMEOUT_MS: z.coerce.number().int().positive().optional().default(15000),
   HEALTH_LOG_INTERVAL_MS: z.coerce.number().int().positive().optional().default(60000),
   METADATA_CACHE_TTL_MS: z.coerce.number().int().positive().optional().default(30000),
+  LOGIN_MAX_FAILURES: z.coerce.number().int().positive().optional().default(5),
+  LOGIN_LOCKOUT_MINUTES: z.coerce.number().int().positive().optional().default(15),
   SEED_ADMIN_NAME: z.string().trim().optional().default('EduGrowth Admin'),
   SEED_ADMIN_EMAIL: z.string().trim().email().optional(),
   SEED_ADMIN_PASSWORD: z.string().trim().optional(),

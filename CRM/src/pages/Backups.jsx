@@ -10,11 +10,13 @@ export default function Backups() {
   const { theme } = useTheme();
   const [backups, setBackups] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
+  const [summary, setSummary] = useState({ latestBackupAt: null, latestBackupSource: '' });
 
   useEffect(() => {
     apiRequest(`/api/backups?page=${pagination.page}&limit=20`, { token })
       .then((data) => {
         setBackups(data.backups);
+        setSummary(data.summary || { latestBackupAt: null, latestBackupSource: '' });
         setPagination(data.pagination);
       })
       .catch(() => {});
@@ -62,6 +64,21 @@ export default function Backups() {
             <button type="button" onClick={() => downloadFile('csv')} className="btn-secondary">
               <Download size={16} /> Export CSV
             </button>
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <div className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+            <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>Latest backup</p>
+            <p className={theme === 'dark' ? 'mt-3 text-xl font-semibold text-white' : 'mt-3 text-xl font-semibold text-slate-900'}>
+              {summary.latestBackupAt ? formatDate(summary.latestBackupAt) : 'No backup yet'}
+            </p>
+          </div>
+          <div className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+            <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>Latest source</p>
+            <p className={theme === 'dark' ? 'mt-3 text-xl font-semibold text-white' : 'mt-3 text-xl font-semibold text-slate-900'}>
+              {summary.latestBackupSource || 'Unknown'}
+            </p>
           </div>
         </div>
       </section>
