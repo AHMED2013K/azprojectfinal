@@ -9,6 +9,8 @@ import { requireRole } from '../middleware/auth.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { getDatabaseHealth } from '../config/database.js';
 import { sanitizeUser } from '../utils/serializers.js';
+import { getBackupStatus } from '../services/backupService.js';
+import { getMonitoringStatus } from '../services/monitoringService.js';
 
 const router = express.Router();
 
@@ -81,7 +83,9 @@ router.get('/diagnostics', asyncHandler(async (req, res) => {
         email: latestBackup.email,
         source: latestBackup.source,
       } : null,
+      scheduler: getBackupStatus(),
     },
+    monitoring: getMonitoringStatus(),
     lockedUsers: lockedUsers.map(sanitizeUser),
     authFailures: recentAuthFailures.map((item) => ({
       id: item._id.toString(),

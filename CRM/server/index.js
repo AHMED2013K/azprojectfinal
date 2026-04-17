@@ -27,6 +27,8 @@ import { getEnv } from './src/config/env.js';
 import { createIpAllowlistMiddleware, createOriginChecker } from './src/utils/security.js';
 import { logAppEvent, requestLogger } from './src/utils/logger.js';
 import { migrateLegacyLeadStatuses } from './src/utils/leadStatus.js';
+import { runScheduledBackup, startBackupScheduler, stopBackupScheduler } from './src/services/backupService.js';
+import { sendAlert, startMonitoringService, stopMonitoringService } from './src/services/monitoringService.js';
 
 dotenv.config();
 const env = getEnv();
@@ -164,6 +166,12 @@ async function bootstrap() {
   }, env.HEALTH_LOG_INTERVAL_MS);
   healthLogTimer.unref();
 
+  startBackupScheduler();
+  startMonitoringService();
+  runScheduledBackup().catch((error) => {
+    logAppEvent('backup.initial_run_failed', { message: error.message }, 'error');
+  });
+
   server.listen(PORT, "0.0.0.0", () => {
     console.log(`EduGrowth CRM API listening on port ${PORT}`);
   });
@@ -174,6 +182,8 @@ async function shutdown(signal) {
   if (healthLogTimer) {
     clearInterval(healthLogTimer);
   }
+  stopBackupScheduler();
+  stopMonitoringService();
   server.close(async () => {
     await disconnectDatabase().catch((error) => {
       logAppEvent('process.shutdown_error', { message: error.message }, 'error');
@@ -184,8 +194,20 @@ async function shutdown(signal) {
 
 bootstrap().catch((error) => {
   console.error('Failed to start server', error);
+  sendAlert('process.bootstrap_failed', { message: error.message }).catch(() => {});
   process.exit(1);
 });
 
 process.on('SIGTERM', () => { shutdown('SIGTERM').catch(() => process.exit(1)); });
 process.on('SIGINT', () => { shutdown('SIGINT').catch(() => process.exit(1)); });
+process.on('unhandledRejection', (error) => {
+  const message = error instanceof Error ? error.message : String(error);
+  logAppEvent('process.unhandled_rejection', { message }, 'error');
+  sendAlert('process.unhandled_rejection', { message }).catch(() => {});
+});
+process.on('uncaughtException', (error) => {
+  logAppEvent('process.uncaught_exception', { message: error.message }, 'error');
+  sendAlert('process.uncaught_exception', { message: error.message }).finally(() => {
+    process.exit(1);
+  });
+});

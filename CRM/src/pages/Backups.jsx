@@ -10,13 +10,22 @@ export default function Backups() {
   const { theme } = useTheme();
   const [backups, setBackups] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
-  const [summary, setSummary] = useState({ latestBackupAt: null, latestBackupSource: '' });
+  const [summary, setSummary] = useState({
+    latestBackupAt: null,
+    latestBackupSource: '',
+    scheduler: null,
+  });
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     apiRequest(`/api/backups?page=${pagination.page}&limit=20`, { token })
       .then((data) => {
         setBackups(data.backups);
-        setSummary(data.summary || { latestBackupAt: null, latestBackupSource: '' });
+        setSummary(data.summary || {
+          latestBackupAt: null,
+          latestBackupSource: '',
+          scheduler: null,
+        });
         setPagination(data.pagination);
       })
       .catch(() => {});
@@ -43,6 +52,23 @@ export default function Backups() {
     window.URL.revokeObjectURL(url);
   }
 
+  async function runBackupNow() {
+    const data = await apiRequest('/api/backups/run', {
+      method: 'POST',
+      token,
+    });
+    setMessage(data.message || 'Backup completed.');
+
+    const refreshed = await apiRequest(`/api/backups?page=${pagination.page}&limit=20`, { token });
+    setBackups(refreshed.backups);
+    setSummary(refreshed.summary || {
+      latestBackupAt: null,
+      latestBackupSource: '',
+      scheduler: null,
+    });
+    setPagination(refreshed.pagination);
+  }
+
   return (
     <div className="space-y-6">
       <section className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
@@ -58,6 +84,9 @@ export default function Backups() {
           </div>
 
           <div className="flex flex-wrap gap-3">
+            <button type="button" onClick={() => runBackupNow().catch((error) => setMessage(error.message))} className="btn-primary">
+              <Database size={16} /> Run backup now
+            </button>
             <button type="button" onClick={() => downloadFile('json')} className="btn-secondary">
               <Download size={16} /> Export JSON
             </button>
@@ -67,7 +96,13 @@ export default function Backups() {
           </div>
         </div>
 
-        <div className="mt-5 grid gap-4 md:grid-cols-2">
+        {message && (
+          <p className={theme === 'dark' ? 'mt-5 rounded-2xl border border-cyan-500/20 bg-cyan-500/10 px-4 py-3 text-sm text-cyan-100' : 'mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 px-4 py-3 text-sm text-cyan-800'}>
+            {message}
+          </p>
+        )}
+
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
           <div className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
             <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>Latest backup</p>
             <p className={theme === 'dark' ? 'mt-3 text-xl font-semibold text-white' : 'mt-3 text-xl font-semibold text-slate-900'}>
@@ -78,6 +113,17 @@ export default function Backups() {
             <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>Latest source</p>
             <p className={theme === 'dark' ? 'mt-3 text-xl font-semibold text-white' : 'mt-3 text-xl font-semibold text-slate-900'}>
               {summary.latestBackupSource || 'Unknown'}
+            </p>
+          </div>
+          <div className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+            <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>Scheduler status</p>
+            <p className={theme === 'dark' ? 'mt-3 text-xl font-semibold text-white' : 'mt-3 text-xl font-semibold text-slate-900'}>
+              {summary.scheduler?.lastSuccessAt ? 'Healthy' : summary.scheduler?.lastError ? 'Attention needed' : 'Waiting'}
+            </p>
+            <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>
+              {summary.scheduler?.lastSuccessAt
+                ? `Last success ${formatDate(summary.scheduler.lastSuccessAt)}`
+                : summary.scheduler?.lastError || 'No scheduled backup completed yet'}
             </p>
           </div>
         </div>

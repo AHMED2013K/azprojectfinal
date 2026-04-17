@@ -369,6 +369,48 @@ export default function Settings() {
                     </div>
                   </div>
 
+                  <div className="mt-6 grid gap-6 xl:grid-cols-2">
+                    <div className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                      <h3 className={theme === 'dark' ? 'text-sm font-semibold uppercase tracking-[0.24em] text-slate-400' : 'text-sm font-semibold uppercase tracking-[0.24em] text-slate-500'}>Backup scheduler</h3>
+                      <div className="mt-4 space-y-3 text-sm">
+                        <p className={theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}>
+                          Last success: <span className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>{diagnostics.backups.scheduler?.lastSuccessAt ? formatDate(diagnostics.backups.scheduler.lastSuccessAt) : 'Never'}</span>
+                        </p>
+                        <p className={theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}>
+                          Last upload: <span className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>{diagnostics.backups.scheduler?.lastUploadedAt ? formatDate(diagnostics.backups.scheduler.lastUploadedAt) : 'Not uploaded yet'}</span>
+                        </p>
+                        <p className={theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}>
+                          Remote status: <span className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>{diagnostics.backups.scheduler?.lastRemoteStatus || 'Local snapshots only'}</span>
+                        </p>
+                        {diagnostics.backups.scheduler?.lastError && (
+                          <p className={theme === 'dark' ? 'rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-rose-100' : 'rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-rose-700'}>
+                            {diagnostics.backups.scheduler.lastError}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                      <h3 className={theme === 'dark' ? 'text-sm font-semibold uppercase tracking-[0.24em] text-slate-400' : 'text-sm font-semibold uppercase tracking-[0.24em] text-slate-500'}>Monitoring</h3>
+                      <div className="mt-4 space-y-3 text-sm">
+                        <p className={theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}>
+                          Last heartbeat: <span className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>{diagnostics.monitoring?.lastHeartbeatAt ? formatDate(diagnostics.monitoring.lastHeartbeatAt) : 'No heartbeat sent yet'}</span>
+                        </p>
+                        <p className={theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}>
+                          Health status: <span className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>{diagnostics.monitoring?.lastHealthStatus || 'Unknown'}</span>
+                        </p>
+                        <p className={theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}>
+                          Last alert: <span className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>{diagnostics.monitoring?.lastAlertAt ? formatDate(diagnostics.monitoring.lastAlertAt) : 'No alerts sent'}</span>
+                        </p>
+                        {diagnostics.monitoring?.lastAlertMessage && (
+                          <p className={theme === 'dark' ? 'rounded-xl border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-amber-100' : 'rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-amber-700'}>
+                            {diagnostics.monitoring.lastAlertMessage}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
                   <div className={theme === 'dark' ? 'mt-6 rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
                     <h3 className={theme === 'dark' ? 'text-sm font-semibold uppercase tracking-[0.24em] text-slate-400' : 'text-sm font-semibold uppercase tracking-[0.24em] text-slate-500'}>Recent audit log</h3>
                     <div className="mt-4 space-y-3">

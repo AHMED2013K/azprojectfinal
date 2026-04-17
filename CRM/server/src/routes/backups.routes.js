@@ -2,6 +2,7 @@ import express from 'express';
 import LeadSubmissionBackup from '../models/LeadSubmissionBackup.js';
 import { requireRole } from '../middleware/auth.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
+import { getBackupStatus, runScheduledBackup } from '../services/backupService.js';
 
 const router = express.Router();
 
@@ -41,6 +42,7 @@ router.get('/', asyncHandler(async (req, res) => {
     summary: {
       latestBackupAt: backups[0]?.backedUpAt || null,
       latestBackupSource: backups[0]?.source || '',
+      scheduler: getBackupStatus(),
     },
     pagination: {
       total,
@@ -49,6 +51,11 @@ router.get('/', asyncHandler(async (req, res) => {
       totalPages: Math.max(1, Math.ceil(total / limit)),
     },
   });
+}));
+
+router.post('/run', asyncHandler(async (_req, res) => {
+  const status = await runScheduledBackup();
+  res.json({ message: 'Backup run completed', status });
 }));
 
 router.get('/export.json', asyncHandler(async (_req, res) => {
