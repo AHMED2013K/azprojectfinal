@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield, Database, Inbox } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { prefetchRouteModule } from '../lib/prefetch';
 
 export default function Sidebar() {
   const { user } = useAuth();
@@ -38,6 +39,8 @@ export default function Sidebar() {
               <NavLink
                 key={item.to}
                 to={item.to}
+                onMouseEnter={() => prefetchRouteModule(item.to)}
+                onFocus={() => prefetchRouteModule(item.to)}
                 className={({ isActive }) => [
                   'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition',
                   isActive

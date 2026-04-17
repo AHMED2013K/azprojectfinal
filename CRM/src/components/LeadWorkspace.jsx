@@ -1,12 +1,13 @@
-import { memo, useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { CheckSquare, Download, GripVertical, Link2, Lock, MessageSquareMore, Search, Upload } from 'lucide-react';
-import { apiRequest, API_URL } from '../lib/api';
+import { apiRequest, API_URL, prefetchApiRequest } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { formatDate, getLeadRowTone, getLeadStatusTone } from '../lib/format';
 import ExcelImportModal from './ExcelImportModal';
 import { useSocket } from '../context/SocketContext';
 import { getBucketMetrics, getLeadStatusLabel, LEAD_STATUS_OPTIONS, QUICK_FILTER_OPTIONS } from '../lib/leads';
+import { useToast } from '../context/ToastContext';
 
 const initialForm = {
   name: '',
@@ -76,38 +77,6 @@ function buildOptimisticTask(taskForm, user) {
   };
 }
 
-const FeedbackToast = memo(function FeedbackToast({ feedback, theme, onUndo, onDismiss }) {
-  if (!feedback.message) {
-    return null;
-  }
-
-  return (
-    <div className="pointer-events-none fixed bottom-5 right-5 z-40 max-w-md animate-toast-in">
-      <div className={`pointer-events-auto rounded-3xl border px-5 py-4 shadow-2xl backdrop-blur ${
-        feedback.type === 'error'
-          ? 'border-red-500/30 bg-slate-950/95 text-red-100'
-          : theme === 'dark'
-            ? 'border-emerald-500/30 bg-slate-950/95 text-emerald-100'
-            : 'border-emerald-200 bg-white/95 text-slate-800'
-      }`}>
-        <div className="flex items-start justify-between gap-3">
-          <div className="space-y-2">
-            <p className="text-sm font-medium">{feedback.message}</p>
-            {feedback.deletedLeadId && feedback.type === 'success' && (
-              <button type="button" onClick={onUndo} className="rounded-full border border-white/15 px-3 py-1 text-xs">
-                Undo delete
-              </button>
-            )}
-          </div>
-          <button type="button" onClick={onDismiss} className={theme === 'dark' ? 'text-slate-400 transition hover:text-white' : 'text-slate-500 transition hover:text-slate-900'}>
-            ×
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-});
-
 const LeadTableSkeleton = memo(function LeadTableSkeleton({ theme }) {
   return (
     <tbody>
@@ -135,6 +104,7 @@ const LeadTableRow = memo(function LeadTableRow({
   userRole,
   onToggleSelection,
   onOpen,
+  onPrefetch,
   onStatusChange,
   onMoveBucket,
   onEdit,
@@ -149,6 +119,7 @@ const LeadTableRow = memo(function LeadTableRow({
         }
         event.dataTransfer.setData('text/plain', lead.id);
       }}
+      onMouseEnter={onPrefetch}
       onClick={onOpen}
       className={`cursor-pointer border-t text-sm transition ${
         theme === 'dark' ? 'border-white/5 text-slate-200 hover:bg-white/[0.04]' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
@@ -234,6 +205,8 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const { token, user } = useAuth();
   const { theme } = useTheme();
   const { socket } = useSocket();
+  const { showToast } = useToast();
+  const tableViewportRef = useRef(null);
   const [leads, setLeads] = useState([]);
   const [search, setSearch] = useState('');
   const deferredSearch = useDeferredValue(search);
@@ -268,6 +241,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const [isLeadPanelLoading, setIsLeadPanelLoading] = useState(false);
   const [isSyncingLeads, setIsSyncingLeads] = useState(false);
   const [pendingLeadIds, setPendingLeadIds] = useState([]);
+  const [tableScrollTop, setTableScrollTop] = useState(0);
 
   const canEdit = user?.role !== 'viewer';
   const canManageAssignments = user?.role === 'admin' || user?.role === 'manager';
@@ -345,13 +319,46 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     if (!feedback.message || feedback.deletedLeadId) {
       return undefined;
     }
+    showToast({
+      type: feedback.type === 'error' ? 'error' : 'success',
+      message: feedback.message,
+      duration: 3200,
+    });
+    setFeedback({ type: '', message: '', deletedLeadId: '' });
+    return undefined;
+  }, [feedback, showToast]);
 
-    const timeoutId = window.setTimeout(() => {
-      setFeedback({ type: '', message: '' });
-    }, 3200);
+  useEffect(() => {
+    if (!feedback.deletedLeadId || feedback.type !== 'success') {
+      return undefined;
+    }
 
-    return () => window.clearTimeout(timeoutId);
-  }, [feedback]);
+    showToast({
+      type: 'success',
+      message: feedback.message,
+      actionLabel: 'Undo delete',
+      onAction: () => {
+        handleUndoDelete().catch(() => {});
+      },
+      duration: 5200,
+    });
+    setFeedback({ type: '', message: '', deletedLeadId: '' });
+    return undefined;
+  }, [feedback.deletedLeadId, feedback.message, feedback.type, handleUndoDelete, showToast]);
+
+  useEffect(() => {
+    const viewport = tableViewportRef.current;
+    if (!viewport) {
+      return undefined;
+    }
+
+    const handleScroll = () => {
+      setTableScrollTop(viewport.scrollTop);
+    };
+
+    viewport.addEventListener('scroll', handleScroll, { passive: true });
+    return () => viewport.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!socket) {
@@ -398,6 +405,15 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
 
   const leadMap = useMemo(() => new Map(leads.map((lead) => [lead.id, lead])), [leads]);
   const metricCards = useMemo(() => getBucketMetrics(summary), [summary]);
+  const rowHeight = 88;
+  const overscan = 5;
+  const viewportHeight = 640;
+  const visibleRowCount = Math.ceil(viewportHeight / rowHeight);
+  const virtualStartIndex = Math.max(0, Math.floor(tableScrollTop / rowHeight) - overscan);
+  const virtualEndIndex = Math.min(leads.length, virtualStartIndex + visibleRowCount + overscan * 2);
+  const visibleLeads = useMemo(() => leads.slice(virtualStartIndex, virtualEndIndex), [leads, virtualEndIndex, virtualStartIndex]);
+  const topSpacerHeight = virtualStartIndex * rowHeight;
+  const bottomSpacerHeight = Math.max(0, (leads.length - virtualEndIndex) * rowHeight);
   const duplicateMergeOptions = useMemo(() => {
     const candidateIds = selectedLead?.duplicateFlag?.matchedLeadIds || [];
     return candidateIds.map((leadId) => ({
@@ -412,15 +428,29 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     }
   }, [leadMap, selectedLead]);
 
+  const prefetchLead = useCallback((id) => {
+    prefetchApiRequest(`/api/leads/${id}`, {
+      token,
+      ttlMs: 12000,
+    }).catch(() => {});
+  }, [token]);
+
+  useEffect(() => {
+    leads.slice(0, 6).forEach((lead) => {
+      prefetchLead(lead.id);
+    });
+  }, [leads, prefetchLead]);
+
   async function loadLead(id) {
     const optimisticLead = leadMap.get(id);
     if (optimisticLead) {
       setSelectedLead(optimisticLead);
     }
     setIsLeadPanelLoading(true);
+    prefetchLead(id);
 
     try {
-      const data = await apiRequest(`/api/leads/${id}`, { token });
+      const data = await apiRequest(`/api/leads/${id}`, { token, cacheTtlMs: 12000 });
       setSelectedLead(data.lead);
       setTaskForm(initialTaskForm);
       setMergeTargetLeadId('');
@@ -545,7 +575,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     }
   }
 
-  async function handleUndoDelete() {
+  const handleUndoDelete = useCallback(async () => {
     if (!feedback.deletedLeadId) {
       return;
     }
@@ -560,7 +590,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to restore the deleted lead.' });
     }
-  }
+  }, [activeSearch, feedback.deletedLeadId, quickFilter, status, syncLeadsInBackground, token]);
 
   async function handleImport(file) {
     const formData = new FormData();
@@ -1156,7 +1186,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         </div>
 
         <div className={theme === 'dark' ? 'overflow-hidden rounded-3xl border border-white/10 bg-white/6' : 'overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm'}>
-          <div className="overflow-x-auto">
+          <div ref={tableViewportRef} className="max-h-[70vh] overflow-auto">
             <table className="min-w-full">
               <thead className={theme === 'dark' ? 'sticky top-0 bg-slate-950/85 backdrop-blur' : 'sticky top-0 bg-slate-100/95 backdrop-blur'}>
                 <tr className={theme === 'dark' ? 'text-left text-sm text-slate-300' : 'text-left text-sm text-slate-600'}>
@@ -1169,7 +1199,12 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                 <LeadTableSkeleton theme={theme} />
               ) : (
                 <tbody>
-                  {leads.map((lead) => (
+                  {topSpacerHeight > 0 && (
+                    <tr aria-hidden="true">
+                      <td colSpan={8} style={{ height: `${topSpacerHeight}px`, padding: 0 }} />
+                    </tr>
+                  )}
+                  {visibleLeads.map((lead) => (
                     <LeadTableRow
                       key={lead.id}
                       lead={lead}
@@ -1181,6 +1216,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                       theme={theme}
                       userRole={user?.role}
                       onToggleSelection={() => toggleLeadSelection(lead.id)}
+                      onPrefetch={() => prefetchLead(lead.id)}
                       onOpen={() => loadLead(lead.id).catch(() => {})}
                       onStatusChange={(nextStatus) => quickUpdateStatus(lead, nextStatus).catch(() => {})}
                       onMoveBucket={(nextBucket) => {
@@ -1191,6 +1227,11 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                       onDelete={() => handleDelete(lead.id).catch(() => {})}
                     />
                   ))}
+                  {bottomSpacerHeight > 0 && (
+                    <tr aria-hidden="true">
+                      <td colSpan={8} style={{ height: `${bottomSpacerHeight}px`, padding: 0 }} />
+                    </tr>
+                  )}
                 </tbody>
               )}
             </table>
@@ -1537,12 +1578,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       </section>
 
       {showImport && <ExcelImportModal onClose={() => setShowImport(false)} onImport={handleImport} />}
-      <FeedbackToast
-        feedback={feedback}
-        theme={theme}
-        onUndo={() => handleUndoDelete().catch(() => {})}
-        onDismiss={() => setFeedback({ type: '', message: '' })}
-      />
     </div>
   );
 }

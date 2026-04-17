@@ -6,24 +6,18 @@ import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { apiRequest } from '../lib/api';
 import { useTheme } from '../context/ThemeContext';
+import { useToast } from '../context/ToastContext';
+import { prefetchRouteModule } from '../lib/prefetch';
 
 export default function Layout() {
   const { token } = useAuth();
   const { socket } = useSocket();
   const { theme } = useTheme();
+  const { showToast } = useToast();
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [toasts, setToasts] = useState([]);
   const audioRef = useRef(null);
   const [audioUnlocked, setAudioUnlocked] = useState(false);
-
-  const pushToast = (item) => {
-    const toastId = `${item.id || item._id || Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    setToasts((current) => [...current, { id: toastId, title: item.title, body: item.body }]);
-    window.setTimeout(() => {
-      setToasts((current) => current.filter((toast) => toast.id !== toastId));
-    }, 4200);
-  };
 
   function playNotificationSound() {
     const sound = audioRef.current;
@@ -77,6 +71,12 @@ export default function Layout() {
   }, [token]);
 
   useEffect(() => {
+    ['/dashboard', '/leads', '/pipeline', '/settings'].forEach((route) => {
+      prefetchRouteModule(route);
+    });
+  }, []);
+
+  useEffect(() => {
     if (!socket) {
       return undefined;
     }
@@ -91,7 +91,11 @@ export default function Layout() {
         },
         ...current,
       ]);
-      pushToast(announcement);
+      showToast({
+        title: announcement.title,
+        message: announcement.body,
+        type: 'info',
+      });
     };
 
     const handleNotification = (notification) => {
@@ -105,7 +109,11 @@ export default function Layout() {
         },
         ...current,
       ]);
-      pushToast(notification);
+      showToast({
+        title: notification.title,
+        message: notification.body,
+        type: notification.type === 'system' ? 'info' : 'success',
+      });
       playNotificationSound();
     };
 
@@ -115,7 +123,7 @@ export default function Layout() {
       socket.off('announcement:new', handleAnnouncement);
       socket.off('notification:new', handleNotification);
     };
-  }, [socket]);
+  }, [showToast, socket]);
 
   async function markAllNotificationsRead() {
     await apiRequest('/api/notifications/read-all', { method: 'POST', token });
@@ -127,27 +135,6 @@ export default function Layout() {
       <div className="flex min-h-screen">
         <Sidebar />
         <div className="flex min-h-screen flex-1 flex-col">
-          <div className="pointer-events-none fixed right-5 top-5 z-[80] flex w-full max-w-sm flex-col gap-3">
-            {toasts.map((toast) => (
-              <div
-                key={toast.id}
-                className={theme === 'dark'
-                  ? 'pointer-events-auto overflow-hidden rounded-2xl border border-cyan-400/15 bg-slate-950/92 shadow-2xl backdrop-blur'
-                  : 'pointer-events-auto overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl'}
-              >
-                <div className="h-1.5 bg-gradient-to-r from-sky-500 via-cyan-400 to-emerald-400" />
-                <div className="p-4">
-                  <p className={theme === 'dark' ? 'text-sm font-semibold text-white' : 'text-sm font-semibold text-slate-900'}>
-                    {toast.title}
-                  </p>
-                  <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-300' : 'mt-1 text-sm text-slate-600'}>
-                    {toast.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
           <Header
             notifications={notifications}
             onOpenNotifications={() => setShowNotifications((value) => !value)}

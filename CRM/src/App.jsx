@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-route
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { SocketProvider } from './context/SocketContext';
+import { ToastProvider } from './context/ToastContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import { initMarketing, trackPageView } from './lib/marketing';
@@ -54,36 +55,38 @@ export default function App() {
     <BrowserRouter>
       <RouteTracker />
       <ThemeProvider>
-        <AuthProvider>
-          <SocketProvider>
-            <Suspense fallback={<AppLoader />}>
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/public/:token" element={<PublicLeadForm />} />
-                <Route path="/apply" element={<LinkedInApplicationForm />} />
-                <Route path="/alternance-2026" element={<Navigate to="/apply" replace />} />
-                <Route
-                  element={(
-                    <ProtectedRoute>
-                      <Layout />
-                    </ProtectedRoute>
-                  )}
-                >
-                  <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/leads" element={<Leads />} />
-                  <Route path="/treated" element={<Treated />} />
-                  <Route path="/pipeline" element={<Pipeline />} />
-                  <Route path="/chat" element={<Chat />} />
-                  <Route path="/tracking" element={<Tracking />} />
-                  <Route path="/team" element={<ProtectedRoute roles={['admin']}><Team /></ProtectedRoute>} />
-                  <Route path="/backups" element={<ProtectedRoute roles={['admin']}><Backups /></ProtectedRoute>} />
-                  <Route path="/settings" element={<Settings />} />
-                </Route>
-              </Routes>
-            </Suspense>
-          </SocketProvider>
-        </AuthProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <SocketProvider>
+              <Suspense fallback={<AppLoader />}>
+                <Routes>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/public/:token" element={<PublicLeadForm />} />
+                  <Route path="/apply" element={<LinkedInApplicationForm />} />
+                  <Route path="/alternance-2026" element={<Navigate to="/apply" replace />} />
+                  <Route
+                    element={(
+                      <ProtectedRoute>
+                        <Layout />
+                      </ProtectedRoute>
+                    )}
+                  >
+                    <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/leads" element={<Leads />} />
+                    <Route path="/treated" element={<Treated />} />
+                    <Route path="/pipeline" element={<Pipeline />} />
+                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/tracking" element={<Tracking />} />
+                    <Route path="/team" element={<ProtectedRoute roles={['admin']}><Team /></ProtectedRoute>} />
+                    <Route path="/backups" element={<ProtectedRoute roles={['admin']}><Backups /></ProtectedRoute>} />
+                    <Route path="/settings" element={<Settings />} />
+                  </Route>
+                </Routes>
+              </Suspense>
+            </SocketProvider>
+          </AuthProvider>
+        </ToastProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
