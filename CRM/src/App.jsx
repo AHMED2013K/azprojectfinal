@@ -21,7 +21,18 @@ const PublicLeadForm = lazy(() => import('./pages/PublicLeadForm'));
 const LinkedInApplicationForm = lazy(() => import('./pages/LinkedInApplicationForm'));
 
 function AppLoader() {
-  return <div className="min-h-screen bg-slate-950 text-slate-200 flex items-center justify-center">Loading...</div>;
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-slate-200">
+      <div className="w-full max-w-lg rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur">
+        <div className="skeleton-shimmer h-4 w-32 rounded-full" />
+        <div className="mt-6 space-y-3">
+          <div className="skeleton-shimmer h-12 rounded-2xl" />
+          <div className="skeleton-shimmer h-12 rounded-2xl" />
+          <div className="skeleton-shimmer h-40 rounded-3xl" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function RouteTracker() {

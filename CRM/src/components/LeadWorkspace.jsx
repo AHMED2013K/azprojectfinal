@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
 import { CheckSquare, Download, GripVertical, Link2, Lock, MessageSquareMore, Search, Upload } from 'lucide-react';
 import { apiRequest, API_URL } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
@@ -21,6 +21,10 @@ const initialTaskForm = {
   title: '',
   dueAt: '',
 };
+
+function createTempId(prefix) {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
 
 function getScoreTone(scoreLabel = 'Cold') {
   switch (scoreLabel) {
@@ -50,12 +54,190 @@ function matchesLeadFilters(lead, currentSearch, currentStatus) {
   return true;
 }
 
+function buildOptimisticNote(body, user) {
+  return {
+    id: createTempId('note'),
+    body,
+    createdAt: new Date().toISOString(),
+    author: user ? { id: user.id, name: user.name } : null,
+    pending: true,
+  };
+}
+
+function buildOptimisticTask(taskForm, user) {
+  return {
+    id: createTempId('task'),
+    title: taskForm.title,
+    dueAt: taskForm.dueAt,
+    createdAt: new Date().toISOString(),
+    createdBy: user ? { id: user.id, name: user.name } : null,
+    status: 'pending',
+    pending: true,
+  };
+}
+
+const FeedbackToast = memo(function FeedbackToast({ feedback, theme, onUndo, onDismiss }) {
+  if (!feedback.message) {
+    return null;
+  }
+
+  return (
+    <div className="pointer-events-none fixed bottom-5 right-5 z-40 max-w-md animate-toast-in">
+      <div className={`pointer-events-auto rounded-3xl border px-5 py-4 shadow-2xl backdrop-blur ${
+        feedback.type === 'error'
+          ? 'border-red-500/30 bg-slate-950/95 text-red-100'
+          : theme === 'dark'
+            ? 'border-emerald-500/30 bg-slate-950/95 text-emerald-100'
+            : 'border-emerald-200 bg-white/95 text-slate-800'
+      }`}>
+        <div className="flex items-start justify-between gap-3">
+          <div className="space-y-2">
+            <p className="text-sm font-medium">{feedback.message}</p>
+            {feedback.deletedLeadId && feedback.type === 'success' && (
+              <button type="button" onClick={onUndo} className="rounded-full border border-white/15 px-3 py-1 text-xs">
+                Undo delete
+              </button>
+            )}
+          </div>
+          <button type="button" onClick={onDismiss} className={theme === 'dark' ? 'text-slate-400 transition hover:text-white' : 'text-slate-500 transition hover:text-slate-900'}>
+            ×
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+const LeadTableSkeleton = memo(function LeadTableSkeleton({ theme }) {
+  return (
+    <tbody>
+      {Array.from({ length: 6 }).map((_, index) => (
+        <tr key={`skeleton-${index}`} className={theme === 'dark' ? 'border-t border-white/5' : 'border-t border-slate-200'}>
+          {Array.from({ length: 8 }).map((__, cellIndex) => (
+            <td key={cellIndex} className="px-5 py-4">
+              <div className="skeleton-shimmer h-4 rounded-full" style={{ width: `${55 + ((index + cellIndex) % 4) * 12}%` }} />
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  );
+});
+
+const LeadTableRow = memo(function LeadTableRow({
+  lead,
+  bucket,
+  canEdit,
+  isSelected,
+  isChecked,
+  isBusy,
+  theme,
+  userRole,
+  onToggleSelection,
+  onOpen,
+  onStatusChange,
+  onMoveBucket,
+  onEdit,
+  onDelete,
+}) {
+  return (
+    <tr
+      draggable={canEdit}
+      onDragStart={(event) => {
+        if (!canEdit) {
+          return;
+        }
+        event.dataTransfer.setData('text/plain', lead.id);
+      }}
+      onClick={onOpen}
+      className={`cursor-pointer border-t text-sm transition ${
+        theme === 'dark' ? 'border-white/5 text-slate-200 hover:bg-white/[0.04]' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+      } ${getLeadRowTone(lead.status)} ${isSelected ? 'ring-1 ring-cyan-300/30' : ''} ${isBusy ? 'opacity-75' : ''}`}
+    >
+      <td className="px-5 py-4">
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onClick={(event) => event.stopPropagation()}
+          onChange={onToggleSelection}
+          className="h-4 w-4 rounded border-slate-300"
+        />
+      </td>
+      <td className="px-5 py-4">
+        <div className="flex items-center gap-2">
+          <GripVertical size={16} className="text-slate-400" />
+          <div>
+            <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.sequenceNumber || '-'}</p>
+            <p className={theme === 'dark' ? 'text-xs text-slate-400' : 'text-xs text-slate-500'}>{lead.leadCode || '-'}</p>
+          </div>
+        </div>
+      </td>
+      <td className="px-5 py-4">
+        <div className="flex items-start gap-3">
+          <span className={`mt-1 h-2.5 w-2.5 rounded-full ${lead.status === 'Interested' ? 'bg-emerald-300' : lead.status === 'Contacted' ? 'bg-amber-300' : lead.status === 'Non Qualified' ? 'bg-rose-300' : lead.status === 'Not Interested' ? 'bg-orange-300' : 'bg-fuchsia-300'}`} />
+          <div>
+            <div className="flex flex-wrap items-center gap-2">
+              <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.name}</p>
+              {lead.duplicateFlag?.isDuplicate && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-medium text-red-300 ring-1 ring-red-400/20">Doublon</span>}
+              <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${getScoreTone(lead.score?.label)}`}>
+                {lead.score?.value || 0} · {lead.score?.label || 'Cold'}
+              </span>
+              {isBusy && <span className="rounded-full bg-cyan-500/10 px-2 py-0.5 text-[11px] font-medium text-cyan-300 ring-1 ring-cyan-400/20">Syncing</span>}
+            </div>
+            <p className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>{lead.email}</p>
+          </div>
+        </div>
+      </td>
+      <td className="px-5 py-4">{lead.campaign || '-'}</td>
+      <td className="px-5 py-4">{lead.country || '-'}</td>
+      <td className="px-5 py-4">
+        <select
+          value={lead.status}
+          aria-label={`Update status for ${lead.name}`}
+          onClick={(event) => event.stopPropagation()}
+          onChange={(event) => {
+            event.stopPropagation();
+            onStatusChange(event.target.value);
+          }}
+          disabled={isBusy || !canEdit}
+          className={`rounded-full px-3 py-1 transition ${getLeadStatusTone(lead.status)} ${theme === 'dark' ? 'bg-slate-950/80' : 'bg-white'} disabled:cursor-not-allowed disabled:opacity-70`}
+        >
+          {LEAD_STATUS_OPTIONS.map((item) => (
+            <option key={item} value={item}>{getLeadStatusLabel(item)}</option>
+          ))}
+        </select>
+      </td>
+      <td className={theme === 'dark' ? 'px-5 py-4 text-slate-400' : 'px-5 py-4 text-slate-500'}>
+        <div>
+          <p>{formatDate(lead.createdAt)}</p>
+          <p className="text-xs">Active: {formatDate(lead.lastActivityAt)}</p>
+        </div>
+      </td>
+      <td className="px-5 py-4">
+        <div className="flex flex-wrap gap-2">
+          <button type="button" onClick={(event) => { event.stopPropagation(); onOpen(); }} className="table-action">Open</button>
+          {canEdit && lead.status !== 'Contacted' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Contacted'); }} className="table-action">Contacte</button>}
+          {canEdit && lead.status !== 'Non Qualified' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Non Qualified'); }} className="table-action">Non qualifie</button>}
+          {canEdit && lead.status !== 'Not Interested' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Not Interested'); }} className="table-action">Pas interesse</button>}
+          {canEdit && lead.status !== 'Interested' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Interested'); }} className="table-action">Interesse</button>}
+          {canEdit && bucket === 'leads' && <button type="button" onClick={(event) => { event.stopPropagation(); onMoveBucket('treated'); }} className="table-action">Traiter</button>}
+          {canEdit && bucket === 'treated' && <button type="button" onClick={(event) => { event.stopPropagation(); onMoveBucket('leads'); }} className="table-action">Remettre</button>}
+          {canEdit && <button type="button" onClick={(event) => { event.stopPropagation(); onEdit(); }} className="table-action">Edit</button>}
+          {userRole === 'admin' && canEdit && <button type="button" onClick={(event) => { event.stopPropagation(); onDelete(); }} className="table-action danger">Delete</button>}
+        </div>
+      </td>
+    </tr>
+  );
+});
+
 export default function LeadWorkspace({ bucket = 'leads', title, description }) {
   const { token, user } = useAuth();
   const { theme } = useTheme();
   const { socket } = useSocket();
   const [leads, setLeads] = useState([]);
   const [search, setSearch] = useState('');
+  const deferredSearch = useDeferredValue(search);
+  const [activeSearch, setActiveSearch] = useState('');
   const [status, setStatus] = useState('');
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
   const [summary, setSummary] = useState(null);
@@ -83,6 +265,9 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const [quickFilter, setQuickFilter] = useState('');
   const [bulkAssignedTo, setBulkAssignedTo] = useState('');
   const [mergeTargetLeadId, setMergeTargetLeadId] = useState('');
+  const [isLeadPanelLoading, setIsLeadPanelLoading] = useState(false);
+  const [isSyncingLeads, setIsSyncingLeads] = useState(false);
+  const [pendingLeadIds, setPendingLeadIds] = useState([]);
 
   const canEdit = user?.role !== 'viewer';
   const canManageAssignments = user?.role === 'admin' || user?.role === 'manager';
@@ -90,7 +275,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const canExport = user?.role === 'admin';
   const canCreateInvite = user?.role === 'admin';
 
-  const refreshLeads = useCallback(async (page = pagination.page, currentSearch = search, currentStatus = status, currentQuickFilter = quickFilter) => {
+  const refreshLeads = useCallback(async (page = pagination.page, currentSearch = activeSearch, currentStatus = status, currentQuickFilter = quickFilter) => {
     setIsLoadingLeads(true);
     const params = new URLSearchParams({
       page: String(page),
@@ -112,7 +297,27 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     } finally {
       setIsLoadingLeads(false);
     }
-  }, [bucket, pagination.page, quickFilter, search, status, token]);
+  }, [activeSearch, bucket, pagination.page, quickFilter, status, token]);
+
+  const syncLeadsInBackground = useCallback((page = pagination.page, currentSearch = activeSearch, currentStatus = status, currentQuickFilter = quickFilter) => {
+    setIsSyncingLeads(true);
+    refreshLeads(page, currentSearch, currentStatus, currentQuickFilter)
+      .catch(() => {})
+      .finally(() => setIsSyncingLeads(false));
+  }, [activeSearch, pagination.page, quickFilter, refreshLeads, status]);
+
+  const markLeadPending = useCallback((leadId, pending = true) => {
+    setPendingLeadIds((current) => (
+      pending
+        ? Array.from(new Set([...current, leadId]))
+        : current.filter((id) => id !== leadId)
+    ));
+  }, []);
+
+  const patchLeadState = useCallback((leadId, updater) => {
+    setLeads((current) => current.map((item) => (item.id === leadId ? updater(item) : item)));
+    setSelectedLead((current) => (current?.id === leadId ? updater(current) : current));
+  }, []);
 
   useEffect(() => {
     apiRequest('/api/leads/meta/users', { token }).then((data) => setMetaUsers(data.users)).catch(() => {});
@@ -121,12 +326,32 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   }, [token]);
 
   useEffect(() => {
-    refreshLeads(pagination.page, search, status, quickFilter).catch(() => {});
-  }, [quickFilter, refreshLeads, pagination.page, search, status]);
+    const timeoutId = window.setTimeout(() => {
+      setActiveSearch(deferredSearch.trim());
+    }, 180);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [deferredSearch]);
+
+  useEffect(() => {
+    refreshLeads(pagination.page, activeSearch, status, quickFilter).catch(() => {});
+  }, [activeSearch, quickFilter, refreshLeads, pagination.page, status]);
 
   useEffect(() => {
     setSelectedLeadIds((current) => current.filter((id) => leads.some((lead) => lead.id === id)));
   }, [leads]);
+
+  useEffect(() => {
+    if (!feedback.message || feedback.deletedLeadId) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setFeedback({ type: '', message: '' });
+    }, 3200);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [feedback]);
 
   useEffect(() => {
     if (!socket) {
@@ -138,7 +363,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         return;
       }
 
-      if (lead.bucket === bucket && matchesLeadFilters(lead, search, status)) {
+      if (lead.bucket === bucket && matchesLeadFilters(lead, activeSearch, status)) {
         setLeads((current) => {
           const exists = current.some((item) => item.id === lead.id);
           if (exists) {
@@ -154,12 +379,12 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         setSelectedLead(lead.bucket === bucket ? lead : null);
       }
 
-      refreshLeads(pagination.page, search, status, quickFilter).catch(() => {});
+      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     };
 
     const handleNotification = (notification) => {
       if (notification.type === 'lead') {
-        refreshLeads(1, search, status, quickFilter).catch(() => {});
+        syncLeadsInBackground(1, activeSearch, status, quickFilter);
       }
     };
 
@@ -169,7 +394,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       socket.off('lead:updated', handleLeadUpdated);
       socket.off('notification:new', handleNotification);
     };
-  }, [bucket, pagination.page, quickFilter, refreshLeads, search, selectedLead?.id, socket, status]);
+  }, [activeSearch, bucket, pagination.page, quickFilter, selectedLead?.id, socket, status, syncLeadsInBackground]);
 
   const leadMap = useMemo(() => new Map(leads.map((lead) => [lead.id, lead])), [leads]);
   const metricCards = useMemo(() => getBucketMetrics(summary), [summary]);
@@ -188,49 +413,121 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   }, [leadMap, selectedLead]);
 
   async function loadLead(id) {
-    const data = await apiRequest(`/api/leads/${id}`, { token });
-    setSelectedLead(data.lead);
-    setTaskForm(initialTaskForm);
-    setMergeTargetLeadId('');
-    setEditingUnlocked(false);
+    const optimisticLead = leadMap.get(id);
+    if (optimisticLead) {
+      setSelectedLead(optimisticLead);
+    }
+    setIsLeadPanelLoading(true);
+
+    try {
+      const data = await apiRequest(`/api/leads/${id}`, { token });
+      setSelectedLead(data.lead);
+      setTaskForm(initialTaskForm);
+      setMergeTargetLeadId('');
+      setEditingUnlocked(false);
+    } finally {
+      setIsLeadPanelLoading(false);
+    }
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
     setIsSubmittingLead(true);
     setFeedback({ type: '', message: '' });
+    let editedLeadId = '';
+    let previousLeadSnapshot = null;
+    let createdTempLeadId = '';
 
     try {
       if (editingLead) {
+        const previousLead = leadMap.get(editingLead.id) || selectedLead;
+        editedLeadId = editingLead.id;
+        previousLeadSnapshot = previousLead;
+        const assignedAgent = metaUsers.find((agent) => agent.id === (form.assignedTo || '')) || null;
+        const optimisticLead = {
+          ...previousLead,
+          ...form,
+          assignedTo: assignedAgent,
+          lastActivityAt: new Date().toISOString(),
+        };
+
+        patchLeadState(editingLead.id, () => optimisticLead);
+        markLeadPending(editingLead.id, true);
+        setEditingLead(null);
+        setEditingUnlocked(false);
+        setForm(initialForm);
+        setFeedback({ type: 'success', message: 'Lead update saved instantly. Syncing...' });
+
         const data = await apiRequest(`/api/leads/${editingLead.id}`, {
           method: 'PATCH',
           token,
           body: { ...form, bucket: editingLead.bucket || bucket },
         });
-        setSelectedLead(data.lead);
+        patchLeadState(editingLead.id, () => data.lead);
         setFeedback({ type: 'success', message: 'Lead updated successfully.' });
+        syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
+        markLeadPending(editingLead.id, false);
       } else {
-        await apiRequest('/api/leads', {
+        const optimisticLead = {
+          id: createTempId('lead'),
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          country: form.country,
+          campaign: form.campaign,
+          status: form.status,
+          bucket,
+          createdAt: new Date().toISOString(),
+          lastActivityAt: new Date().toISOString(),
+          assignedTo: metaUsers.find((agent) => agent.id === (form.assignedTo || '')) || null,
+          score: { value: 0, label: 'Cold', reasons: [] },
+          notes: [],
+          tasks: [],
+          duplicateFlag: null,
+        };
+        createdTempLeadId = optimisticLead.id;
+
+        if (pagination.page === 1 && matchesLeadFilters(optimisticLead, activeSearch, status)) {
+          setLeads((current) => [optimisticLead, ...current].slice(0, 20));
+        }
+        setSelectedLead(optimisticLead);
+        setFeedback({ type: 'success', message: 'Lead created instantly. Finalizing...' });
+        setForm(initialForm);
+
+        const data = await apiRequest('/api/leads', {
           method: 'POST',
           token,
           body: form,
         });
+        setSelectedLead(data.lead);
         setFeedback({ type: 'success', message: 'Lead created successfully.' });
+        syncLeadsInBackground(1, activeSearch, status, quickFilter);
       }
-
-      setForm(initialForm);
-      setEditingLead(null);
-      setPagination((current) => ({ ...current, page: 1 }));
-      await refreshLeads(1, search, status, quickFilter);
     } catch (error) {
+      if (editedLeadId && previousLeadSnapshot) {
+        patchLeadState(editedLeadId, () => previousLeadSnapshot);
+        markLeadPending(editedLeadId, false);
+      }
+      if (createdTempLeadId) {
+        setLeads((current) => current.filter((lead) => lead.id !== createdTempLeadId));
+        if (selectedLead?.id === createdTempLeadId) {
+          setSelectedLead(null);
+        }
+      }
       setFeedback({ type: 'error', message: error.message || 'Unable to save the lead.' });
+      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } finally {
+      if (editedLeadId) {
+        markLeadPending(editedLeadId, false);
+      }
       setIsSubmittingLead(false);
     }
   }
 
   async function handleDelete(id) {
     setFeedback({ type: '', message: '' });
+    const previousLeads = leads;
+    setLeads((current) => current.filter((lead) => lead.id !== id));
     try {
       const data = await apiRequest(`/api/leads/${id}`, { method: 'DELETE', token });
       if (selectedLead?.id === id) {
@@ -241,8 +538,9 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         message: 'Lead deleted successfully.',
         deletedLeadId: data.deletedLeadId || '',
       });
-      await refreshLeads(pagination.page, search, status, quickFilter);
+      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } catch (error) {
+      setLeads(previousLeads);
       setFeedback({ type: 'error', message: error.message || 'Unable to delete the lead.' });
     }
   }
@@ -258,7 +556,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         token,
       });
       setFeedback({ type: 'success', message: 'Lead restored successfully.' });
-      await refreshLeads(1, search, status, quickFilter);
+      syncLeadsInBackground(1, activeSearch, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to restore the deleted lead.' });
     }
@@ -278,7 +576,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           ? `Import completed successfully. ${data.duplicatesFlagged} lead(s) flagged as duplicate.`
           : 'Import completed successfully.',
       });
-      await refreshLeads(1, search, status, quickFilter);
+      syncLeadsInBackground(1, activeSearch, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to import this file.' });
     }
@@ -291,18 +589,26 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
 
     setIsAddingNote(true);
     setFeedback({ type: '', message: '' });
+    const optimisticNote = buildOptimisticNote(note.trim(), user);
+    const previousLead = selectedLead;
+    patchLeadState(selectedLead.id, (current) => ({
+      ...current,
+      lastActivityAt: optimisticNote.createdAt,
+      notes: [optimisticNote, ...(current.notes || [])],
+    }));
+    setNote('');
 
     try {
       const data = await apiRequest(`/api/leads/${selectedLead.id}/notes`, {
         method: 'POST',
         token,
-        body: { body: note },
+        body: { body: optimisticNote.body },
       });
-
-      setSelectedLead(data.lead);
-      setNote('');
+      patchLeadState(selectedLead.id, () => data.lead);
       setFeedback({ type: 'success', message: 'Note added successfully.' });
+      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } catch (error) {
+      patchLeadState(selectedLead.id, () => previousLead);
       setFeedback({ type: 'error', message: error.message || 'Unable to add the note.' });
     } finally {
       setIsAddingNote(false);
@@ -315,17 +621,27 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       return;
     }
 
+    const previousLead = selectedLead;
+    const optimisticTask = buildOptimisticTask(taskForm, user);
+    patchLeadState(selectedLead.id, (current) => ({
+      ...current,
+      lastActivityAt: optimisticTask.createdAt,
+      tasks: [optimisticTask, ...(current.tasks || [])],
+    }));
+    setTaskForm(initialTaskForm);
+    setFeedback({ type: 'success', message: 'Task added instantly. Syncing...' });
+
     try {
       const data = await apiRequest(`/api/leads/${selectedLead.id}/tasks`, {
         method: 'POST',
         token,
         body: taskForm,
       });
-      setSelectedLead(data.lead);
-      setTaskForm(initialTaskForm);
+      patchLeadState(selectedLead.id, () => data.lead);
       setFeedback({ type: 'success', message: 'Follow-up task created.' });
-      await refreshLeads(pagination.page, search, status, quickFilter);
+      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } catch (error) {
+      patchLeadState(selectedLead.id, () => previousLead);
       setFeedback({ type: 'error', message: error.message || 'Unable to create the follow-up task.' });
     }
   }
@@ -335,16 +651,28 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       return;
     }
 
+    const previousLead = selectedLead;
+    patchLeadState(selectedLead.id, (current) => ({
+      ...current,
+      lastActivityAt: new Date().toISOString(),
+      tasks: (current.tasks || []).map((item) => (
+        item.id === task.id
+          ? { ...item, status: completed ? 'completed' : 'pending', completedAt: completed ? new Date().toISOString() : null }
+          : item
+      )),
+    }));
+
     try {
       const data = await apiRequest(`/api/leads/${selectedLead.id}/tasks/${task.id}`, {
         method: 'PATCH',
         token,
         body: { completed },
       });
-      setSelectedLead(data.lead);
+      patchLeadState(selectedLead.id, () => data.lead);
       setFeedback({ type: 'success', message: completed ? 'Task completed.' : 'Task reopened.' });
-      await refreshLeads(pagination.page, search, status, quickFilter);
+      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } catch (error) {
+      patchLeadState(selectedLead.id, () => previousLead);
       setFeedback({ type: 'error', message: error.message || 'Unable to update the task.' });
     }
   }
@@ -437,6 +765,34 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     }
 
     setIsBulkProcessing(true);
+    const previousLeads = leads;
+    const affectedLeadIds = [...selectedLeadIds];
+
+    if (action === 'status') {
+      setLeads((current) => current.map((lead) => (
+        affectedLeadIds.includes(lead.id)
+          ? { ...lead, status: value, lastActivityAt: new Date().toISOString() }
+          : lead
+      )));
+    }
+
+    if (action === 'bucket') {
+      setLeads((current) => current.filter((lead) => !affectedLeadIds.includes(lead.id)));
+    }
+
+    if (action === 'assign') {
+      const assignedAgent = metaUsers.find((agent) => agent.id === value) || null;
+      setLeads((current) => current.map((lead) => (
+        affectedLeadIds.includes(lead.id)
+          ? { ...lead, assignedTo: assignedAgent, lastActivityAt: new Date().toISOString() }
+          : lead
+      )));
+    }
+
+    if (action === 'delete') {
+      setLeads((current) => current.filter((lead) => !affectedLeadIds.includes(lead.id)));
+    }
+
     try {
       await apiRequest('/api/leads/bulk', {
         method: 'POST',
@@ -454,8 +810,9 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       if (selectedLead?.id && selectedLeadIds.includes(selectedLead.id)) {
         setSelectedLead(null);
       }
-      await refreshLeads(1, search, status, quickFilter);
+      syncLeadsInBackground(1, activeSearch, status, quickFilter);
     } catch (error) {
+      setLeads(previousLeads);
       setFeedback({ type: 'error', message: error.message || 'Unable to run the bulk action.' });
     } finally {
       setIsBulkProcessing(false);
@@ -477,7 +834,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       setSelectedLead(data.lead);
       setMergeTargetLeadId('');
       setFeedback({ type: 'success', message: data.message || 'Leads merged successfully.' });
-      await refreshLeads(1, search, status, quickFilter);
+      syncLeadsInBackground(1, activeSearch, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to merge these leads.' });
     }
@@ -529,14 +886,11 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     }
 
     const previousLead = lead;
-    const optimisticLead = { ...lead, status: nextStatus };
 
     setIsStatusUpdating(true);
     setFeedback({ type: '', message: '' });
-    setLeads((current) => current.map((item) => (item.id === lead.id ? optimisticLead : item)));
-    if (selectedLead?.id === lead.id) {
-      setSelectedLead((current) => ({ ...current, status: nextStatus }));
-    }
+    patchLeadState(lead.id, (current) => ({ ...current, status: nextStatus, lastActivityAt: new Date().toISOString() }));
+    markLeadPending(lead.id, true);
 
     try {
       const data = await apiRequest(`/api/leads/${lead.id}`, {
@@ -544,20 +898,15 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         token,
         body: { status: nextStatus },
       });
-      setLeads((current) => current.map((item) => (item.id === lead.id ? data.lead : item)));
-      if (selectedLead?.id === lead.id) {
-        setSelectedLead(data.lead);
-      }
+      patchLeadState(lead.id, () => data.lead);
       setFeedback({ type: 'success', message: `Lead moved to ${getLeadStatusLabel(nextStatus)}.` });
-      await refreshLeads(pagination.page, search, status, quickFilter);
+      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } catch (error) {
-      setLeads((current) => current.map((item) => (item.id === lead.id ? previousLead : item)));
-      if (selectedLead?.id === lead.id) {
-        setSelectedLead(previousLead);
-      }
+      patchLeadState(lead.id, () => previousLead);
       setFeedback({ type: 'error', message: error.message || 'Unable to update the lead status.' });
       throw error;
     } finally {
+      markLeadPending(lead.id, false);
       setIsStatusUpdating(false);
     }
   }
@@ -570,10 +919,12 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
 
     setIsMovingLead(true);
     setFeedback({ type: '', message: '' });
+    const previousLeads = leads;
     setLeads((current) => current.filter((item) => item.id !== leadId));
     if (selectedLead?.id === leadId && nextBucket !== bucket) {
       setSelectedLead(null);
     }
+    markLeadPending(leadId, true);
 
     try {
       await apiRequest(`/api/leads/${leadId}`, {
@@ -582,12 +933,13 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         body: { bucket: nextBucket },
       });
       setFeedback({ type: 'success', message: nextBucket === 'treated' ? 'Lead moved to treated.' : 'Lead moved back to active leads.' });
-      await refreshLeads(pagination.page, search, status, quickFilter);
+      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } catch (error) {
+      setLeads(previousLeads);
       setFeedback({ type: 'error', message: error.message || 'Unable to move the lead.' });
-      await refreshLeads(pagination.page, search, status, quickFilter);
     } finally {
       setDraggedLeadId(null);
+      markLeadPending(leadId, false);
       setIsMovingLead(false);
     }
   }
@@ -647,6 +999,11 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               placeholder="Search by name, email, campaign, country"
               className={theme === 'dark' ? 'w-full rounded-2xl border border-white/10 bg-slate-950/70 py-3 pl-11 pr-4 text-white' : 'w-full rounded-2xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-4 text-slate-900'}
             />
+            {search !== activeSearch && (
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 px-2 py-1 text-[11px] font-medium text-cyan-300 ring-1 ring-cyan-400/20">
+                Searching...
+              </span>
+            )}
           </label>
 
           <select
@@ -663,6 +1020,12 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
             ))}
           </select>
         </div>
+
+        {(isSyncingLeads || isLoadingLeads) && (
+          <div className={theme === 'dark' ? 'rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-4 py-3 text-sm text-cyan-100' : 'rounded-2xl border border-cyan-200 bg-cyan-50 px-4 py-3 text-sm text-cyan-800'}>
+            {isLoadingLeads ? 'Refreshing leads...' : 'Syncing changes in the background...'}
+          </div>
+        )}
 
         <div className="flex flex-wrap gap-3">
           {QUICK_FILTER_OPTIONS.map((item) => (
@@ -767,23 +1130,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           </div>
         </div>
 
-        {feedback.message && (
-          <div className={`rounded-3xl border px-5 py-4 text-sm ${
-            feedback.type === 'error'
-              ? 'border-red-500/30 bg-red-500/10 text-red-100'
-              : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
-          }`}>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <span>{feedback.message}</span>
-              {feedback.deletedLeadId && feedback.type === 'success' && (
-                <button type="button" onClick={() => handleUndoDelete().catch(() => {})} className="rounded-full border border-white/20 px-3 py-1 text-xs">
-                  Undo delete
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {metricCards.map((item) => (
             <div key={item.key} className={`rounded-3xl border border-white/10 bg-gradient-to-br ${item.tone} p-5`}>
@@ -819,97 +1165,34 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                   ))}
                 </tr>
               </thead>
-              <tbody>
-                {leads.map((lead) => (
-                  <tr
-                    key={lead.id}
-                    draggable={canEdit}
-                    onDragStart={(event) => {
-                      if (!canEdit) {
-                        return;
-                      }
-                      event.dataTransfer.setData('text/plain', lead.id);
-                      setDraggedLeadId(lead.id);
-                    }}
-                    onClick={() => {
-                      loadLead(lead.id).catch(() => {});
-                    }}
-                    className={`cursor-pointer border-t ${theme === 'dark' ? 'border-white/5 text-slate-200 hover:bg-white/[0.04]' : 'border-slate-200 text-slate-700 hover:bg-slate-50'} text-sm ${getLeadRowTone(lead.status)} ${selectedLead?.id === lead.id ? 'ring-1 ring-cyan-300/30' : ''} transition`}
-                  >
-                    <td className="px-5 py-4">
-                      <input
-                        type="checkbox"
-                        checked={selectedLeadIds.includes(lead.id)}
-                        onClick={(event) => event.stopPropagation()}
-                        onChange={() => toggleLeadSelection(lead.id)}
-                        className="h-4 w-4 rounded border-slate-300"
-                      />
-                    </td>
-                    <td className="px-5 py-4">
-                      <div className="flex items-center gap-2">
-                        <GripVertical size={16} className="text-slate-400" />
-                        <div>
-                          <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.sequenceNumber || '-'}</p>
-                          <p className={theme === 'dark' ? 'text-xs text-slate-400' : 'text-xs text-slate-500'}>{lead.leadCode || '-'}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-5 py-4">
-                      <div className="flex items-start gap-3">
-                        <span className={`mt-1 h-2.5 w-2.5 rounded-full ${lead.status === 'Interested' ? 'bg-emerald-300' : lead.status === 'Contacted' ? 'bg-amber-300' : lead.status === 'Non Qualified' ? 'bg-rose-300' : lead.status === 'Not Interested' ? 'bg-orange-300' : 'bg-fuchsia-300'}`} />
-                        <div>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.name}</p>
-                            {lead.duplicateFlag?.isDuplicate && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-medium text-red-300 ring-1 ring-red-400/20">Doublon</span>}
-                            <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${getScoreTone(lead.score?.label)}`}>
-                              {lead.score?.value || 0} · {lead.score?.label || 'Cold'}
-                            </span>
-                          </div>
-                          <p className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>{lead.email}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-5 py-4">{lead.campaign || '-'}</td>
-                    <td className="px-5 py-4">{lead.country || '-'}</td>
-                    <td className="px-5 py-4">
-                      <select
-                        value={lead.status}
-                        aria-label={`Update status for ${lead.name}`}
-                        onClick={(event) => event.stopPropagation()}
-                        onChange={(event) => {
-                          event.stopPropagation();
-                          quickUpdateStatus(lead, event.target.value).catch(() => {});
-                        }}
-                        disabled={isStatusUpdating || !canEdit}
-                        className={`rounded-full px-3 py-1 ${getLeadStatusTone(lead.status)} ${theme === 'dark' ? 'bg-slate-950/80' : 'bg-white'} disabled:cursor-not-allowed disabled:opacity-70`}
-                      >
-                        {LEAD_STATUS_OPTIONS.map((item) => (
-                          <option key={item} value={item}>{getLeadStatusLabel(item)}</option>
-                        ))}
-                      </select>
-                    </td>
-                    <td className={theme === 'dark' ? 'px-5 py-4 text-slate-400' : 'px-5 py-4 text-slate-500'}>
-                      <div>
-                        <p>{formatDate(lead.createdAt)}</p>
-                        <p className="text-xs">Active: {formatDate(lead.lastActivityAt)}</p>
-                      </div>
-                    </td>
-                    <td className="px-5 py-4">
-                      <div className="flex flex-wrap gap-2">
-                        <button type="button" onClick={(event) => { event.stopPropagation(); loadLead(lead.id).catch(() => {}); }} className="table-action">Open</button>
-                        {canEdit && lead.status !== 'Contacted' && <button type="button" onClick={(event) => { event.stopPropagation(); quickUpdateStatus(lead, 'Contacted').catch(() => {}); }} className="table-action">Contacte</button>}
-                        {canEdit && lead.status !== 'Non Qualified' && <button type="button" onClick={(event) => { event.stopPropagation(); quickUpdateStatus(lead, 'Non Qualified').catch(() => {}); }} className="table-action">Non qualifie</button>}
-                        {canEdit && lead.status !== 'Not Interested' && <button type="button" onClick={(event) => { event.stopPropagation(); quickUpdateStatus(lead, 'Not Interested').catch(() => {}); }} className="table-action">Pas interesse</button>}
-                        {canEdit && lead.status !== 'Interested' && <button type="button" onClick={(event) => { event.stopPropagation(); quickUpdateStatus(lead, 'Interested').catch(() => {}); }} className="table-action">Interesse</button>}
-                        {canEdit && bucket === 'leads' && <button type="button" onClick={(event) => { event.stopPropagation(); moveLeadToBucket(lead.id, 'treated').catch(() => {}); }} className="table-action">Traiter</button>}
-                        {canEdit && bucket === 'treated' && <button type="button" onClick={(event) => { event.stopPropagation(); moveLeadToBucket(lead.id, 'leads').catch(() => {}); }} className="table-action">Remettre</button>}
-                        {canEdit && <button type="button" onClick={(event) => { event.stopPropagation(); startEdit(lead); }} className="table-action">Edit</button>}
-                        {user?.role === 'admin' && canEdit && <button type="button" onClick={(event) => { event.stopPropagation(); handleDelete(lead.id).catch(() => {}); }} className="table-action danger">Delete</button>}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              {isLoadingLeads ? (
+                <LeadTableSkeleton theme={theme} />
+              ) : (
+                <tbody>
+                  {leads.map((lead) => (
+                    <LeadTableRow
+                      key={lead.id}
+                      lead={lead}
+                      bucket={bucket}
+                      canEdit={canEdit}
+                      isSelected={selectedLead?.id === lead.id}
+                      isChecked={selectedLeadIds.includes(lead.id)}
+                      isBusy={pendingLeadIds.includes(lead.id)}
+                      theme={theme}
+                      userRole={user?.role}
+                      onToggleSelection={() => toggleLeadSelection(lead.id)}
+                      onOpen={() => loadLead(lead.id).catch(() => {})}
+                      onStatusChange={(nextStatus) => quickUpdateStatus(lead, nextStatus).catch(() => {})}
+                      onMoveBucket={(nextBucket) => {
+                        setDraggedLeadId(lead.id);
+                        moveLeadToBucket(lead.id, nextBucket).catch(() => {});
+                      }}
+                      onEdit={() => startEdit(lead)}
+                      onDelete={() => handleDelete(lead.id).catch(() => {})}
+                    />
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
           {!isLoadingLeads && leads.length === 0 && (
@@ -945,12 +1228,19 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       <section className="space-y-6">
         {selectedLead && (
           <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>{selectedLead.name}</h2>
-              {selectedLead.duplicateFlag?.isDuplicate && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-300 ring-1 ring-red-400/20">Doublon</span>}
-              <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${getScoreTone(selectedLead.score?.label)}`}>
-                Score {selectedLead.score?.value || 0} · {selectedLead.score?.label || 'Cold'}
-              </span>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>{selectedLead.name}</h2>
+                {selectedLead.duplicateFlag?.isDuplicate && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-300 ring-1 ring-red-400/20">Doublon</span>}
+                <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${getScoreTone(selectedLead.score?.label)}`}>
+                  Score {selectedLead.score?.value || 0} · {selectedLead.score?.label || 'Cold'}
+                </span>
+              </div>
+              {isLeadPanelLoading && (
+                <span className="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-300 ring-1 ring-cyan-400/20">
+                  Loading details...
+                </span>
+              )}
             </div>
             <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>ID: {selectedLead.leadCode || '-'} · Numero: {selectedLead.sequenceNumber || '-'}</p>
             <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>Campaign: {selectedLead.campaign || 'General'} · Country: {selectedLead.country || '-'}</p>
@@ -1037,9 +1327,11 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               <div className="mt-4 space-y-3">
                 {(selectedLead.notes || []).length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>No notes yet.</p>}
                 {(selectedLead.notes || []).map((item) => (
-                  <div key={item.id} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                  <div key={item.id} className={`${theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'} ${item.pending ? 'opacity-70' : ''}`}>
                     <p className={theme === 'dark' ? 'text-sm text-white' : 'text-sm text-slate-900'}>{item.body}</p>
-                    <p className={theme === 'dark' ? 'mt-2 text-xs text-slate-400' : 'mt-2 text-xs text-slate-500'}>{item.author?.name || 'Unknown'} · {formatDate(item.createdAt)}</p>
+                    <p className={theme === 'dark' ? 'mt-2 text-xs text-slate-400' : 'mt-2 text-xs text-slate-500'}>
+                      {item.author?.name || 'Unknown'} · {formatDate(item.createdAt)} {item.pending ? '· syncing...' : ''}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -1063,12 +1355,12 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               <div className="mt-4 space-y-3">
                 {(selectedLead.tasks || []).length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>No follow-up tasks yet.</p>}
                 {(selectedLead.tasks || []).map((task) => (
-                  <div key={task.id} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                  <div key={task.id} className={`${theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'} ${task.pending ? 'opacity-70' : ''}`}>
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <p className={theme === 'dark' ? 'text-sm font-medium text-white' : 'text-sm font-medium text-slate-900'}>{task.title}</p>
                         <p className={theme === 'dark' ? 'mt-1 text-xs text-slate-400' : 'mt-1 text-xs text-slate-500'}>
-                          Due {formatDate(task.dueAt)} · {task.createdBy?.name || 'Unknown'}
+                          Due {formatDate(task.dueAt)} · {task.createdBy?.name || 'Unknown'} {task.pending ? '· syncing...' : ''}
                         </p>
                       </div>
                       <div className="flex items-center gap-2">
@@ -1245,6 +1537,12 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       </section>
 
       {showImport && <ExcelImportModal onClose={() => setShowImport(false)} onImport={handleImport} />}
+      <FeedbackToast
+        feedback={feedback}
+        theme={theme}
+        onUndo={() => handleUndoDelete().catch(() => {})}
+        onDismiss={() => setFeedback({ type: '', message: '' })}
+      />
     </div>
   );
 }
