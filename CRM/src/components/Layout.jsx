@@ -1,5 +1,6 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import { useAuth } from '../context/AuthContext';
@@ -10,6 +11,8 @@ import { useToast } from '../context/ToastContext';
 import { prefetchRouteModule } from '../lib/prefetch';
 
 export default function Layout() {
+  const MotionMain = motion.div;
+  const location = useLocation();
   const { token } = useAuth();
   const { socket } = useSocket();
   const { theme } = useTheme();
@@ -160,8 +163,19 @@ export default function Layout() {
             </div>
           )}
 
-          <main className="flex-1 px-6 py-6">
-            <Outlet />
+          <main className="flex-1 overflow-hidden px-6 py-6">
+            <AnimatePresence mode="wait" initial={false}>
+              <MotionMain
+                key={location.pathname}
+                initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+                className="h-full"
+              >
+                <Outlet />
+              </MotionMain>
+            </AnimatePresence>
           </main>
         </div>
       </div>

@@ -23,6 +23,28 @@ const initialTaskForm = {
   dueAt: '',
 };
 
+const defaultColumnWidths = {
+  select: 72,
+  sequence: 128,
+  lead: 320,
+  campaign: 180,
+  country: 150,
+  status: 150,
+  createdAt: 170,
+  actions: 320,
+};
+
+const tableColumns = [
+  { key: 'select', label: 'Select', sortable: false },
+  { key: 'sequence', label: '#', sortable: true, sortKey: 'sequenceNumber' },
+  { key: 'lead', label: 'Lead', sortable: true, sortKey: 'name' },
+  { key: 'campaign', label: 'Campaign', sortable: true, sortKey: 'campaign' },
+  { key: 'country', label: 'Country', sortable: true, sortKey: 'country' },
+  { key: 'status', label: 'Status', sortable: true, sortKey: 'status' },
+  { key: 'createdAt', label: 'Date added', sortable: true, sortKey: 'createdAt' },
+  { key: 'actions', label: 'Actions', sortable: false },
+];
+
 function createTempId(prefix) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
@@ -75,6 +97,21 @@ function buildOptimisticTask(taskForm, user) {
     status: 'pending',
     pending: true,
   };
+}
+
+function compareLeadValues(left, right, sortKey) {
+  const leftValue = left?.[sortKey];
+  const rightValue = right?.[sortKey];
+
+  if (sortKey === 'createdAt') {
+    return new Date(leftValue || 0).getTime() - new Date(rightValue || 0).getTime();
+  }
+
+  if (sortKey === 'sequenceNumber') {
+    return Number(leftValue || 0) - Number(rightValue || 0);
+  }
+
+  return String(leftValue || '').localeCompare(String(rightValue || ''), undefined, { sensitivity: 'base' });
 }
 
 const LeadTableSkeleton = memo(function LeadTableSkeleton({ theme }) {
@@ -207,6 +244,8 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const { socket } = useSocket();
   const { showToast } = useToast();
   const tableViewportRef = useRef(null);
+  const searchInputRef = useRef(null);
+  const resizeRef = useRef(null);
   const [leads, setLeads] = useState([]);
   const [search, setSearch] = useState('');
   const deferredSearch = useDeferredValue(search);
@@ -242,6 +281,8 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const [isSyncingLeads, setIsSyncingLeads] = useState(false);
   const [pendingLeadIds, setPendingLeadIds] = useState([]);
   const [tableScrollTop, setTableScrollTop] = useState(0);
+  const [sortConfig, setSortConfig] = useState({ key: 'createdAt', direction: 'desc' });
+  const [columnWidths, setColumnWidths] = useState(defaultColumnWidths);
 
   const canEdit = user?.role !== 'viewer';
   const canManageAssignments = user?.role === 'admin' || user?.role === 'manager';
@@ -292,6 +333,23 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     setLeads((current) => current.map((item) => (item.id === leadId ? updater(item) : item)));
     setSelectedLead((current) => (current?.id === leadId ? updater(current) : current));
   }, []);
+
+  const handleUndoDelete = useCallback(async () => {
+    if (!feedback.deletedLeadId) {
+      return;
+    }
+
+    try {
+      await apiRequest(`/api/leads/deleted/${feedback.deletedLeadId}/restore`, {
+        method: 'POST',
+        token,
+      });
+      setFeedback({ type: 'success', message: 'Lead restored successfully.' });
+      syncLeadsInBackground(1, activeSearch, status, quickFilter);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to restore the deleted lead.' });
+    }
+  }, [activeSearch, feedback.deletedLeadId, quickFilter, status, syncLeadsInBackground, token]);
 
   useEffect(() => {
     apiRequest('/api/leads/meta/users', { token }).then((data) => setMetaUsers(data.users)).catch(() => {});
@@ -361,6 +419,37 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   }, []);
 
   useEffect(() => {
+    const handlePointerMove = (event) => {
+      const currentResize = resizeRef.current;
+      if (!currentResize) {
+        return;
+      }
+
+      const nextWidth = Math.max(
+        currentResize.minWidth,
+        currentResize.startWidth + (event.clientX - currentResize.startX),
+      );
+      setColumnWidths((current) => ({
+        ...current,
+        [currentResize.columnKey]: nextWidth,
+      }));
+    };
+
+    const stopResize = () => {
+      resizeRef.current = null;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', stopResize);
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', stopResize);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!socket) {
       return undefined;
     }
@@ -403,17 +492,31 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     };
   }, [activeSearch, bucket, pagination.page, quickFilter, selectedLead?.id, socket, status, syncLeadsInBackground]);
 
-  const leadMap = useMemo(() => new Map(leads.map((lead) => [lead.id, lead])), [leads]);
+  const sortedLeads = useMemo(() => {
+    const next = [...leads];
+    const sortColumn = tableColumns.find((column) => column.key === sortConfig.key);
+    if (!sortColumn?.sortable || !sortColumn.sortKey) {
+      return next;
+    }
+
+    next.sort((left, right) => {
+      const result = compareLeadValues(left, right, sortColumn.sortKey);
+      return sortConfig.direction === 'asc' ? result : -result;
+    });
+    return next;
+  }, [leads, sortConfig]);
+
+  const leadMap = useMemo(() => new Map(sortedLeads.map((lead) => [lead.id, lead])), [sortedLeads]);
   const metricCards = useMemo(() => getBucketMetrics(summary), [summary]);
   const rowHeight = 88;
   const overscan = 5;
   const viewportHeight = 640;
   const visibleRowCount = Math.ceil(viewportHeight / rowHeight);
   const virtualStartIndex = Math.max(0, Math.floor(tableScrollTop / rowHeight) - overscan);
-  const virtualEndIndex = Math.min(leads.length, virtualStartIndex + visibleRowCount + overscan * 2);
-  const visibleLeads = useMemo(() => leads.slice(virtualStartIndex, virtualEndIndex), [leads, virtualEndIndex, virtualStartIndex]);
+  const virtualEndIndex = Math.min(sortedLeads.length, virtualStartIndex + visibleRowCount + overscan * 2);
+  const visibleLeads = useMemo(() => sortedLeads.slice(virtualStartIndex, virtualEndIndex), [sortedLeads, virtualEndIndex, virtualStartIndex]);
   const topSpacerHeight = virtualStartIndex * rowHeight;
-  const bottomSpacerHeight = Math.max(0, (leads.length - virtualEndIndex) * rowHeight);
+  const bottomSpacerHeight = Math.max(0, (sortedLeads.length - virtualEndIndex) * rowHeight);
   const duplicateMergeOptions = useMemo(() => {
     const candidateIds = selectedLead?.duplicateFlag?.matchedLeadIds || [];
     return candidateIds.map((leadId) => ({
@@ -441,7 +544,32 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     });
   }, [leads, prefetchLead]);
 
-  async function loadLead(id) {
+  const toggleSort = useCallback((columnKey) => {
+    const column = tableColumns.find((item) => item.key === columnKey);
+    if (!column?.sortable) {
+      return;
+    }
+
+    setSortConfig((current) => (
+      current.key === columnKey
+        ? { key: columnKey, direction: current.direction === 'asc' ? 'desc' : 'asc' }
+        : { key: columnKey, direction: 'asc' }
+    ));
+  }, []);
+
+  const startColumnResize = useCallback((event, columnKey) => {
+    event.preventDefault();
+    resizeRef.current = {
+      columnKey,
+      startX: event.clientX,
+      startWidth: columnWidths[columnKey] || 120,
+      minWidth: columnKey === 'actions' ? 220 : 88,
+    };
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  }, [columnWidths]);
+
+  const loadLead = useCallback(async (id) => {
     const optimisticLead = leadMap.get(id);
     if (optimisticLead) {
       setSelectedLead(optimisticLead);
@@ -458,7 +586,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     } finally {
       setIsLeadPanelLoading(false);
     }
-  }
+  }, [leadMap, prefetchLead, token]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -574,23 +702,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       setFeedback({ type: 'error', message: error.message || 'Unable to delete the lead.' });
     }
   }
-
-  const handleUndoDelete = useCallback(async () => {
-    if (!feedback.deletedLeadId) {
-      return;
-    }
-
-    try {
-      await apiRequest(`/api/leads/deleted/${feedback.deletedLeadId}/restore`, {
-        method: 'POST',
-        token,
-      });
-      setFeedback({ type: 'success', message: 'Lead restored successfully.' });
-      syncLeadsInBackground(1, activeSearch, status, quickFilter);
-    } catch (error) {
-      setFeedback({ type: 'error', message: error.message || 'Unable to restore the deleted lead.' });
-    }
-  }, [activeSearch, feedback.deletedLeadId, quickFilter, status, syncLeadsInBackground, token]);
 
   async function handleImport(file) {
     const formData = new FormData();
@@ -779,7 +890,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   }
 
   function toggleSelectAllVisible() {
-    const visibleIds = leads.map((lead) => lead.id);
+    const visibleIds = visibleLeads.map((lead) => lead.id);
     const allSelected = visibleIds.length > 0 && visibleIds.every((id) => selectedLeadIds.includes(id));
     setSelectedLeadIds((current) => (
       allSelected
@@ -870,7 +981,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     }
   }
 
-  function startEdit(lead) {
+  const startEdit = useCallback((lead) => {
     setSelectedLead((current) => ({ ...current, ...lead }));
     setEditingLead(lead);
     setEditingUnlocked(false);
@@ -883,7 +994,88 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       status: lead.status,
       assignedTo: lead.assignedTo?.id || '',
     });
-  }
+  }, []);
+
+  useEffect(() => {
+    const handleKeyboard = (event) => {
+      const target = event.target;
+      const isTypingTarget = target instanceof HTMLElement && (
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName) || target.isContentEditable
+      );
+
+      if (event.key === '/' && !isTypingTarget) {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+        searchInputRef.current?.select();
+        return;
+      }
+
+      if (isTypingTarget) {
+        if (event.key === 'Escape' && target instanceof HTMLElement) {
+          target.blur();
+        }
+        return;
+      }
+
+      if (!sortedLeads.length) {
+        return;
+      }
+
+      const currentIndex = selectedLead ? sortedLeads.findIndex((lead) => lead.id === selectedLead.id) : -1;
+
+      if (event.key === 'j' || event.key === 'ArrowDown') {
+        event.preventDefault();
+        const nextIndex = Math.min(sortedLeads.length - 1, currentIndex + 1 < 0 ? 0 : currentIndex + 1);
+        const nextLead = sortedLeads[nextIndex];
+        if (nextLead) {
+          setSelectedLead(nextLead);
+          prefetchLead(nextLead.id);
+          const viewport = tableViewportRef.current;
+          if (viewport) {
+            viewport.scrollTo({
+              top: Math.max(0, nextIndex * rowHeight - rowHeight * 2),
+              behavior: 'smooth',
+            });
+          }
+        }
+      }
+
+      if (event.key === 'k' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        const nextIndex = Math.max(0, currentIndex <= 0 ? 0 : currentIndex - 1);
+        const nextLead = sortedLeads[nextIndex];
+        if (nextLead) {
+          setSelectedLead(nextLead);
+          prefetchLead(nextLead.id);
+          const viewport = tableViewportRef.current;
+          if (viewport) {
+            viewport.scrollTo({
+              top: Math.max(0, nextIndex * rowHeight - rowHeight * 2),
+              behavior: 'smooth',
+            });
+          }
+        }
+      }
+
+      if (event.key === 'Enter' && selectedLead?.id) {
+        event.preventDefault();
+        loadLead(selectedLead.id).catch(() => {});
+      }
+
+      if (event.key === 'e' && selectedLead) {
+        event.preventDefault();
+        startEdit(selectedLead);
+      }
+
+      if (event.key === 'Escape') {
+        setEditingLead(null);
+        setEditingUnlocked(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyboard);
+    return () => window.removeEventListener('keydown', handleKeyboard);
+  }, [loadLead, prefetchLead, rowHeight, selectedLead, sortedLeads, startEdit]);
 
   async function handleExport() {
     setFeedback({ type: '', message: '' });
@@ -1021,6 +1213,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           <label className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <input
+              ref={searchInputRef}
               value={search}
               onChange={(event) => {
                 setSearch(event.target.value);
@@ -1049,6 +1242,14 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               <option key={item} value={item}>{getLeadStatusLabel(item)}</option>
             ))}
           </select>
+        </div>
+
+        <div className={theme === 'dark' ? 'flex flex-wrap gap-2 text-xs text-slate-400' : 'flex flex-wrap gap-2 text-xs text-slate-500'}>
+          {['/ Search', 'J/K Navigate', 'Enter Open', 'E Edit', 'Esc Reset'].map((hint) => (
+            <span key={hint} className={theme === 'dark' ? 'rounded-full border border-white/10 bg-white/5 px-3 py-1' : 'rounded-full border border-slate-200 bg-white px-3 py-1'}>
+              {hint}
+            </span>
+          ))}
         </div>
 
         {(isSyncingLeads || isLoadingLeads) && (
@@ -1188,10 +1389,41 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         <div className={theme === 'dark' ? 'overflow-hidden rounded-3xl border border-white/10 bg-white/6' : 'overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm'}>
           <div ref={tableViewportRef} className="max-h-[70vh] overflow-auto">
             <table className="min-w-full">
+              <colgroup>
+                {tableColumns.map((column) => (
+                  <col key={column.key} style={{ width: columnWidths[column.key], minWidth: columnWidths[column.key] }} />
+                ))}
+              </colgroup>
               <thead className={theme === 'dark' ? 'sticky top-0 bg-slate-950/85 backdrop-blur' : 'sticky top-0 bg-slate-100/95 backdrop-blur'}>
                 <tr className={theme === 'dark' ? 'text-left text-sm text-slate-300' : 'text-left text-sm text-slate-600'}>
-                  {['Select', '#', 'Lead', 'Campaign', 'Country', 'Status', 'Date added', 'Actions'].map((column) => (
-                    <th key={column} className="px-5 py-4">{column}</th>
+                  {tableColumns.map((column) => (
+                    <th key={column.key} className="relative px-5 py-4" style={{ width: columnWidths[column.key], minWidth: columnWidths[column.key] }}>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          disabled={!column.sortable}
+                          onClick={() => toggleSort(column.key)}
+                          className={`inline-flex items-center gap-1 transition ${column.sortable ? 'hover:text-cyan-300' : 'cursor-default'}`}
+                        >
+                          <span>{column.label}</span>
+                          {sortConfig.key === column.key && (
+                            <span className="text-[10px] uppercase tracking-[0.2em] text-cyan-300">
+                              {sortConfig.direction === 'asc' ? 'Asc' : 'Desc'}
+                            </span>
+                          )}
+                        </button>
+                      </div>
+                      {column.key !== 'select' && (
+                        <button
+                          type="button"
+                          aria-label={`Resize ${column.label} column`}
+                          onPointerDown={(event) => startColumnResize(event, column.key)}
+                          className="absolute right-0 top-1/2 h-8 w-3 -translate-y-1/2 cursor-col-resize"
+                        >
+                          <span className={theme === 'dark' ? 'mx-auto block h-full w-px bg-white/10' : 'mx-auto block h-full w-px bg-slate-300'} />
+                        </button>
+                      )}
+                    </th>
                   ))}
                 </tr>
               </thead>
