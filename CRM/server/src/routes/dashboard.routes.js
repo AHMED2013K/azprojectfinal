@@ -61,6 +61,115 @@ async function aggregateMonthlyBreakdown(match) {
   });
 }
 
+async function aggregateConversionByOwner(match) {
+  const results = await Lead.aggregate([
+    { $match: match },
+    {
+      $addFields: {
+        ownerId: { $ifNull: ['$assignedTo', '$createdBy'] },
+      },
+    },
+    {
+      $group: {
+        _id: '$ownerId',
+        total: { $sum: 1 },
+        contacted: { $sum: { $cond: [{ $ne: ['$statusTimeline.contactedAt', null] }, 1, 0] } },
+        interested: { $sum: { $cond: [{ $eq: ['$status', 'Interested'] }, 1, 0] } },
+        treated: { $sum: { $cond: [{ $eq: ['$bucket', 'treated'] }, 1, 0] } },
+      },
+    },
+    { $sort: { interested: -1, contacted: -1, total: -1 } },
+    { $limit: 8 },
+  ]);
+
+  return results.map((item) => ({
+    ownerId: item._id ? item._id.toString() : '',
+    total: item.total,
+    contacted: item.contacted,
+    interested: item.interested,
+    treated: item.treated,
+    contactRate: item.total ? Number(((item.contacted / item.total) * 100).toFixed(1)) : 0,
+    conversionRate: item.total ? Number(((item.interested / item.total) * 100).toFixed(1)) : 0,
+  }));
+}
+
+async function aggregateCampaignPerformance(match) {
+  const results = await Lead.aggregate([
+    {
+      $match: {
+        ...match,
+        campaign: { $exists: true, $nin: ['', null] },
+      },
+    },
+    {
+      $group: {
+        _id: '$campaign',
+        total: { $sum: 1 },
+        contacted: { $sum: { $cond: [{ $ne: ['$statusTimeline.contactedAt', null] }, 1, 0] } },
+        interested: { $sum: { $cond: [{ $eq: ['$status', 'Interested'] }, 1, 0] } },
+        treated: { $sum: { $cond: [{ $eq: ['$bucket', 'treated'] }, 1, 0] } },
+      },
+    },
+    { $sort: { interested: -1, total: -1, _id: 1 } },
+    { $limit: 8 },
+  ]);
+
+  return results.map((item) => ({
+    campaign: item._id,
+    total: item.total,
+    contacted: item.contacted,
+    interested: item.interested,
+    treated: item.treated,
+    contactRate: item.total ? Number(((item.contacted / item.total) * 100).toFixed(1)) : 0,
+    conversionRate: item.total ? Number(((item.interested / item.total) * 100).toFixed(1)) : 0,
+  }));
+}
+
+async function aggregateSlaMetrics(match) {
+  const contactedResults = await Lead.aggregate([
+    {
+      $match: {
+        ...match,
+        'statusTimeline.contactedAt': { $ne: null },
+      },
+    },
+    {
+      $project: {
+        firstContactMinutes: {
+          $divide: [
+            { $subtract: ['$statusTimeline.contactedAt', '$createdAt'] },
+            1000 * 60,
+          ],
+        },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        contactedCount: { $sum: 1 },
+        avgFirstContactMinutes: { $avg: '$firstContactMinutes' },
+        within24hCount: { $sum: { $cond: [{ $lte: ['$firstContactMinutes', 24 * 60] }, 1, 0] } },
+      },
+    },
+  ]);
+
+  const totalLeads = await Lead.countDocuments(match);
+  const contacted = contactedResults[0] || {
+    contactedCount: 0,
+    avgFirstContactMinutes: 0,
+    within24hCount: 0,
+  };
+
+  return {
+    totalLeads,
+    contactedCount: contacted.contactedCount,
+    avgFirstContactMinutes: Math.round(contacted.avgFirstContactMinutes || 0),
+    within24hCount: contacted.within24hCount || 0,
+    within24hRate: contacted.contactedCount ? Number(((contacted.within24hCount / contacted.contactedCount) * 100).toFixed(1)) : 0,
+    neverContactedCount: Math.max(0, totalLeads - contacted.contactedCount),
+  };
+}
+
 function withLeadBucketScope(query, bucket) {
   if (bucket === 'leads') {
     return {
@@ -127,6 +236,9 @@ router.get('/', asyncHandler(async (req, res) => {
     unassignedLeads,
     overdueLeadsCount,
     staleLeadsCount,
+    conversionByOwner,
+    campaignPerformance,
+    slaMetrics,
   ] = await Promise.all([
     Lead.countDocuments(leadScope),
     Lead.countDocuments(openLeadScope),
@@ -174,7 +286,12 @@ router.get('/', asyncHandler(async (req, res) => {
     Lead.countDocuments(unassignedLeadsQuery),
     Lead.countDocuments(overdueTasksQuery),
     Lead.countDocuments(staleLeadsQuery),
+    aggregateConversionByOwner(leadScope),
+    aggregateCampaignPerformance(leadScope),
+    aggregateSlaMetrics(leadScope),
   ]);
+
+  const userMap = new Map(users.map((user) => [user.id, user]));
 
   res.json({
     stats: {
@@ -233,6 +350,13 @@ router.get('/', asyncHandler(async (req, res) => {
     })),
     overdueLeads: overdueLeads.map((lead) => serializeLead(lead, metadataMap.get(lead._id.toString()))),
     staleLeads: staleLeads.map((lead) => serializeLead(lead, metadataMap.get(lead._id.toString()))),
+    conversionByOwner: conversionByOwner.map((item) => ({
+      ...item,
+      owner: item.ownerId ? sanitizeUser(userMap.get(item.ownerId) || { _id: item.ownerId, name: 'Unknown', email: '', role: 'commercial', isOnline: false, createdAt: new Date() }) : null,
+      ownerLabel: item.ownerId ? (userMap.get(item.ownerId)?.name || 'Unknown') : 'Unassigned',
+    })),
+    campaignPerformance,
+    slaMetrics,
   });
 }));
 

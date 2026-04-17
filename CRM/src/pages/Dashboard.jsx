@@ -109,6 +109,24 @@ export default function Dashboard() {
 
         <div className="space-y-6">
           <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+            <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>SLA and first contact</h3>
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {[
+                { label: 'Avg first contact', value: `${Math.floor((data.slaMetrics.avgFirstContactMinutes || 0) / 60)}h ${(data.slaMetrics.avgFirstContactMinutes || 0) % 60}m`, helper: `${data.slaMetrics.contactedCount} contacted leads` },
+                { label: 'Within 24h', value: `${data.slaMetrics.within24hRate}%`, helper: `${data.slaMetrics.within24hCount} leads reached in 24h` },
+                { label: 'Never contacted', value: data.slaMetrics.neverContactedCount, helper: 'Still waiting for first outreach' },
+                { label: 'Total measured', value: data.slaMetrics.totalLeads, helper: 'Current CRM population' },
+              ].map((item) => (
+                <div key={item.label} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                  <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>{item.label}</p>
+                  <p className={theme === 'dark' ? 'mt-3 text-2xl font-semibold text-white' : 'mt-3 text-2xl font-semibold text-slate-900'}>{item.value}</p>
+                  <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>{item.helper}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
             <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Funnel overview</h3>
             <div className="mt-5 space-y-4">
               {data.statusBreakdown.map((item) => (
@@ -176,6 +194,52 @@ export default function Dashboard() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
+        <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+          <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Conversion by owner</h3>
+          <div className="mt-5 space-y-4">
+            {data.conversionByOwner.length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>No owner conversion data yet.</p>}
+            {data.conversionByOwner.map((item) => (
+              <div key={`${item.ownerId || 'unassigned'}-${item.total}`} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{item.ownerLabel}</p>
+                    <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>
+                      {item.total} leads · {item.contacted} contacted · {item.interested} interested
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className={theme === 'dark' ? 'text-sm text-cyan-200' : 'text-sm text-sky-700'}>{item.conversionRate}% converted</p>
+                    <p className={theme === 'dark' ? 'mt-1 text-xs text-slate-400' : 'mt-1 text-xs text-slate-500'}>{item.contactRate}% contacted</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+          <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Campaign performance</h3>
+          <div className="mt-5 space-y-4">
+            {data.campaignPerformance.length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>No campaign data yet.</p>}
+            {data.campaignPerformance.map((item) => (
+              <div key={item.campaign} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{item.campaign}</p>
+                    <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>
+                      {item.total} leads · {item.contacted} contacted · {item.interested} interested
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className={theme === 'dark' ? 'text-sm text-emerald-200' : 'text-sm text-emerald-700'}>{item.conversionRate}% conversion</p>
+                    <p className={theme === 'dark' ? 'mt-1 text-xs text-slate-400' : 'mt-1 text-xs text-slate-500'}>{item.contactRate}% contacted</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
           <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Overdue follow-ups</h3>
           <div className="mt-5 space-y-4">
