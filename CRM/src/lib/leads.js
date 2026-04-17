@@ -13,6 +13,14 @@ export const LEAD_BUCKET_LABELS = {
   treated: 'Traites',
 };
 
+export const QUICK_FILTER_OPTIONS = [
+  { key: '', label: 'Tous' },
+  { key: 'duplicates', label: 'Doublons' },
+  { key: 'overdue', label: 'Taches en retard' },
+  { key: 'stale', label: 'Sans activite 3j+' },
+  { key: 'unassigned', label: 'Non assignes' },
+];
+
 export function getLeadStatusLabel(status) {
   return LEAD_STATUS_LABELS[status] || status;
 }

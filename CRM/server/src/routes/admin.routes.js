@@ -14,6 +14,28 @@ const router = express.Router();
 
 router.use(requireRole('admin'));
 
+router.post('/users/:id/unlock', asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  user.failedLoginCount = 0;
+  user.lastFailedLoginAt = null;
+  user.lockUntil = null;
+  await user.save();
+
+  await AuditLog.create({
+    actor: req.user._id,
+    action: 'auth.user_unlocked',
+    targetType: 'user',
+    targetId: user._id.toString(),
+    details: { email: user.email },
+  });
+
+  res.json({ user: sanitizeUser(user), message: 'User account unlocked' });
+}));
+
 router.get('/diagnostics', asyncHandler(async (req, res) => {
   const [
     totalLeads,

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createUserSchema } from '../server/src/validators/auth.validators.js';
-import { createLeadSchema, publicLeadSchema } from '../server/src/validators/lead.validators.js';
+import { bulkLeadsSchema, createLeadSchema, publicLeadSchema, savedLeadFilterSchema } from '../server/src/validators/lead.validators.js';
 
 describe('validation schemas', () => {
   it('accepts a strong user payload', async () => {
@@ -70,5 +70,32 @@ describe('validation schemas', () => {
     });
 
     expect(parsed.body.dateOfBirth).toBe('14/09/2002');
+  });
+
+  it('accepts quick filters in saved lead filters', async () => {
+    const parsed = await savedLeadFilterSchema.parseAsync({
+      body: {
+        name: 'Stale leads',
+        search: '',
+        status: '',
+        bucket: 'leads',
+        quickFilter: 'stale',
+      },
+    });
+
+    expect(parsed.body.quickFilter).toBe('stale');
+  });
+
+  it('accepts bulk assignment payloads', async () => {
+    const parsed = await bulkLeadsSchema.parseAsync({
+      body: {
+        action: 'assign',
+        leadIds: ['507f191e810c19729de860ea'],
+        assignedTo: '507f191e810c19729de860eb',
+      },
+    });
+
+    expect(parsed.body.action).toBe('assign');
+    expect(parsed.body.assignedTo).toBe('507f191e810c19729de860eb');
   });
 });

@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 import { formatDate, getLeadRowTone, getLeadStatusTone } from '../lib/format';
 import ExcelImportModal from './ExcelImportModal';
 import { useSocket } from '../context/SocketContext';
-import { getBucketMetrics, getLeadStatusLabel, LEAD_STATUS_OPTIONS } from '../lib/leads';
+import { getBucketMetrics, getLeadStatusLabel, LEAD_STATUS_OPTIONS, QUICK_FILTER_OPTIONS } from '../lib/leads';
 
 const initialForm = {
   name: '',
@@ -80,6 +80,8 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const [saveFilterName, setSaveFilterName] = useState('');
   const [isBulkProcessing, setIsBulkProcessing] = useState(false);
   const [taskForm, setTaskForm] = useState(initialTaskForm);
+  const [quickFilter, setQuickFilter] = useState('');
+  const [bulkAssignedTo, setBulkAssignedTo] = useState('');
 
   const canEdit = user?.role !== 'viewer';
   const canManageAssignments = user?.role === 'admin' || user?.role === 'manager';
@@ -87,7 +89,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const canExport = user?.role === 'admin';
   const canCreateInvite = user?.role === 'admin';
 
-  const refreshLeads = useCallback(async (page = pagination.page, currentSearch = search, currentStatus = status) => {
+  const refreshLeads = useCallback(async (page = pagination.page, currentSearch = search, currentStatus = status, currentQuickFilter = quickFilter) => {
     setIsLoadingLeads(true);
     const params = new URLSearchParams({
       page: String(page),
@@ -95,6 +97,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       bucket,
       ...(currentSearch ? { search: currentSearch } : {}),
       ...(currentStatus ? { status: currentStatus } : {}),
+      ...(currentQuickFilter ? { quickFilter: currentQuickFilter } : {}),
     });
 
     try {
@@ -108,7 +111,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     } finally {
       setIsLoadingLeads(false);
     }
-  }, [bucket, pagination.page, search, status, token]);
+  }, [bucket, pagination.page, quickFilter, search, status, token]);
 
   useEffect(() => {
     apiRequest('/api/leads/meta/users', { token }).then((data) => setMetaUsers(data.users)).catch(() => {});
@@ -117,8 +120,8 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   }, [token]);
 
   useEffect(() => {
-    refreshLeads(pagination.page, search, status).catch(() => {});
-  }, [refreshLeads, pagination.page, search, status]);
+    refreshLeads(pagination.page, search, status, quickFilter).catch(() => {});
+  }, [quickFilter, refreshLeads, pagination.page, search, status]);
 
   useEffect(() => {
     setSelectedLeadIds((current) => current.filter((id) => leads.some((lead) => lead.id === id)));
@@ -150,12 +153,12 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         setSelectedLead(lead.bucket === bucket ? lead : null);
       }
 
-      refreshLeads(pagination.page, search, status).catch(() => {});
+      refreshLeads(pagination.page, search, status, quickFilter).catch(() => {});
     };
 
     const handleNotification = (notification) => {
       if (notification.type === 'lead') {
-        refreshLeads(1, search, status).catch(() => {});
+        refreshLeads(1, search, status, quickFilter).catch(() => {});
       }
     };
 
@@ -165,7 +168,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       socket.off('lead:updated', handleLeadUpdated);
       socket.off('notification:new', handleNotification);
     };
-  }, [bucket, pagination.page, refreshLeads, search, selectedLead?.id, socket, status]);
+  }, [bucket, pagination.page, quickFilter, refreshLeads, search, selectedLead?.id, socket, status]);
 
   const leadMap = useMemo(() => new Map(leads.map((lead) => [lead.id, lead])), [leads]);
   const metricCards = useMemo(() => getBucketMetrics(summary), [summary]);
@@ -209,7 +212,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       setForm(initialForm);
       setEditingLead(null);
       setPagination((current) => ({ ...current, page: 1 }));
-      await refreshLeads(1, search, status);
+      await refreshLeads(1, search, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to save the lead.' });
     } finally {
@@ -225,7 +228,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         setSelectedLead(null);
       }
       setFeedback({ type: 'success', message: 'Lead deleted successfully.' });
-      await refreshLeads(pagination.page, search, status);
+      await refreshLeads(pagination.page, search, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to delete the lead.' });
     }
@@ -245,7 +248,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           ? `Import completed successfully. ${data.duplicatesFlagged} lead(s) flagged as duplicate.`
           : 'Import completed successfully.',
       });
-      await refreshLeads(1, search, status);
+      await refreshLeads(1, search, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to import this file.' });
     }
@@ -291,7 +294,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       setSelectedLead(data.lead);
       setTaskForm(initialTaskForm);
       setFeedback({ type: 'success', message: 'Follow-up task created.' });
-      await refreshLeads(pagination.page, search, status);
+      await refreshLeads(pagination.page, search, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to create the follow-up task.' });
     }
@@ -310,7 +313,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       });
       setSelectedLead(data.lead);
       setFeedback({ type: 'success', message: completed ? 'Task completed.' : 'Task reopened.' });
-      await refreshLeads(pagination.page, search, status);
+      await refreshLeads(pagination.page, search, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to update the task.' });
     }
@@ -347,6 +350,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           search,
           status,
           bucket,
+          quickFilter,
         },
       });
       setSavedFilters((current) => [data.filter, ...current]);
@@ -373,6 +377,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   function applySavedFilter(filter) {
     setSearch(filter.search || '');
     setStatus(filter.status || '');
+    setQuickFilter(filter.quickFilter || '');
     setPagination((current) => ({ ...current, page: 1 }));
     setFeedback({ type: 'success', message: `Filter "${filter.name}" applied.` });
   }
@@ -411,6 +416,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           leadIds: selectedLeadIds,
           ...(action === 'status' ? { status: value } : {}),
           ...(action === 'bucket' ? { bucket: value } : {}),
+          ...(action === 'assign' ? { assignedTo: value || null } : {}),
         },
       });
       setSelectedLeadIds([]);
@@ -418,7 +424,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       if (selectedLead?.id && selectedLeadIds.includes(selectedLead.id)) {
         setSelectedLead(null);
       }
-      await refreshLeads(1, search, status);
+      await refreshLeads(1, search, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to run the bulk action.' });
     } finally {
@@ -492,7 +498,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         setSelectedLead(data.lead);
       }
       setFeedback({ type: 'success', message: `Lead moved to ${getLeadStatusLabel(nextStatus)}.` });
-      await refreshLeads(pagination.page, search, status);
+      await refreshLeads(pagination.page, search, status, quickFilter);
     } catch (error) {
       setLeads((current) => current.map((item) => (item.id === lead.id ? previousLead : item)));
       if (selectedLead?.id === lead.id) {
@@ -525,10 +531,10 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         body: { bucket: nextBucket },
       });
       setFeedback({ type: 'success', message: nextBucket === 'treated' ? 'Lead moved to treated.' : 'Lead moved back to active leads.' });
-      await refreshLeads(pagination.page, search, status);
+      await refreshLeads(pagination.page, search, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to move the lead.' });
-      await refreshLeads(pagination.page, search, status);
+      await refreshLeads(pagination.page, search, status, quickFilter);
     } finally {
       setDraggedLeadId(null);
       setIsMovingLead(false);
@@ -607,6 +613,28 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           </select>
         </div>
 
+        <div className="flex flex-wrap gap-3">
+          {QUICK_FILTER_OPTIONS.map((item) => (
+            <button
+              key={item.key || 'all'}
+              type="button"
+              onClick={() => {
+                setQuickFilter(item.key);
+                setPagination((current) => ({ ...current, page: 1 }));
+              }}
+              className={`rounded-full px-4 py-2 text-sm transition ${
+                quickFilter === item.key
+                  ? 'bg-cyan-500 text-slate-950'
+                  : theme === 'dark'
+                    ? 'border border-white/10 bg-white/6 text-slate-200'
+                    : 'border border-slate-200 bg-white text-slate-700'
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
         <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
           <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div>
@@ -633,7 +661,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                   {filter.name}
                 </button>
                 <p className={theme === 'dark' ? 'mt-1 text-xs text-slate-400' : 'mt-1 text-xs text-slate-500'}>
-                  {(filter.search || 'No search')} · {filter.status ? getLeadStatusLabel(filter.status) : 'Tous'}
+                  {(filter.search || 'No search')} · {filter.status ? getLeadStatusLabel(filter.status) : 'Tous'} · {QUICK_FILTER_OPTIONS.find((item) => item.key === (filter.quickFilter || ''))?.label || 'Tous'}
                 </p>
                 <button type="button" onClick={() => handleDeleteSavedFilter(filter.id).catch(() => {})} className="mt-2 text-xs text-rose-300">
                   Delete
@@ -662,6 +690,23 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               <button type="button" onClick={() => handleBulkAction('bucket', bucket === 'leads' ? 'treated' : 'leads').catch(() => {})} className="btn-secondary" disabled={isBulkProcessing || !canEdit}>
                 {bucket === 'leads' ? 'Move To Treated' : 'Move To Leads'}
               </button>
+              {canManageAssignments && (
+                <>
+                  <select
+                    value={bulkAssignedTo}
+                    onChange={(event) => setBulkAssignedTo(event.target.value)}
+                    className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-2 text-white' : 'rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 text-slate-900'}
+                  >
+                    <option value="">Unassigned</option>
+                    {metaUsers.map((agent) => (
+                      <option key={agent.id} value={agent.id}>{agent.name}</option>
+                    ))}
+                  </select>
+                  <button type="button" onClick={() => handleBulkAction('assign', bulkAssignedTo).catch(() => {})} className="btn-secondary" disabled={isBulkProcessing}>
+                    Bulk Assign
+                  </button>
+                </>
+              )}
               {user?.role === 'admin' && (
                 <button type="button" onClick={() => handleBulkAction('delete').catch(() => {})} className="table-action danger" disabled={isBulkProcessing || !canEdit}>
                   Delete Selected

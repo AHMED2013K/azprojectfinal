@@ -81,6 +81,9 @@ export default function Dashboard() {
         <StatCard title="Rubrique Leads" value={data.stats.openLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.openLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
         <StatCard title="Rubrique Traites" value={data.stats.treatedLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.treatedLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
         <StatCard title="Agents Active" value={data.stats.agentsActivity} subtitle={`${data.stats.unreadNotifications} unread notifications`} />
+        <StatCard title="Taches En Retard" value={data.stats.overdueTasks} subtitle="Relances a traiter en priorite" />
+        <StatCard title="Leads Stales" value={data.stats.staleLeads} subtitle="Aucune activite depuis 3 jours" />
+        <StatCard title="Non Assignes" value={data.stats.unassignedLeads} subtitle="A distribuer a l equipe" />
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
@@ -173,6 +176,45 @@ export default function Dashboard() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
+        <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+          <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Overdue follow-ups</h3>
+          <div className="mt-5 space-y-4">
+            {data.overdueLeads.length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>Aucune relance en retard.</p>}
+            {data.overdueLeads.map((lead) => {
+              const overdueTask = (lead.tasks || []).find((task) => task.status === 'overdue');
+              return (
+                <div key={lead.id} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.name}</p>
+                      <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>{overdueTask?.title || 'Follow-up overdue'} · {lead.assignedTo?.name || 'Unassigned'}</p>
+                    </div>
+                    <span className="rounded-full bg-red-500/10 px-3 py-1 text-xs text-red-300">Due {formatDate(overdueTask?.dueAt)}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+          <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Stale leads</h3>
+          <div className="mt-5 space-y-4">
+            {data.staleLeads.length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>Aucun lead stale pour le moment.</p>}
+            {data.staleLeads.map((lead) => (
+              <div key={lead.id} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.name}</p>
+                    <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>{lead.email} · {lead.assignedTo?.name || 'Unassigned'}</p>
+                  </div>
+                  <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs text-amber-300">Active {formatDate(lead.lastActivityAt)}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <PieBreakdownCard title="Domaines d'etudes / specialites" data={data.formBreakdowns.studyField} totalLeads={data.stats.totalLeads} theme={theme} />
         <PieBreakdownCard title="Niveaux d'etudes" data={data.formBreakdowns.studyLevel} totalLeads={data.stats.totalLeads} theme={theme} />
         <PieBreakdownCard title="Situation financiere" data={data.formBreakdowns.financialSituation} totalLeads={data.stats.totalLeads} theme={theme} />

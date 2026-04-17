@@ -77,6 +77,28 @@ router.get('/', asyncHandler(async (req, res) => {
   const auditQuery = isAdmin(req.user) ? {} : { actor: req.user._id };
   const workLogQuery = isAdmin(req.user) ? {} : { user: req.user._id };
   const recentLeadsQuery = leadScope;
+  const now = new Date();
+  const staleCutoff = new Date(now.getTime() - (3 * 24 * 60 * 60 * 1000));
+  const overdueTasksQuery = {
+    ...leadScope,
+    tasks: { $elemMatch: { completedAt: null, dueAt: { $lt: now } } },
+  };
+  const staleLeadsQuery = {
+    ...leadScope,
+    lastActivityAt: { $lte: staleCutoff },
+  };
+  const unassignedLeadsQuery = {
+    ...leadScope,
+    $and: [
+      ...(leadScope.$and || []),
+      {
+        $or: [
+          { assignedTo: { $exists: false } },
+          { assignedTo: null },
+        ],
+      },
+    ],
+  };
 
   const openLeadScope = withLeadBucketScope(leadScope, 'leads');
 
@@ -100,6 +122,11 @@ router.get('/', asyncHandler(async (req, res) => {
     awarenessBreakdown,
     monthlyBreakdown,
     metadataMap,
+    overdueLeads,
+    staleLeads,
+    unassignedLeads,
+    overdueLeadsCount,
+    staleLeadsCount,
   ] = await Promise.all([
     Lead.countDocuments(leadScope),
     Lead.countDocuments(openLeadScope),
@@ -126,6 +153,27 @@ router.get('/', asyncHandler(async (req, res) => {
     aggregateByFieldWithMatch('details.alternanceAwareness', leadScope),
     aggregateMonthlyBreakdown(leadScope),
     getLeadMetadataMapCached(),
+    Lead.find(overdueTasksQuery)
+      .sort({ lastActivityAt: 1 })
+      .limit(5)
+      .select('name email country status bucket duplicateFlag tasks lastActivityAt createdAt updatedAt createdBy assignedTo')
+      .populate('createdBy')
+      .populate('assignedTo')
+      .populate('tasks.createdBy')
+      .populate('tasks.completedBy')
+      .lean(),
+    Lead.find(staleLeadsQuery)
+      .sort({ lastActivityAt: 1 })
+      .limit(5)
+      .select('name email country status bucket duplicateFlag tasks lastActivityAt createdAt updatedAt createdBy assignedTo')
+      .populate('createdBy')
+      .populate('assignedTo')
+      .populate('tasks.createdBy')
+      .populate('tasks.completedBy')
+      .lean(),
+    Lead.countDocuments(unassignedLeadsQuery),
+    Lead.countDocuments(overdueTasksQuery),
+    Lead.countDocuments(staleLeadsQuery),
   ]);
 
   res.json({
@@ -137,6 +185,9 @@ router.get('/', asyncHandler(async (req, res) => {
       treatedLeads: totalLeads - openLeads,
       agentsActivity: users.filter((user) => user.isOnline).length,
       unreadNotifications,
+      overdueTasks: overdueLeadsCount,
+      staleLeads: staleLeadsCount,
+      unassignedLeads,
     },
     statusBreakdown: [
       { label: 'New', value: newLeads },
@@ -180,6 +231,8 @@ router.get('/', asyncHandler(async (req, res) => {
       createdAt: item.createdAt,
       actor: item.actor ? sanitizeUser(item.actor) : null,
     })),
+    overdueLeads: overdueLeads.map((lead) => serializeLead(lead, metadataMap.get(lead._id.toString()))),
+    staleLeads: staleLeads.map((lead) => serializeLead(lead, metadataMap.get(lead._id.toString()))),
   });
 }));
 

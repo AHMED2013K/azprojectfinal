@@ -99,6 +99,15 @@ export default function Settings() {
     setMessage('Two-factor authentication disabled.');
   }
 
+  async function unlockUser(userId) {
+    await apiRequest(`/api/admin/users/${userId}/unlock`, {
+      method: 'POST',
+      token,
+    });
+    setMessage('User account unlocked.');
+    await loadDiagnostics();
+  }
+
   return (
     <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
       <section className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
@@ -231,8 +240,15 @@ export default function Settings() {
                         {diagnostics.lockedUsers.length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>No locked users right now.</p>}
                         {diagnostics.lockedUsers.map((member) => (
                           <div key={member.id} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-white/5 p-4' : 'rounded-2xl border border-slate-200 bg-white p-4'}>
-                            <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{member.name}</p>
-                            <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>{member.email} · Locked until {formatDate(member.lockUntil)}</p>
+                            <div className="flex items-center justify-between gap-3">
+                              <div>
+                                <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{member.name}</p>
+                                <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>{member.email} · Locked until {formatDate(member.lockUntil)}</p>
+                              </div>
+                              <button type="button" onClick={() => unlockUser(member.id).catch((error) => setMessage(error.message))} className="btn-secondary">
+                                Unlock
+                              </button>
+                            </div>
                           </div>
                         ))}
                       </div>

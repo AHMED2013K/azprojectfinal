@@ -82,6 +82,7 @@ router.get('/filters', asyncHandler(async (req, res) => {
       search: item.search || '',
       status: item.status || '',
       bucket: item.bucket || 'leads',
+      quickFilter: item.quickFilter || '',
       createdAt: item.createdAt,
     })),
   });
@@ -94,6 +95,7 @@ router.post('/filters', validate(savedLeadFilterSchema), asyncHandler(async (req
     search: req.validated.body.search,
     status: req.validated.body.status,
     bucket: req.validated.body.bucket,
+    quickFilter: req.validated.body.quickFilter,
   });
 
   res.status(201).json({
@@ -103,6 +105,7 @@ router.post('/filters', validate(savedLeadFilterSchema), asyncHandler(async (req
       search: filter.search || '',
       status: filter.status || '',
       bucket: filter.bucket || 'leads',
+      quickFilter: filter.quickFilter || '',
       createdAt: filter.createdAt,
     },
   });
@@ -194,8 +197,31 @@ function mergeQueryClauses(...clauses) {
   return { $and: filteredClauses };
 }
 
+function buildQuickFilterQuery(quickFilter) {
+  const now = new Date();
+  const staleCutoff = new Date(now.getTime() - (3 * 24 * 60 * 60 * 1000));
+
+  switch (quickFilter) {
+    case 'duplicates':
+      return { 'duplicateFlag.isDuplicate': true };
+    case 'overdue':
+      return { tasks: { $elemMatch: { completedAt: null, dueAt: { $lt: now } } } };
+    case 'stale':
+      return { lastActivityAt: { $lte: staleCutoff } };
+    case 'unassigned':
+      return {
+        $or: [
+          { assignedTo: { $exists: false } },
+          { assignedTo: null },
+        ],
+      };
+    default:
+      return {};
+  }
+}
+
 router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
-  const { search, status, bucket, page, limit } = req.validated.query;
+  const { search, status, bucket, quickFilter, assignedTo, page, limit } = req.validated.query;
   const accessQuery = buildLeadAccessQuery(req.user);
   const normalizedBucket = bucket && LEAD_BUCKETS.includes(bucket) ? bucket : 'leads';
   const bucketQuery = applyBucketFilter({}, normalizedBucket);
@@ -210,9 +236,11 @@ router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
   const statusQuery = status && LEAD_STATUSES.includes(status)
     ? { status: normalizeLeadStatus(status) }
     : {};
+  const quickFilterQuery = buildQuickFilterQuery(quickFilter);
+  const assignedToQuery = assignedTo ? { assignedTo } : {};
 
-  const query = mergeQueryClauses(accessQuery, bucketQuery, statusQuery, searchQuery);
-  const summaryQuery = mergeQueryClauses(accessQuery, bucketQuery);
+  const query = mergeQueryClauses(accessQuery, bucketQuery, statusQuery, searchQuery, quickFilterQuery, assignedToQuery);
+  const summaryQuery = mergeQueryClauses(accessQuery, bucketQuery, quickFilterQuery, assignedToQuery);
 
   const currentPage = page;
   const pageSize = limit;
@@ -644,7 +672,7 @@ router.post('/bulk', validate(bulkLeadsSchema), asyncHandler(async (req, res) =>
     return res.status(403).json({ message: 'Forbidden' });
   }
 
-  const { action, leadIds, status, bucket } = req.validated.body;
+  const { action, leadIds, status, bucket, assignedTo } = req.validated.body;
   const accessQuery = buildLeadAccessQuery(req.user);
   const query = {
     ...accessQuery,
@@ -666,6 +694,10 @@ router.post('/bulk', validate(bulkLeadsSchema), asyncHandler(async (req, res) =>
 
   if (action === 'bucket' && !bucket) {
     throw badRequest('Bucket is required for this bulk action');
+  }
+
+  if (action === 'assign' && !canManageWorkspace(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
   }
 
   if (action === 'delete') {
@@ -693,6 +725,16 @@ router.post('/bulk', validate(bulkLeadsSchema), asyncHandler(async (req, res) =>
         });
       }
 
+      if (action === 'assign') {
+        lead.assignedTo = assignedTo || null;
+        addLeadActivity(lead, {
+          type: 'bulk_assignment_update',
+          label: assignedTo ? 'Lead assigned in bulk' : 'Lead unassigned in bulk',
+          actor: req.user._id,
+          meta: { assignedTo: assignedTo || null },
+        });
+      }
+
       await lead.save();
     }));
   }
@@ -702,7 +744,7 @@ router.post('/bulk', validate(bulkLeadsSchema), asyncHandler(async (req, res) =>
     actor: req.user._id,
     action: `lead.bulk_${action}`,
     targetType: 'lead',
-    details: { count: leads.length, status: status || '', bucket: bucket || '' },
+    details: { count: leads.length, status: status || '', bucket: bucket || '', assignedTo: assignedTo || '' },
   });
 
   res.json({ message: 'Bulk action completed', count: leads.length });

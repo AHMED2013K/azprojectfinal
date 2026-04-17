@@ -6,6 +6,7 @@ const savedLeadFilterSchema = new mongoose.Schema({
   bucket: { type: String, default: 'leads', trim: true },
   search: { type: String, default: '', trim: true, maxlength: 120 },
   status: { type: String, default: '', trim: true, maxlength: 40 },
+  quickFilter: { type: String, default: '', trim: true, maxlength: 40 },
 }, { timestamps: true });
 
 savedLeadFilterSchema.index({ user: 1, createdAt: -1 });

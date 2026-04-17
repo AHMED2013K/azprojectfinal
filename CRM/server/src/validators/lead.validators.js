@@ -3,6 +3,7 @@ import { LEAD_BUCKETS, LEAD_STATUSES } from '../constants/index.js';
 
 const objectIdSchema = z.string().regex(/^[a-f\d]{24}$/i, 'Invalid identifier');
 const emailSchema = z.string().email('A valid email is required').transform((value) => value.toLowerCase());
+const quickFilterSchema = z.enum(['', 'duplicates', 'overdue', 'stale', 'unassigned']);
 
 function normalizeBirthDateInput(value) {
   const rawValue = String(value || '').trim();
@@ -86,9 +87,10 @@ export const updateTaskSchema = z.object({
 export const bulkLeadsSchema = z.object({
   body: z.object({
     leadIds: z.array(objectIdSchema).min(1, 'Select at least one lead').max(100, 'Too many leads selected'),
-    action: z.enum(['status', 'bucket', 'delete']),
+    action: z.enum(['status', 'bucket', 'delete', 'assign']),
     status: z.enum(LEAD_STATUSES).optional(),
     bucket: z.enum(LEAD_BUCKETS).optional(),
+    assignedTo: objectIdSchema.nullable().optional(),
   }),
 });
 
@@ -98,6 +100,7 @@ export const savedLeadFilterSchema = z.object({
     search: z.string().trim().max(120, 'Search is too long').optional().default(''),
     status: z.enum(['', ...LEAD_STATUSES]).optional().default(''),
     bucket: z.enum(LEAD_BUCKETS).optional().default('leads'),
+    quickFilter: quickFilterSchema.optional().default(''),
   }),
 });
 
@@ -127,6 +130,8 @@ export const leadQuerySchema = z.object({
     search: z.string().optional().default(''),
     status: z.enum(['', ...LEAD_STATUSES]).optional().default(''),
     bucket: z.enum(['', ...LEAD_BUCKETS]).optional().default(''),
+    quickFilter: quickFilterSchema.optional().default(''),
+    assignedTo: z.union([objectIdSchema, z.literal('')]).optional().default(''),
     page: z.coerce.number().int().min(1).optional().default(1),
     limit: z.coerce.number().int().min(1).max(50).optional().default(10),
   }),
