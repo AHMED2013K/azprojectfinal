@@ -36,6 +36,13 @@ const leadSchema = new mongoose.Schema({
   notes: [noteSchema],
 }, { timestamps: true });
 
+leadSchema.index({ createdAt: -1 });
+leadSchema.index({ email: 1 });
+leadSchema.index({ bucket: 1, status: 1, createdAt: -1 });
+leadSchema.index({ createdBy: 1, bucket: 1, createdAt: -1 });
+leadSchema.index({ assignedTo: 1, bucket: 1, createdAt: -1 });
+leadSchema.index({ campaign: 1, createdAt: -1 });
+
 const Lead = mongoose.model('Lead', leadSchema);
 
 export default Lead;

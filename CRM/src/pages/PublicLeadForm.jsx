@@ -7,6 +7,7 @@ export default function PublicLeadForm() {
   const [invite, setInvite] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [inviteError, setInviteError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: '',
@@ -22,7 +23,15 @@ export default function PublicLeadForm() {
   });
 
   useEffect(() => {
-    apiRequest(`/api/invites/${token}/public`).then((data) => setInvite(data.invite)).catch(() => setInvite(null));
+    apiRequest(`/api/invites/${token}/public`)
+      .then((data) => {
+        setInvite(data.invite);
+        setInviteError('');
+      })
+      .catch((loadError) => {
+        setInvite(null);
+        setInviteError(loadError.message || 'This public form is unavailable.');
+      });
   }, [token]);
 
   async function handleSubmit(event) {
@@ -49,6 +58,12 @@ export default function PublicLeadForm() {
         <h1 className="mt-4 text-4xl font-semibold text-white">{invite?.campaign || 'Lead registration'}</h1>
         <p className="mt-3 text-slate-300">Share this form with prospects so they can submit their details directly into the CRM.</p>
 
+        {inviteError && !submitted && (
+          <div className="mt-6 rounded-3xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-100">
+            {inviteError}
+          </div>
+        )}
+
         {submitted ? (
           <div className="mt-8 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-6 text-cyan-100">
             Your information has been submitted successfully.
@@ -60,7 +75,6 @@ export default function PublicLeadForm() {
               ['email', 'Adresse e-mail'],
               ['phone', 'Numéro de téléphone (WhatsApp)'],
               ['country', 'Pays de résidence actuel'],
-              ['dateOfBirth', 'Date de naissance / âge'],
             ].map(([field, label]) => (
               <input
                 key={field}
@@ -69,13 +83,26 @@ export default function PublicLeadForm() {
                 value={form[field]}
                 onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
                 placeholder={label}
+                required
+                type={field === 'email' ? 'email' : 'text'}
                 className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
               />
             ))}
 
+            <input
+              name="dateOfBirth"
+              data-testid="public-dateOfBirth"
+              value={form.dateOfBirth}
+              onChange={(event) => setForm((current) => ({ ...current, dateOfBirth: event.target.value }))}
+              required
+              type="date"
+              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+            />
+
             <select
               value={form.studyField}
               onChange={(event) => setForm((current) => ({ ...current, studyField: event.target.value }))}
+              required
               className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
             >
               <option value="">Domaine d’etudes / Specialite</option>
@@ -91,6 +118,7 @@ export default function PublicLeadForm() {
             <select
               value={form.studyLevel}
               onChange={(event) => setForm((current) => ({ ...current, studyLevel: event.target.value }))}
+              required
               className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
             >
               <option value="">Niveau d'etude actuel</option>
@@ -103,6 +131,7 @@ export default function PublicLeadForm() {
             <select
               value={form.alternanceAwareness}
               onChange={(event) => setForm((current) => ({ ...current, alternanceAwareness: event.target.value }))}
+              required
               className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
             >
               <option value="">Connaissance de l'alternance</option>
@@ -114,6 +143,7 @@ export default function PublicLeadForm() {
             <select
               value={form.financialSituation}
               onChange={(event) => setForm((current) => ({ ...current, financialSituation: event.target.value }))}
+              required
               className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
             >
               <option value="">Situation financiere</option>
@@ -132,7 +162,7 @@ export default function PublicLeadForm() {
 
             {error && <p className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">{error}</p>}
 
-            <button type="submit" data-testid="public-submit" className="btn-primary w-full justify-center" disabled={submitting}>
+            <button type="submit" data-testid="public-submit" className="btn-primary w-full justify-center" disabled={submitting || !invite}>
               {submitting ? 'Sending...' : 'Submit'}
             </button>
           </form>

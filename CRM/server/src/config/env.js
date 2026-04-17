@@ -15,6 +15,9 @@ const envSchema = z.object({
   COOKIE_SAME_SITE: z.enum(['strict', 'lax', 'none']).optional().default('strict'),
   TRUST_PROXY: z.enum(['true', 'false']).optional().default('false'),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).optional().default('info'),
+  REQUEST_TIMEOUT_MS: z.coerce.number().int().positive().optional().default(15000),
+  HEALTH_LOG_INTERVAL_MS: z.coerce.number().int().positive().optional().default(60000),
+  METADATA_CACHE_TTL_MS: z.coerce.number().int().positive().optional().default(30000),
   SEED_ADMIN_NAME: z.string().trim().optional().default('EduGrowth Admin'),
   SEED_ADMIN_EMAIL: z.string().trim().email().optional(),
   SEED_ADMIN_PASSWORD: z.string().trim().optional(),
@@ -58,6 +61,9 @@ export function getEnv() {
     ...parsed,
     MONGODB_URI: mongoUri,
     JWT_SECRET: jwtSecret,
+    COOKIE_SAME_SITE_EFFECTIVE: parsed.NODE_ENV === 'production' && parsed.COOKIE_SAME_SITE === 'strict'
+      ? 'none'
+      : parsed.COOKIE_SAME_SITE,
     ALLOWED_ORIGINS_LIST: Array.from(new Set([
       parsed.CLIENT_URL,
       ...parseCsv(parsed.ALLOWED_ORIGINS),

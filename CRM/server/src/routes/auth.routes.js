@@ -10,19 +10,32 @@ import { getRefreshCookieOptions } from '../utils/cookies.js';
 import { changePasswordSchema, loginSchema } from '../validators/auth.validators.js';
 import { createAuditLog } from '../utils/audit.js';
 import { createCsrfToken, getCsrfCookieOptions } from '../utils/csrf.js';
+import { logAppEvent } from '../utils/logger.js';
 
 const router = express.Router();
 
+function logAuthFailure(req, reason, email = '') {
+  logAppEvent('auth.failure', {
+    requestId: req.requestId || '',
+    email,
+    ip: req.ip,
+    reason,
+  }, 'warn');
+}
+
 router.post('/login', validate(loginSchema), asyncHandler(async (req, res) => {
-  const { email, password } = req.validated.body;
+  const email = String(req.validated.body.email || '').trim().toLowerCase();
+  const { password } = req.validated.body;
 
   const user = await User.findOne({ email });
   if (!user) {
+    logAuthFailure(req, 'user_not_found', email);
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 
   const matches = await bcrypt.compare(password, user.passwordHash);
   if (!matches) {
+    logAuthFailure(req, 'invalid_password', email);
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 
@@ -56,21 +69,32 @@ router.get('/me', authMiddleware, asyncHandler(async (req, res) => {
 router.post('/refresh', asyncHandler(async (req, res) => {
   const refreshToken = req.cookies.crm_refresh_token;
   if (!refreshToken) {
+    logAuthFailure(req, 'missing_refresh_cookie');
     return res.status(401).json({ message: 'Refresh token is required' });
   }
 
-  const payload = verifyToken(refreshToken);
+  let payload;
+  try {
+    payload = verifyToken(refreshToken);
+  } catch {
+    logAuthFailure(req, 'invalid_refresh_token');
+    return res.status(401).json({ message: 'Invalid refresh token' });
+  }
+
   if (payload.type !== 'refresh') {
+    logAuthFailure(req, 'wrong_refresh_token_type');
     return res.status(401).json({ message: 'Invalid refresh token' });
   }
 
   const user = await User.findById(payload.sub);
   if (!user?.refreshTokenHash) {
+    logAuthFailure(req, 'missing_refresh_hash');
     return res.status(401).json({ message: 'Invalid refresh token' });
   }
 
   const matches = await bcrypt.compare(refreshToken, user.refreshTokenHash);
   if (!matches) {
+    logAuthFailure(req, 'refresh_hash_mismatch', user.email);
     return res.status(401).json({ message: 'Invalid refresh token' });
   }
 

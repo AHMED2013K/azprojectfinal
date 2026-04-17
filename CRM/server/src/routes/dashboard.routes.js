@@ -8,8 +8,7 @@ import AuditLog from '../models/AuditLog.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { serializeLead, sanitizeUser } from '../utils/serializers.js';
 import { buildLeadAccessQuery, isAdmin } from '../utils/access.js';
-import { buildLeadMetadataMap } from '../utils/leadMetadata.js';
-import { migrateLegacyLeadStatuses } from '../utils/leadStatus.js';
+import { getLeadMetadataMapCached } from '../utils/leadMetadataCache.js';
 
 const router = express.Router();
 
@@ -74,8 +73,6 @@ function withLeadBucketScope(query, bucket) {
 }
 
 router.get('/', asyncHandler(async (req, res) => {
-  await migrateLegacyLeadStatuses();
-
   const leadScope = buildLeadAccessQuery(req.user);
   const auditQuery = isAdmin(req.user) ? {} : { actor: req.user._id };
   const workLogQuery = isAdmin(req.user) ? {} : { user: req.user._id };
@@ -102,13 +99,19 @@ router.get('/', asyncHandler(async (req, res) => {
     financialBreakdown,
     awarenessBreakdown,
     monthlyBreakdown,
-    leadIds,
+    metadataMap,
   ] = await Promise.all([
     Lead.countDocuments(leadScope),
     Lead.countDocuments(openLeadScope),
     Lead.countDocuments({ ...leadScope, status: 'Interested' }),
     isAdmin(req.user) ? User.find().sort({ name: 1 }) : User.find({ _id: req.user._id }).sort({ name: 1 }),
-    Lead.find(recentLeadsQuery).sort({ createdAt: -1 }).limit(6).populate('createdBy').populate('assignedTo').populate('notes.author'),
+    Lead.find(recentLeadsQuery)
+      .sort({ createdAt: -1 })
+      .limit(6)
+      .select('name email phone country campaign source status bucket statusTimeline details createdAt updatedAt createdBy assignedTo')
+      .populate('createdBy')
+      .populate('assignedTo')
+      .lean(),
     Announcement.find().sort({ createdAt: -1 }).limit(5).populate('author'),
     WorkSession.find(workLogQuery).sort({ updatedAt: -1 }).limit(10).populate('user'),
     Notification.countDocuments({ user: req.user._id, readAt: null }),
@@ -122,9 +125,8 @@ router.get('/', asyncHandler(async (req, res) => {
     aggregateByFieldWithMatch('details.financialSituation', leadScope),
     aggregateByFieldWithMatch('details.alternanceAwareness', leadScope),
     aggregateMonthlyBreakdown(leadScope),
-    Lead.find({}, '_id createdAt').sort({ createdAt: 1, _id: 1 }),
+    getLeadMetadataMapCached(),
   ]);
-  const metadataMap = buildLeadMetadataMap(leadIds);
 
   res.json({
     stats: {

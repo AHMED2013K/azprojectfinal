@@ -7,6 +7,7 @@ import { Server } from 'socket.io';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { connectDatabase } from './src/config/database.js';
+import { disconnectDatabase, getDatabaseHealth } from './src/config/database.js';
 import { seedDefaults } from './src/config/seed.js';
 import { authMiddleware, csrfProtection, socketAuthMiddleware } from './src/middleware/auth.js';
 import { errorHandler } from './src/middleware/errorHandler.js';
@@ -23,7 +24,8 @@ import notificationRoutes from './src/routes/notifications.routes.js';
 import backupRoutes from './src/routes/backups.routes.js';
 import { getEnv } from './src/config/env.js';
 import { createIpAllowlistMiddleware, createOriginChecker } from './src/utils/security.js';
-import { requestLogger } from './src/utils/logger.js';
+import { logAppEvent, requestLogger } from './src/utils/logger.js';
+import { migrateLegacyLeadStatuses } from './src/utils/leadStatus.js';
 
 dotenv.config();
 const env = getEnv();
@@ -73,6 +75,15 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use((req, res, next) => {
+  req.setTimeout(env.REQUEST_TIMEOUT_MS);
+  res.setTimeout(env.REQUEST_TIMEOUT_MS, () => {
+    if (!res.headersSent) {
+      res.status(503).json({ message: 'Request timeout' });
+    }
+  });
+  next();
+});
 app.use('/api', rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 300,
@@ -97,7 +108,16 @@ app.use('/api/invites/public', rateLimit({
 }));
 
 app.get('/api/health', (_req, res) => {
-  res.json({ ok: true, service: 'EduGrowth CRM API' });
+  res.json({
+    ok: true,
+    service: 'EduGrowth CRM API',
+    uptimeSeconds: Math.round(process.uptime()),
+    memory: {
+      rssMb: Math.round(process.memoryUsage().rss / 1024 / 1024),
+      heapUsedMb: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
+    },
+    database: getDatabaseHealth(),
+  });
 });
 app.get('/', (req, res) => {
   res.send('EduGrowth CRM API is running 🚀');
@@ -121,13 +141,42 @@ attachSocketHandlers(io);
 
 
 const PORT = process.env.PORT || 4000;
+let healthLogTimer = null;
 
 async function bootstrap() {
   await connectDatabase();
+  await migrateLegacyLeadStatuses();
   await seedDefaults();
+
+  server.keepAliveTimeout = 65000;
+  server.headersTimeout = 66000;
+  server.requestTimeout = env.REQUEST_TIMEOUT_MS;
+
+  healthLogTimer = setInterval(() => {
+    logAppEvent('process.health', {
+      uptimeSeconds: Math.round(process.uptime()),
+      memoryRssMb: Math.round(process.memoryUsage().rss / 1024 / 1024),
+      memoryHeapUsedMb: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
+      database: getDatabaseHealth(),
+    });
+  }, env.HEALTH_LOG_INTERVAL_MS);
+  healthLogTimer.unref();
 
   server.listen(PORT, "0.0.0.0", () => {
     console.log(`EduGrowth CRM API listening on port ${PORT}`);
+  });
+}
+
+async function shutdown(signal) {
+  logAppEvent('process.shutdown', { signal });
+  if (healthLogTimer) {
+    clearInterval(healthLogTimer);
+  }
+  server.close(async () => {
+    await disconnectDatabase().catch((error) => {
+      logAppEvent('process.shutdown_error', { message: error.message }, 'error');
+    });
+    process.exit(0);
   });
 }
 
@@ -135,3 +184,6 @@ bootstrap().catch((error) => {
   console.error('Failed to start server', error);
   process.exit(1);
 });
+
+process.on('SIGTERM', () => { shutdown('SIGTERM').catch(() => process.exit(1)); });
+process.on('SIGINT', () => { shutdown('SIGINT').catch(() => process.exit(1)); });

@@ -30,11 +30,13 @@ const AnimatedBackground = ({ delay = 0 }) => {
     // Only initialize VANTA after delay and when scripts are ready
     if (!isReady || !vantaRef.current) return;
 
+    let retryTimer = null;
+
     // Wait for scripts to be available
     const initVanta = () => {
       if (!window.THREE || !window.VANTA?.NET) {
         // Retry after a short delay if scripts not ready
-        setTimeout(initVanta, 100);
+        retryTimer = window.setTimeout(initVanta, 100);
         return;
       }
 
@@ -80,8 +82,19 @@ const AnimatedBackground = ({ delay = 0 }) => {
       };
     };
 
-    initVanta();
-  }, [isReady]);
+    const startTimer = window.setTimeout(initVanta, delay);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      if (retryTimer) {
+        window.clearTimeout(retryTimer);
+      }
+      if (vantaEffect.current) {
+        vantaEffect.current.destroy();
+        vantaEffect.current = null;
+      }
+    };
+  }, [delay, isReady]);
 
   // Don't render until ready to prevent flicker
   if (!isReady) {

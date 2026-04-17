@@ -131,8 +131,7 @@ const ServicesPage = () => (
       <a href="/contact" className="inline-block bg-[#005A9C] text-white px-8 py-4 rounded-3xl font-black hover:bg-[#003e75] transition">Parler à un expert</a>
     </section>
   </div>
-
-  </div>
+  </>
 );
-  </>);
+
 export default ServicesPage;

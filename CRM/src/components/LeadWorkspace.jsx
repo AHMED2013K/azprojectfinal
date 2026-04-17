@@ -53,8 +53,13 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const [draggedLeadId, setDraggedLeadId] = useState(null);
   const [isMovingLead, setIsMovingLead] = useState(false);
   const [isStatusUpdating, setIsStatusUpdating] = useState(false);
+  const [isLoadingLeads, setIsLoadingLeads] = useState(true);
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
+  const [isAddingNote, setIsAddingNote] = useState(false);
+  const [feedback, setFeedback] = useState({ type: '', message: '' });
 
   const refreshLeads = useCallback(async (page = pagination.page, currentSearch = search, currentStatus = status) => {
+    setIsLoadingLeads(true);
     const params = new URLSearchParams({
       page: String(page),
       limit: '20',
@@ -63,10 +68,17 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       ...(currentStatus ? { status: currentStatus } : {}),
     });
 
-    const data = await apiRequest(`/api/leads?${params.toString()}`, { token });
-    setLeads(data.leads);
-    setSummary(data.summary);
-    setPagination(data.pagination);
+    try {
+      const data = await apiRequest(`/api/leads?${params.toString()}`, { token });
+      setLeads(data.leads);
+      setSummary(data.summary);
+      setPagination(data.pagination);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Impossible de charger les leads.' });
+      throw error;
+    } finally {
+      setIsLoadingLeads(false);
+    }
   }, [bucket, pagination.page, search, status, token]);
 
   useEffect(() => {
@@ -138,43 +150,65 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setIsSubmittingLead(true);
+    setFeedback({ type: '', message: '' });
 
-    if (editingLead) {
-      const data = await apiRequest(`/api/leads/${editingLead.id}`, {
-        method: 'PATCH',
-        token,
-        body: { ...form, bucket: editingLead.bucket || bucket },
-      });
-      setSelectedLead(data.lead);
-    } else {
-      await apiRequest('/api/leads', {
-        method: 'POST',
-        token,
-        body: form,
-      });
+    try {
+      if (editingLead) {
+        const data = await apiRequest(`/api/leads/${editingLead.id}`, {
+          method: 'PATCH',
+          token,
+          body: { ...form, bucket: editingLead.bucket || bucket },
+        });
+        setSelectedLead(data.lead);
+        setFeedback({ type: 'success', message: 'Lead updated successfully.' });
+      } else {
+        await apiRequest('/api/leads', {
+          method: 'POST',
+          token,
+          body: form,
+        });
+        setFeedback({ type: 'success', message: 'Lead created successfully.' });
+      }
+
+      setForm(initialForm);
+      setEditingLead(null);
+      setPagination((current) => ({ ...current, page: 1 }));
+      await refreshLeads(1, search, status);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to save the lead.' });
+    } finally {
+      setIsSubmittingLead(false);
     }
-
-    setForm(initialForm);
-    setEditingLead(null);
-    setPagination((current) => ({ ...current, page: 1 }));
-    await refreshLeads(1, search, status);
   }
 
   async function handleDelete(id) {
-    await apiRequest(`/api/leads/${id}`, { method: 'DELETE', token });
-    if (selectedLead?.id === id) {
-      setSelectedLead(null);
+    setFeedback({ type: '', message: '' });
+    try {
+      await apiRequest(`/api/leads/${id}`, { method: 'DELETE', token });
+      if (selectedLead?.id === id) {
+        setSelectedLead(null);
+      }
+      setFeedback({ type: 'success', message: 'Lead deleted successfully.' });
+      await refreshLeads(pagination.page, search, status);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to delete the lead.' });
     }
-    await refreshLeads(pagination.page, search, status);
   }
 
   async function handleImport(file) {
     const formData = new FormData();
     formData.append('file', file);
-    await apiRequest('/api/leads/import/file', { method: 'POST', token, body: formData });
-    setShowImport(false);
-    setPagination((current) => ({ ...current, page: 1 }));
-    await refreshLeads(1, search, status);
+    setFeedback({ type: '', message: '' });
+    try {
+      await apiRequest('/api/leads/import/file', { method: 'POST', token, body: formData });
+      setShowImport(false);
+      setPagination((current) => ({ ...current, page: 1 }));
+      setFeedback({ type: 'success', message: 'Import completed successfully.' });
+      await refreshLeads(1, search, status);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to import this file.' });
+    }
   }
 
   async function handleAddNote() {
@@ -182,24 +216,40 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       return;
     }
 
-    const data = await apiRequest(`/api/leads/${selectedLead.id}/notes`, {
-      method: 'POST',
-      token,
-      body: { body: note },
-    });
+    setIsAddingNote(true);
+    setFeedback({ type: '', message: '' });
 
-    setSelectedLead(data.lead);
-    setNote('');
+    try {
+      const data = await apiRequest(`/api/leads/${selectedLead.id}/notes`, {
+        method: 'POST',
+        token,
+        body: { body: note },
+      });
+
+      setSelectedLead(data.lead);
+      setNote('');
+      setFeedback({ type: 'success', message: 'Note added successfully.' });
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to add the note.' });
+    } finally {
+      setIsAddingNote(false);
+    }
   }
 
   async function handleGenerateInvite() {
-    const data = await apiRequest('/api/invites', {
-      method: 'POST',
-      token,
-      body: { campaign: inviteCampaign },
-    });
-    setInvites((current) => [data.invite, ...current]);
-    setInviteCampaign('');
+    setFeedback({ type: '', message: '' });
+    try {
+      const data = await apiRequest('/api/invites', {
+        method: 'POST',
+        token,
+        body: { campaign: inviteCampaign },
+      });
+      setInvites((current) => [data.invite, ...current]);
+      setInviteCampaign('');
+      setFeedback({ type: 'success', message: 'Public intake link generated.' });
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to generate the invite link.' });
+    }
   }
 
   function startEdit(lead) {
@@ -218,26 +268,40 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   }
 
   async function handleExport() {
-    const response = await fetch(`${API_URL}/api/leads/export`, {
-      credentials: 'include',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'edugrowth-leads.csv';
-    link.click();
-    window.URL.revokeObjectURL(url);
+    setFeedback({ type: '', message: '' });
+    try {
+      const response = await fetch(`${API_URL}/api/leads/export`, {
+        credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Unable to export the leads.');
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'edugrowth-leads.csv';
+      link.click();
+      window.URL.revokeObjectURL(url);
+      setFeedback({ type: 'success', message: 'Lead export downloaded.' });
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to export the leads.' });
+    }
   }
 
   async function quickUpdateStatus(lead, nextStatus) {
+    if (!lead || lead.status === nextStatus) {
+      return;
+    }
+
     const previousLead = lead;
     const optimisticLead = { ...lead, status: nextStatus };
 
     setIsStatusUpdating(true);
+    setFeedback({ type: '', message: '' });
     setLeads((current) => current.map((item) => (item.id === lead.id ? optimisticLead : item)));
     if (selectedLead?.id === lead.id) {
       setSelectedLead((current) => ({ ...current, status: nextStatus }));
@@ -253,12 +317,14 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       if (selectedLead?.id === lead.id) {
         setSelectedLead(data.lead);
       }
+      setFeedback({ type: 'success', message: `Lead moved to ${getLeadStatusLabel(nextStatus)}.` });
       await refreshLeads(pagination.page, search, status);
     } catch (error) {
       setLeads((current) => current.map((item) => (item.id === lead.id ? previousLead : item)));
       if (selectedLead?.id === lead.id) {
         setSelectedLead(previousLead);
       }
+      setFeedback({ type: 'error', message: error.message || 'Unable to update the lead status.' });
       throw error;
     } finally {
       setIsStatusUpdating(false);
@@ -272,6 +338,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     }
 
     setIsMovingLead(true);
+    setFeedback({ type: '', message: '' });
     setLeads((current) => current.filter((item) => item.id !== leadId));
     if (selectedLead?.id === leadId && nextBucket !== bucket) {
       setSelectedLead(null);
@@ -283,6 +350,10 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         token,
         body: { bucket: nextBucket },
       });
+      setFeedback({ type: 'success', message: nextBucket === 'treated' ? 'Lead moved to treated.' : 'Lead moved back to active leads.' });
+      await refreshLeads(pagination.page, search, status);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to move the lead.' });
       await refreshLeads(pagination.page, search, status);
     } finally {
       setDraggedLeadId(null);
@@ -358,6 +429,16 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           </select>
         </div>
 
+        {feedback.message && (
+          <div className={`rounded-3xl border px-5 py-4 text-sm ${
+            feedback.type === 'error'
+              ? 'border-red-500/30 bg-red-500/10 text-red-100'
+              : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
+          }`}>
+            {feedback.message}
+          </div>
+        )}
+
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {metricCards.map((item) => (
             <div key={item.key} className={`rounded-3xl border border-white/10 bg-gradient-to-br ${item.tone} p-5`}>
@@ -428,7 +509,21 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                     <td className="px-5 py-4">{lead.campaign || '-'}</td>
                     <td className="px-5 py-4">{lead.country || '-'}</td>
                     <td className="px-5 py-4">
-                      <span className={`rounded-full px-3 py-1 ${getLeadStatusTone(lead.status)}`}>{getLeadStatusLabel(lead.status)}</span>
+                      <select
+                        value={lead.status}
+                        aria-label={`Update status for ${lead.name}`}
+                        onClick={(event) => event.stopPropagation()}
+                        onChange={(event) => {
+                          event.stopPropagation();
+                          quickUpdateStatus(lead, event.target.value).catch(() => {});
+                        }}
+                        disabled={isStatusUpdating}
+                        className={`rounded-full px-3 py-1 ${getLeadStatusTone(lead.status)} ${theme === 'dark' ? 'bg-slate-950/80' : 'bg-white'} disabled:cursor-not-allowed disabled:opacity-70`}
+                      >
+                        {LEAD_STATUS_OPTIONS.map((item) => (
+                          <option key={item} value={item}>{getLeadStatusLabel(item)}</option>
+                        ))}
+                      </select>
                     </td>
                     <td className={theme === 'dark' ? 'px-5 py-4 text-slate-400' : 'px-5 py-4 text-slate-500'}>{formatDate(lead.createdAt)}</td>
                     <td className="px-5 py-4">
@@ -449,6 +544,11 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               </tbody>
             </table>
           </div>
+          {!isLoadingLeads && leads.length === 0 && (
+            <div className={theme === 'dark' ? 'border-t border-white/10 px-5 py-6 text-sm text-slate-400' : 'border-t border-slate-200 px-5 py-6 text-sm text-slate-500'}>
+              Aucun lead ne correspond a vos filtres actuels.
+            </div>
+          )}
         </div>
 
         <div className={theme === 'dark' ? 'flex items-center justify-between rounded-3xl border border-white/10 bg-white/6 px-5 py-4 text-sm text-slate-300' : 'flex items-center justify-between rounded-3xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600 shadow-sm'}>
@@ -482,7 +582,17 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
             <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>Campaign: {selectedLead.campaign || 'General'} · Country: {selectedLead.country || '-'}</p>
             {selectedLead.source && <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-500' : 'mt-1 text-sm text-slate-500'}>Source: {selectedLead.source}</p>}
             <div className="mt-4 flex flex-wrap gap-2">
-              <span className={`rounded-full px-3 py-1 text-sm ${getLeadStatusTone(selectedLead.status)}`}>{getLeadStatusLabel(selectedLead.status)}</span>
+              <select
+                value={selectedLead.status}
+                aria-label={`Update selected lead status for ${selectedLead.name}`}
+                onChange={(event) => quickUpdateStatus(selectedLead, event.target.value).catch(() => {})}
+                disabled={isStatusUpdating}
+                className={`rounded-full px-3 py-1 text-sm ${getLeadStatusTone(selectedLead.status)} ${theme === 'dark' ? 'bg-slate-950/80' : 'bg-white'} disabled:cursor-not-allowed disabled:opacity-70`}
+              >
+                {LEAD_STATUS_OPTIONS.map((item) => (
+                  <option key={item} value={item}>{getLeadStatusLabel(item)}</option>
+                ))}
+              </select>
               {selectedLead.statusTimeline?.contactedAt && <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs text-amber-100">Contacte: {formatDate(selectedLead.statusTimeline.contactedAt)}</span>}
               {selectedLead.statusTimeline?.nonQualifiedAt && <span className="rounded-full bg-rose-500/10 px-3 py-1 text-xs text-rose-100">Non qualifie: {formatDate(selectedLead.statusTimeline.nonQualifiedAt)}</span>}
               {selectedLead.statusTimeline?.notInterestedAt && <span className="rounded-full bg-orange-500/10 px-3 py-1 text-xs text-orange-100">Pas interesse: {formatDate(selectedLead.statusTimeline.notInterestedAt)}</span>}
@@ -529,7 +639,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                 placeholder="Ajouter une remarque sur ce lead"
                 className={theme === 'dark' ? 'mt-4 min-h-28 w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'mt-4 min-h-28 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900'}
               />
-              <button type="button" onClick={() => handleAddNote().catch(() => {})} className="btn-primary mt-3">
+              <button type="button" onClick={() => handleAddNote().catch(() => {})} className="btn-primary mt-3" disabled={isAddingNote}>
                 <MessageSquareMore size={16} /> Ajouter une remarque
               </button>
             </div>
@@ -588,13 +698,13 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                   {editingUnlocked ? 'Reverrouiller' : 'Debloquer temporairement l edition'}
                 </button>
                 {editingUnlocked && (
-                  <button type="submit" className="btn-primary w-full">
+                  <button type="submit" className="btn-primary w-full" disabled={isSubmittingLead}>
                     Sauvegarder les changements
                   </button>
                 )}
               </div>
             ) : (
-              <button type="submit" className="btn-primary w-full">
+              <button type="submit" className="btn-primary w-full" disabled={isSubmittingLead}>
                 Ajouter un lead manuellement
               </button>
             )}
@@ -633,7 +743,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               </div>
             ))}
           </div>
-          {(isStatusUpdating || isMovingLead) && <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Mise a jour en cours...</p>}
+          {(isStatusUpdating || isMovingLead || isLoadingLeads || isSubmittingLead || isAddingNote) && <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Mise a jour en cours...</p>}
         </div>
       </section>
 

@@ -5,7 +5,16 @@ import User from '../models/User.js';
 import LeadSubmissionBackup from '../models/LeadSubmissionBackup.js';
 
 function parseBirthDate(value) {
-  const [day, month, year] = String(value || '').split('/').map((item) => Number(item));
+  const rawValue = String(value || '').trim();
+  if (!rawValue) {
+    return null;
+  }
+
+  const normalizedValue = /^\d{4}-\d{2}-\d{2}$/.test(rawValue)
+    ? `${rawValue.slice(8, 10)}/${rawValue.slice(5, 7)}/${rawValue.slice(0, 4)}`
+    : rawValue;
+
+  const [day, month, year] = normalizedValue.split('/').map((item) => Number(item));
   if (!day || !month || !year) {
     return null;
   }

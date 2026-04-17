@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createUserSchema } from '../server/src/validators/auth.validators.js';
-import { createLeadSchema } from '../server/src/validators/lead.validators.js';
+import { createLeadSchema, publicLeadSchema } from '../server/src/validators/lead.validators.js';
 
 describe('validation schemas', () => {
   it('accepts a strong user payload', async () => {
@@ -38,5 +38,24 @@ describe('validation schemas', () => {
 
     expect(parsed.body.email).toBe('lead@example.com');
     expect(parsed.body.status).toBe('New');
+  });
+
+  it('accepts ISO birth dates from browser date inputs for public forms', async () => {
+    const parsed = await publicLeadSchema.parseAsync({
+      body: {
+        name: 'Lead Tester',
+        email: 'lead@example.com',
+        phone: '21612345678',
+        country: 'Tunisia',
+        dateOfBirth: '2002-09-14',
+        studyField: 'Marketing',
+        studyLevel: 'Licence',
+        alternanceAwareness: 'Oui, je suis informe(e)',
+        financialSituation: 'Compte bloque',
+        message: '',
+      },
+    });
+
+    expect(parsed.body.dateOfBirth).toBe('14/09/2002');
   });
 });

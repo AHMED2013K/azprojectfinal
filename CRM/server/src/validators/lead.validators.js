@@ -3,9 +3,26 @@ import { LEAD_BUCKETS, LEAD_STATUSES } from '../constants/index.js';
 
 const objectIdSchema = z.string().regex(/^[a-f\d]{24}$/i, 'Invalid identifier');
 const emailSchema = z.string().email('A valid email is required').transform((value) => value.toLowerCase());
+
+function normalizeBirthDateInput(value) {
+  const rawValue = String(value || '').trim();
+  if (!rawValue) {
+    return rawValue;
+  }
+
+  const isoMatch = rawValue.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (isoMatch) {
+    const [, year, month, day] = isoMatch;
+    return `${day}/${month}/${year}`;
+  }
+
+  return rawValue;
+}
+
 const birthDateSchema = z.string()
   .trim()
-  .regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Date de naissance: format jj/mm/aaaa requis');
+  .transform(normalizeBirthDateInput)
+  .pipe(z.string().regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Date de naissance: format jj/mm/aaaa requis'));
 
 const leadBase = {
   name: z.string().trim().min(2, 'Name is required').max(120, 'Name is too long'),

@@ -172,7 +172,7 @@ export default function LinkedInApplicationForm() {
 
                 <div>
                   <p className="mb-2 text-sm font-medium text-cyan-100">Date de naissance *</p>
-                  <Input required value={form.dateOfBirth} onChange={(event) => setForm((current) => ({ ...current, dateOfBirth: event.target.value }))} placeholder="jj/mm/aaaa" />
+                  <Input required type="date" value={form.dateOfBirth} onChange={(event) => setForm((current) => ({ ...current, dateOfBirth: event.target.value }))} placeholder="jj/mm/aaaa" />
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">

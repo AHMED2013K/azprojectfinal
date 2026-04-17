@@ -17,6 +17,8 @@ const workSessionSchema = new mongoose.Schema({
   events: [eventSchema],
 }, { timestamps: true });
 
+workSessionSchema.index({ user: 1, updatedAt: -1 });
+
 const WorkSession = mongoose.model('WorkSession', workSessionSchema);
 
 export default WorkSession;

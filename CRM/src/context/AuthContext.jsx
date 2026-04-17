@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { apiRequest } from '../lib/api';
+import { apiRequest, clearStoredAuthSession, storeAuthSession } from '../lib/api';
 
 const AuthContext = createContext(null);
 
@@ -24,12 +24,7 @@ export function AuthProvider({ children }) {
             retryOnAuthError: false,
           });
 
-          sessionStorage.setItem(TOKEN_KEY, refreshData.token);
-          sessionStorage.setItem(CSRF_KEY, refreshData.csrfToken);
-
-          setToken(refreshData.token);
-          setCsrfToken(refreshData.csrfToken);
-          setUser(refreshData.user);
+          storeAuthSession(refreshData);
           return;
         }
 
@@ -41,34 +36,46 @@ export function AuthProvider({ children }) {
           setUser(data.user);
           setToken(storedToken);
           setCsrfToken(sessionStorage.getItem(CSRF_KEY) || '');
-        } catch (_meError) {
+        } catch {
           const refreshData = await apiRequest('/api/auth/refresh', {
             method: 'POST',
             retryOnAuthError: false,
           });
 
-          sessionStorage.setItem(TOKEN_KEY, refreshData.token);
-          sessionStorage.setItem(CSRF_KEY, refreshData.csrfToken);
-
-          setToken(refreshData.token);
-          setCsrfToken(refreshData.csrfToken);
-          setUser(refreshData.user);
+          storeAuthSession(refreshData);
         }
       } catch (err) {
         console.warn('Session restore failed:', err.message);
 
-        sessionStorage.removeItem(TOKEN_KEY);
-        sessionStorage.removeItem(CSRF_KEY);
-
-        setToken('');
-        setCsrfToken('');
-        setUser(null);
+        clearStoredAuthSession();
       } finally {
         setLoading(false);
       }
     }
 
     restoreSession();
+  }, []);
+
+  useEffect(() => {
+    const handleAuthUpdated = (event) => {
+      const data = event.detail || {};
+      setToken(data.token || '');
+      setCsrfToken(data.csrfToken || '');
+      setUser(data.user || null);
+    };
+
+    const handleAuthCleared = () => {
+      setToken('');
+      setCsrfToken('');
+      setUser(null);
+    };
+
+    window.addEventListener('crm:auth-updated', handleAuthUpdated);
+    window.addEventListener('crm:auth-cleared', handleAuthCleared);
+    return () => {
+      window.removeEventListener('crm:auth-updated', handleAuthUpdated);
+      window.removeEventListener('crm:auth-cleared', handleAuthCleared);
+    };
   }, []);
 
   // 🔐 LOGIN
@@ -79,12 +86,7 @@ export function AuthProvider({ children }) {
         body: { email, password },
       });
 
-      sessionStorage.setItem(TOKEN_KEY, data.token);
-      sessionStorage.setItem(CSRF_KEY, data.csrfToken);
-
-      setToken(data.token);
-      setCsrfToken(data.csrfToken);
-      setUser(data.user);
+      storeAuthSession(data);
     } catch (err) {
       console.error('Login error:', err);
       throw new Error('Email ou mot de passe incorrect');
@@ -103,12 +105,7 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.warn('Logout error:', err.message);
     } finally {
-      sessionStorage.removeItem(TOKEN_KEY);
-      sessionStorage.removeItem(CSRF_KEY);
-
-      setToken('');
-      setCsrfToken('');
-      setUser(null);
+      clearStoredAuthSession();
     }
   }
 

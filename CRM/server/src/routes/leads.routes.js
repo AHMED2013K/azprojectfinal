@@ -12,8 +12,8 @@ import { createAuditLog } from '../utils/audit.js';
 import { createLeadSchema, leadQuerySchema, noteSchema, updateLeadSchema } from '../validators/lead.validators.js';
 import { assertLeadAccess, buildLeadAccessQuery, isAdmin } from '../utils/access.js';
 import { escapeRegExp } from '../utils/security.js';
-import { buildLeadMetadataMap } from '../utils/leadMetadata.js';
-import { migrateLegacyLeadStatuses, normalizeLeadStatus } from '../utils/leadStatus.js';
+import { normalizeLeadStatus } from '../utils/leadStatus.js';
+import { getLeadMetadataMapCached, invalidateLeadMetadataCache } from '../utils/leadMetadataCache.js';
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -97,54 +97,61 @@ async function fetchBucketSummary(query) {
 
 function applyBucketFilter(query, bucket) {
   if (bucket === 'leads') {
-    query.$or = [...(query.$or || []), { bucket: 'leads' }, { bucket: { $exists: false } }, { bucket: null }, { bucket: '' }];
-    return;
+    return {
+      $or: [{ bucket: 'leads' }, { bucket: { $exists: false } }, { bucket: null }, { bucket: '' }],
+    };
   }
 
-  query.bucket = bucket;
+  return { bucket };
+}
+
+function mergeQueryClauses(...clauses) {
+  const filteredClauses = clauses.filter((clause) => clause && Object.keys(clause).length);
+  if (filteredClauses.length === 0) {
+    return {};
+  }
+  if (filteredClauses.length === 1) {
+    return filteredClauses[0];
+  }
+  return { $and: filteredClauses };
 }
 
 router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
-  await migrateLegacyLeadStatuses();
-
   const { search, status, bucket, page, limit } = req.validated.query;
-  const query = buildLeadAccessQuery(req.user);
-  const summaryQuery = buildLeadAccessQuery(req.user);
-
-  if (status && LEAD_STATUSES.includes(status)) {
-    query.status = normalizeLeadStatus(status);
-  }
-
+  const accessQuery = buildLeadAccessQuery(req.user);
   const normalizedBucket = bucket && LEAD_BUCKETS.includes(bucket) ? bucket : 'leads';
-  applyBucketFilter(query, normalizedBucket);
-  applyBucketFilter(summaryQuery, normalizedBucket);
+  const bucketQuery = applyBucketFilter({}, normalizedBucket);
+  const searchQuery = search ? {
+    $or: [
+      { name: { $regex: escapeRegExp(search), $options: 'i' } },
+      { email: { $regex: escapeRegExp(search), $options: 'i' } },
+      { country: { $regex: escapeRegExp(search), $options: 'i' } },
+      { campaign: { $regex: escapeRegExp(search), $options: 'i' } },
+    ],
+  } : {};
+  const statusQuery = status && LEAD_STATUSES.includes(status)
+    ? { status: normalizeLeadStatus(status) }
+    : {};
 
-  if (search) {
-    const safeSearch = escapeRegExp(search);
-    query.$or = [
-      { name: { $regex: safeSearch, $options: 'i' } },
-      { email: { $regex: safeSearch, $options: 'i' } },
-      { country: { $regex: safeSearch, $options: 'i' } },
-      { campaign: { $regex: safeSearch, $options: 'i' } },
-    ];
-  }
+  const query = mergeQueryClauses(accessQuery, bucketQuery, statusQuery, searchQuery);
+  const summaryQuery = mergeQueryClauses(accessQuery, bucketQuery);
 
   const currentPage = page;
   const pageSize = limit;
 
-  const [total, leads, leadIds, summary] = await Promise.all([
+  const [total, leads, metadataMap, summary] = await Promise.all([
     Lead.countDocuments(query),
     Lead.find(query)
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
+      .select('name email phone country campaign source status bucket statusTimeline details createdAt updatedAt createdBy assignedTo')
       .populate('createdBy')
       .populate('assignedTo')
-      .populate('notes.author'),
-    Lead.find({}, '_id createdAt').sort({ createdAt: 1, _id: 1 }),
+      .lean(),
+    getLeadMetadataMapCached(),
     fetchBucketSummary(summaryQuery),
   ]);
-  const metadataMap = buildLeadMetadataMap(leadIds);
 
   res.json({
     leads: leads.map((lead) => serializeLead(lead, metadataMap.get(lead._id.toString()))),
@@ -159,8 +166,6 @@ router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
 }));
 
 router.post('/', validate(createLeadSchema), asyncHandler(async (req, res) => {
-  await migrateLegacyLeadStatuses();
-
   const { name, email, phone, country, campaign, status, assignedTo } = req.validated.body;
 
   const lead = await Lead.create({
@@ -184,13 +189,12 @@ router.post('/', validate(createLeadSchema), asyncHandler(async (req, res) => {
     targetId: lead._id.toString(),
     details: { status: lead.status, campaign: lead.campaign },
   });
-  const metadataMap = buildLeadMetadataMap(await Lead.find({}, '_id createdAt').sort({ createdAt: 1, _id: 1 }));
+  invalidateLeadMetadataCache();
+  const metadataMap = await getLeadMetadataMapCached();
   res.status(201).json({ lead: serializeLead(populated, metadataMap.get(lead._id.toString())) });
 }));
 
 router.post('/import', asyncHandler(async (req, res) => {
-  await migrateLegacyLeadStatuses();
-
   if (!isAdmin(req.user)) {
     return res.status(403).json({ message: 'Forbidden' });
   }
@@ -214,6 +218,7 @@ router.post('/import', asyncHandler(async (req, res) => {
     }));
 
   const created = await Lead.insertMany(validRows);
+  invalidateLeadMetadataCache();
   await createAuditLog({
     actor: req.user._id,
     action: 'lead.bulk_import',
@@ -224,8 +229,6 @@ router.post('/import', asyncHandler(async (req, res) => {
 }));
 
 router.post('/import/file', upload.single('file'), asyncHandler(async (req, res) => {
-  await migrateLegacyLeadStatuses();
-
   if (!isAdmin(req.user)) {
     return res.status(403).json({ message: 'Forbidden' });
   }
@@ -249,6 +252,7 @@ router.post('/import/file', upload.single('file'), asyncHandler(async (req, res)
     }));
 
   const created = await Lead.insertMany(validRows);
+  invalidateLeadMetadataCache();
   await createAuditLog({
     actor: req.user._id,
     action: 'lead.bulk_import',
@@ -278,19 +282,15 @@ router.get('/export', asyncHandler(async (req, res) => {
 }));
 
 router.get('/:id', asyncHandler(async (req, res) => {
-  await migrateLegacyLeadStatuses();
-
   const lead = await loadLead(req.params.id);
   if (!assertLeadAccess(req.user, lead)) {
     return res.status(403).json({ message: 'Forbidden' });
   }
-  const metadataMap = buildLeadMetadataMap(await Lead.find({}, '_id createdAt').sort({ createdAt: 1, _id: 1 }));
+  const metadataMap = await getLeadMetadataMapCached();
   res.json({ lead: serializeLead(lead, metadataMap.get(lead._id.toString())) });
 }));
 
 router.patch('/:id', validate(updateLeadSchema), asyncHandler(async (req, res) => {
-  await migrateLegacyLeadStatuses();
-
   const lead = await Lead.findById(req.params.id);
   if (!lead) {
     throw notFound('Lead not found');
@@ -315,7 +315,7 @@ router.patch('/:id', validate(updateLeadSchema), asyncHandler(async (req, res) =
   }
 
   await lead.save();
-  const metadataMap = buildLeadMetadataMap(await Lead.find({}, '_id createdAt').sort({ createdAt: 1, _id: 1 }));
+  const metadataMap = await getLeadMetadataMapCached();
   const populated = await loadLead(lead._id);
   await createAuditLog({
     actor: req.user._id,
@@ -365,6 +365,7 @@ router.delete('/:id', asyncHandler(async (req, res) => {
   }
 
   await lead.deleteOne();
+  invalidateLeadMetadataCache();
   await createAuditLog({
     actor: req.user._id,
     action: 'lead.deleted',

@@ -1,9 +1,9 @@
-import { Home, Grid, Menu, X, Link } from 'lucide-react';
+import { Grid, Menu, X } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useState } from 'react';
 import LanguageSwitch from './LanguageSwitch';
 
-const Navbar = ({ onViewChange, onOpenPortalSelector, onOpenDemo, lang, setLang, translations }) => {
+const Navbar = ({ onOpenPortalSelector, onOpenDemo, lang, setLang, translations }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const t = translations[lang];
 

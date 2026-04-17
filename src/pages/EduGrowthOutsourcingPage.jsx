@@ -88,17 +88,17 @@ const translations = {
   },
 };
 
-const ServiceCard = ({ icon: Icon, title, description }) => (
+const ServiceCard = ({ icon, title, description }) => (
   <div className="p-8 bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
     <div className="w-14 h-14 bg-blue-50 text-[#005A9C] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#005A9C] group-hover:text-white transition-all duration-300">
-      <Icon size={28} />
+      {icon ? React.createElement(icon, { size: 28 }) : null}
     </div>
     <h3 className="text-xl font-bold mb-3 text-gray-800 tracking-tight">{title}</h3>
     <p className="text-gray-500 leading-relaxed text-sm">{description}</p>
   </div>
 );
 
-const PricingCard = ({ title, price, agents, leads, sla, isFeatured, hybridPrice, isHybrid, lang, onSelect }) => (
+const PricingCard = ({ title, price, agents, leads, sla, isFeatured, hybridPrice, isHybrid, onSelect }) => (
   <div className={`relative p-10 rounded-[2.5rem] border transition-all duration-500 ${isFeatured ? 'border-[#2E8B57] shadow-2xl bg-white scale-105 z-10' : 'border-gray-200 bg-white/50'}`}>
     {isFeatured && <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#2E8B57] text-white px-6 py-1.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg">Recommended</div>}
     <h3 className="text-xl font-bold mb-2 uppercase text-gray-900">{title}</h3>

@@ -1,6 +1,6 @@
 import { CheckCircle2, Clock } from 'lucide-react';
 
-const PricingCard = ({ title, price, agents, leads, sla, isFeatured, hybridPrice, isHybrid, onSelect, lang }) => (
+const PricingCard = ({ title, price, agents, leads, sla, isFeatured, hybridPrice, isHybrid, onSelect }) => (
   <div className={`relative p-10 rounded-[2.5rem] border transition-all duration-500 ${isFeatured ? 'border-[#2E8B57] shadow-2xl bg-white scale-105 z-10' : 'border-gray-200 bg-white/50'}`}>
     {isFeatured && <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#2E8B57] text-white px-6 py-1.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg">Recommended</div>}
     <h3 className="text-xl font-bold mb-2 uppercase text-gray-900">{title}</h3>
@@ -15,4 +15,3 @@ const PricingCard = ({ title, price, agents, leads, sla, isFeatured, hybridPrice
 );
 
 export default PricingCard;
-

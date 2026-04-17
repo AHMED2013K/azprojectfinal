@@ -94,10 +94,11 @@ const PortalSelector = ({ isOpen, onClose, onSelect, onToggleLanguage, translati
 
   // Cleanup VANTA on unmount
   useEffect(() => {
+    const currentVanta = vantaRef.current;
     return () => {
-      if (vantaRef.current?.vantaEffect) {
-        vantaRef.current.vantaEffect.destroy();
-        vantaRef.current.vantaEffect = null;
+      if (currentVanta?.vantaEffect) {
+        currentVanta.vantaEffect.destroy();
+        currentVanta.vantaEffect = null;
       }
     };
   }, []);
