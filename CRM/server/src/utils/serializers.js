@@ -11,6 +11,7 @@ export function sanitizeUser(user) {
     lastFailedLoginAt: user.lastFailedLoginAt || null,
     lockUntil: user.lockUntil || null,
     twoFactorEnabled: Boolean(user.twoFactorEnabled),
+    recoveryCodesRemaining: user.twoFactorRecoveryCodeHashes?.length || 0,
     createdAt: user.createdAt,
   };
 }

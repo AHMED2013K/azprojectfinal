@@ -13,6 +13,9 @@ export default function Settings() {
   const [twoFactorCode, setTwoFactorCode] = useState('');
   const [twoFactorDisableCode, setTwoFactorDisableCode] = useState('');
   const [twoFactorDisablePassword, setTwoFactorDisablePassword] = useState('');
+  const [recoveryCodePassword, setRecoveryCodePassword] = useState('');
+  const [recoveryCodes, setRecoveryCodes] = useState([]);
+  const [sessions, setSessions] = useState([]);
   const [announcementForm, setAnnouncementForm] = useState({ title: '', body: '' });
   const [announcements, setAnnouncements] = useState([]);
   const [diagnostics, setDiagnostics] = useState(null);
@@ -31,6 +34,11 @@ export default function Settings() {
     setDiagnostics(data);
   }, [token, user?.role]);
 
+  const loadSessions = useCallback(async () => {
+    const data = await apiRequest('/api/auth/sessions', { token });
+    setSessions(data.sessions || []);
+  }, [token]);
+
   useEffect(() => {
     loadAnnouncements().catch(() => {});
   }, [loadAnnouncements]);
@@ -38,6 +46,10 @@ export default function Settings() {
   useEffect(() => {
     loadDiagnostics().catch(() => {});
   }, [loadDiagnostics]);
+
+  useEffect(() => {
+    loadSessions().catch(() => {});
+  }, [loadSessions]);
 
   async function changePassword(event) {
     event.preventDefault();
@@ -74,7 +86,7 @@ export default function Settings() {
 
   async function enableTwoFactor(event) {
     event.preventDefault();
-    await apiRequest('/api/auth/2fa/enable', {
+    const data = await apiRequest('/api/auth/2fa/enable', {
       method: 'POST',
       token,
       body: { password: twoFactorPassword, code: twoFactorCode },
@@ -82,6 +94,7 @@ export default function Settings() {
     setTwoFactorSetup(null);
     setTwoFactorCode('');
     setTwoFactorPassword('');
+    setRecoveryCodes(data.recoveryCodes || []);
     await refreshUser();
     setMessage('Two-factor authentication enabled.');
   }
@@ -95,8 +108,41 @@ export default function Settings() {
     });
     setTwoFactorDisableCode('');
     setTwoFactorDisablePassword('');
+    setRecoveryCodes([]);
     await refreshUser();
     setMessage('Two-factor authentication disabled.');
+  }
+
+  async function regenerateRecoveryCodes() {
+    const data = await apiRequest('/api/auth/2fa/recovery-codes/regenerate', {
+      method: 'POST',
+      token,
+      body: { password: recoveryCodePassword },
+    });
+    setRecoveryCodes(data.recoveryCodes || []);
+    setRecoveryCodePassword('');
+    await refreshUser();
+    setMessage('Recovery codes regenerated.');
+  }
+
+  async function revokeSession(sessionId) {
+    await apiRequest(`/api/auth/sessions/${sessionId}`, {
+      method: 'DELETE',
+      token,
+    });
+    setMessage('Session revoked.');
+    await loadSessions();
+    await refreshUser();
+  }
+
+  async function revokeOtherSessions() {
+    await apiRequest('/api/auth/sessions', {
+      method: 'DELETE',
+      token,
+    });
+    setMessage('Other sessions revoked.');
+    await loadSessions();
+    await refreshUser();
   }
 
   async function unlockUser(userId) {
@@ -189,6 +235,74 @@ export default function Settings() {
               <button type="submit" className="btn-secondary">Disable 2FA</button>
             </form>
           )}
+
+          {user?.twoFactorEnabled && (
+            <div className="mt-6 space-y-4">
+              <div className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/70 p-4' : 'rounded-2xl border border-slate-200 bg-white p-4'}>
+                <p className={theme === 'dark' ? 'text-sm text-slate-300' : 'text-sm text-slate-600'}>
+                  Recovery codes remaining: {user?.recoveryCodesRemaining || 0}
+                </p>
+                {recoveryCodes.length > 0 && (
+                  <div className="mt-3 grid gap-2 md:grid-cols-2">
+                    {recoveryCodes.map((code) => (
+                      <p key={code} className={theme === 'dark' ? 'rounded-xl border border-cyan-500/20 bg-cyan-500/10 px-3 py-2 font-mono text-sm text-cyan-100' : 'rounded-xl border border-cyan-200 bg-cyan-50 px-3 py-2 font-mono text-sm text-cyan-800'}>
+                        {code}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <input
+                type="password"
+                value={recoveryCodePassword}
+                onChange={(event) => setRecoveryCodePassword(event.target.value)}
+                placeholder="Current password to regenerate recovery codes"
+                className={theme === 'dark' ? 'w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900'}
+              />
+              <button type="button" onClick={() => regenerateRecoveryCodes().catch((error) => setMessage(error.message))} className="btn-secondary">
+                Regenerate recovery codes
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className={theme === 'dark' ? 'mt-8 rounded-3xl border border-white/10 bg-slate-950/40 p-5' : 'mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-5'}>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Active sessions</h2>
+              <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-300' : 'mt-2 text-sm text-slate-600'}>Review device/IP history and revoke sessions remotely.</p>
+            </div>
+            <button type="button" onClick={() => revokeOtherSessions().catch((error) => setMessage(error.message))} className="btn-secondary">
+              Revoke other sessions
+            </button>
+          </div>
+
+          <div className="mt-5 space-y-3">
+            {sessions.length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>No active session history yet.</p>}
+            {sessions.map((session) => (
+              <div key={session.id} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-white/5 p-4' : 'rounded-2xl border border-slate-200 bg-white p-4'}>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>
+                      {session.deviceLabel} {session.current ? '(Current)' : ''}
+                    </p>
+                    <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>
+                      IP {session.ipAddress || 'Unknown'} · Last seen {formatDate(session.lastSeenAt)}
+                    </p>
+                    <p className={theme === 'dark' ? 'mt-1 text-xs text-slate-500' : 'mt-1 text-xs text-slate-500'}>
+                      {session.userAgent || 'Unknown user agent'}
+                    </p>
+                  </div>
+                  {!session.current && !session.revokedAt && (
+                    <button type="button" onClick={() => revokeSession(session.id).catch((error) => setMessage(error.message))} className="btn-secondary">
+                      Revoke
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

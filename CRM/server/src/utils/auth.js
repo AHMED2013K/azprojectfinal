@@ -4,7 +4,7 @@ import { getEnv } from '../config/env.js';
 export function signAccessToken(user) {
   const env = getEnv();
   return jwt.sign(
-    { sub: user._id.toString(), role: user.role },
+    { sub: user._id.toString(), role: user.role, ...(user.sessionId ? { sid: user.sessionId } : {}) },
     env.JWT_SECRET,
     { expiresIn: env.JWT_EXPIRES_IN },
   );
@@ -13,7 +13,7 @@ export function signAccessToken(user) {
 export function signRefreshToken(user) {
   const env = getEnv();
   return jwt.sign(
-    { sub: user._id.toString(), type: 'refresh' },
+    { sub: user._id.toString(), type: 'refresh', ...(user.sessionId ? { sid: user.sessionId } : {}) },
     env.JWT_SECRET,
     { expiresIn: env.JWT_REFRESH_EXPIRES_IN },
   );

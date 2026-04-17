@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   twoFactorEnabled: { type: Boolean, default: false },
   twoFactorSecret: { type: String, default: '' },
   twoFactorTempSecret: { type: String, default: '' },
+  twoFactorRecoveryCodeHashes: [{ type: String, default: [] }],
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

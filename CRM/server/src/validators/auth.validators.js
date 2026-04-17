@@ -15,6 +15,7 @@ export const loginSchema = z.object({
     email: emailSchema,
     password: z.string().min(1, 'Password is required'),
     otpCode: z.string().trim().min(6, 'Two-factor code must contain 6 digits').max(8, 'Two-factor code is too long').optional(),
+    recoveryCode: z.string().trim().min(8, 'Recovery code is too short').max(16, 'Recovery code is too long').optional(),
   }),
 });
 
@@ -44,5 +45,24 @@ export const twoFactorVerifySchema = z.object({
   body: z.object({
     code: z.string().trim().regex(/^\d{6}$/, 'Enter a valid 6-digit code'),
     password: z.string().min(1, 'Current password is required'),
+  }),
+});
+
+export const passwordResetRequestSchema = z.object({
+  body: z.object({
+    email: emailSchema,
+  }),
+});
+
+export const passwordResetConfirmSchema = z.object({
+  body: z.object({
+    token: z.string().trim().min(20, 'Reset token is invalid'),
+    newPassword: passwordSchema,
+  }),
+});
+
+export const sessionActionSchema = z.object({
+  params: z.object({
+    sessionId: z.string().regex(/^[a-f\d]{24}$/i, 'Invalid session identifier'),
   }),
 });

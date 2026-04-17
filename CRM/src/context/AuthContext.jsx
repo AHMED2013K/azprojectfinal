@@ -79,11 +79,16 @@ export function AuthProvider({ children }) {
   }, []);
 
   // 🔐 LOGIN
-  async function login(email, password, otpCode = '') {
+  async function login(email, password, otpCode = '', recoveryCode = '') {
     try {
       const data = await apiRequest('/api/auth/login', {
         method: 'POST',
-        body: { email, password, ...(otpCode ? { otpCode } : {}) },
+        body: {
+          email,
+          password,
+          ...(otpCode ? { otpCode } : {}),
+          ...(recoveryCode ? { recoveryCode } : {}),
+        },
       });
 
       storeAuthSession(data);
@@ -121,6 +126,20 @@ export function AuthProvider({ children }) {
     }
   }
 
+  async function requestPasswordReset(email) {
+    return apiRequest('/api/auth/password-reset/request', {
+      method: 'POST',
+      body: { email },
+    });
+  }
+
+  async function confirmPasswordReset(tokenValue, newPassword) {
+    return apiRequest('/api/auth/password-reset/confirm', {
+      method: 'POST',
+      body: { token: tokenValue, newPassword },
+    });
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -131,6 +150,8 @@ export function AuthProvider({ children }) {
         login,
         logout,
         refreshUser,
+        requestPasswordReset,
+        confirmPasswordReset,
         setUser,
       }}
     >

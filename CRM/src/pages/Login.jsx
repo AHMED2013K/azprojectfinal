@@ -4,9 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import { trackMetaEvent, trackMetaStandardEvent } from '../lib/marketing';
 
 export default function Login() {
-  const { user, login } = useAuth();
-  const [form, setForm] = useState({ email: '', password: '', otpCode: '' });
+  const { user, login, requestPasswordReset, confirmPasswordReset } = useAuth();
+  const [form, setForm] = useState({ email: '', password: '', otpCode: '', recoveryCode: '' });
+  const [resetRequestEmail, setResetRequestEmail] = useState('');
+  const [resetConfirmForm, setResetConfirmForm] = useState({ token: '', newPassword: '' });
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   if (user) {
@@ -17,9 +20,10 @@ export default function Login() {
     event.preventDefault();
     setSubmitting(true);
     setError('');
+    setMessage('');
 
     try {
-      await login(form.email, form.password, form.otpCode);
+      await login(form.email, form.password, form.otpCode, form.recoveryCode);
       trackMetaEvent('crm_login_success', { area: 'crm_login' });
       trackMetaStandardEvent('Login', { content_name: 'EduGrowth CRM Login' });
     } catch (submitError) {
@@ -27,6 +31,31 @@ export default function Login() {
       trackMetaEvent('crm_login_error', { area: 'crm_login' });
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  async function handleResetRequest(event) {
+    event.preventDefault();
+    setError('');
+    setMessage('');
+    try {
+      const data = await requestPasswordReset(resetRequestEmail);
+      setMessage(data.resetToken ? `Reset token: ${data.resetToken}` : data.message);
+    } catch (requestError) {
+      setError(requestError.message);
+    }
+  }
+
+  async function handleResetConfirm(event) {
+    event.preventDefault();
+    setError('');
+    setMessage('');
+    try {
+      const data = await confirmPasswordReset(resetConfirmForm.token, resetConfirmForm.newPassword);
+      setMessage(data.message);
+      setResetConfirmForm({ token: '', newPassword: '' });
+    } catch (confirmError) {
+      setError(confirmError.message);
     }
   }
 
@@ -93,7 +122,20 @@ export default function Login() {
               />
             </label>
 
+            <label className="block text-sm text-slate-300">
+              <span className="mb-2 block">Recovery code</span>
+              <input
+                name="recoveryCode"
+                autoComplete="one-time-code"
+                placeholder="Use only if you lost your authenticator"
+                value={form.recoveryCode}
+                onChange={(event) => setForm((current) => ({ ...current, recoveryCode: event.target.value.toUpperCase() }))}
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-cyan-400"
+              />
+            </label>
+
             {error && <p className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">{error}</p>}
+            {message && <p className="rounded-2xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-3 text-sm text-cyan-200">{message}</p>}
 
             <button
               type="submit"
@@ -104,6 +146,41 @@ export default function Login() {
               {submitting ? 'Signing in...' : 'Enter CRM'}
             </button>
           </form>
+
+          <div className="mt-8 space-y-6 rounded-3xl border border-white/10 bg-white/5 p-5">
+            <div>
+              <h3 className="text-lg font-semibold text-white">Forgot password</h3>
+              <form onSubmit={handleResetRequest} className="mt-4 space-y-3">
+                <input
+                  value={resetRequestEmail}
+                  onChange={(event) => setResetRequestEmail(event.target.value)}
+                  placeholder="Your account email"
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                />
+                <button type="submit" className="btn-secondary w-full justify-center">Generate reset token</button>
+              </form>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-white">Reset with token</h3>
+              <form onSubmit={handleResetConfirm} className="mt-4 space-y-3">
+                <input
+                  value={resetConfirmForm.token}
+                  onChange={(event) => setResetConfirmForm((current) => ({ ...current, token: event.target.value }))}
+                  placeholder="Reset token"
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                />
+                <input
+                  type="password"
+                  value={resetConfirmForm.newPassword}
+                  onChange={(event) => setResetConfirmForm((current) => ({ ...current, newPassword: event.target.value }))}
+                  placeholder="New password"
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-cyan-400"
+                />
+                <button type="submit" className="btn-secondary w-full justify-center">Reset password</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ export async function authMiddleware(req, res, next) {
     }
 
     req.user = user;
+    req.sessionId = payload.sid || '';
     next();
   } catch {
     res.status(401).json({ message: 'Invalid or expired token' });
