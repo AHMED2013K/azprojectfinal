@@ -84,6 +84,21 @@ export const updateTaskSchema = z.object({
   }),
 });
 
+export const mergeLeadSchema = z.object({
+  params: z.object({
+    id: objectIdSchema,
+  }),
+  body: z.object({
+    targetLeadId: objectIdSchema,
+  }),
+});
+
+export const restoreDeletedLeadSchema = z.object({
+  params: z.object({
+    deletedLeadId: objectIdSchema,
+  }),
+});
+
 export const bulkLeadsSchema = z.object({
   body: z.object({
     leadIds: z.array(objectIdSchema).min(1, 'Select at least one lead').max(100, 'Too many leads selected'),

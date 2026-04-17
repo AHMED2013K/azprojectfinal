@@ -82,6 +82,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const [taskForm, setTaskForm] = useState(initialTaskForm);
   const [quickFilter, setQuickFilter] = useState('');
   const [bulkAssignedTo, setBulkAssignedTo] = useState('');
+  const [mergeTargetLeadId, setMergeTargetLeadId] = useState('');
 
   const canEdit = user?.role !== 'viewer';
   const canManageAssignments = user?.role === 'admin' || user?.role === 'manager';
@@ -172,6 +173,13 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
 
   const leadMap = useMemo(() => new Map(leads.map((lead) => [lead.id, lead])), [leads]);
   const metricCards = useMemo(() => getBucketMetrics(summary), [summary]);
+  const duplicateMergeOptions = useMemo(() => {
+    const candidateIds = selectedLead?.duplicateFlag?.matchedLeadIds || [];
+    return candidateIds.map((leadId) => ({
+      id: leadId,
+      lead: leadMap.get(leadId) || null,
+    })).filter((item) => item.id !== selectedLead?.id);
+  }, [leadMap, selectedLead]);
 
   useEffect(() => {
     if (selectedLead && leadMap.has(selectedLead.id)) {
@@ -183,6 +191,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     const data = await apiRequest(`/api/leads/${id}`, { token });
     setSelectedLead(data.lead);
     setTaskForm(initialTaskForm);
+    setMergeTargetLeadId('');
     setEditingUnlocked(false);
   }
 
@@ -223,14 +232,35 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   async function handleDelete(id) {
     setFeedback({ type: '', message: '' });
     try {
-      await apiRequest(`/api/leads/${id}`, { method: 'DELETE', token });
+      const data = await apiRequest(`/api/leads/${id}`, { method: 'DELETE', token });
       if (selectedLead?.id === id) {
         setSelectedLead(null);
       }
-      setFeedback({ type: 'success', message: 'Lead deleted successfully.' });
+      setFeedback({
+        type: 'success',
+        message: 'Lead deleted successfully.',
+        deletedLeadId: data.deletedLeadId || '',
+      });
       await refreshLeads(pagination.page, search, status, quickFilter);
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to delete the lead.' });
+    }
+  }
+
+  async function handleUndoDelete() {
+    if (!feedback.deletedLeadId) {
+      return;
+    }
+
+    try {
+      await apiRequest(`/api/leads/deleted/${feedback.deletedLeadId}/restore`, {
+        method: 'POST',
+        token,
+      });
+      setFeedback({ type: 'success', message: 'Lead restored successfully.' });
+      await refreshLeads(1, search, status, quickFilter);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to restore the deleted lead.' });
     }
   }
 
@@ -429,6 +459,27 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       setFeedback({ type: 'error', message: error.message || 'Unable to run the bulk action.' });
     } finally {
       setIsBulkProcessing(false);
+    }
+  }
+
+  async function handleMergeLead() {
+    if (!selectedLead || !mergeTargetLeadId) {
+      setFeedback({ type: 'error', message: 'Choose the target lead to merge into first.' });
+      return;
+    }
+
+    try {
+      const data = await apiRequest(`/api/leads/${selectedLead.id}/merge`, {
+        method: 'POST',
+        token,
+        body: { targetLeadId: mergeTargetLeadId },
+      });
+      setSelectedLead(data.lead);
+      setMergeTargetLeadId('');
+      setFeedback({ type: 'success', message: data.message || 'Leads merged successfully.' });
+      await refreshLeads(1, search, status, quickFilter);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to merge these leads.' });
     }
   }
 
@@ -722,7 +773,14 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               ? 'border-red-500/30 bg-red-500/10 text-red-100'
               : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
           }`}>
-            {feedback.message}
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <span>{feedback.message}</span>
+              {feedback.deletedLeadId && feedback.type === 'success' && (
+                <button type="button" onClick={() => handleUndoDelete().catch(() => {})} className="rounded-full border border-white/20 px-3 py-1 text-xs">
+                  Undo delete
+                </button>
+              )}
+            </div>
           </div>
         )}
 
@@ -902,6 +960,25 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               <p className="mt-1 text-sm text-red-300">
                 Duplicate match via {selectedLead.duplicateFlag.matchedBy?.join(', ') || 'existing lead'}.
               </p>
+            )}
+            {selectedLead.duplicateFlag?.isDuplicate && canManageAssignments && (
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <select
+                  value={mergeTargetLeadId}
+                  onChange={(event) => setMergeTargetLeadId(event.target.value)}
+                  className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900'}
+                >
+                  <option value="">Merge into another lead</option>
+                  {duplicateMergeOptions.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.lead ? `${item.lead.name} · ${item.lead.email}` : `Lead ${item.id.slice(-6)}`}
+                    </option>
+                  ))}
+                </select>
+                <button type="button" onClick={() => handleMergeLead().catch(() => {})} className="btn-secondary" disabled={!mergeTargetLeadId}>
+                  Merge duplicate
+                </button>
+              </div>
             )}
             <div className="mt-4 flex flex-wrap gap-2">
               <select

@@ -1,7 +1,9 @@
 import express from 'express';
+import crypto from 'node:crypto';
 import multer from 'multer';
 import * as XLSX from 'xlsx';
 import Lead from '../models/Lead.js';
+import DeletedLead from '../models/DeletedLead.js';
 import SavedLeadFilter from '../models/SavedLeadFilter.js';
 import User from '../models/User.js';
 import { validate } from '../middleware/validate.js';
@@ -10,7 +12,7 @@ import { badRequest, notFound } from '../utils/errors.js';
 import { LEAD_BUCKETS, LEAD_STATUSES } from '../constants/index.js';
 import { serializeLead } from '../utils/serializers.js';
 import { createAuditLog } from '../utils/audit.js';
-import { bulkLeadsSchema, createLeadSchema, leadQuerySchema, noteSchema, savedLeadFilterSchema, taskSchema, updateLeadSchema, updateTaskSchema } from '../validators/lead.validators.js';
+import { bulkLeadsSchema, createLeadSchema, leadQuerySchema, mergeLeadSchema, noteSchema, restoreDeletedLeadSchema, savedLeadFilterSchema, taskSchema, updateLeadSchema, updateTaskSchema } from '../validators/lead.validators.js';
 import { assertLeadAccess, buildLeadAccessQuery, canEditLeads, canManageWorkspace, isAdmin } from '../utils/access.js';
 import { escapeRegExp } from '../utils/security.js';
 import { normalizeLeadStatus } from '../utils/leadStatus.js';
@@ -36,6 +38,57 @@ async function loadLead(id) {
   }
 
   return lead;
+}
+
+function clonePlain(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function getStatusPriority(status = 'New') {
+  return {
+    New: 0,
+    Contacted: 1,
+    Interested: 2,
+    'Not Interested': 3,
+    'Non Qualified': 4,
+  }[status] ?? 0;
+}
+
+async function archiveLeadSnapshot(lead, deletedBy, reason = 'manual-delete') {
+  const snapshot = clonePlain(lead.toObject({ depopulate: true }));
+  const archived = await DeletedLead.create({
+    originalLeadId: lead._id.toString(),
+    snapshot,
+    deletedBy,
+    reason,
+    restoreToken: crypto.randomBytes(18).toString('hex'),
+  });
+
+  return archived;
+}
+
+async function restoreDeletedLeadRecord(deletedLead, restoredBy) {
+  if (deletedLead.restoredAt) {
+    throw badRequest('This deleted lead has already been restored');
+  }
+
+  const existing = await Lead.findById(deletedLead.originalLeadId);
+  if (existing) {
+    throw badRequest('A lead with this identifier already exists');
+  }
+
+  const snapshot = clonePlain(deletedLead.snapshot || {});
+  delete snapshot.__v;
+  const restoredLead = await Lead.create({
+    ...snapshot,
+    _id: deletedLead.originalLeadId,
+  });
+
+  deletedLead.restoredAt = new Date();
+  deletedLead.restoredBy = restoredBy;
+  await deletedLead.save();
+
+  return restoredLead;
 }
 
 function applyDerivedLeadData(lead) {
@@ -667,6 +720,100 @@ router.patch('/:id/tasks/:taskId', validate(updateTaskSchema), asyncHandler(asyn
   res.json({ lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
 }));
 
+router.post('/:id/merge', validate(mergeLeadSchema), asyncHandler(async (req, res) => {
+  if (!canManageWorkspace(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  const sourceLead = await Lead.findById(req.params.id);
+  const targetLead = await Lead.findById(req.validated.body.targetLeadId);
+  if (!sourceLead || !targetLead) {
+    throw notFound('Lead not found');
+  }
+  if (sourceLead._id.toString() === targetLead._id.toString()) {
+    throw badRequest('Select a different lead to merge into');
+  }
+
+  const mergedFields = [];
+  ['country', 'campaign', 'phone', 'source'].forEach((field) => {
+    if (!targetLead[field] && sourceLead[field]) {
+      targetLead[field] = sourceLead[field];
+      mergedFields.push(field);
+    }
+  });
+
+  if (!targetLead.assignedTo && sourceLead.assignedTo) {
+    targetLead.assignedTo = sourceLead.assignedTo;
+    mergedFields.push('assignedTo');
+  }
+
+  if (getStatusPriority(sourceLead.status) > getStatusPriority(targetLead.status)) {
+    targetLead.status = sourceLead.status;
+    mergedFields.push('status');
+  }
+
+  if (sourceLead.bucket === 'treated') {
+    targetLead.bucket = 'treated';
+    mergedFields.push('bucket');
+  }
+
+  const detailFields = ['dateOfBirth', 'age', 'studyField', 'studyLevel', 'alternanceAwareness', 'financialSituation', 'message'];
+  targetLead.details = targetLead.details || {};
+  sourceLead.details = sourceLead.details || {};
+  detailFields.forEach((field) => {
+    if (!targetLead.details[field] && sourceLead.details[field]) {
+      targetLead.details[field] = sourceLead.details[field];
+      mergedFields.push(`details.${field}`);
+    }
+  });
+
+  targetLead.notes = [...(targetLead.notes || []), ...(sourceLead.notes || [])]
+    .sort((left, right) => new Date(right.createdAt || 0) - new Date(left.createdAt || 0));
+  targetLead.tasks = [...(targetLead.tasks || []), ...(sourceLead.tasks || [])]
+    .sort((left, right) => new Date(left.dueAt || 0) - new Date(right.dueAt || 0));
+  targetLead.activityLog = [...(targetLead.activityLog || []), ...(sourceLead.activityLog || [])]
+    .sort((left, right) => new Date(right.createdAt || 0) - new Date(left.createdAt || 0))
+    .slice(0, 80);
+
+  addLeadActivity(targetLead, {
+    type: 'lead_merged',
+    label: `Lead merged from ${sourceLead.name}`,
+    actor: req.user._id,
+    meta: {
+      sourceLeadId: sourceLead._id.toString(),
+      sourceLeadName: sourceLead.name,
+      mergedFields,
+    },
+  });
+  await refreshDuplicateFlagForLead(targetLead, targetLead._id);
+  await targetLead.save();
+
+  const archivedSource = await archiveLeadSnapshot(sourceLead, req.user._id, 'merged-into-another-lead');
+  await sourceLead.deleteOne();
+  invalidateLeadMetadataCache();
+
+  await createAuditLog({
+    actor: req.user._id,
+    action: 'lead.merged',
+    targetType: 'lead',
+    targetId: targetLead._id.toString(),
+    details: {
+      sourceLeadId: sourceLead._id.toString(),
+      sourceLeadName: sourceLead.name,
+      archivedDeletedLeadId: archivedSource._id.toString(),
+      mergedFields,
+    },
+  });
+
+  const metadataMap = await getLeadMetadataMapCached();
+  const populatedTarget = await loadLead(targetLead._id);
+  req.app.get('io').emit('lead:updated', { lead: serializeLead(applyDerivedLeadData(populatedTarget), metadataMap.get(targetLead._id.toString())) });
+  res.json({
+    lead: serializeLead(applyDerivedLeadData(populatedTarget), metadataMap.get(targetLead._id.toString())),
+    message: 'Leads merged successfully',
+  });
+}));
+
 router.post('/bulk', validate(bulkLeadsSchema), asyncHandler(async (req, res) => {
   if (!canEditLeads(req.user)) {
     return res.status(403).json({ message: 'Forbidden' });
@@ -701,7 +848,17 @@ router.post('/bulk', validate(bulkLeadsSchema), asyncHandler(async (req, res) =>
   }
 
   if (action === 'delete') {
+    const archivedDeletedLeads = await Promise.all(leads.map((lead) => archiveLeadSnapshot(lead, req.user._id, 'bulk-delete')));
     await Lead.deleteMany({ _id: { $in: leads.map((lead) => lead._id) } });
+    await createAuditLog({
+      actor: req.user._id,
+      action: 'lead.bulk_delete_archived',
+      targetType: 'lead',
+      details: {
+        count: leads.length,
+        deletedLeadIds: archivedDeletedLeads.map((item) => item._id.toString()),
+      },
+    });
   } else {
     await Promise.all(leads.map(async (lead) => {
       if (action === 'status') {
@@ -760,15 +917,46 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     throw notFound('Lead not found');
   }
 
+  const deletedLead = await archiveLeadSnapshot(lead, req.user._id, 'manual-delete');
   await lead.deleteOne();
   invalidateLeadMetadataCache();
   await createAuditLog({
     actor: req.user._id,
-    action: 'lead.deleted',
+    action: 'lead.deleted_archived',
     targetType: 'lead',
     targetId: req.params.id,
+    details: { deletedLeadId: deletedLead._id.toString() },
   });
-  res.json({ message: 'Lead deleted' });
+  res.json({ message: 'Lead deleted', deletedLeadId: deletedLead._id.toString() });
+}));
+
+router.post('/deleted/:deletedLeadId/restore', validate(restoreDeletedLeadSchema), asyncHandler(async (req, res) => {
+  if (!isAdmin(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  const deletedLead = await DeletedLead.findById(req.params.deletedLeadId);
+  if (!deletedLead) {
+    throw notFound('Deleted lead not found');
+  }
+
+  const restoredLead = await restoreDeletedLeadRecord(deletedLead, req.user._id);
+  invalidateLeadMetadataCache();
+  await createAuditLog({
+    actor: req.user._id,
+    action: 'lead.restored',
+    targetType: 'lead',
+    targetId: restoredLead._id.toString(),
+    details: { deletedLeadId: deletedLead._id.toString() },
+  });
+
+  const metadataMap = await getLeadMetadataMapCached();
+  const populatedLead = await loadLead(restoredLead._id);
+  req.app.get('io').emit('lead:updated', { lead: serializeLead(applyDerivedLeadData(populatedLead), metadataMap.get(restoredLead._id.toString())) });
+  res.json({
+    lead: serializeLead(applyDerivedLeadData(populatedLead), metadataMap.get(restoredLead._id.toString())),
+    message: 'Lead restored successfully',
+  });
 }));
 
 export default router;
