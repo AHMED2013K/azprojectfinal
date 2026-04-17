@@ -63,6 +63,24 @@ export const noteSchema = z.object({
   }),
 });
 
+export const bulkLeadsSchema = z.object({
+  body: z.object({
+    leadIds: z.array(objectIdSchema).min(1, 'Select at least one lead').max(100, 'Too many leads selected'),
+    action: z.enum(['status', 'bucket', 'delete']),
+    status: z.enum(LEAD_STATUSES).optional(),
+    bucket: z.enum(LEAD_BUCKETS).optional(),
+  }),
+});
+
+export const savedLeadFilterSchema = z.object({
+  body: z.object({
+    name: z.string().trim().min(2, 'Filter name is required').max(80, 'Filter name is too long'),
+    search: z.string().trim().max(120, 'Search is too long').optional().default(''),
+    status: z.enum(['', ...LEAD_STATUSES]).optional().default(''),
+    bucket: z.enum(LEAD_BUCKETS).optional().default('leads'),
+  }),
+});
+
 export const createInviteSchema = z.object({
   body: z.object({
     campaign: z.string().trim().max(120, 'Campaign is too long').optional().default(''),

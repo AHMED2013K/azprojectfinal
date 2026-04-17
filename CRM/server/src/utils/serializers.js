@@ -41,6 +41,7 @@ export function serializeLead(lead, metadata = {}) {
       financialSituation: lead.details?.financialSituation || '',
       message: lead.details?.message || '',
     },
+    lastActivityAt: lead.lastActivityAt || lead.updatedAt || lead.createdAt,
     createdAt: lead.createdAt,
     updatedAt: lead.updatedAt,
     createdBy: lead.createdBy ? sanitizeUser(lead.createdBy) : null,
@@ -50,6 +51,14 @@ export function serializeLead(lead, metadata = {}) {
       body: note.body,
       createdAt: note.createdAt,
       author: note.author ? sanitizeUser(note.author) : null,
+    })),
+    activityLog: (lead.activityLog || []).map((item) => ({
+      id: item._id?.toString?.() || String(item._id),
+      type: item.type,
+      label: item.label,
+      meta: item.meta || {},
+      createdAt: item.createdAt,
+      actor: item.actor ? sanitizeUser(item.actor) : null,
     })),
   };
 }

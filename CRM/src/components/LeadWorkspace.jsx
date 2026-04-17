@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Download, GripVertical, Link2, Lock, MessageSquareMore, Search, Upload } from 'lucide-react';
+import { CheckSquare, Download, GripVertical, Link2, Lock, MessageSquareMore, Search, Upload } from 'lucide-react';
 import { apiRequest, API_URL } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -57,6 +57,10 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const [isSubmittingLead, setIsSubmittingLead] = useState(false);
   const [isAddingNote, setIsAddingNote] = useState(false);
   const [feedback, setFeedback] = useState({ type: '', message: '' });
+  const [selectedLeadIds, setSelectedLeadIds] = useState([]);
+  const [savedFilters, setSavedFilters] = useState([]);
+  const [saveFilterName, setSaveFilterName] = useState('');
+  const [isBulkProcessing, setIsBulkProcessing] = useState(false);
 
   const refreshLeads = useCallback(async (page = pagination.page, currentSearch = search, currentStatus = status) => {
     setIsLoadingLeads(true);
@@ -84,11 +88,16 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   useEffect(() => {
     apiRequest('/api/leads/meta/users', { token }).then((data) => setMetaUsers(data.users)).catch(() => {});
     apiRequest('/api/invites', { token }).then((data) => setInvites(data.invites)).catch(() => {});
+    apiRequest('/api/leads/filters', { token }).then((data) => setSavedFilters(data.filters)).catch(() => {});
   }, [token]);
 
   useEffect(() => {
     refreshLeads(pagination.page, search, status).catch(() => {});
   }, [refreshLeads, pagination.page, search, status]);
+
+  useEffect(() => {
+    setSelectedLeadIds((current) => current.filter((id) => leads.some((lead) => lead.id === id)));
+  }, [leads]);
 
   useEffect(() => {
     if (!socket) {
@@ -249,6 +258,100 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       setFeedback({ type: 'success', message: 'Public intake link generated.' });
     } catch (error) {
       setFeedback({ type: 'error', message: error.message || 'Unable to generate the invite link.' });
+    }
+  }
+
+  async function handleSaveCurrentFilter() {
+    if (!saveFilterName.trim()) {
+      setFeedback({ type: 'error', message: 'Give this saved filter a name first.' });
+      return;
+    }
+
+    try {
+      const data = await apiRequest('/api/leads/filters', {
+        method: 'POST',
+        token,
+        body: {
+          name: saveFilterName,
+          search,
+          status,
+          bucket,
+        },
+      });
+      setSavedFilters((current) => [data.filter, ...current]);
+      setSaveFilterName('');
+      setFeedback({ type: 'success', message: 'Saved filter created.' });
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to save this filter.' });
+    }
+  }
+
+  async function handleDeleteSavedFilter(filterId) {
+    try {
+      await apiRequest(`/api/leads/filters/${filterId}`, {
+        method: 'DELETE',
+        token,
+      });
+      setSavedFilters((current) => current.filter((item) => item.id !== filterId));
+      setFeedback({ type: 'success', message: 'Saved filter deleted.' });
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to delete this filter.' });
+    }
+  }
+
+  function applySavedFilter(filter) {
+    setSearch(filter.search || '');
+    setStatus(filter.status || '');
+    setPagination((current) => ({ ...current, page: 1 }));
+    setFeedback({ type: 'success', message: `Filter "${filter.name}" applied.` });
+  }
+
+  function toggleLeadSelection(leadId) {
+    setSelectedLeadIds((current) => (
+      current.includes(leadId)
+        ? current.filter((id) => id !== leadId)
+        : [...current, leadId]
+    ));
+  }
+
+  function toggleSelectAllVisible() {
+    const visibleIds = leads.map((lead) => lead.id);
+    const allSelected = visibleIds.length > 0 && visibleIds.every((id) => selectedLeadIds.includes(id));
+    setSelectedLeadIds((current) => (
+      allSelected
+        ? current.filter((id) => !visibleIds.includes(id))
+        : Array.from(new Set([...current, ...visibleIds]))
+    ));
+  }
+
+  async function handleBulkAction(action, value = '') {
+    if (!selectedLeadIds.length) {
+      setFeedback({ type: 'error', message: 'Select at least one lead first.' });
+      return;
+    }
+
+    setIsBulkProcessing(true);
+    try {
+      await apiRequest('/api/leads/bulk', {
+        method: 'POST',
+        token,
+        body: {
+          action,
+          leadIds: selectedLeadIds,
+          ...(action === 'status' ? { status: value } : {}),
+          ...(action === 'bucket' ? { bucket: value } : {}),
+        },
+      });
+      setSelectedLeadIds([]);
+      setFeedback({ type: 'success', message: 'Bulk action completed successfully.' });
+      if (selectedLead?.id && selectedLeadIds.includes(selectedLead.id)) {
+        setSelectedLead(null);
+      }
+      await refreshLeads(1, search, status);
+    } catch (error) {
+      setFeedback({ type: 'error', message: error.message || 'Unable to run the bulk action.' });
+    } finally {
+      setIsBulkProcessing(false);
     }
   }
 
@@ -429,6 +532,70 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           </select>
         </div>
 
+        <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>Saved Filters</p>
+              <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-300' : 'mt-2 text-sm text-slate-600'}>Capture your common lead views and reuse them in one click.</p>
+            </div>
+            <div className="flex flex-1 flex-col gap-3 md:flex-row">
+              <input
+                value={saveFilterName}
+                onChange={(event) => setSaveFilterName(event.target.value)}
+                placeholder="Filter name"
+                className={theme === 'dark' ? 'flex-1 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900'}
+              />
+              <button type="button" onClick={() => handleSaveCurrentFilter().catch(() => {})} className="btn-secondary">
+                Save current filter
+              </button>
+            </div>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {savedFilters.length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>No saved filters yet.</p>}
+            {savedFilters.map((filter) => (
+              <div key={filter.id} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-3' : 'rounded-2xl border border-slate-200 bg-slate-50 p-3'}>
+                <button type="button" onClick={() => applySavedFilter(filter)} className={theme === 'dark' ? 'text-sm font-medium text-white' : 'text-sm font-medium text-slate-900'}>
+                  {filter.name}
+                </button>
+                <p className={theme === 'dark' ? 'mt-1 text-xs text-slate-400' : 'mt-1 text-xs text-slate-500'}>
+                  {(filter.search || 'No search')} · {filter.status ? getLeadStatusLabel(filter.status) : 'Tous'}
+                </p>
+                <button type="button" onClick={() => handleDeleteSavedFilter(filter.id).catch(() => {})} className="mt-2 text-xs text-rose-300">
+                  Delete
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>Bulk Actions</p>
+              <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-300' : 'mt-2 text-sm text-slate-600'}>{selectedLeadIds.length} selected lead(s).</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button type="button" onClick={toggleSelectAllVisible} className="btn-secondary">
+                <CheckSquare size={16} /> Select visible
+              </button>
+              <button type="button" onClick={() => handleBulkAction('status', 'Contacted').catch(() => {})} className="btn-secondary" disabled={isBulkProcessing}>
+                Mark Contacted
+              </button>
+              <button type="button" onClick={() => handleBulkAction('status', 'Interested').catch(() => {})} className="btn-secondary" disabled={isBulkProcessing}>
+                Mark Interested
+              </button>
+              <button type="button" onClick={() => handleBulkAction('bucket', bucket === 'leads' ? 'treated' : 'leads').catch(() => {})} className="btn-secondary" disabled={isBulkProcessing}>
+                {bucket === 'leads' ? 'Move To Treated' : 'Move To Leads'}
+              </button>
+              {user?.role === 'admin' && (
+                <button type="button" onClick={() => handleBulkAction('delete').catch(() => {})} className="table-action danger" disabled={isBulkProcessing}>
+                  Delete Selected
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
         {feedback.message && (
           <div className={`rounded-3xl border px-5 py-4 text-sm ${
             feedback.type === 'error'
@@ -469,7 +636,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
             <table className="min-w-full">
               <thead className={theme === 'dark' ? 'sticky top-0 bg-slate-950/85 backdrop-blur' : 'sticky top-0 bg-slate-100/95 backdrop-blur'}>
                 <tr className={theme === 'dark' ? 'text-left text-sm text-slate-300' : 'text-left text-sm text-slate-600'}>
-                  {['#', 'Lead', 'Campaign', 'Country', 'Status', 'Date added', 'Actions'].map((column) => (
+                  {['Select', '#', 'Lead', 'Campaign', 'Country', 'Status', 'Date added', 'Actions'].map((column) => (
                     <th key={column} className="px-5 py-4">{column}</th>
                   ))}
                 </tr>
@@ -488,6 +655,15 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                     }}
                     className={`cursor-pointer border-t ${theme === 'dark' ? 'border-white/5 text-slate-200 hover:bg-white/[0.04]' : 'border-slate-200 text-slate-700 hover:bg-slate-50'} text-sm ${getLeadRowTone(lead.status)} ${selectedLead?.id === lead.id ? 'ring-1 ring-cyan-300/30' : ''} transition`}
                   >
+                    <td className="px-5 py-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedLeadIds.includes(lead.id)}
+                        onClick={(event) => event.stopPropagation()}
+                        onChange={() => toggleLeadSelection(lead.id)}
+                        className="h-4 w-4 rounded border-slate-300"
+                      />
+                    </td>
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-2">
                         <GripVertical size={16} className="text-slate-400" />
@@ -525,7 +701,12 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                         ))}
                       </select>
                     </td>
-                    <td className={theme === 'dark' ? 'px-5 py-4 text-slate-400' : 'px-5 py-4 text-slate-500'}>{formatDate(lead.createdAt)}</td>
+                    <td className={theme === 'dark' ? 'px-5 py-4 text-slate-400' : 'px-5 py-4 text-slate-500'}>
+                      <div>
+                        <p>{formatDate(lead.createdAt)}</p>
+                        <p className="text-xs">Active: {formatDate(lead.lastActivityAt)}</p>
+                      </div>
+                    </td>
                     <td className="px-5 py-4">
                       <div className="flex flex-wrap gap-2">
                         <button type="button" onClick={(event) => { event.stopPropagation(); loadLead(lead.id).catch(() => {}); }} className="table-action">Open</button>
@@ -581,6 +762,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
             <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>ID: {selectedLead.leadCode || '-'} · Numero: {selectedLead.sequenceNumber || '-'}</p>
             <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>Campaign: {selectedLead.campaign || 'General'} · Country: {selectedLead.country || '-'}</p>
             {selectedLead.source && <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-500' : 'mt-1 text-sm text-slate-500'}>Source: {selectedLead.source}</p>}
+            <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-500' : 'mt-1 text-sm text-slate-500'}>Last activity: {formatDate(selectedLead.lastActivityAt)}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               <select
                 value={selectedLead.status}
@@ -642,6 +824,29 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               <button type="button" onClick={() => handleAddNote().catch(() => {})} className="btn-primary mt-3" disabled={isAddingNote}>
                 <MessageSquareMore size={16} /> Ajouter une remarque
               </button>
+            </div>
+
+            <div className="mt-6">
+              <h3 className={theme === 'dark' ? 'text-sm font-semibold uppercase tracking-[0.2em] text-slate-400' : 'text-sm font-semibold uppercase tracking-[0.2em] text-slate-500'}>Activity timeline</h3>
+              <div className="mt-4 space-y-3">
+                {(selectedLead.activityLog || []).length === 0 && <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>No activity yet.</p>}
+                {(selectedLead.activityLog || []).map((item) => (
+                  <div key={item.id} className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/50 p-4' : 'rounded-2xl border border-slate-200 bg-slate-50 p-4'}>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className={theme === 'dark' ? 'text-sm font-medium text-white' : 'text-sm font-medium text-slate-900'}>{item.label}</p>
+                      <p className={theme === 'dark' ? 'text-xs text-slate-400' : 'text-xs text-slate-500'}>{formatDate(item.createdAt)}</p>
+                    </div>
+                    <p className={theme === 'dark' ? 'mt-2 text-xs text-slate-400' : 'mt-2 text-xs text-slate-500'}>
+                      {item.actor?.name || 'System'} · {item.type}
+                    </p>
+                    {item.meta?.changedFields?.length > 0 && (
+                      <p className={theme === 'dark' ? 'mt-1 text-xs text-slate-500' : 'mt-1 text-xs text-slate-500'}>
+                        Changed: {item.meta.changedFields.join(', ')}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -743,7 +948,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               </div>
             ))}
           </div>
-          {(isStatusUpdating || isMovingLead || isLoadingLeads || isSubmittingLead || isAddingNote) && <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Mise a jour en cours...</p>}
+          {(isStatusUpdating || isMovingLead || isLoadingLeads || isSubmittingLead || isAddingNote || isBulkProcessing) && <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Mise a jour en cours...</p>}
         </div>
       </section>
 
