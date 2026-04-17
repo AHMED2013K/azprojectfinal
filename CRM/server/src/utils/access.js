@@ -2,8 +2,24 @@ export function isAdmin(user) {
   return user?.role === 'admin';
 }
 
+export function isManager(user) {
+  return user?.role === 'manager';
+}
+
+export function isViewer(user) {
+  return user?.role === 'viewer';
+}
+
+export function canManageWorkspace(user) {
+  return isAdmin(user) || isManager(user);
+}
+
+export function canEditLeads(user) {
+  return !isViewer(user);
+}
+
 export function buildLeadAccessQuery(user) {
-  if (isAdmin(user)) {
+  if (canManageWorkspace(user)) {
     return {};
   }
 
@@ -16,7 +32,7 @@ export function buildLeadAccessQuery(user) {
 }
 
 export function assertLeadAccess(user, lead) {
-  if (isAdmin(user)) {
+  if (canManageWorkspace(user)) {
     return true;
   }
 

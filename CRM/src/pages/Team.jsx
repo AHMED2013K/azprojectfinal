@@ -4,6 +4,13 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { formatDate } from '../lib/format';
 
+const ROLE_OPTIONS = [
+  { value: 'commercial', label: 'Commercial' },
+  { value: 'manager', label: 'Manager' },
+  { value: 'viewer', label: 'Viewer' },
+  { value: 'admin', label: 'Admin' },
+];
+
 export default function Team() {
   const { token } = useAuth();
   const { theme } = useTheme();
@@ -92,8 +99,9 @@ export default function Team() {
             onChange={(event) => setForm((current) => ({ ...current, role: event.target.value }))}
             className={theme === 'dark' ? 'w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900'}
           >
-            <option value="commercial">Commercial</option>
-            <option value="admin">Admin</option>
+            {ROLE_OPTIONS.map((item) => (
+              <option key={item.value} value={item.value}>{item.label}</option>
+            ))}
           </select>
 
           <button type="submit" className="btn-primary w-full justify-center">Create user</button>

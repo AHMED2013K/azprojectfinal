@@ -1,5 +1,4 @@
 import Lead from '../models/Lead.js';
-import { badRequest } from './errors.js';
 
 function normalizeEmail(value = '') {
   return String(value || '').trim().toLowerCase();
@@ -33,12 +32,25 @@ export async function findLeadDuplicates({ email = '', phone = '', excludeLeadId
   return Lead.find(query).select('_id name email phone').limit(5).lean();
 }
 
-export async function assertNoDuplicateLead(payload, excludeLeadId = null) {
+export async function buildDuplicateFlag(payload, excludeLeadId = null) {
   const duplicates = await findLeadDuplicates(payload, excludeLeadId);
-  if (!duplicates.length) {
-    return;
+  const matchedBy = [];
+  const normalizedEmail = normalizeEmail(payload.email);
+  const normalizedPhone = normalizePhone(payload.phone);
+
+  if (normalizedEmail && duplicates.some((item) => normalizeEmail(item.email) === normalizedEmail)) {
+    matchedBy.push('email');
+  }
+  if (normalizedPhone && duplicates.some((item) => normalizePhone(item.phone) === normalizedPhone)) {
+    matchedBy.push('phone');
   }
 
-  const duplicateNames = duplicates.map((item) => item.name || item.email || item.phone).join(', ');
-  throw badRequest(`Duplicate lead detected: ${duplicateNames}`);
+  return {
+    isDuplicate: duplicates.length > 0,
+    matchedBy,
+    matchedLeadIds: duplicates.map((item) => item._id),
+    duplicateCount: duplicates.length,
+    detectedAt: duplicates.length ? new Date() : null,
+    duplicates,
+  };
 }

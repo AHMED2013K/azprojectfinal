@@ -5,9 +5,14 @@ import { useTheme } from '../context/ThemeContext';
 import { formatDate } from '../lib/format';
 
 export default function Settings() {
-  const { token, user } = useAuth();
+  const { token, user, refreshUser } = useAuth();
   const { theme } = useTheme();
   const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '' });
+  const [twoFactorSetup, setTwoFactorSetup] = useState(null);
+  const [twoFactorPassword, setTwoFactorPassword] = useState('');
+  const [twoFactorCode, setTwoFactorCode] = useState('');
+  const [twoFactorDisableCode, setTwoFactorDisableCode] = useState('');
+  const [twoFactorDisablePassword, setTwoFactorDisablePassword] = useState('');
   const [announcementForm, setAnnouncementForm] = useState({ title: '', body: '' });
   const [announcements, setAnnouncements] = useState([]);
   const [diagnostics, setDiagnostics] = useState(null);
@@ -57,6 +62,43 @@ export default function Settings() {
     await loadAnnouncements();
   }
 
+  async function startTwoFactorSetup() {
+    const data = await apiRequest('/api/auth/2fa/setup', {
+      method: 'POST',
+      token,
+      body: { password: twoFactorPassword },
+    });
+    setTwoFactorSetup(data);
+    setMessage('Two-factor setup secret generated. Verify it below to activate.');
+  }
+
+  async function enableTwoFactor(event) {
+    event.preventDefault();
+    await apiRequest('/api/auth/2fa/enable', {
+      method: 'POST',
+      token,
+      body: { password: twoFactorPassword, code: twoFactorCode },
+    });
+    setTwoFactorSetup(null);
+    setTwoFactorCode('');
+    setTwoFactorPassword('');
+    await refreshUser();
+    setMessage('Two-factor authentication enabled.');
+  }
+
+  async function disableTwoFactor(event) {
+    event.preventDefault();
+    await apiRequest('/api/auth/2fa/disable', {
+      method: 'POST',
+      token,
+      body: { password: twoFactorDisablePassword, code: twoFactorDisableCode },
+    });
+    setTwoFactorDisableCode('');
+    setTwoFactorDisablePassword('');
+    await refreshUser();
+    setMessage('Two-factor authentication disabled.');
+  }
+
   return (
     <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
       <section className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
@@ -82,6 +124,63 @@ export default function Settings() {
           />
           <button type="submit" className="btn-primary">Change password</button>
         </form>
+
+        <div className={theme === 'dark' ? 'mt-8 rounded-3xl border border-white/10 bg-slate-950/40 p-5' : 'mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-5'}>
+          <h2 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Two-factor authentication</h2>
+          <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-300' : 'mt-2 text-sm text-slate-600'}>
+            {user?.twoFactorEnabled ? 'Two-factor authentication is active on your account.' : 'Add an authenticator app code for stronger account security.'}
+          </p>
+
+          {!user?.twoFactorEnabled && (
+            <div className="mt-4 space-y-4">
+              <input
+                type="password"
+                value={twoFactorPassword}
+                onChange={(event) => setTwoFactorPassword(event.target.value)}
+                placeholder="Current password"
+                className={theme === 'dark' ? 'w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900'}
+              />
+              <button type="button" onClick={() => startTwoFactorSetup().catch((error) => setMessage(error.message))} className="btn-secondary">
+                Generate setup secret
+              </button>
+
+              {twoFactorSetup && (
+                <form onSubmit={enableTwoFactor} className="space-y-4">
+                  <div className={theme === 'dark' ? 'rounded-2xl border border-cyan-500/20 bg-cyan-500/10 p-4 text-sm text-cyan-100' : 'rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-cyan-800'}>
+                    <p>Secret: <span className="font-mono">{twoFactorSetup.secret}</span></p>
+                    <p className="mt-2 break-all">OTP URL: {twoFactorSetup.otpauthUrl}</p>
+                  </div>
+                  <input
+                    value={twoFactorCode}
+                    onChange={(event) => setTwoFactorCode(event.target.value.replace(/[^\d]/g, '').slice(0, 6))}
+                    placeholder="6-digit code from your authenticator"
+                    className={theme === 'dark' ? 'w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900'}
+                  />
+                  <button type="submit" className="btn-primary">Enable 2FA</button>
+                </form>
+              )}
+            </div>
+          )}
+
+          {user?.twoFactorEnabled && (
+            <form onSubmit={disableTwoFactor} className="mt-4 space-y-4">
+              <input
+                type="password"
+                value={twoFactorDisablePassword}
+                onChange={(event) => setTwoFactorDisablePassword(event.target.value)}
+                placeholder="Current password"
+                className={theme === 'dark' ? 'w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900'}
+              />
+              <input
+                value={twoFactorDisableCode}
+                onChange={(event) => setTwoFactorDisableCode(event.target.value.replace(/[^\d]/g, '').slice(0, 6))}
+                placeholder="Current 6-digit authenticator code"
+                className={theme === 'dark' ? 'w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white' : 'w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900'}
+              />
+              <button type="submit" className="btn-secondary">Disable 2FA</button>
+            </form>
+          )}
+        </div>
       </section>
 
       <section className="space-y-6">

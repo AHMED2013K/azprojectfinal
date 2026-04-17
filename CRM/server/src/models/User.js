@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
   failedLoginCount: { type: Number, default: 0 },
   lastFailedLoginAt: { type: Date, default: null },
   lockUntil: { type: Date, default: null },
+  twoFactorEnabled: { type: Boolean, default: false },
+  twoFactorSecret: { type: String, default: '' },
+  twoFactorTempSecret: { type: String, default: '' },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

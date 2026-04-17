@@ -11,7 +11,7 @@ import { createInviteSchema, publicLeadSchema } from '../validators/lead.validat
 import { createAuditLog } from '../utils/audit.js';
 import { backupLeadSubmission, calculateAgeFromBirthDate, notifyNewLead } from '../utils/leadIntake.js';
 import { addLeadActivity } from '../utils/leadActivity.js';
-import { assertNoDuplicateLead } from '../utils/leadDuplicates.js';
+import { buildDuplicateFlag } from '../utils/leadDuplicates.js';
 import { invalidateLeadMetadataCache } from '../utils/leadMetadataCache.js';
 
 const router = express.Router();
@@ -48,9 +48,6 @@ router.post('/:token/public', validate(publicLeadSchema), asyncHandler(async (re
     financialSituation,
     message,
   } = req.validated.body;
-
-  await assertNoDuplicateLead({ email, phone });
-
   const admin = await User.findOne({ role: 'admin' });
   const lead = await Lead.create({
     name,
@@ -71,11 +68,19 @@ router.post('/:token/public', validate(publicLeadSchema), asyncHandler(async (re
       message,
     },
   });
+  const duplicateState = await buildDuplicateFlag({ email, phone }, lead._id);
+  lead.duplicateFlag = {
+    isDuplicate: duplicateState.isDuplicate,
+    matchedBy: duplicateState.matchedBy,
+    matchedLeadIds: duplicateState.matchedLeadIds,
+    duplicateCount: duplicateState.duplicateCount,
+    detectedAt: duplicateState.detectedAt,
+  };
   addLeadActivity(lead, {
     type: 'lead_created',
     label: 'Lead created from public intake form',
     actor: admin?._id || null,
-    meta: { source: 'public-form', campaign: invite.campaign },
+    meta: { source: 'public-form', campaign: invite.campaign, duplicate: duplicateState.isDuplicate },
   });
   await lead.save();
   invalidateLeadMetadataCache();
@@ -104,9 +109,6 @@ router.post('/public/linkedin-alternance-2026', validate(publicLeadSchema), asyn
     financialSituation,
     message,
   } = req.validated.body;
-
-  await assertNoDuplicateLead({ email, phone });
-
   const admin = await User.findOne({ role: 'admin' });
   const lead = await Lead.create({
     name,
@@ -126,11 +128,19 @@ router.post('/public/linkedin-alternance-2026', validate(publicLeadSchema), asyn
       message,
     },
   });
+  const duplicateState = await buildDuplicateFlag({ email, phone }, lead._id);
+  lead.duplicateFlag = {
+    isDuplicate: duplicateState.isDuplicate,
+    matchedBy: duplicateState.matchedBy,
+    matchedLeadIds: duplicateState.matchedLeadIds,
+    duplicateCount: duplicateState.duplicateCount,
+    detectedAt: duplicateState.detectedAt,
+  };
   addLeadActivity(lead, {
     type: 'lead_created',
     label: 'Lead created from LinkedIn application form',
     actor: admin?._id || null,
-    meta: { source: 'linkedin-form', campaign: 'LinkedIn Alternance Septembre 2026' },
+    meta: { source: 'linkedin-form', campaign: 'LinkedIn Alternance Septembre 2026', duplicate: duplicateState.isDuplicate },
   });
   await lead.save();
   invalidateLeadMetadataCache();

@@ -5,7 +5,7 @@ import { trackMetaEvent, trackMetaStandardEvent } from '../lib/marketing';
 
 export default function Login() {
   const { user, login } = useAuth();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '', otpCode: '' });
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -19,7 +19,7 @@ export default function Login() {
     setError('');
 
     try {
-      await login(form.email, form.password);
+      await login(form.email, form.password, form.otpCode);
       trackMetaEvent('crm_login_success', { area: 'crm_login' });
       trackMetaStandardEvent('Login', { content_name: 'EduGrowth CRM Login' });
     } catch (submitError) {
@@ -76,6 +76,19 @@ export default function Login() {
                 placeholder=""
                 value={form.password}
                 onChange={(event) => setForm((current) => ({ ...current, password: event.target.value }))}
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-cyan-400"
+              />
+            </label>
+
+            <label className="block text-sm text-slate-300">
+              <span className="mb-2 block">Two-factor code</span>
+              <input
+                name="otpCode"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                placeholder="Only if 2FA is enabled"
+                value={form.otpCode}
+                onChange={(event) => setForm((current) => ({ ...current, otpCode: event.target.value.replace(/[^\d]/g, '').slice(0, 6) }))}
                 className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-cyan-400"
               />
             </label>

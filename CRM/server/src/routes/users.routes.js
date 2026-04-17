@@ -4,10 +4,11 @@ import User from '../models/User.js';
 import { requireRole } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
-import { notFound } from '../utils/errors.js';
+import { badRequest, notFound } from '../utils/errors.js';
 import { sanitizeUser } from '../utils/serializers.js';
 import { createUserSchema } from '../validators/auth.validators.js';
 import { createAuditLog } from '../utils/audit.js';
+import { USER_ROLES } from '../constants/index.js';
 
 const router = express.Router();
 
@@ -64,6 +65,10 @@ router.patch('/:id/role', requireRole('admin'), asyncHandler(async (req, res) =>
   const user = await User.findById(req.params.id);
   if (!user) {
     throw notFound('User not found');
+  }
+
+  if (req.body.role && !USER_ROLES.includes(req.body.role)) {
+    throw badRequest('Invalid role');
   }
 
   user.role = req.body.role || user.role;

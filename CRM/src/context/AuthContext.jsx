@@ -79,17 +79,17 @@ export function AuthProvider({ children }) {
   }, []);
 
   // 🔐 LOGIN
-  async function login(email, password) {
+  async function login(email, password, otpCode = '') {
     try {
       const data = await apiRequest('/api/auth/login', {
         method: 'POST',
-        body: { email, password },
+        body: { email, password, ...(otpCode ? { otpCode } : {}) },
       });
 
       storeAuthSession(data);
     } catch (err) {
       console.error('Login error:', err);
-      throw new Error('Email ou mot de passe incorrect');
+      throw new Error(err.message || 'Email ou mot de passe incorrect');
     }
   }
 

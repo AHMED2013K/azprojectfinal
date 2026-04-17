@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildLeadAccessQuery, assertLeadAccess } from '../server/src/utils/access.js';
+import { buildLeadAccessQuery, assertLeadAccess, canEditLeads } from '../server/src/utils/access.js';
 
 describe('lead access control', () => {
   it('limits commercial users to owned or assigned leads', () => {
@@ -17,6 +17,11 @@ describe('lead access control', () => {
     expect(buildLeadAccessQuery(user)).toEqual({});
   });
 
+  it('lets managers access every lead', () => {
+    const user = { _id: '507f191e810c19729de860ea', role: 'manager' };
+    expect(buildLeadAccessQuery(user)).toEqual({});
+  });
+
   it('denies a commercial user when the lead is neither assigned nor created by them', () => {
     const user = { _id: { toString: () => '507f191e810c19729de860ea' }, role: 'commercial' };
     const lead = {
@@ -25,5 +30,10 @@ describe('lead access control', () => {
     };
 
     expect(assertLeadAccess(user, lead)).toBe(false);
+  });
+
+  it('keeps viewers read-only', () => {
+    const user = { _id: '507f191e810c19729de860ea', role: 'viewer' };
+    expect(canEditLeads(user)).toBe(false);
   });
 });

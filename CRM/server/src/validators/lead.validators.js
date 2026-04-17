@@ -63,6 +63,26 @@ export const noteSchema = z.object({
   }),
 });
 
+export const taskSchema = z.object({
+  params: z.object({
+    id: objectIdSchema,
+  }),
+  body: z.object({
+    title: z.string().trim().min(2, 'Task title is required').max(160, 'Task title is too long'),
+    dueAt: z.coerce.date({ invalid_type_error: 'A valid due date is required' }),
+  }),
+});
+
+export const updateTaskSchema = z.object({
+  params: z.object({
+    id: objectIdSchema,
+    taskId: objectIdSchema,
+  }),
+  body: z.object({
+    completed: z.boolean(),
+  }),
+});
+
 export const bulkLeadsSchema = z.object({
   body: z.object({
     leadIds: z.array(objectIdSchema).min(1, 'Select at least one lead').max(100, 'Too many leads selected'),

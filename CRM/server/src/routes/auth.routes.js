@@ -7,11 +7,12 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { signAccessToken, signRefreshToken, verifyToken } from '../utils/auth.js';
 import { sanitizeUser } from '../utils/serializers.js';
 import { getRefreshCookieOptions } from '../utils/cookies.js';
-import { changePasswordSchema, loginSchema } from '../validators/auth.validators.js';
+import { changePasswordSchema, loginSchema, twoFactorSetupSchema, twoFactorVerifySchema } from '../validators/auth.validators.js';
 import { createAuditLog } from '../utils/audit.js';
 import { createCsrfToken, getCsrfCookieOptions } from '../utils/csrf.js';
 import { logAppEvent } from '../utils/logger.js';
 import { getEnv } from '../config/env.js';
+import { buildOtpAuthUri, generateTwoFactorSecret, verifyTotpCode } from '../utils/twoFactor.js';
 
 const router = express.Router();
 
@@ -41,7 +42,7 @@ async function recordAuthFailure(req, { reason, email = '', actor = null }) {
 
 router.post('/login', validate(loginSchema), asyncHandler(async (req, res) => {
   const email = String(req.validated.body.email || '').trim().toLowerCase();
-  const { password } = req.validated.body;
+  const { password, otpCode } = req.validated.body;
   const env = getEnv();
 
   const user = await User.findOne({ email });
@@ -65,6 +66,17 @@ router.post('/login', validate(loginSchema), asyncHandler(async (req, res) => {
     await user.save();
     await recordAuthFailure(req, { reason: 'invalid_password', email, actor: user._id });
     return res.status(401).json({ message: 'Invalid credentials' });
+  }
+
+  if (user.twoFactorEnabled) {
+    if (!otpCode) {
+      await recordAuthFailure(req, { reason: 'missing_two_factor_code', email, actor: user._id });
+      return res.status(401).json({ message: 'Two-factor code is required' });
+    }
+    if (!verifyTotpCode(user.twoFactorSecret, otpCode)) {
+      await recordAuthFailure(req, { reason: 'invalid_two_factor_code', email, actor: user._id });
+      return res.status(401).json({ message: 'Invalid two-factor code' });
+    }
   }
 
   user.isOnline = true;
@@ -159,6 +171,77 @@ router.post('/change-password', authMiddleware, validate(changePasswordSchema), 
     targetId: req.user._id.toString(),
   });
   res.json({ message: 'Password updated successfully' });
+}));
+
+router.post('/2fa/setup', authMiddleware, validate(twoFactorSetupSchema), asyncHandler(async (req, res) => {
+  const { password } = req.validated.body;
+  const matches = await bcrypt.compare(password, req.user.passwordHash);
+  if (!matches) {
+    return res.status(401).json({ message: 'Current password is incorrect' });
+  }
+
+  const secret = generateTwoFactorSecret();
+  req.user.twoFactorTempSecret = secret;
+  await req.user.save();
+
+  res.json({
+    secret,
+    otpauthUrl: buildOtpAuthUri({ email: req.user.email, secret }),
+  });
+}));
+
+router.post('/2fa/enable', authMiddleware, validate(twoFactorVerifySchema), asyncHandler(async (req, res) => {
+  const { code, password } = req.validated.body;
+  const matches = await bcrypt.compare(password, req.user.passwordHash);
+  if (!matches) {
+    return res.status(401).json({ message: 'Current password is incorrect' });
+  }
+  if (!req.user.twoFactorTempSecret) {
+    return res.status(400).json({ message: 'Start setup before enabling two-factor authentication' });
+  }
+  if (!verifyTotpCode(req.user.twoFactorTempSecret, code)) {
+    return res.status(401).json({ message: 'Invalid two-factor code' });
+  }
+
+  req.user.twoFactorEnabled = true;
+  req.user.twoFactorSecret = req.user.twoFactorTempSecret;
+  req.user.twoFactorTempSecret = '';
+  await req.user.save();
+  await createAuditLog({
+    actor: req.user._id,
+    action: 'auth.two_factor_enabled',
+    targetType: 'user',
+    targetId: req.user._id.toString(),
+  });
+
+  res.json({ message: 'Two-factor authentication enabled', user: sanitizeUser(req.user) });
+}));
+
+router.post('/2fa/disable', authMiddleware, validate(twoFactorVerifySchema), asyncHandler(async (req, res) => {
+  const { code, password } = req.validated.body;
+  const matches = await bcrypt.compare(password, req.user.passwordHash);
+  if (!matches) {
+    return res.status(401).json({ message: 'Current password is incorrect' });
+  }
+  if (!req.user.twoFactorEnabled || !req.user.twoFactorSecret) {
+    return res.status(400).json({ message: 'Two-factor authentication is not enabled' });
+  }
+  if (!verifyTotpCode(req.user.twoFactorSecret, code)) {
+    return res.status(401).json({ message: 'Invalid two-factor code' });
+  }
+
+  req.user.twoFactorEnabled = false;
+  req.user.twoFactorSecret = '';
+  req.user.twoFactorTempSecret = '';
+  await req.user.save();
+  await createAuditLog({
+    actor: req.user._id,
+    action: 'auth.two_factor_disabled',
+    targetType: 'user',
+    targetId: req.user._id.toString(),
+  });
+
+  res.json({ message: 'Two-factor authentication disabled', user: sanitizeUser(req.user) });
 }));
 
 router.post('/logout', authMiddleware, asyncHandler(async (req, res) => {

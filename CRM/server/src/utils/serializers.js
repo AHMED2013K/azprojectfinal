@@ -10,6 +10,7 @@ export function sanitizeUser(user) {
     failedLoginCount: user.failedLoginCount || 0,
     lastFailedLoginAt: user.lastFailedLoginAt || null,
     lockUntil: user.lockUntil || null,
+    twoFactorEnabled: Boolean(user.twoFactorEnabled),
     createdAt: user.createdAt,
   };
 }
@@ -44,6 +45,14 @@ export function serializeLead(lead, metadata = {}) {
       financialSituation: lead.details?.financialSituation || '',
       message: lead.details?.message || '',
     },
+    score: lead.score || { value: 0, label: 'Cold', reasons: [] },
+    duplicateFlag: {
+      isDuplicate: Boolean(lead.duplicateFlag?.isDuplicate),
+      matchedBy: lead.duplicateFlag?.matchedBy || [],
+      matchedLeadIds: (lead.duplicateFlag?.matchedLeadIds || []).map((item) => item?.toString?.() || String(item)),
+      duplicateCount: lead.duplicateFlag?.duplicateCount || 0,
+      detectedAt: lead.duplicateFlag?.detectedAt || null,
+    },
     lastActivityAt: lead.lastActivityAt || lead.updatedAt || lead.createdAt,
     createdAt: lead.createdAt,
     updatedAt: lead.updatedAt,
@@ -62,6 +71,16 @@ export function serializeLead(lead, metadata = {}) {
       meta: item.meta || {},
       createdAt: item.createdAt,
       actor: item.actor ? sanitizeUser(item.actor) : null,
+    })),
+    tasks: (lead.tasks || []).map((task) => ({
+      id: task._id?.toString?.() || String(task._id),
+      title: task.title,
+      dueAt: task.dueAt,
+      completedAt: task.completedAt || null,
+      createdAt: task.createdAt,
+      createdBy: task.createdBy ? sanitizeUser(task.createdBy) : null,
+      completedBy: task.completedBy ? sanitizeUser(task.completedBy) : null,
+      status: task.completedAt ? 'completed' : (task.dueAt && new Date(task.dueAt) < new Date() ? 'overdue' : 'open'),
     })),
   };
 }

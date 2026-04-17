@@ -14,6 +14,22 @@ const activitySchema = new mongoose.Schema({
   createdAt: { type: Date, default: () => new Date() },
 }, { _id: true });
 
+const taskSchema = new mongoose.Schema({
+  title: { type: String, required: true, trim: true },
+  dueAt: { type: Date, required: true },
+  completedAt: { type: Date, default: null },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  completedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+}, { timestamps: true });
+
+const duplicateFlagSchema = new mongoose.Schema({
+  isDuplicate: { type: Boolean, default: false },
+  matchedBy: [{ type: String, trim: true }],
+  matchedLeadIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lead' }],
+  duplicateCount: { type: Number, default: 0 },
+  detectedAt: { type: Date, default: null },
+}, { _id: false });
+
 const leadSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   email: { type: String, required: true, lowercase: true, trim: true },
@@ -41,9 +57,11 @@ const leadSchema = new mongoose.Schema({
     financialSituation: { type: String, default: '' },
     message: { type: String, default: '' },
   },
+  duplicateFlag: { type: duplicateFlagSchema, default: () => ({}) },
   lastActivityAt: { type: Date, default: () => new Date(), index: true },
   notes: [noteSchema],
   activityLog: [activitySchema],
+  tasks: [taskSchema],
 }, { timestamps: true });
 
 leadSchema.index({ createdAt: -1 });
@@ -54,6 +72,8 @@ leadSchema.index({ createdBy: 1, bucket: 1, createdAt: -1 });
 leadSchema.index({ assignedTo: 1, bucket: 1, createdAt: -1 });
 leadSchema.index({ campaign: 1, createdAt: -1 });
 leadSchema.index({ bucket: 1, lastActivityAt: -1 });
+leadSchema.index({ 'duplicateFlag.isDuplicate': 1, updatedAt: -1 });
+leadSchema.index({ 'tasks.dueAt': 1, 'tasks.completedAt': 1 });
 
 const Lead = mongoose.model('Lead', leadSchema);
 

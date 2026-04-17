@@ -10,13 +10,14 @@ import { badRequest, notFound } from '../utils/errors.js';
 import { LEAD_BUCKETS, LEAD_STATUSES } from '../constants/index.js';
 import { serializeLead } from '../utils/serializers.js';
 import { createAuditLog } from '../utils/audit.js';
-import { bulkLeadsSchema, createLeadSchema, leadQuerySchema, noteSchema, savedLeadFilterSchema, updateLeadSchema } from '../validators/lead.validators.js';
-import { assertLeadAccess, buildLeadAccessQuery, isAdmin } from '../utils/access.js';
+import { bulkLeadsSchema, createLeadSchema, leadQuerySchema, noteSchema, savedLeadFilterSchema, taskSchema, updateLeadSchema, updateTaskSchema } from '../validators/lead.validators.js';
+import { assertLeadAccess, buildLeadAccessQuery, canEditLeads, canManageWorkspace, isAdmin } from '../utils/access.js';
 import { escapeRegExp } from '../utils/security.js';
 import { normalizeLeadStatus } from '../utils/leadStatus.js';
 import { getLeadMetadataMapCached, invalidateLeadMetadataCache } from '../utils/leadMetadataCache.js';
 import { addLeadActivity, getChangedFields } from '../utils/leadActivity.js';
-import { assertNoDuplicateLead } from '../utils/leadDuplicates.js';
+import { buildDuplicateFlag } from '../utils/leadDuplicates.js';
+import { calculateLeadScore } from '../utils/leadScore.js';
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -26,7 +27,9 @@ async function loadLead(id) {
     .populate('createdBy')
     .populate('assignedTo')
     .populate('notes.author')
-    .populate('activityLog.actor');
+    .populate('activityLog.actor')
+    .populate('tasks.createdBy')
+    .populate('tasks.completedBy');
 
   if (!lead) {
     throw notFound('Lead not found');
@@ -35,8 +38,34 @@ async function loadLead(id) {
   return lead;
 }
 
+function applyDerivedLeadData(lead) {
+  if (!lead) {
+    return lead;
+  }
+
+  lead.score = calculateLeadScore(lead);
+  return lead;
+}
+
+async function refreshDuplicateFlagForLead(lead, excludeLeadId = null) {
+  const duplicateState = await buildDuplicateFlag({
+    email: lead.email,
+    phone: lead.phone,
+  }, excludeLeadId || lead._id);
+
+  lead.duplicateFlag = {
+    isDuplicate: duplicateState.isDuplicate,
+    matchedBy: duplicateState.matchedBy,
+    matchedLeadIds: duplicateState.matchedLeadIds,
+    duplicateCount: duplicateState.duplicateCount,
+    detectedAt: duplicateState.detectedAt,
+  };
+
+  return duplicateState;
+}
+
 router.get('/meta/users', asyncHandler(async (req, res) => {
-  if (!isAdmin(req.user)) {
+  if (!canManageWorkspace(req.user)) {
     return res.status(403).json({ message: 'Forbidden' });
   }
 
@@ -194,16 +223,18 @@ router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize)
-      .select('name email phone country campaign source status bucket statusTimeline details lastActivityAt createdAt updatedAt createdBy assignedTo')
+      .select('name email phone country campaign source status bucket statusTimeline details duplicateFlag tasks notes lastActivityAt createdAt updatedAt createdBy assignedTo')
       .populate('createdBy')
       .populate('assignedTo')
+      .populate('tasks.createdBy')
+      .populate('tasks.completedBy')
       .lean(),
     getLeadMetadataMapCached(),
     fetchBucketSummary(summaryQuery),
   ]);
 
   res.json({
-    leads: leads.map((lead) => serializeLead(lead, metadataMap.get(lead._id.toString()))),
+    leads: leads.map((lead) => serializeLead(applyDerivedLeadData(lead), metadataMap.get(lead._id.toString()))),
     summary,
     pagination: {
       total,
@@ -215,8 +246,11 @@ router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
 }));
 
 router.post('/', validate(createLeadSchema), asyncHandler(async (req, res) => {
+  if (!canEditLeads(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
   const { name, email, phone, country, campaign, status, assignedTo } = req.validated.body;
-  await assertNoDuplicateLead({ email, phone });
 
   const lead = await Lead.create({
     name,
@@ -226,14 +260,19 @@ router.post('/', validate(createLeadSchema), asyncHandler(async (req, res) => {
     campaign: campaign || '',
     status: LEAD_STATUSES.includes(normalizeLeadStatus(status)) ? normalizeLeadStatus(status) : 'New',
     createdBy: req.user._id,
-    assignedTo: isAdmin(req.user) ? (assignedTo || undefined) : undefined,
+    assignedTo: canManageWorkspace(req.user) ? (assignedTo || undefined) : undefined,
   });
   applyStatusTimeline(lead, lead.status);
+  await refreshDuplicateFlagForLead(lead);
   addLeadActivity(lead, {
     type: 'lead_created',
     label: 'Lead created manually',
     actor: req.user._id,
-    meta: { status: lead.status, campaign: lead.campaign || '' },
+    meta: {
+      status: lead.status,
+      campaign: lead.campaign || '',
+      duplicate: Boolean(lead.duplicateFlag?.isDuplicate),
+    },
   });
   await lead.save();
 
@@ -247,11 +286,11 @@ router.post('/', validate(createLeadSchema), asyncHandler(async (req, res) => {
   });
   invalidateLeadMetadataCache();
   const metadataMap = await getLeadMetadataMapCached();
-  res.status(201).json({ lead: serializeLead(populated, metadataMap.get(lead._id.toString())) });
+  res.status(201).json({ lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
 }));
 
 router.post('/import', asyncHandler(async (req, res) => {
-  if (!isAdmin(req.user)) {
+  if (!canManageWorkspace(req.user)) {
     return res.status(403).json({ message: 'Forbidden' });
   }
 
@@ -282,18 +321,25 @@ router.post('/import', asyncHandler(async (req, res) => {
       }
     });
 
-  const existingDuplicates = await Promise.all(dedupedRows.map((row) => assertNoDuplicateLead(row).then(() => row).catch(() => null)));
-  const validRows = existingDuplicates.filter(Boolean).map((row) => {
+  const validRows = await Promise.all(dedupedRows.map(async (row) => {
+    const duplicateState = await buildDuplicateFlag(row);
     row.lastActivityAt = new Date();
+    row.duplicateFlag = {
+      isDuplicate: duplicateState.isDuplicate,
+      matchedBy: duplicateState.matchedBy,
+      matchedLeadIds: duplicateState.matchedLeadIds,
+      duplicateCount: duplicateState.duplicateCount,
+      detectedAt: duplicateState.detectedAt,
+    };
     row.activityLog = [{
       type: 'lead_created',
       label: 'Lead imported in bulk',
       actor: req.user._id,
-      meta: { source: 'import', campaign: row.campaign || '' },
+      meta: { source: 'import', campaign: row.campaign || '', duplicate: duplicateState.isDuplicate },
       createdAt: new Date(),
     }];
     return row;
-  });
+  }));
 
   const created = validRows.length ? await Lead.insertMany(validRows) : [];
   invalidateLeadMetadataCache();
@@ -303,11 +349,15 @@ router.post('/import', asyncHandler(async (req, res) => {
     targetType: 'lead',
     details: { count: created.length, mode: 'json' },
   });
-  res.status(201).json({ count: created.length, skipped: dedupedRows.length - created.length });
+  res.status(201).json({
+    count: created.length,
+    skipped: dedupedRows.length - created.length,
+    duplicatesFlagged: validRows.filter((row) => row.duplicateFlag?.isDuplicate).length,
+  });
 }));
 
 router.post('/import/file', upload.single('file'), asyncHandler(async (req, res) => {
-  if (!isAdmin(req.user)) {
+  if (!canManageWorkspace(req.user)) {
     return res.status(403).json({ message: 'Forbidden' });
   }
 
@@ -338,18 +388,25 @@ router.post('/import/file', upload.single('file'), asyncHandler(async (req, res)
       }
     });
 
-  const existingDuplicates = await Promise.all(dedupedRows.map((row) => assertNoDuplicateLead(row).then(() => row).catch(() => null)));
-  const validRows = existingDuplicates.filter(Boolean).map((row) => {
+  const validRows = await Promise.all(dedupedRows.map(async (row) => {
+    const duplicateState = await buildDuplicateFlag(row);
     row.lastActivityAt = new Date();
+    row.duplicateFlag = {
+      isDuplicate: duplicateState.isDuplicate,
+      matchedBy: duplicateState.matchedBy,
+      matchedLeadIds: duplicateState.matchedLeadIds,
+      duplicateCount: duplicateState.duplicateCount,
+      detectedAt: duplicateState.detectedAt,
+    };
     row.activityLog = [{
       type: 'lead_created',
       label: 'Lead imported from file',
       actor: req.user._id,
-      meta: { source: 'file-import', campaign: row.campaign || '' },
+      meta: { source: 'file-import', campaign: row.campaign || '', duplicate: duplicateState.isDuplicate },
       createdAt: new Date(),
     }];
     return row;
-  });
+  }));
 
   const created = validRows.length ? await Lead.insertMany(validRows) : [];
   invalidateLeadMetadataCache();
@@ -360,7 +417,12 @@ router.post('/import/file', upload.single('file'), asyncHandler(async (req, res)
     details: { count: created.length, filename: req.file.originalname, mode: 'file' },
   });
 
-  res.status(201).json({ count: created.length, skipped: dedupedRows.length - created.length, filename: req.file.originalname });
+  res.status(201).json({
+    count: created.length,
+    skipped: dedupedRows.length - created.length,
+    duplicatesFlagged: validRows.filter((row) => row.duplicateFlag?.isDuplicate).length,
+    filename: req.file.originalname,
+  });
 }));
 
 router.get('/export', asyncHandler(async (req, res) => {
@@ -387,10 +449,14 @@ router.get('/:id', asyncHandler(async (req, res) => {
     return res.status(403).json({ message: 'Forbidden' });
   }
   const metadataMap = await getLeadMetadataMapCached();
-  res.json({ lead: serializeLead(lead, metadataMap.get(lead._id.toString())) });
+  res.json({ lead: serializeLead(applyDerivedLeadData(lead), metadataMap.get(lead._id.toString())) });
 }));
 
 router.patch('/:id', validate(updateLeadSchema), asyncHandler(async (req, res) => {
+  if (!canEditLeads(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
   const lead = await Lead.findById(req.params.id);
   if (!lead) {
     throw notFound('Lead not found');
@@ -399,13 +465,8 @@ router.patch('/:id', validate(updateLeadSchema), asyncHandler(async (req, res) =
     return res.status(403).json({ message: 'Forbidden' });
   }
 
-  await assertNoDuplicateLead({
-    email: req.validated.body.email ?? lead.email,
-    phone: req.validated.body.phone ?? lead.phone,
-  }, lead._id);
-
   const editableFields = ['name', 'email', 'phone', 'country', 'campaign', 'status', 'bucket'];
-  if (isAdmin(req.user)) {
+  if (canManageWorkspace(req.user)) {
     editableFields.push('assignedTo');
   }
 
@@ -422,14 +483,22 @@ router.patch('/:id', validate(updateLeadSchema), asyncHandler(async (req, res) =
   }
 
   if (changedFields.length) {
+    await refreshDuplicateFlagForLead(lead);
     addLeadActivity(lead, {
       type: 'lead_updated',
       label: changedFields.includes('status')
         ? `Status updated to ${lead.status}`
         : 'Lead details updated',
       actor: req.user._id,
-      meta: { changedFields, status: lead.status, bucket: lead.bucket },
+      meta: {
+        changedFields,
+        status: lead.status,
+        bucket: lead.bucket,
+        duplicate: Boolean(lead.duplicateFlag?.isDuplicate),
+      },
     });
+  } else if (req.validated.body.email !== undefined || req.validated.body.phone !== undefined) {
+    await refreshDuplicateFlagForLead(lead);
   }
 
   await lead.save();
@@ -443,11 +512,15 @@ router.patch('/:id', validate(updateLeadSchema), asyncHandler(async (req, res) =
     targetId: lead._id.toString(),
     details: { status: lead.status, campaign: lead.campaign },
   });
-  req.app.get('io').emit('lead:updated', { lead: serializeLead(populated, metadataMap.get(lead._id.toString())) });
-  res.json({ lead: serializeLead(populated, metadataMap.get(lead._id.toString())) });
+  req.app.get('io').emit('lead:updated', { lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
+  res.json({ lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
 }));
 
 router.post('/:id/notes', validate(noteSchema), asyncHandler(async (req, res) => {
+  if (!canEditLeads(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
   const lead = await Lead.findById(req.params.id);
   if (!lead) {
     throw notFound('Lead not found');
@@ -469,6 +542,7 @@ router.post('/:id/notes', validate(noteSchema), asyncHandler(async (req, res) =>
   await lead.save();
 
   const populated = await loadLead(lead._id);
+  const metadataMap = await getLeadMetadataMapCached();
   await createAuditLog({
     actor: req.user._id,
     action: 'lead.note_added',
@@ -476,10 +550,100 @@ router.post('/:id/notes', validate(noteSchema), asyncHandler(async (req, res) =>
     targetId: lead._id.toString(),
   });
   req.app.get('io').emit('lead:note', { leadId: lead._id.toString() });
-  res.json({ lead: serializeLead(populated) });
+  res.json({ lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
+}));
+
+router.post('/:id/tasks', validate(taskSchema), asyncHandler(async (req, res) => {
+  if (!canEditLeads(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  const lead = await Lead.findById(req.params.id);
+  if (!lead) {
+    throw notFound('Lead not found');
+  }
+  if (!assertLeadAccess(req.user, lead)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  lead.tasks.unshift({
+    title: req.validated.body.title,
+    dueAt: req.validated.body.dueAt,
+    createdBy: req.user._id,
+  });
+  addLeadActivity(lead, {
+    type: 'task_added',
+    label: 'Follow-up task created',
+    actor: req.user._id,
+    meta: { title: req.validated.body.title, dueAt: req.validated.body.dueAt },
+  });
+  await lead.save();
+
+  const populated = await loadLead(lead._id);
+  const metadataMap = await getLeadMetadataMapCached();
+  await createAuditLog({
+    actor: req.user._id,
+    action: 'lead.task_added',
+    targetType: 'lead',
+    targetId: lead._id.toString(),
+    details: { dueAt: req.validated.body.dueAt },
+  });
+  req.app.get('io').emit('lead:updated', { lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
+  res.status(201).json({ lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
+}));
+
+router.patch('/:id/tasks/:taskId', validate(updateTaskSchema), asyncHandler(async (req, res) => {
+  if (!canEditLeads(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  const lead = await Lead.findById(req.params.id);
+  if (!lead) {
+    throw notFound('Lead not found');
+  }
+  if (!assertLeadAccess(req.user, lead)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
+  const task = lead.tasks.id(req.params.taskId);
+  if (!task) {
+    throw notFound('Task not found');
+  }
+
+  if (req.validated.body.completed) {
+    task.completedAt = new Date();
+    task.completedBy = req.user._id;
+  } else {
+    task.completedAt = null;
+    task.completedBy = null;
+  }
+
+  addLeadActivity(lead, {
+    type: 'task_updated',
+    label: req.validated.body.completed ? 'Follow-up task completed' : 'Follow-up task reopened',
+    actor: req.user._id,
+    meta: { taskId: req.params.taskId, title: task.title, completed: req.validated.body.completed },
+  });
+  await lead.save();
+
+  const populated = await loadLead(lead._id);
+  const metadataMap = await getLeadMetadataMapCached();
+  await createAuditLog({
+    actor: req.user._id,
+    action: 'lead.task_updated',
+    targetType: 'lead',
+    targetId: lead._id.toString(),
+    details: { taskId: req.params.taskId, completed: req.validated.body.completed },
+  });
+  req.app.get('io').emit('lead:updated', { lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
+  res.json({ lead: serializeLead(applyDerivedLeadData(populated), metadataMap.get(lead._id.toString())) });
 }));
 
 router.post('/bulk', validate(bulkLeadsSchema), asyncHandler(async (req, res) => {
+  if (!canEditLeads(req.user)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+
   const { action, leadIds, status, bucket } = req.validated.body;
   const accessQuery = buildLeadAccessQuery(req.user);
   const query = {

@@ -16,6 +16,19 @@ describe('validation schemas', () => {
     expect(parsed.body.email).toBe('alice@example.com');
   });
 
+  it('accepts manager and viewer roles for team setup', async () => {
+    const parsed = await createUserSchema.parseAsync({
+      body: {
+        name: 'Mona Manager',
+        email: 'manager@example.com',
+        password: 'StrongPass1',
+        role: 'manager',
+      },
+    });
+
+    expect(parsed.body.role).toBe('manager');
+  });
+
   it('rejects weak passwords', async () => {
     await expect(createUserSchema.parseAsync({
       body: {
