@@ -90,8 +90,9 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// Express 5 no longer accepts bare "*" here; use a named splat param.
 // SPA fallback: return index.html for any non-API GET request so client-side routes work on refresh/direct access.
-app.get('*', (req, res) => {
+app.get('/{*splat}', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
