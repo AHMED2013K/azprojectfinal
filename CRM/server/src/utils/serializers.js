@@ -17,6 +17,10 @@ export function sanitizeUser(user) {
 }
 
 export function serializeLead(lead, metadata = {}) {
+  const duplicateMatchedBy = lead.duplicateFlag?.matchedBy || [];
+  const duplicateCount = lead.duplicateFlag?.duplicateCount || 0;
+  const shouldShowDuplicate = Boolean(lead.duplicateFlag?.isDuplicate) && duplicateCount > 0 && duplicateMatchedBy.length > 0;
+
   return {
     id: lead._id.toString(),
     name: lead.name,
@@ -48,10 +52,10 @@ export function serializeLead(lead, metadata = {}) {
     },
     score: lead.score || { value: 0, label: 'Cold', reasons: [] },
     duplicateFlag: {
-      isDuplicate: Boolean(lead.duplicateFlag?.isDuplicate),
-      matchedBy: lead.duplicateFlag?.matchedBy || [],
+      isDuplicate: shouldShowDuplicate,
+      matchedBy: duplicateMatchedBy,
       matchedLeadIds: (lead.duplicateFlag?.matchedLeadIds || []).map((item) => item?.toString?.() || String(item)),
-      duplicateCount: lead.duplicateFlag?.duplicateCount || 0,
+      duplicateCount,
       detectedAt: lead.duplicateFlag?.detectedAt || null,
     },
     lastActivityAt: lead.lastActivityAt || lead.updatedAt || lead.createdAt,

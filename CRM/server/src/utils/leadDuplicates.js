@@ -38,7 +38,10 @@ export async function findLeadDuplicates({ email = '', phone = '', excludeLeadId
     query._id = { $ne: excludeLeadId };
   }
 
-  return Lead.find(query).select('_id name email phone').limit(5).lean();
+  const results = await Lead.find(query).select('_id name email phone').limit(8).lean();
+  return excludeLeadId
+    ? results.filter((item) => String(item._id) !== String(excludeLeadId))
+    : results;
 }
 
 export async function buildDuplicateFlag(payload, excludeLeadId = null) {
@@ -53,7 +56,9 @@ export async function buildDuplicateFlag(payload, excludeLeadId = null) {
   const phoneMatches = normalizedPhone
     ? duplicates.filter((item) => normalizePhone(item.phone) === normalizedPhone)
     : [];
-  const strongPhoneMatches = phoneMatches.filter((item) => normalizeName(item.name) === normalizedName);
+  const strongPhoneMatches = normalizedPhone.length >= 8
+    ? phoneMatches.filter((item) => normalizeName(item.name) === normalizedName)
+    : [];
   const resolvedDuplicates = [
     ...emailMatches,
     ...strongPhoneMatches.filter((item) => !emailMatches.some((entry) => String(entry._id) === String(item._id))),
