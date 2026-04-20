@@ -8,15 +8,6 @@ function normalizePhone(value = '') {
   return String(value || '').replace(/[^\d]/g, '').trim();
 }
 
-function normalizeName(value = '') {
-  return String(value || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, ' ');
-}
-
 export async function findLeadDuplicates({ email = '', phone = '', excludeLeadId = null }) {
   const normalizedEmail = normalizeEmail(email);
   const normalizedPhone = normalizePhone(phone);
@@ -48,27 +39,13 @@ export async function buildDuplicateFlag(payload, excludeLeadId = null) {
   const duplicates = await findLeadDuplicates(payload, excludeLeadId);
   const matchedBy = [];
   const normalizedEmail = normalizeEmail(payload.email);
-  const normalizedPhone = normalizePhone(payload.phone);
-  const normalizedName = normalizeName(payload.name);
   const emailMatches = normalizedEmail
     ? duplicates.filter((item) => normalizeEmail(item.email) === normalizedEmail)
     : [];
-  const phoneMatches = normalizedPhone
-    ? duplicates.filter((item) => normalizePhone(item.phone) === normalizedPhone)
-    : [];
-  const strongPhoneMatches = normalizedPhone.length >= 8
-    ? phoneMatches.filter((item) => normalizeName(item.name) === normalizedName)
-    : [];
-  const resolvedDuplicates = [
-    ...emailMatches,
-    ...strongPhoneMatches.filter((item) => !emailMatches.some((entry) => String(entry._id) === String(item._id))),
-  ];
+  const resolvedDuplicates = emailMatches;
 
   if (emailMatches.length) {
     matchedBy.push('email');
-  }
-  if (strongPhoneMatches.length) {
-    matchedBy.push('phone+name');
   }
 
   return {
