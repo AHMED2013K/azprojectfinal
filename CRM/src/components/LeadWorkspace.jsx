@@ -287,8 +287,16 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const canExport = user?.role === 'admin';
   const canCreateInvite = user?.role === 'admin';
 
-  const refreshLeads = useCallback(async (page = pagination.page, currentSearch = activeSearch, currentStatus = status, currentQuickFilter = quickFilter) => {
-    setIsLoadingLeads(true);
+  const refreshLeads = useCallback(async (
+    page = pagination.page,
+    currentSearch = activeSearch,
+    currentStatus = status,
+    currentQuickFilter = quickFilter,
+    { silent = false } = {},
+  ) => {
+    if (!silent) {
+      setIsLoadingLeads(true);
+    }
     const params = new URLSearchParams({
       page: String(page),
       limit: '20',
@@ -307,13 +315,15 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       setFeedback({ type: 'error', message: error.message || 'Impossible de charger les leads.' });
       throw error;
     } finally {
-      setIsLoadingLeads(false);
+      if (!silent) {
+        setIsLoadingLeads(false);
+      }
     }
   }, [activeSearch, bucket, pagination.page, quickFilter, status, token]);
 
   const syncLeadsInBackground = useCallback((page = pagination.page, currentSearch = activeSearch, currentStatus = status, currentQuickFilter = quickFilter) => {
     setIsSyncingLeads(true);
-    refreshLeads(page, currentSearch, currentStatus, currentQuickFilter)
+    refreshLeads(page, currentSearch, currentStatus, currentQuickFilter, { silent: true })
       .catch(() => {})
       .finally(() => setIsSyncingLeads(false));
   }, [activeSearch, pagination.page, quickFilter, refreshLeads, status]);
@@ -471,8 +481,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       if (selectedLead?.id === lead.id) {
         setSelectedLead(lead.bucket === bucket ? lead : null);
       }
-
-      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     };
 
     const handleNotification = (notification) => {
@@ -1119,7 +1127,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
       });
       patchLeadState(lead.id, () => data.lead);
       setFeedback({ type: 'success', message: `Lead moved to ${getLeadStatusLabel(nextStatus)}.` });
-      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } catch (error) {
       patchLeadState(lead.id, () => previousLead);
       setFeedback({ type: 'error', message: error.message || 'Unable to update the lead status.' });
@@ -1146,13 +1153,15 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
     markLeadPending(leadId, true);
 
     try {
-      await apiRequest(`/api/leads/${leadId}`, {
+      const data = await apiRequest(`/api/leads/${leadId}`, {
         method: 'PATCH',
         token,
         body: { bucket: nextBucket },
       });
+      if (nextBucket === bucket) {
+        patchLeadState(leadId, () => data.lead);
+      }
       setFeedback({ type: 'success', message: nextBucket === 'treated' ? 'Lead moved to treated.' : 'Lead moved back to active leads.' });
-      syncLeadsInBackground(pagination.page, activeSearch, status, quickFilter);
     } catch (error) {
       setLeads(previousLeads);
       setFeedback({ type: 'error', message: error.message || 'Unable to move the lead.' });
