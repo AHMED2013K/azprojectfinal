@@ -186,7 +186,6 @@ const LeadTableRow = memo(function LeadTableRow({
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.name}</p>
-              {lead.duplicateFlag?.isDuplicate && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-medium text-red-300 ring-1 ring-red-400/20">Doublon</span>}
               {isBusy && <span className="rounded-full bg-cyan-500/10 px-2 py-0.5 text-[11px] font-medium text-cyan-300 ring-1 ring-cyan-400/20">Syncing</span>}
             </div>
             <p className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>{lead.email}</p>
@@ -1510,7 +1509,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>{selectedLead.name}</h2>
-                {selectedLead.duplicateFlag?.isDuplicate && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-300 ring-1 ring-red-400/20">Doublon</span>}
                 <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${getScoreTone(selectedLead.score?.label)}`}>
                   Score {selectedLead.score?.value || 0}/100
                 </span>
@@ -1525,11 +1523,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
             <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>Campaign: {selectedLead.campaign || 'General'} · Country: {selectedLead.country || '-'}</p>
             {selectedLead.source && <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-500' : 'mt-1 text-sm text-slate-500'}>Source: {selectedLead.source}</p>}
             <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-500' : 'mt-1 text-sm text-slate-500'}>Last activity: {formatDate(selectedLead.lastActivityAt)}</p>
-            {selectedLead.duplicateFlag?.isDuplicate && (
-              <p className="mt-1 text-sm text-red-300">
-                Doublon detecte via {selectedLead.duplicateFlag.matchedBy?.join(', ') || 'existing lead'}.
-              </p>
-            )}
             {selectedLead.duplicateFlag?.isDuplicate && canManageAssignments && (
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <select
