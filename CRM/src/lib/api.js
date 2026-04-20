@@ -91,7 +91,7 @@ async function refreshAuthSession() {
   return refreshPromise;
 }
 
-export async function apiRequest(path, { method = 'GET', body, token, headers = {}, retryOnAuthError = true, cacheTtlMs = 0 } = {}) {
+export async function apiRequest(path, { method = 'GET', body, token, headers = {}, retryOnAuthError = true, retryOnCsrfError = true, cacheTtlMs = 0 } = {}) {
   const csrfToken = sessionStorage.getItem('crm_csrf_token') || '';
   const requestUrl = path.startsWith('http') ? path : `${API_URL}${path}`;
   const upperMethod = method.toUpperCase();
@@ -128,12 +128,25 @@ export async function apiRequest(path, { method = 'GET', body, token, headers = 
       token: refreshData.token,
       headers,
       retryOnAuthError: false,
+      retryOnCsrfError,
       cacheTtlMs,
     });
   }
 
   if (!response.ok) {
     const data = await response.json().catch(() => ({}));
+    if (response.status === 403 && data.message === 'CSRF token mismatch' && retryOnCsrfError && !path.includes('/api/auth/refresh')) {
+      const refreshData = await refreshAuthSession();
+      return apiRequest(path, {
+        method: upperMethod,
+        body,
+        token: refreshData.token,
+        headers,
+        retryOnAuthError,
+        retryOnCsrfError: false,
+        cacheTtlMs,
+      });
+    }
     throw new Error(data.message || 'Request failed');
   }
 

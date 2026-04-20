@@ -187,9 +187,6 @@ const LeadTableRow = memo(function LeadTableRow({
             <div className="flex flex-wrap items-center gap-2">
               <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.name}</p>
               {lead.duplicateFlag?.isDuplicate && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-medium text-red-300 ring-1 ring-red-400/20">Doublon</span>}
-              <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${getScoreTone(lead.score?.label)}`}>
-                {lead.score?.value || 0} · {lead.score?.label || 'Cold'}
-              </span>
               {isBusy && <span className="rounded-full bg-cyan-500/10 px-2 py-0.5 text-[11px] font-medium text-cyan-300 ring-1 ring-cyan-400/20">Syncing</span>}
             </div>
             <p className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>{lead.email}</p>
@@ -1376,7 +1373,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
             { label: 'Leads affiches', value: leads.length, helper: `${pagination.total || 0} au total dans cette rubrique` },
             { label: 'Recherche active', value: search ? 'Oui' : 'Non', helper: search || 'aucun filtre texte' },
             { label: 'Filtre statut', value: status ? getLeadStatusLabel(status) : 'Tous', helper: 'pipeline courant' },
-            { label: 'Selection', value: selectedLead?.name || 'Aucune', helper: selectedLead?.status ? getLeadStatusLabel(selectedLead.status) : 'cliquez une ligne' },
+            { label: 'Selection', value: selectedLead?.name || 'Aucune', helper: selectedLead?.score?.value ? `Score ${selectedLead.score.value}/100` : 'cliquez une ligne' },
           ].map((item) => (
             <div key={item.label} className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-slate-950/40 p-5' : 'rounded-3xl border border-slate-200 bg-slate-50 p-5'}>
               <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.24em] text-slate-400' : 'text-xs uppercase tracking-[0.24em] text-slate-500'}>{item.label}</p>
@@ -1506,7 +1503,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                 <h2 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>{selectedLead.name}</h2>
                 {selectedLead.duplicateFlag?.isDuplicate && <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-300 ring-1 ring-red-400/20">Doublon</span>}
                 <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${getScoreTone(selectedLead.score?.label)}`}>
-                  Score {selectedLead.score?.value || 0} · {selectedLead.score?.label || 'Cold'}
+                  Score {selectedLead.score?.value || 0}/100
                 </span>
               </div>
               {isLeadPanelLoading && (
@@ -1521,7 +1518,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
             <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-500' : 'mt-1 text-sm text-slate-500'}>Last activity: {formatDate(selectedLead.lastActivityAt)}</p>
             {selectedLead.duplicateFlag?.isDuplicate && (
               <p className="mt-1 text-sm text-red-300">
-                Duplicate match via {selectedLead.duplicateFlag.matchedBy?.join(', ') || 'existing lead'}.
+                Doublon detecte via {selectedLead.duplicateFlag.matchedBy?.join(', ') || 'existing lead'}.
               </p>
             )}
             {selectedLead.duplicateFlag?.isDuplicate && canManageAssignments && (

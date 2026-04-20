@@ -117,6 +117,29 @@ async function refreshDuplicateFlagForLead(lead, excludeLeadId = null) {
   return duplicateState;
 }
 
+async function syncDuplicateFlagForLead(lead) {
+  const previousState = JSON.stringify({
+    isDuplicate: Boolean(lead.duplicateFlag?.isDuplicate),
+    matchedBy: lead.duplicateFlag?.matchedBy || [],
+    matchedLeadIds: (lead.duplicateFlag?.matchedLeadIds || []).map((item) => item?.toString?.() || String(item)),
+    duplicateCount: lead.duplicateFlag?.duplicateCount || 0,
+  });
+
+  const nextState = await refreshDuplicateFlagForLead(lead);
+  const currentState = JSON.stringify({
+    isDuplicate: Boolean(lead.duplicateFlag?.isDuplicate),
+    matchedBy: lead.duplicateFlag?.matchedBy || [],
+    matchedLeadIds: (lead.duplicateFlag?.matchedLeadIds || []).map((item) => item?.toString?.() || String(item)),
+    duplicateCount: lead.duplicateFlag?.duplicateCount || 0,
+  });
+
+  if (previousState !== currentState) {
+    await lead.save();
+  }
+
+  return nextState;
+}
+
 router.get('/meta/users', asyncHandler(async (req, res) => {
   if (!canManageWorkspace(req.user)) {
     return res.status(403).json({ message: 'Forbidden' });
@@ -308,11 +331,12 @@ router.get('/', validate(leadQuerySchema), asyncHandler(async (req, res) => {
       .populate('createdBy')
       .populate('assignedTo')
       .populate('tasks.createdBy')
-      .populate('tasks.completedBy')
-      .lean(),
+      .populate('tasks.completedBy'),
     getLeadMetadataMapCached(),
     fetchBucketSummary(summaryQuery),
   ]);
+
+  await Promise.all(leads.map((lead) => syncDuplicateFlagForLead(lead)));
 
   res.json({
     leads: leads.map((lead) => serializeLead(applyDerivedLeadData(lead), metadataMap.get(lead._id.toString()))),
@@ -529,6 +553,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
   if (!assertLeadAccess(req.user, lead)) {
     return res.status(403).json({ message: 'Forbidden' });
   }
+  await syncDuplicateFlagForLead(lead);
   const metadataMap = await getLeadMetadataMapCached();
   res.json({ lead: serializeLead(applyDerivedLeadData(lead), metadataMap.get(lead._id.toString())) });
 }));

@@ -5,7 +5,16 @@ function normalizeEmail(value = '') {
 }
 
 function normalizePhone(value = '') {
-  return String(value || '').replace(/[^\d+]/g, '').trim();
+  return String(value || '').replace(/[^\d]/g, '').trim();
+}
+
+function normalizeName(value = '') {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ');
 }
 
 export async function findLeadDuplicates({ email = '', phone = '', excludeLeadId = null }) {
@@ -37,20 +46,32 @@ export async function buildDuplicateFlag(payload, excludeLeadId = null) {
   const matchedBy = [];
   const normalizedEmail = normalizeEmail(payload.email);
   const normalizedPhone = normalizePhone(payload.phone);
+  const normalizedName = normalizeName(payload.name);
+  const emailMatches = normalizedEmail
+    ? duplicates.filter((item) => normalizeEmail(item.email) === normalizedEmail)
+    : [];
+  const phoneMatches = normalizedPhone
+    ? duplicates.filter((item) => normalizePhone(item.phone) === normalizedPhone)
+    : [];
+  const strongPhoneMatches = phoneMatches.filter((item) => normalizeName(item.name) === normalizedName);
+  const resolvedDuplicates = [
+    ...emailMatches,
+    ...strongPhoneMatches.filter((item) => !emailMatches.some((entry) => String(entry._id) === String(item._id))),
+  ];
 
-  if (normalizedEmail && duplicates.some((item) => normalizeEmail(item.email) === normalizedEmail)) {
+  if (emailMatches.length) {
     matchedBy.push('email');
   }
-  if (normalizedPhone && duplicates.some((item) => normalizePhone(item.phone) === normalizedPhone)) {
-    matchedBy.push('phone');
+  if (strongPhoneMatches.length) {
+    matchedBy.push('phone+name');
   }
 
   return {
-    isDuplicate: duplicates.length > 0,
+    isDuplicate: resolvedDuplicates.length > 0,
     matchedBy,
-    matchedLeadIds: duplicates.map((item) => item._id),
-    duplicateCount: duplicates.length,
-    detectedAt: duplicates.length ? new Date() : null,
-    duplicates,
+    matchedLeadIds: resolvedDuplicates.map((item) => item._id),
+    duplicateCount: resolvedDuplicates.length,
+    detectedAt: resolvedDuplicates.length ? new Date() : null,
+    duplicates: resolvedDuplicates,
   };
 }
