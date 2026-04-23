@@ -19,6 +19,7 @@ const AdsStudyAbroadPage = lazy(() => import('./pages/AdsStudyAbroadPage.jsx'));
 const AdsOutsourcingPage = lazy(() => import('./pages/AdsOutsourcingPage.jsx'));
 const ThankYouPage = lazy(() => import('./pages/ThankYouPage.jsx'));
 const FranceStudyPage = lazy(() => import('./pages/FranceStudyPage.jsx'));
+const AlternanceFranceTunisiensPage = lazy(() => import('./pages/AlternanceFranceTunisiensPage.jsx'));
 const CanadaStudyPage = lazy(() => import('./pages/CanadaStudyPage.jsx'));
 const CustomerServiceOutsourcingPage = lazy(() => import('./pages/CustomerServiceOutsourcingPage.jsx'));
 const CostCalculatorPage = lazy(() => import('./pages/CostCalculatorPage.jsx'));
@@ -74,6 +75,7 @@ export default function App() {
         <Route path="/book-consultation" element={<Suspense fallback={<LoadingFallback />}><BookConsultationPage /></Suspense>} />
 
         <Route path="/etudier-en-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><FranceStudyPage /></Suspense>} />
+        <Route path="/alternance-en-france-pour-tunisiens" element={<Suspense fallback={<LoadingFallback />}><AlternanceFranceTunisiensPage /></Suspense>} />
         <Route path="/etudier-en-allemagne-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-au-canada-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CanadaStudyPage /></Suspense>} />
         <Route path="/etudier-a-chypre-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />

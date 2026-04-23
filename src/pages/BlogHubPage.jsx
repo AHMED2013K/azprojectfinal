@@ -65,6 +65,7 @@ export default function BlogHubPage() {
   const { lang, toggleLanguage } = useLanguage();
 
   const published = [
+    { slug: '/alternance-en-france-pour-tunisiens', label: 'Alternance en France pour Tunisiens' },
     { slug: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Comment étudier en France depuis la Tunisie' },
     { slug: '/blog/campus-france-tunisie-etapes', label: 'Campus France Tunisie : étapes' },
     { slug: '/blog/cout-des-etudes-a-l-etranger', label: "Coût des études à l'étranger" },

@@ -123,6 +123,7 @@ const translations = {
 
     relatedTitle: "Ressources utiles pour continuer",
     relatedLinks: [
+      { to: "/alternance-en-france-pour-tunisiens", label: "Alternance en France pour Tunisiens" },
       { to: "/programmes/alternance-france", label: "Guide alternance France" },
       { to: "/blog/comment-etudier-en-france-depuis-la-tunisie", label: "Article complet études en France" },
       { to: "/blog/campus-france-tunisie-etapes", label: "Campus France Tunisie : étapes" },

@@ -5,6 +5,7 @@ import LanguageSwitch from '../components/LanguageSwitch';
 import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
+const APPLY_URL = 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=blog_article&utm_campaign=alternance_france_tunisiens';
 
 const posts = {
   '/blog/comment-etudier-en-france-depuis-la-tunisie': {
@@ -151,17 +152,32 @@ const posts = {
     title: 'Alternance France pour les Tunisiens: comment trouver un contrat',
     description: 'Guide concret pour trouver une alternance en France depuis la Tunisie: profil, CV, candidatures et contrat.',
     h1: 'Alternance France pour les Tunisiens',
+    chips: [
+      'alternance en france pour tunisiens',
+      'alternance france étudiant tunisien',
+      'étudier en france en alternance depuis la tunisie',
+      'étudiant international alternance france',
+    ],
+    proof: [
+      { stat: '205+', label: 'demandes reçues via le funnel public' },
+      { stat: '400+', label: 'clics observés depuis LinkedIn' },
+      { stat: 'SEO + apply', label: 'meilleure combinaison pour capter puis convertir' },
+    ],
     sections: [
-      { h2: '1. Comprendre ce que cherche l’entreprise', text: 'Le recruteur achète d’abord un profil utile, motivé et compréhensible rapidement.' },
-      { h2: '2. Optimiser CV, message et candidature', text: 'Le CV et le pitch doivent être orientés poste, pas juste scolaire.' },
-      { h2: '3. Organiser un volume de candidatures maîtrisé', text: 'Une alternance se gagne souvent avec rigueur, relances et suivi structuré.' },
-      { h2: '4. Sécuriser contrat et administratif', text: 'Le succès vient autant de la signature que de la bonne préparation en amont.' },
+      { h2: '1. Comprendre ce que cherche l’entreprise française', text: 'Le recruteur ne choisit pas un “rêve d’études”. Il choisit un profil utile, lisible, rassurant et rapidement opérationnel dans un cadre d’alternance.' },
+      { h2: '2. Positionner le profil tunisien comme un avantage', text: 'Un étudiant tunisien doit montrer sa logique de parcours, sa motivation, sa capacité d’adaptation et son intérêt concret pour le poste, pas seulement pour la France en général.' },
+      { h2: '3. Optimiser CV, pitch et messages de candidature', text: 'Le CV doit être orienté entreprise, les messages doivent être courts et ciblés, et les relances doivent rester disciplinées. La différence se joue souvent dans l’exécution.' },
+      { h2: '4. Organiser un vrai volume de candidatures', text: 'Une alternance en France se gagne rarement avec quelques essais. Il faut un pipeline de candidatures, du suivi et un ajustement continu selon les retours obtenus.' },
+      { h2: '5. Sécuriser la partie administrative et le timing', text: 'Le projet doit être cohérent entre école, entreprise, calendrier, visa et statut d’étudiant international. Beaucoup de dossiers se bloquent ici faute d’anticipation.' },
     ],
     faq: [
       ['Peut-on trouver une alternance depuis la Tunisie ?', 'Oui, mais il faut une méthode, un bon positionnement et un suivi intensif.'],
       ['Quel est le plus gros blocage ?', 'Le manque de volume et de qualité dans les candidatures.'],
+      ['Pourquoi ne pas envoyer directement tout le trafic vers un simple formulaire ?', 'Parce qu’une page de contenu ranke mieux sur Google, rassure davantage et prépare mieux la conversion vers apply.'],
+      ['Le lien apply EduGrowth sert à quoi ?', 'Il sert à qualifier le profil étudiant, centraliser les candidatures dans le CRM et accélérer le suivi commercial et pédagogique.'],
     ],
     relatedLinks: [
+      { to: '/alternance-en-france-pour-tunisiens', label: 'Landing SEO alternance en France pour Tunisiens' },
       { to: '/programmes/alternance-france', label: 'Programme alternance France' },
       { to: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Étudier en France depuis la Tunisie' },
       { to: '/book-consultation', label: 'Réserver une consultation' },
@@ -671,6 +687,27 @@ export default function BlogArticlePage() {
           <h1 className="mt-4 text-4xl font-black leading-tight">{post.h1}</h1>
           <p className="mt-4 text-slate-600">{post.description}</p>
 
+          {post.chips?.length ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {post.chips.map((chip) => (
+                <span key={chip} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-bold text-slate-700">
+                  {chip}
+                </span>
+              ))}
+            </div>
+          ) : null}
+
+          {post.proof?.length ? (
+            <section className="mt-8 grid gap-4 md:grid-cols-3">
+              {post.proof.map((item) => (
+                <div key={item.label} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <p className="text-2xl font-black text-[#005A9C]">{item.stat}</p>
+                  <p className="mt-2 text-sm font-bold uppercase tracking-[0.18em] text-slate-500">{item.label}</p>
+                </div>
+              ))}
+            </section>
+          ) : null}
+
           <div className="mt-8 space-y-8">
             {post.sections.map((section) => (
               <section key={section.h2}>
@@ -684,6 +721,15 @@ export default function BlogArticlePage() {
             <h2 className="text-2xl font-black">{copy.ctaTitle}</h2>
             <p className="mt-2 text-slate-300">{copy.ctaText}</p>
             <div className="mt-4 flex flex-wrap gap-3">
+              {pathname === '/blog/alternance-france-pour-tunisiens' ? (
+                <a
+                  href={APPLY_URL}
+                  onClick={() => trackEvent('cta_click', { cta_type: 'blog_article_apply', article: pathname })}
+                  className="rounded-xl bg-emerald-500 px-5 py-3 text-sm font-black"
+                >
+                  Remplir le formulaire apply
+                </a>
+              ) : null}
               <Link
                 to="/book-consultation"
                 onClick={() => trackEvent('cta_click', { cta_type: 'blog_article_consultation', article: pathname })}
