@@ -276,7 +276,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const [isLeadPanelLoading, setIsLeadPanelLoading] = useState(false);
   const [isSyncingLeads, setIsSyncingLeads] = useState(false);
   const [pendingLeadIds, setPendingLeadIds] = useState([]);
-  const [tableScrollTop, setTableScrollTop] = useState(0);
   const [sortConfig, setSortConfig] = useState({ key: 'createdAt', direction: 'desc' });
   const [columnWidths, setColumnWidths] = useState(defaultColumnWidths);
 
@@ -411,20 +410,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   }, [feedback.deletedLeadId, feedback.message, feedback.type, handleUndoDelete, showToast]);
 
   useEffect(() => {
-    const viewport = tableViewportRef.current;
-    if (!viewport) {
-      return undefined;
-    }
-
-    const handleScroll = () => {
-      setTableScrollTop(viewport.scrollTop);
-    };
-
-    viewport.addEventListener('scroll', handleScroll, { passive: true });
-    return () => viewport.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
     const handlePointerMove = (event) => {
       const currentResize = resizeRef.current;
       if (!currentResize) {
@@ -513,14 +498,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   const leadMap = useMemo(() => new Map(sortedLeads.map((lead) => [lead.id, lead])), [sortedLeads]);
   const metricCards = useMemo(() => getBucketMetrics(summary), [summary]);
   const rowHeight = 88;
-  const overscan = 5;
-  const viewportHeight = 640;
-  const visibleRowCount = Math.ceil(viewportHeight / rowHeight);
-  const virtualStartIndex = Math.max(0, Math.floor(tableScrollTop / rowHeight) - overscan);
-  const virtualEndIndex = Math.min(sortedLeads.length, virtualStartIndex + visibleRowCount + overscan * 2);
-  const visibleLeads = useMemo(() => sortedLeads.slice(virtualStartIndex, virtualEndIndex), [sortedLeads, virtualEndIndex, virtualStartIndex]);
-  const topSpacerHeight = virtualStartIndex * rowHeight;
-  const bottomSpacerHeight = Math.max(0, (sortedLeads.length - virtualEndIndex) * rowHeight);
   const duplicateMergeOptions = useMemo(() => {
     const candidateIds = selectedLead?.duplicateFlag?.matchedLeadIds || [];
     return candidateIds.map((leadId) => ({
@@ -894,7 +871,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
   }
 
   function toggleSelectAllVisible() {
-    const visibleIds = visibleLeads.map((lead) => lead.id);
+    const visibleIds = sortedLeads.map((lead) => lead.id);
     const allSelected = visibleIds.length > 0 && visibleIds.every((id) => selectedLeadIds.includes(id));
     setSelectedLeadIds((current) => (
       allSelected
@@ -1079,7 +1056,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
 
     window.addEventListener('keydown', handleKeyboard);
     return () => window.removeEventListener('keydown', handleKeyboard);
-  }, [loadLead, prefetchLead, rowHeight, selectedLead, sortedLeads, startEdit]);
+  }, [loadLead, prefetchLead, selectedLead, sortedLeads, startEdit]);
 
   async function handleExport() {
     setFeedback({ type: '', message: '' });
@@ -1436,12 +1413,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                 <LeadTableSkeleton theme={theme} />
               ) : (
                 <tbody>
-                  {topSpacerHeight > 0 && (
-                    <tr aria-hidden="true">
-                      <td colSpan={8} style={{ height: `${topSpacerHeight}px`, padding: 0 }} />
-                    </tr>
-                  )}
-                  {visibleLeads.map((lead) => (
+                  {sortedLeads.map((lead) => (
                     <LeadTableRow
                       key={lead.id}
                       lead={lead}
@@ -1464,11 +1436,6 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                       onDelete={() => handleDelete(lead.id).catch(() => {})}
                     />
                   ))}
-                  {bottomSpacerHeight > 0 && (
-                    <tr aria-hidden="true">
-                      <td colSpan={8} style={{ height: `${bottomSpacerHeight}px`, padding: 0 }} />
-                    </tr>
-                  )}
                 </tbody>
               )}
             </table>
