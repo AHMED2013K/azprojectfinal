@@ -9,7 +9,7 @@
     "build:prerender": "npm run build && node scripts/prerender.js",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:prerender",
     "deploy": "gh-pages -d dist",
     "start": "node backend/server.js",
     "serve-api": "node backend/server.js"

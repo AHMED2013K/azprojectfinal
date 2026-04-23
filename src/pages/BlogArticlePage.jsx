@@ -177,6 +177,7 @@ const posts = {
       ['Le lien apply EduGrowth sert à quoi ?', 'Il sert à qualifier le profil étudiant, centraliser les candidatures dans le CRM et accélérer le suivi commercial et pédagogique.'],
     ],
     relatedLinks: [
+      { to: '/campus-france-tunisie-guide', label: 'Landing SEO Campus France Tunisie guide' },
       { to: '/alternance-en-france-pour-tunisiens', label: 'Landing SEO alternance en France pour Tunisiens' },
       { to: '/programmes/alternance-france', label: 'Programme alternance France' },
       { to: '/blog/comment-etudier-en-france-depuis-la-tunisie', label: 'Étudier en France depuis la Tunisie' },

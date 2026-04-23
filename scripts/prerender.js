@@ -17,15 +17,20 @@ const distDir = path.resolve(rootDir, 'dist');
 const templatePath = path.resolve(rootDir, 'index.html');
 
 const routes = [
+  '/alternance-en-france-pour-tunisiens',
+  '/campus-france-tunisie-guide',
   '/etudier-en-france-depuis-tunisie',
   '/etudier-en-allemagne-depuis-tunisie',
   '/etudier-au-canada-depuis-tunisie',
   '/agence-etude-etranger-tunis',
   '/agence-etude-etranger-sousse',
   '/agence-etude-etranger-sfax',
+  '/programmes/alternance-france',
   '/blog/campus-france-tunisie-etapes',
   '/blog/refus-visa-etudiant-france-erreurs',
   '/blog/alternance-france-pour-tunisiens',
+  '/blog/comment-etudier-en-france-depuis-la-tunisie',
+  '/blog/master-france-apres-licence-tunisie',
   '/blog/quel-pays-etudier-petit-budget',
 ];
 
