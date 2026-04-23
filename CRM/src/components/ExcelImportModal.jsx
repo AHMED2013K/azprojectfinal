@@ -7,14 +7,14 @@ export default function ExcelImportModal({ onClose, onImport }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4">
       <div className="w-full max-w-3xl rounded-3xl border border-white/10 bg-slate-950 p-6 shadow-2xl">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-semibold text-white">Import leads from Excel or CSV</h3>
+          <h3 className="text-xl font-semibold text-white">Import leads from XLSX or CSV</h3>
           <button type="button" onClick={onClose} className="text-slate-400">Close</button>
         </div>
 
         <div className="mt-6 rounded-3xl border border-dashed border-white/15 bg-white/5 p-6 text-center">
           <input
             type="file"
-            accept=".csv,.xlsx,.xls"
+            accept=".csv,.xlsx"
             onChange={(event) => setFile(event.target.files?.[0] || null)}
             className="mx-auto block text-sm text-slate-200"
           />

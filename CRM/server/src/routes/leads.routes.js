@@ -1,7 +1,9 @@
 import express from 'express';
 import crypto from 'node:crypto';
+import path from 'node:path';
+import { Readable } from 'node:stream';
 import multer from 'multer';
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 import Lead from '../models/Lead.js';
 import DeletedLead from '../models/DeletedLead.js';
 import SavedLeadFilter from '../models/SavedLeadFilter.js';
@@ -211,6 +213,65 @@ function mapImportedRow(row) {
     campaign: String(normalizeField(row, ['campaign', 'source campaign']) || '').trim(),
     status: normalizeLeadStatus(String(normalizeField(row, ['status']) || 'New').trim()),
   };
+}
+
+function normalizeWorksheetValue(value) {
+  if (value == null) {
+    return '';
+  }
+
+  if (typeof value === 'object' && value?.text) {
+    return String(value.text);
+  }
+
+  return String(value);
+}
+
+function buildRowsFromWorksheet(worksheet) {
+  if (!worksheet) {
+    return [];
+  }
+
+  let headers = [];
+  const rows = [];
+
+  worksheet.eachRow((row, rowNumber) => {
+    const values = row.values.slice(1).map(normalizeWorksheetValue);
+
+    if (rowNumber === 1) {
+      headers = values.map((value) => value.trim());
+      return;
+    }
+
+    if (!headers.length || values.every((value) => !value.trim())) {
+      return;
+    }
+
+    const entry = {};
+    headers.forEach((header, index) => {
+      if (header) {
+        entry[header] = values[index] ?? '';
+      }
+    });
+    rows.push(entry);
+  });
+
+  return rows;
+}
+
+async function parseImportRows(file) {
+  const extension = path.extname(file.originalname || '').toLowerCase();
+  const workbook = new ExcelJS.Workbook();
+
+  if (extension === '.csv') {
+    await workbook.csv.read(Readable.from(file.buffer));
+  } else if (extension === '.xlsx') {
+    await workbook.xlsx.load(file.buffer);
+  } else {
+    throw badRequest('Only CSV and XLSX files are supported');
+  }
+
+  return buildRowsFromWorksheet(workbook.worksheets[0]);
 }
 
 function applyStatusTimeline(lead, nextStatus) {
@@ -467,12 +528,10 @@ router.post('/import/file', upload.single('file'), asyncHandler(async (req, res)
   }
 
   if (!req.file?.buffer) {
-    throw badRequest('A CSV or Excel file is required');
+    throw badRequest('A CSV or XLSX file is required');
   }
 
-  const workbook = XLSX.read(req.file.buffer, { type: 'buffer' });
-  const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-  const rows = XLSX.utils.sheet_to_json(firstSheet);
+  const rows = await parseImportRows(req.file);
 
   const dedupedRows = [];
   const seenKeys = new Set();
