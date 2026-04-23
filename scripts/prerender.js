@@ -16,23 +16,23 @@ const rootDir = path.resolve(__dirname, '..');
 const distDir = path.resolve(rootDir, 'dist');
 const templatePath = path.resolve(rootDir, 'index.html');
 
-const routes = [
-  '/alternance-en-france-pour-tunisiens',
-  '/campus-france-tunisie-guide',
-  '/etudier-en-france-depuis-tunisie',
-  '/etudier-en-allemagne-depuis-tunisie',
-  '/etudier-au-canada-depuis-tunisie',
-  '/agence-etude-etranger-tunis',
-  '/agence-etude-etranger-sousse',
-  '/agence-etude-etranger-sfax',
-  '/programmes/alternance-france',
-  '/blog/campus-france-tunisie-etapes',
-  '/blog/refus-visa-etudiant-france-erreurs',
-  '/blog/alternance-france-pour-tunisiens',
-  '/blog/comment-etudier-en-france-depuis-la-tunisie',
-  '/blog/master-france-apres-licence-tunisie',
-  '/blog/quel-pays-etudier-petit-budget',
-];
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+async function getRoutesFromSitemap() {
+  const sitemapPath = path.resolve(rootDir, 'sitemap.xml');
+  const sitemap = await fs.readFile(sitemapPath, 'utf-8');
+  const siteOrigin = 'https://edugrowth.tn';
+  const locMatches = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)];
+
+  return locMatches
+    .map((match) => match[1]?.trim())
+    .filter(Boolean)
+    .map((url) => url.replace(new RegExp(`^${escapeRegExp(siteOrigin)}`), ''))
+    .map((route) => (route === '' ? '/' : route))
+    .filter((route) => route !== '/');
+}
 
 function serializeHelmet(helmet) {
   const safeHelmet = {
@@ -79,6 +79,7 @@ async function renderToStringWithSuspense(element) {
 async function main() {
   console.log('Starting prerender...');
   const template = await fs.readFile(templatePath, 'utf-8');
+  const routes = await getRoutesFromSitemap();
 
   const vite = await createViteServer({
     configFile: path.resolve(rootDir, 'vite.config.js'),

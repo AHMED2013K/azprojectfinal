@@ -38,6 +38,7 @@ const pageCopy = {
 export default function PortalGatePage() {
   const { lang, toggleLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(true);
+  const [isNavigating, setIsNavigating] = useState(false);
   const navigate = useNavigate();
   const copy = pageCopy[lang] || pageCopy.en;
 
@@ -52,9 +53,26 @@ export default function PortalGatePage() {
   };
 
   const handleSelectPortal = (view) => {
+    if (isNavigating) {
+      return;
+    }
+
     trackEvent('portal_select', { portal: view, page: '/' });
-    setIsOpen(false);
-    navigate(view === 'student' ? '/abroad-zone' : '/outsourcing');
+    const nextPath = view === 'student' ? '/abroad-zone' : '/outsourcing';
+    setIsNavigating(true);
+
+    const startNavigation = () => {
+      navigate(nextPath);
+    };
+
+    if (typeof document !== 'undefined' && typeof document.startViewTransition === 'function') {
+      document.startViewTransition(() => {
+        startNavigation();
+      });
+      return;
+    }
+
+    window.setTimeout(startNavigation, 220);
   };
 
   return (
@@ -115,6 +133,19 @@ export default function PortalGatePage() {
         translations={portalTranslations}
         lang={lang}
       />
+
+      {isNavigating && (
+        <div className="pointer-events-none fixed inset-0 z-[70] bg-[radial-gradient(circle_at_top,rgba(8,145,178,0.18),transparent_28%),linear-gradient(180deg,#020617_0%,#082f49_42%,#020617_100%)]">
+          <div className="flex h-full items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="h-14 w-14 animate-spin rounded-full border-4 border-cyan-400/20 border-t-cyan-300" />
+              <div className="text-sm font-black uppercase tracking-[0.28em] text-cyan-100/90">
+                {lang === 'fr' ? 'Ouverture du portail' : 'Opening portal'}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
