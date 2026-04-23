@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { apiRequest } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -8,6 +7,30 @@ import { formatDate } from '../lib/format';
 import { getLeadStatusLabel } from '../lib/leads';
 
 const CHART_COLORS = ['#0891b2', '#0284c7', '#059669', '#d97706', '#db2777', '#7c3aed', '#e11d48', '#64748b'];
+const DONUT_RADIUS = 72;
+const DONUT_STROKE = 24;
+const DONUT_CIRCUMFERENCE = 2 * Math.PI * DONUT_RADIUS;
+
+function buildDonutSegments(data, totalLeads) {
+  if (!totalLeads) {
+    return [];
+  }
+
+  let offset = 0;
+
+  return data.map((item, index) => {
+    const length = (item.value / totalLeads) * DONUT_CIRCUMFERENCE;
+    const segment = {
+      label: item.label,
+      value: item.value,
+      color: CHART_COLORS[index % CHART_COLORS.length],
+      dasharray: `${length} ${DONUT_CIRCUMFERENCE - length}`,
+      dashoffset: -offset,
+    };
+    offset += length;
+    return segment;
+  });
+}
 
 function PieBreakdownCard({ title, data, totalLeads, theme }) {
   if (!data?.length) {
@@ -19,32 +42,46 @@ function PieBreakdownCard({ title, data, totalLeads, theme }) {
     );
   }
 
+  const segments = buildDonutSegments(data, totalLeads);
+
   return (
     <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
       <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>{title}</h3>
-      <div className="mt-5 h-72">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie data={data} dataKey="value" nameKey="label" innerRadius={52} outerRadius={88} paddingAngle={3}>
-              {data.map((entry, index) => (
-                <Cell key={entry.label} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={(value, _name, item) => {
-                const percent = totalLeads ? `${((value / totalLeads) * 100).toFixed(1)}%` : '0%';
-                return [`${value} leads (${percent})`, item.payload.label];
-              }}
-              contentStyle={{
-                background: theme === 'dark' ? '#020617' : '#ffffff',
-                color: theme === 'dark' ? '#e2e8f0' : '#0f172a',
-                border: theme === 'dark' ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(148,163,184,0.35)',
-                borderRadius: '16px',
-              }}
+      <div className="mt-5 flex justify-center">
+        <div className="relative h-56 w-56">
+          <svg viewBox="0 0 200 200" className="-rotate-90">
+            <circle
+              cx="100"
+              cy="100"
+              r={DONUT_RADIUS}
+              fill="none"
+              stroke={theme === 'dark' ? 'rgba(148, 163, 184, 0.18)' : 'rgba(148, 163, 184, 0.25)'}
+              strokeWidth={DONUT_STROKE}
             />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
+            {segments.map((segment) => (
+              <circle
+                key={segment.label}
+                cx="100"
+                cy="100"
+                r={DONUT_RADIUS}
+                fill="none"
+                stroke={segment.color}
+                strokeLinecap="butt"
+                strokeWidth={DONUT_STROKE}
+                strokeDasharray={segment.dasharray}
+                strokeDashoffset={segment.dashoffset}
+              />
+            ))}
+          </svg>
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
+            <span className={theme === 'dark' ? 'text-xs uppercase tracking-[0.22em] text-slate-400' : 'text-xs uppercase tracking-[0.22em] text-slate-500'}>
+              Total leads
+            </span>
+            <span className={theme === 'dark' ? 'mt-2 text-3xl font-semibold text-white' : 'mt-2 text-3xl font-semibold text-slate-900'}>
+              {totalLeads}
+            </span>
+          </div>
+        </div>
       </div>
       <div className="mt-4 space-y-2">
         {data.map((item, index) => (

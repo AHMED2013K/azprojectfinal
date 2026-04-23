@@ -3,7 +3,8 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 import { Readable } from 'node:stream';
 import multer from 'multer';
-import ExcelJS from 'exceljs';
+import Papa from 'papaparse';
+import readXlsxFile from 'read-excel-file/node';
 import Lead from '../models/Lead.js';
 import DeletedLead from '../models/DeletedLead.js';
 import SavedLeadFilter from '../models/SavedLeadFilter.js';
@@ -215,34 +216,29 @@ function mapImportedRow(row) {
   };
 }
 
-function normalizeWorksheetValue(value) {
+function normalizeCellValue(value) {
   if (value == null) {
     return '';
   }
 
-  if (typeof value === 'object' && value?.text) {
-    return String(value.text);
+  if (value instanceof Date) {
+    return value.toISOString();
   }
 
   return String(value);
 }
 
-function buildRowsFromWorksheet(worksheet) {
-  if (!worksheet) {
+function buildRowsFromMatrix(matrix) {
+  if (!Array.isArray(matrix) || !matrix.length) {
     return [];
   }
 
-  let headers = [];
+  const [headerRow = [], ...dataRows] = matrix;
+  const headers = headerRow.map((value) => normalizeCellValue(value).trim());
   const rows = [];
 
-  worksheet.eachRow((row, rowNumber) => {
-    const values = row.values.slice(1).map(normalizeWorksheetValue);
-
-    if (rowNumber === 1) {
-      headers = values.map((value) => value.trim());
-      return;
-    }
-
+  dataRows.forEach((row) => {
+    const values = Array.isArray(row) ? row.map(normalizeCellValue) : [];
     if (!headers.length || values.every((value) => !value.trim())) {
       return;
     }
@@ -261,17 +257,29 @@ function buildRowsFromWorksheet(worksheet) {
 
 async function parseImportRows(file) {
   const extension = path.extname(file.originalname || '').toLowerCase();
-  const workbook = new ExcelJS.Workbook();
 
   if (extension === '.csv') {
-    await workbook.csv.read(Readable.from(file.buffer));
-  } else if (extension === '.xlsx') {
-    await workbook.xlsx.load(file.buffer);
-  } else {
-    throw badRequest('Only CSV and XLSX files are supported');
+    const parsed = Papa.parse(file.buffer.toString('utf8'), {
+      header: true,
+      skipEmptyLines: true,
+      transformHeader: (header) => header.trim(),
+    });
+
+    if (parsed.errors.length) {
+      throw badRequest('Unable to read the CSV file');
+    }
+
+    return parsed.data.map((row) => Object.fromEntries(
+      Object.entries(row).map(([key, value]) => [key, normalizeCellValue(value).trim()]),
+    ));
   }
 
-  return buildRowsFromWorksheet(workbook.worksheets[0]);
+  if (extension === '.xlsx') {
+    const matrix = await readXlsxFile(Readable.from(file.buffer));
+    return buildRowsFromMatrix(matrix);
+  }
+
+  throw badRequest('Only CSV and XLSX files are supported');
 }
 
 function applyStatusTimeline(lead, nextStatus) {
