@@ -3,6 +3,7 @@ import { BriefcaseBusiness, Clock3, Download, FileText, Languages, MapPinned, Se
 import { API_URL, apiRequest } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { useSocket } from '../context/SocketContext';
 import { formatDate } from '../lib/format';
 
 const workModeLabels = {
@@ -24,6 +25,7 @@ function formatExperience(years = 0, months = 0) {
 export default function Candidatures() {
   const { token } = useAuth();
   const { theme } = useTheme();
+  const { socket } = useSocket();
   const [applications, setApplications] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
   const [search, setSearch] = useState('');
@@ -133,6 +135,25 @@ export default function Candidatures() {
   }, [loadSelectedApplication, selectedId]);
 
   useEffect(() => () => revokeCvUrl(), [revokeCvUrl]);
+
+  useEffect(() => {
+    if (!socket) {
+      return undefined;
+    }
+
+    const handleNotification = (notification) => {
+      if (notification.type !== 'candidate') {
+        return;
+      }
+
+      loadApplications(1).catch(() => {});
+    };
+
+    socket.on('notification:new', handleNotification);
+    return () => {
+      socket.off('notification:new', handleNotification);
+    };
+  }, [loadApplications, socket]);
 
   const selectedLanguages = useMemo(() => {
     if (!selectedApplication) {

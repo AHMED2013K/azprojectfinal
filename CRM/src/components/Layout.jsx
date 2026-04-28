@@ -10,6 +10,16 @@ import { useTheme } from '../context/ThemeContext';
 import { useToast } from '../context/ToastContext';
 import { prefetchRouteModule } from '../lib/prefetch';
 
+function appendNotification(current, nextNotification) {
+  const nextId = nextNotification._id || nextNotification.id;
+  if (!nextId) {
+    return [nextNotification, ...current];
+  }
+
+  const deduped = current.filter((item) => (item._id || item.id) !== nextId);
+  return [nextNotification, ...deduped];
+}
+
 export default function Layout() {
   const MotionMain = motion.div;
   const location = useLocation();
@@ -19,7 +29,11 @@ export default function Layout() {
   const { showToast } = useToast();
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isMarkingNotificationsRead, setIsMarkingNotificationsRead] = useState(false);
   const audioUnlockedRef = useRef(false);
+  const audioUnlockingRef = useRef(false);
+  const ringtoneRef = useRef(null);
+  const samuraiRef = useRef(null);
 
   function isTbsNotification(notification = {}) {
     const source = String(notification.source || '').toLowerCase();
@@ -33,40 +47,104 @@ export default function Layout() {
       || body.includes('tbs event');
   }
 
+  function isStudentJobNotification(notification = {}) {
+    const source = String(notification.source || '').toLowerCase();
+    const title = String(notification.title || '').toLowerCase();
+    const body = String(notification.body || '').toLowerCase();
+
+    return source === 'student-job-form'
+      || title.includes('student-job')
+      || body.includes('student-job');
+  }
+
   function playNotificationSound(notification = {}) {
     if (!audioUnlockedRef.current) {
       return;
     }
-    const isTbs = isTbsNotification(notification);
-    const primarySrc = isTbs ? '/samurai.mp3' : '/ringtone.mp3';
-    const sound = new Audio(primarySrc);
-    sound.preload = 'auto';
-    sound.volume = 1;
-    const playFallback = () => {
-      if (!isTbs) {
+
+    const useSamuraiSound = isTbsNotification(notification) || isStudentJobNotification(notification);
+    const primarySound = useSamuraiSound ? samuraiRef.current : ringtoneRef.current;
+    const fallbackSound = useSamuraiSound ? ringtoneRef.current : null;
+
+    if (!primarySound) {
+      return;
+    }
+
+    primarySound.currentTime = 0;
+    primarySound.volume = 1;
+    primarySound.play().catch(() => {
+      if (!fallbackSound) {
         return;
       }
-      const fallbackSound = new Audio('/ringtone.mp3');
-      fallbackSound.preload = 'auto';
+
+      fallbackSound.currentTime = 0;
       fallbackSound.volume = 1;
       fallbackSound.play().catch(() => {});
-    };
-    sound.addEventListener('error', playFallback, { once: true });
-    sound.play().catch(playFallback);
+    });
+  }
+
+  function primeAudioElement(audio) {
+    if (!audio) {
+      return Promise.resolve(false);
+    }
+
+    const initialMuted = audio.muted;
+    const initialVolume = audio.volume;
+
+    audio.muted = true;
+    audio.volume = 0;
+    audio.currentTime = 0;
+
+    return audio.play()
+      .then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.muted = initialMuted;
+        audio.volume = initialVolume;
+        return true;
+      })
+      .catch(() => {
+        audio.muted = initialMuted;
+        audio.volume = initialVolume;
+        return false;
+      });
   }
 
   useEffect(() => {
-    const unlockAudio = () => {
-      audioUnlockedRef.current = true;
+    const ringtone = new Audio('/ringtone.mp3');
+    ringtone.preload = 'auto';
+    ringtoneRef.current = ringtone;
+
+    const samurai = new Audio('/samurai.mp3');
+    samurai.preload = 'auto';
+    samuraiRef.current = samurai;
+
+    const unlockAudio = async () => {
+      if (audioUnlockedRef.current || audioUnlockingRef.current) {
+        return;
+      }
+
+      audioUnlockingRef.current = true;
+      const unlocked = await Promise.all([
+        primeAudioElement(ringtoneRef.current),
+        primeAudioElement(samuraiRef.current),
+      ]);
+      audioUnlockedRef.current = unlocked.some(Boolean);
+      audioUnlockingRef.current = false;
     };
 
-    window.addEventListener('pointerdown', unlockAudio, { once: true });
-    window.addEventListener('keydown', unlockAudio, { once: true });
+    window.addEventListener('pointerdown', unlockAudio);
+    window.addEventListener('keydown', unlockAudio);
 
     return () => {
       window.removeEventListener('pointerdown', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
       audioUnlockedRef.current = false;
+      audioUnlockingRef.current = false;
+      ringtone.pause();
+      ringtoneRef.current = null;
+      samurai.pause();
+      samuraiRef.current = null;
     };
   }, []);
 
@@ -91,15 +169,12 @@ export default function Layout() {
     }
 
     const handleAnnouncement = (announcement) => {
-      setNotifications((current) => [
-        {
+      setNotifications((current) => appendNotification(current, {
           _id: announcement.id,
           title: announcement.title,
           body: announcement.body,
           readAt: null,
-        },
-        ...current,
-      ]);
+        }));
       showToast({
         title: announcement.title,
         message: announcement.body,
@@ -108,8 +183,7 @@ export default function Layout() {
     };
 
     const handleNotification = (notification) => {
-      setNotifications((current) => [
-        {
+      setNotifications((current) => appendNotification(current, {
           _id: notification.id,
           title: notification.title,
           body: notification.body,
@@ -117,9 +191,7 @@ export default function Layout() {
           source: notification.source || '',
           campaign: notification.campaign || '',
           readAt: null,
-        },
-        ...current,
-      ]);
+        }));
       showToast({
         title: notification.title,
         message: notification.body,
@@ -137,8 +209,23 @@ export default function Layout() {
   }, [showToast, socket]);
 
   async function markAllNotificationsRead() {
-    await apiRequest('/api/notifications/read-all', { method: 'POST', token });
-    setNotifications((current) => current.map((item) => ({ ...item, readAt: item.readAt || new Date().toISOString() })));
+    if (isMarkingNotificationsRead || notifications.length === 0) {
+      return;
+    }
+
+    setIsMarkingNotificationsRead(true);
+    try {
+      await apiRequest('/api/notifications/read-all', { method: 'POST', token });
+      setNotifications((current) => current.map((item) => ({ ...item, readAt: item.readAt || new Date().toISOString() })));
+    } catch (error) {
+      showToast({
+        type: 'error',
+        title: 'Notifications',
+        message: error.message || 'Impossible de marquer les notifications comme lues.',
+      });
+    } finally {
+      setIsMarkingNotificationsRead(false);
+    }
   }
 
   return (
@@ -155,8 +242,13 @@ export default function Layout() {
             <div className={theme === 'dark' ? 'mx-6 mt-4 rounded-3xl border border-white/10 bg-slate-950/85 p-5 shadow-2xl' : 'mx-6 mt-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-xl'}>
               <div className="mb-4 flex items-center justify-between">
                 <h3 className={theme === 'dark' ? 'text-lg font-semibold text-white' : 'text-lg font-semibold text-slate-900'}>Notifications</h3>
-                <button type="button" onClick={markAllNotificationsRead} className={theme === 'dark' ? 'text-sm text-cyan-200' : 'text-sm text-sky-700'}>
-                  Mark all read
+                <button
+                  type="button"
+                  onClick={markAllNotificationsRead}
+                  disabled={isMarkingNotificationsRead || notifications.length === 0}
+                  className={`${theme === 'dark' ? 'text-sm text-cyan-200' : 'text-sm text-sky-700'} disabled:cursor-not-allowed disabled:opacity-50`}
+                >
+                  {isMarkingNotificationsRead ? 'Updating...' : 'Mark all read'}
                 </button>
               </div>
               <div className="space-y-3">
