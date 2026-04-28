@@ -18,6 +18,10 @@ const candidateApplicationSchema = new mongoose.Schema({
   hoursPerDayAvailable: { type: Number, required: true, min: 1, max: 24 },
   workMode: { type: String, required: true, trim: true },
   source: { type: String, default: 'student-job-form' },
+  bucket: { type: String, enum: ['active', 'treated'], default: 'active' },
+  reviewStatus: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
+  reviewedAt: { type: Date, default: null },
+  reviewedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
   cvFileName: { type: String, required: true },
   cvMimeType: { type: String, required: true },
   cvSizeBytes: { type: Number, required: true },
@@ -27,6 +31,7 @@ const candidateApplicationSchema = new mongoose.Schema({
 candidateApplicationSchema.index({ createdAt: -1 });
 candidateApplicationSchema.index({ email: 1, createdAt: -1 });
 candidateApplicationSchema.index({ workMode: 1, summerInternshipAvailable: 1, createdAt: -1 });
+candidateApplicationSchema.index({ bucket: 1, reviewStatus: 1, createdAt: -1 });
 
 const CandidateApplication = mongoose.model('CandidateApplication', candidateApplicationSchema);
 

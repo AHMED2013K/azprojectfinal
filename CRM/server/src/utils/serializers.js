@@ -121,6 +121,15 @@ export function serializeCandidateApplication(application) {
     hoursPerDayAvailable: application.hoursPerDayAvailable || 0,
     workMode: application.workMode || '',
     source: application.source || '',
+    bucket: application.bucket || 'active',
+    reviewStatus: application.reviewStatus || 'pending',
+    reviewedAt: application.reviewedAt || null,
+    reviewedBy: application.reviewedBy
+      ? {
+          id: application.reviewedBy._id?.toString?.() || String(application.reviewedBy),
+          name: application.reviewedBy.name || '',
+        }
+      : null,
     cv: {
       fileName: application.cvFileName || 'cv.pdf',
       mimeType: application.cvMimeType || 'application/pdf',

@@ -4,6 +4,8 @@ const objectIdSchema = z.string().regex(/^[a-f\d]{24}$/i, 'Invalid identifier');
 const emailSchema = z.string().email('A valid email is required').transform((value) => value.toLowerCase());
 const languageLevelSchema = z.enum(['basic', 'intermediate', 'advanced', 'fluent']);
 const workModeSchema = z.enum(['montplaisir-flex', 'remote-only']);
+const candidateBucketSchema = z.enum(['active', 'treated']);
+const candidateReviewStatusSchema = z.enum(['pending', 'approved', 'rejected']);
 
 function optionalBoundedInt({ min, max, message }) {
   return z.union([z.string(), z.number(), z.undefined()])
@@ -92,6 +94,8 @@ export const candidateQuerySchema = z.object({
     search: z.string().trim().optional().default(''),
     workMode: z.union([workModeSchema, z.literal('')]).optional().default(''),
     internship: z.union([z.enum(['yes', 'no']), z.literal('')]).optional().default(''),
+    bucket: z.union([candidateBucketSchema, z.literal('')]).optional().default(''),
+    reviewStatus: z.union([candidateReviewStatusSchema, z.literal('')]).optional().default(''),
     page: z.coerce.number().int().min(1).optional().default(1),
     limit: z.coerce.number().int().min(1).max(50).optional().default(20),
   }),
@@ -101,4 +105,11 @@ export const candidateParamsSchema = z.object({
   params: z.object({
     id: objectIdSchema,
   }),
+});
+
+export const candidateUpdateSchema = z.object({
+  body: z.object({
+    bucket: candidateBucketSchema.optional(),
+    reviewStatus: candidateReviewStatusSchema.optional(),
+  }).refine((value) => Object.keys(value).length > 0, 'At least one update is required'),
 });

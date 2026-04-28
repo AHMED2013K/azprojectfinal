@@ -11,7 +11,7 @@ import { badRequest, notFound } from '../utils/errors.js';
 import { createAuditLog } from '../utils/audit.js';
 import { createIpAllowlistMiddleware, escapeRegExp } from '../utils/security.js';
 import { getEnv } from '../config/env.js';
-import { candidateParamsSchema, candidateQuerySchema, publicCandidateApplicationSchema } from '../validators/candidate.validators.js';
+import { candidateParamsSchema, candidateQuerySchema, candidateUpdateSchema, publicCandidateApplicationSchema } from '../validators/candidate.validators.js';
 import { serializeCandidateApplication } from '../utils/serializers.js';
 
 const router = express.Router();
@@ -112,13 +112,17 @@ router.post('/public/student-job', handleCvUpload, validate(publicCandidateAppli
     createdAt: new Date().toISOString(),
   });
 
+  req.app.get('io').emit('candidate:created', {
+    application: serializeCandidateApplication(application),
+  });
+
   res.status(201).json({ message: 'Application submitted successfully' });
 }));
 
 router.use(authMiddleware, createIpAllowlistMiddleware(getEnv().CRM_ALLOWED_IPS_LIST), csrfProtection);
 
 router.get('/', validate(candidateQuerySchema), asyncHandler(async (req, res) => {
-  const { search, workMode, internship, page, limit } = req.validated.query;
+  const { search, workMode, internship, bucket, reviewStatus, page, limit } = req.validated.query;
   const query = {};
 
   if (search) {
@@ -139,8 +143,17 @@ router.get('/', validate(candidateQuerySchema), asyncHandler(async (req, res) =>
     query.summerInternshipAvailable = internship === 'yes';
   }
 
+  if (bucket) {
+    query.bucket = bucket;
+  }
+
+  if (reviewStatus) {
+    query.reviewStatus = reviewStatus;
+  }
+
   const [applications, total] = await Promise.all([
     CandidateApplication.find(query)
+      .populate('reviewedBy', 'name')
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit),
@@ -170,12 +183,87 @@ router.get('/:id/cv', validate(candidateParamsSchema), asyncHandler(async (req, 
 }));
 
 router.get('/:id', validate(candidateParamsSchema), asyncHandler(async (req, res) => {
-  const application = await CandidateApplication.findById(req.validated.params.id);
+  const application = await CandidateApplication.findById(req.validated.params.id).populate('reviewedBy', 'name');
   if (!application) {
     throw notFound('Candidate application not found');
   }
 
   res.json({ application: serializeCandidateApplication(application) });
+}));
+
+router.patch('/:id', validate(candidateParamsSchema.merge(candidateUpdateSchema)), asyncHandler(async (req, res) => {
+  const application = await CandidateApplication.findById(req.validated.params.id).populate('reviewedBy', 'name');
+  if (!application) {
+    throw notFound('Candidate application not found');
+  }
+
+  const previousBucket = application.bucket;
+  const previousReviewStatus = application.reviewStatus;
+  const { bucket, reviewStatus } = req.validated.body;
+
+  if (bucket) {
+    application.bucket = bucket;
+  }
+
+  if (reviewStatus) {
+    application.reviewStatus = reviewStatus;
+    if (reviewStatus === 'pending') {
+      application.reviewedAt = null;
+      application.reviewedBy = null;
+    } else {
+      application.reviewedAt = new Date();
+      application.reviewedBy = req.user._id;
+    }
+  }
+
+  await application.save();
+  await application.populate('reviewedBy', 'name');
+
+  await createAuditLog({
+    actor: req.user._id,
+    action: 'candidate.updated',
+    targetType: 'candidate-application',
+    targetId: application._id.toString(),
+    details: {
+      previousBucket,
+      nextBucket: application.bucket,
+      previousReviewStatus,
+      nextReviewStatus: application.reviewStatus,
+    },
+  });
+
+  req.app.get('io').emit('candidate:updated', {
+    application: serializeCandidateApplication(application),
+  });
+
+  res.json({ application: serializeCandidateApplication(application) });
+}));
+
+router.delete('/:id', validate(candidateParamsSchema), asyncHandler(async (req, res) => {
+  const application = await CandidateApplication.findById(req.validated.params.id);
+  if (!application) {
+    throw notFound('Candidate application not found');
+  }
+
+  await createAuditLog({
+    actor: req.user._id,
+    action: 'candidate.deleted',
+    targetType: 'candidate-application',
+    targetId: application._id.toString(),
+    details: {
+      email: application.email,
+      bucket: application.bucket,
+      reviewStatus: application.reviewStatus,
+    },
+  });
+
+  await CandidateApplication.deleteOne({ _id: application._id });
+
+  req.app.get('io').emit('candidate:deleted', {
+    id: application._id.toString(),
+  });
+
+  res.json({ deletedId: application._id.toString() });
 }));
 
 export default router;
