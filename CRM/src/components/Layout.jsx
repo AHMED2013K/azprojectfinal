@@ -38,11 +38,21 @@ export default function Layout() {
     if (!audioUnlockedRef.current) {
       return;
     }
-    const sound = new Audio(isTbsNotification(notification) ? '/samurai.mp3' : '/ringtone.mp3');
+    const isTbs = isTbsNotification(notification);
+    const sound = new Audio(isTbs ? '/samurai.mp3' : '/ringtone.mp3');
     sound.preload = 'auto';
     sound.currentTime = 0;
     sound.volume = 1;
-    sound.play().catch(() => {});
+    sound.play().catch(() => {
+      if (!isTbs) {
+        return;
+      }
+      const fallbackSound = new Audio('/ringtone.mp3');
+      fallbackSound.preload = 'auto';
+      fallbackSound.currentTime = 0;
+      fallbackSound.volume = 1;
+      fallbackSound.play().catch(() => {});
+    });
   }
 
   useEffect(() => {
