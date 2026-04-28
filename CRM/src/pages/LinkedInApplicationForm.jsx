@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CheckCircle2, GraduationCap, BriefcaseBusiness, Globe2 } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { apiRequest } from '../lib/api';
 import { trackMetaEvent, trackMetaStandardEvent } from '../lib/marketing';
 
@@ -47,10 +48,34 @@ function Select({ value, onChange, children, required = false }) {
 }
 
 export default function LinkedInApplicationForm() {
+  const location = useLocation();
   const [form, setForm] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const formConfig = useMemo(() => {
+    if (location.pathname === '/inscription' || location.pathname === '/tbs-event') {
+      return {
+        apiPath: '/api/invites/public/tbs-event',
+        source: 'tbs-event',
+        headingAccent: 'TBS EVENT',
+        description: "Inscrivez-vous pour l'evenement TBS EVENT. Vos informations seront transmises directement a notre equipe et envoyees dans le CRM avec la campagne TBS EVENT.",
+        successTitle: 'Inscription envoyee',
+        successBody: 'Merci. Votre inscription a bien ete enregistree et apparait maintenant dans notre CRM dans la campagne TBS EVENT.',
+        submitLabel: "Envoyer mon inscription",
+      };
+    }
+
+    return {
+      apiPath: '/api/invites/public/linkedin-alternance-2026',
+      source: 'apply',
+      headingAccent: "Opportunites d'alternance 2026",
+      description: "Candidatez pour la rentree Septembre 2026. Vos informations seront transmises directement a notre equipe afin de qualifier votre dossier.",
+      successTitle: 'Demande envoyee',
+      successBody: 'Merci. Votre candidature a bien ete enregistree et apparait maintenant dans notre CRM.',
+      submitLabel: 'Envoyer ma candidature',
+    };
+  }, [location.pathname]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -69,12 +94,12 @@ export default function LinkedInApplicationForm() {
           ? `Autre: ${form.financialSituationOther}`
           : form.financialSituation,
       };
-      await apiRequest('/api/invites/public/linkedin-alternance-2026', {
+      await apiRequest(formConfig.apiPath, {
         method: 'POST',
         body: payload,
       });
       trackMetaEvent('crm_apply_submit', {
-        source: 'apply',
+        source: formConfig.source,
         country: payload.country || 'unknown',
         studyLevel: payload.studyLevel || 'unknown',
       });
@@ -89,7 +114,7 @@ export default function LinkedInApplicationForm() {
       setForm(initialForm);
     } catch (submitError) {
       setError(submitError.message);
-      trackMetaEvent('crm_apply_error', { source: 'apply' });
+      trackMetaEvent('crm_apply_error', { source: formConfig.source });
     } finally {
       setSubmitting(false);
     }
@@ -106,11 +131,11 @@ export default function LinkedInApplicationForm() {
             <h1 className="mt-6 text-4xl font-semibold leading-tight text-white md:text-5xl">
               Formulaire d'inscription
               <span className="block bg-gradient-to-r from-cyan-300 via-sky-300 to-emerald-300 bg-clip-text text-transparent">
-                Opportunites d'alternance 2026
+                {formConfig.headingAccent}
               </span>
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-300">
-              Candidatez pour la rentree Septembre 2026. Vos informations seront transmises directement a notre equipe afin de qualifier votre dossier.
+              {formConfig.description}
             </p>
 
             <div className="mt-8 grid gap-4">
@@ -133,9 +158,9 @@ export default function LinkedInApplicationForm() {
             {submitted ? (
               <div className="flex min-h-[520px] flex-col items-center justify-center rounded-[1.5rem] border border-emerald-400/20 bg-emerald-400/10 p-8 text-center">
                 <CheckCircle2 size={44} className="text-emerald-300" />
-                <h2 className="mt-5 text-3xl font-semibold text-white">Demande envoyee</h2>
+                <h2 className="mt-5 text-3xl font-semibold text-white">{formConfig.successTitle}</h2>
                 <p className="mt-3 max-w-md text-slate-200">
-                  Merci. Votre candidature a bien ete enregistree et apparait maintenant dans notre CRM.
+                  {formConfig.successBody}
                 </p>
                 <a
                   href="https://www.linkedin.com/company/abroadzonee/"
@@ -266,7 +291,7 @@ export default function LinkedInApplicationForm() {
                   disabled={submitting}
                   className="inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-sky-700 via-cyan-600 to-emerald-500 px-5 py-4 text-sm font-semibold text-white shadow-lg shadow-cyan-950/40 transition hover:brightness-110 disabled:opacity-60"
                 >
-                  {submitting ? 'Envoi en cours...' : "Envoyer ma candidature"}
+                  {submitting ? 'Envoi en cours...' : formConfig.submitLabel}
                 </button>
               </form>
             )}

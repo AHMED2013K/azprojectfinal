@@ -156,6 +156,67 @@ router.post('/public/linkedin-alternance-2026', validate(publicLeadSchema), asyn
   res.status(201).json({ message: 'Application submitted successfully' });
 }));
 
+router.post('/public/tbs-event', validate(publicLeadSchema), asyncHandler(async (req, res) => {
+  const {
+    name,
+    email,
+    phone,
+    country,
+    dateOfBirth,
+    studyField,
+    studyLevel,
+    alternanceAwareness,
+    financialSituation,
+    message,
+  } = req.validated.body;
+  const admin = await User.findOne({ role: 'admin' });
+  const campaign = 'TBS EVENT';
+  const lead = await Lead.create({
+    name,
+    email,
+    phone: phone || '',
+    country: country || '',
+    campaign,
+    source: 'tbs-event-form',
+    createdBy: admin?._id,
+    details: {
+      dateOfBirth,
+      age: calculateAgeFromBirthDate(dateOfBirth),
+      studyField,
+      studyLevel,
+      alternanceAwareness,
+      financialSituation,
+      message,
+    },
+  });
+  const duplicateState = await buildDuplicateFlag({ email, phone }, lead._id);
+  lead.duplicateFlag = {
+    isDuplicate: duplicateState.isDuplicate,
+    matchedBy: duplicateState.matchedBy,
+    matchedLeadIds: duplicateState.matchedLeadIds,
+    duplicateCount: duplicateState.duplicateCount,
+    detectedAt: duplicateState.detectedAt,
+  };
+  addLeadActivity(lead, {
+    type: 'lead_created',
+    label: 'Lead created from TBS EVENT registration form',
+    actor: admin?._id || null,
+    meta: { source: 'tbs-event-form', campaign, duplicate: duplicateState.isDuplicate },
+  });
+  await lead.save();
+  invalidateLeadMetadataCache();
+
+  await createAuditLog({
+    action: 'lead.tbs_event_public_submitted',
+    targetType: 'campaign',
+    details: { campaign, email },
+  });
+  await backupLeadSubmission(lead, { route: 'tbs-event-public' });
+  await notifyNewLead(req, lead);
+
+  res.status(201).json({ message: 'Registration submitted successfully' });
+}));
+
 router.use(authMiddleware);
 
 router.get('/', asyncHandler(async (_req, res) => {
