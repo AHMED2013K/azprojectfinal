@@ -41,7 +41,7 @@ export default function Layout() {
     const isTbs = isTbsNotification(notification);
     const sound = new Audio(isTbs ? '/samurai.mp3' : '/ringtone.mp3');
     sound.preload = 'auto';
-    sound.currentTime = 0;
+    sound.currentTime = isTbs ? 1.2 : 0;
     sound.volume = 1;
     sound.play().catch(() => {
       if (!isTbs) {
