@@ -41,18 +41,24 @@ export default function Layout() {
     const isTbs = isTbsNotification(notification);
     const sound = new Audio(isTbs ? '/samurai.mp3' : '/ringtone.mp3');
     sound.preload = 'auto';
-    sound.currentTime = isTbs ? 1.2 : 0;
     sound.volume = 1;
-    sound.play().catch(() => {
+    const tryPlay = () => sound.play().catch(() => {
       if (!isTbs) {
         return;
       }
       const fallbackSound = new Audio('/ringtone.mp3');
       fallbackSound.preload = 'auto';
-      fallbackSound.currentTime = 0;
       fallbackSound.volume = 1;
       fallbackSound.play().catch(() => {});
     });
+    sound.addEventListener('loadedmetadata', () => {
+      tryPlay();
+    }, { once: true });
+    if (sound.readyState >= 1) {
+      tryPlay();
+    } else {
+      sound.load();
+    }
   }
 
   useEffect(() => {
