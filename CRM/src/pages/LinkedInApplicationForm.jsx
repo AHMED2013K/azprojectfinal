@@ -54,15 +54,15 @@ export default function LinkedInApplicationForm() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const formConfig = useMemo(() => {
-    if (location.pathname === '/inscription' || location.pathname === '/tbs-event') {
+    if (location.pathname === '/inscription') {
       return {
         apiPath: '/api/invites/public/tbs-event',
-        source: 'tbs-event',
-        headingAccent: 'TBS EVENT',
-        description: "Inscrivez-vous pour l'evenement TBS EVENT. Vos informations seront transmises directement a notre equipe et envoyees dans le CRM avec la campagne TBS EVENT.",
-        successTitle: 'Inscription envoyee',
-        successBody: 'Merci. Votre inscription a bien ete enregistree et apparait maintenant dans notre CRM dans la campagne TBS EVENT.',
-        submitLabel: "Envoyer mon inscription",
+        source: 'apply',
+        headingAccent: "Opportunites d'alternance 2026",
+        description: "Candidatez pour la rentree Septembre 2026. Vos informations seront transmises directement a notre equipe afin de qualifier votre dossier.",
+        successTitle: 'Demande envoyee',
+        successBody: 'Merci. Votre candidature a bien ete enregistree et apparait maintenant dans notre CRM.',
+        submitLabel: 'Envoyer ma candidature',
       };
     }
 

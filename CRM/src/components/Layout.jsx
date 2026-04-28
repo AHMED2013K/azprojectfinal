@@ -34,7 +34,7 @@ export default function Layout() {
   }
 
   useEffect(() => {
-    const sound = new Audio('/ringtone.mp3');
+    const sound = new Audio('/samurai.mp3');
     sound.preload = 'auto';
     audioRef.current = sound;
 
