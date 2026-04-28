@@ -31,7 +31,6 @@ export default function Layout() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [isMarkingNotificationsRead, setIsMarkingNotificationsRead] = useState(false);
   const audioUnlockedRef = useRef(false);
-  const audioUnlockingRef = useRef(false);
   const ringtoneRef = useRef(null);
   const samuraiRef = useRef(null);
 
@@ -63,84 +62,94 @@ export default function Layout() {
     }
 
     const useSamuraiSound = isTbsNotification(notification) || isStudentJobNotification(notification);
-    const primarySound = useSamuraiSound ? samuraiRef.current : ringtoneRef.current;
-    const fallbackSound = useSamuraiSound ? ringtoneRef.current : null;
+    const primaryPrototype = useSamuraiSound ? samuraiRef.current : ringtoneRef.current;
+    const fallbackPrototype = useSamuraiSound ? ringtoneRef.current : null;
 
-    if (!primarySound) {
+    if (!primaryPrototype) {
       return;
     }
 
-    primarySound.currentTime = 0;
+    const primarySound = primaryPrototype.cloneNode();
     primarySound.volume = 1;
+    primarySound.currentTime = 0;
     primarySound.play().catch(() => {
-      if (!fallbackSound) {
+      if (!fallbackPrototype) {
         return;
       }
 
+      const fallbackSound = fallbackPrototype.cloneNode();
       fallbackSound.currentTime = 0;
       fallbackSound.volume = 1;
       fallbackSound.play().catch(() => {});
     });
   }
 
-  function primeAudioElement(audio) {
-    if (!audio) {
-      return Promise.resolve(false);
+  function unlockAudioPlayback() {
+    if (audioUnlockedRef.current) {
+      return;
     }
 
-    const initialMuted = audio.muted;
-    const initialVolume = audio.volume;
+    [ringtoneRef.current, samuraiRef.current].forEach((audio) => {
+      if (!audio) {
+        return;
+      }
 
-    audio.muted = true;
-    audio.volume = 0;
-    audio.currentTime = 0;
-
-    return audio.play()
-      .then(() => {
-        audio.pause();
+      try {
+        audio.muted = true;
+        audio.volume = 0;
         audio.currentTime = 0;
-        audio.muted = initialMuted;
-        audio.volume = initialVolume;
-        return true;
-      })
-      .catch(() => {
-        audio.muted = initialMuted;
-        audio.volume = initialVolume;
-        return false;
-      });
+        const playAttempt = audio.play();
+        if (playAttempt && typeof playAttempt.then === 'function') {
+          playAttempt
+            .then(() => {
+              audio.pause();
+              audio.currentTime = 0;
+              audio.muted = false;
+              audio.volume = 1;
+            })
+            .catch(() => {
+              audio.muted = false;
+              audio.volume = 1;
+            });
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+          audio.muted = false;
+          audio.volume = 1;
+        }
+      } catch {
+        audio.muted = false;
+        audio.volume = 1;
+      }
+    });
+
+    audioUnlockedRef.current = true;
   }
 
   useEffect(() => {
     const ringtone = new Audio('/ringtone.mp3');
     ringtone.preload = 'auto';
+    ringtone.load();
     ringtoneRef.current = ringtone;
 
     const samurai = new Audio('/samurai.mp3');
     samurai.preload = 'auto';
+    samurai.load();
     samuraiRef.current = samurai;
 
-    const unlockAudio = async () => {
-      if (audioUnlockedRef.current || audioUnlockingRef.current) {
-        return;
-      }
-
-      audioUnlockingRef.current = true;
-      const unlocked = await Promise.all([
-        primeAudioElement(ringtoneRef.current),
-        primeAudioElement(samuraiRef.current),
-      ]);
-      audioUnlockedRef.current = unlocked.some(Boolean);
-      audioUnlockingRef.current = false;
+    const unlockAudio = () => {
+      unlockAudioPlayback();
     };
 
     window.addEventListener('pointerdown', unlockAudio);
     window.addEventListener('keydown', unlockAudio);
+    window.addEventListener('click', unlockAudio);
 
     return () => {
       window.removeEventListener('pointerdown', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
+      window.removeEventListener('click', unlockAudio);
       audioUnlockedRef.current = false;
-      audioUnlockingRef.current = false;
       ringtone.pause();
       ringtoneRef.current = null;
       samurai.pause();
