@@ -22,8 +22,20 @@ export default function Layout() {
   const audioRefs = useRef({ default: null, tbs: null });
   const [audioUnlocked, setAudioUnlocked] = useState(false);
 
-  function playNotificationSound(source = '') {
-    const sound = source === 'tbs-event-form'
+  function isTbsNotification(notification = {}) {
+    const source = String(notification.source || '').toLowerCase();
+    const campaign = String(notification.campaign || '').toLowerCase();
+    const title = String(notification.title || '').toLowerCase();
+    const body = String(notification.body || '').toLowerCase();
+
+    return source === 'tbs-event-form'
+      || campaign === 'tbs event'
+      || title.includes('tbs event')
+      || body.includes('tbs event');
+  }
+
+  function playNotificationSound(notification = {}) {
+    const sound = isTbsNotification(notification)
       ? audioRefs.current.tbs
       : audioRefs.current.default;
     if (!sound) {
@@ -116,6 +128,7 @@ export default function Layout() {
           body: notification.body,
           type: notification.type,
           source: notification.source || '',
+          campaign: notification.campaign || '',
           readAt: null,
         },
         ...current,
@@ -125,7 +138,7 @@ export default function Layout() {
         message: notification.body,
         type: notification.type === 'system' ? 'info' : 'success',
       });
-      playNotificationSound(notification.source || '');
+      playNotificationSound(notification);
     };
 
     socket.on('announcement:new', handleAnnouncement);
