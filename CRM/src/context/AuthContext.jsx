@@ -6,11 +6,16 @@ const AuthContext = createContext(null);
 const TOKEN_KEY = 'crm_token';
 const CSRF_KEY = 'crm_csrf_token';
 
+function isRecoverableSessionError(error) {
+  return Boolean(error?.isTransient || error?.status === 408 || error?.status === 429 || error?.status >= 500);
+}
+
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => sessionStorage.getItem(TOKEN_KEY) || '');
   const [csrfToken, setCsrfToken] = useState(() => sessionStorage.getItem(CSRF_KEY) || '');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [authStatusMessage, setAuthStatusMessage] = useState('');
 
   // 🔁 Restore session au chargement
   useEffect(() => {
@@ -19,16 +24,19 @@ export function AuthProvider({ children }) {
         const storedToken = sessionStorage.getItem(TOKEN_KEY);
 
         if (!storedToken) {
+          setAuthStatusMessage('Reconnexion au CRM en cours...');
           const refreshData = await apiRequest('/api/auth/refresh', {
             method: 'POST',
             retryOnAuthError: false,
           });
 
           storeAuthSession(refreshData);
+          setAuthStatusMessage('');
           return;
         }
 
         try {
+          setAuthStatusMessage('Connexion au CRM en cours...');
           const data = await apiRequest('/api/auth/me', {
             token: storedToken,
           });
@@ -36,18 +44,27 @@ export function AuthProvider({ children }) {
           setUser(data.user);
           setToken(storedToken);
           setCsrfToken(sessionStorage.getItem(CSRF_KEY) || '');
+          setAuthStatusMessage('');
         } catch {
+          setAuthStatusMessage('Session detectee. Reconnexion au backend en cours...');
           const refreshData = await apiRequest('/api/auth/refresh', {
             method: 'POST',
             retryOnAuthError: false,
           });
 
           storeAuthSession(refreshData);
+          setAuthStatusMessage('');
         }
       } catch (err) {
         console.warn('Session restore failed:', err.message);
-
-        clearStoredAuthSession();
+        if (sessionStorage.getItem(TOKEN_KEY) && isRecoverableSessionError(err)) {
+          setToken(sessionStorage.getItem(TOKEN_KEY) || '');
+          setCsrfToken(sessionStorage.getItem(CSRF_KEY) || '');
+          setAuthStatusMessage('Le backend met plus de temps a repondre. On garde la session et on reessaie.');
+        } else {
+          setAuthStatusMessage('');
+          clearStoredAuthSession();
+        }
       } finally {
         setLoading(false);
       }
@@ -62,12 +79,14 @@ export function AuthProvider({ children }) {
       setToken(data.token || '');
       setCsrfToken(data.csrfToken || '');
       setUser(data.user || null);
+      setAuthStatusMessage('');
     };
 
     const handleAuthCleared = () => {
       setToken('');
       setCsrfToken('');
       setUser(null);
+      setAuthStatusMessage('');
     };
 
     window.addEventListener('crm:auth-updated', handleAuthUpdated);
@@ -77,6 +96,29 @@ export function AuthProvider({ children }) {
       window.removeEventListener('crm:auth-cleared', handleAuthCleared);
     };
   }, []);
+
+  useEffect(() => {
+    if (!token || user || loading) {
+      return undefined;
+    }
+
+    setAuthStatusMessage((current) => current || 'Reconnexion automatique au CRM...');
+    const retryId = window.setTimeout(async () => {
+      try {
+        const data = await apiRequest('/api/auth/me', { token });
+        setUser(data.user);
+        setAuthStatusMessage('');
+      } catch (error) {
+        if (!isRecoverableSessionError(error)) {
+          clearStoredAuthSession();
+          return;
+        }
+        setAuthStatusMessage('Le backend est en train de se reveiller. Nouvelle tentative automatique...');
+      }
+    }, 12000);
+
+    return () => window.clearTimeout(retryId);
+  }, [loading, token, user]);
 
   // 🔐 LOGIN
   async function login(email, password, otpCode = '', recoveryCode = '') {
@@ -147,6 +189,7 @@ export function AuthProvider({ children }) {
         csrfToken,
         user,
         loading,
+        authStatusMessage,
         login,
         logout,
         refreshUser,

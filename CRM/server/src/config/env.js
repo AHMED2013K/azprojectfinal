@@ -15,7 +15,7 @@ const envSchema = z.object({
   COOKIE_SAME_SITE: z.enum(['strict', 'lax', 'none']).optional().default('strict'),
   TRUST_PROXY: z.enum(['true', 'false']).optional().default('false'),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).optional().default('info'),
-  REQUEST_TIMEOUT_MS: z.coerce.number().int().positive().optional().default(15000),
+  REQUEST_TIMEOUT_MS: z.coerce.number().int().positive().optional().default(60000),
   HEALTH_LOG_INTERVAL_MS: z.coerce.number().int().positive().optional().default(60000),
   METADATA_CACHE_TTL_MS: z.coerce.number().int().positive().optional().default(30000),
   BACKUP_INTERVAL_MS: z.coerce.number().int().positive().optional().default(21600000),

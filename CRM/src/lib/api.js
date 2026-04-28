@@ -6,6 +6,18 @@ let refreshPromise = null;
 const responseCache = new Map();
 const inflightRequests = new Map();
 
+function createRequestError(message, { status = 0, isTransient = false, isAuthFailure = false } = {}) {
+  const error = new Error(message);
+  error.status = status;
+  error.isTransient = isTransient;
+  error.isAuthFailure = isAuthFailure;
+  return error;
+}
+
+function isTransientStatus(status) {
+  return [408, 425, 429, 500, 502, 503, 504].includes(status);
+}
+
 function emitAuthUpdated(payload) {
   window.dispatchEvent(new CustomEvent(AUTH_UPDATED_EVENT, { detail: payload }));
 }
@@ -51,7 +63,7 @@ function invalidateTokenCache(token) {
   }
 }
 
-async function fetchWithTimeout(url, options = {}, timeoutMs = 15000) {
+async function fetchWithTimeout(url, options = {}, timeoutMs = 60000) {
   const controller = new AbortController();
   const timeoutId = window.setTimeout(() => controller.abort(), timeoutMs);
 
@@ -70,18 +82,32 @@ async function refreshAuthSession() {
     refreshPromise = fetchWithTimeout(`${API_URL}/api/auth/refresh`, {
       method: 'POST',
       credentials: 'include',
-    })
+    }, 60000)
       .then(async (refreshResponse) => {
         if (!refreshResponse.ok) {
-          throw new Error('Session refresh failed');
+          const data = await refreshResponse.json().catch(() => ({}));
+          throw createRequestError(data.message || 'Session refresh failed', {
+            status: refreshResponse.status,
+            isTransient: isTransientStatus(refreshResponse.status),
+            isAuthFailure: refreshResponse.status === 401 || refreshResponse.status === 403,
+          });
         }
         const refreshData = await refreshResponse.json();
         storeAuthSession(refreshData);
         return refreshData;
       })
       .catch((error) => {
-        clearStoredAuthSession();
-        throw error;
+        if (error?.isAuthFailure) {
+          clearStoredAuthSession();
+          throw error;
+        }
+        if (error?.status || error?.isTransient) {
+          throw error;
+        }
+        throw createRequestError(
+          error.name === 'AbortError' ? 'Request timeout' : 'Network request failed',
+          { isTransient: true },
+        );
       })
       .finally(() => {
         refreshPromise = null;
@@ -91,7 +117,7 @@ async function refreshAuthSession() {
   return refreshPromise;
 }
 
-export async function apiRequest(path, { method = 'GET', body, token, headers = {}, retryOnAuthError = true, retryOnCsrfError = true, cacheTtlMs = 0 } = {}) {
+export async function apiRequest(path, { method = 'GET', body, token, headers = {}, retryOnAuthError = true, retryOnCsrfError = true, cacheTtlMs = 0, timeoutMs = 60000 } = {}) {
   const csrfToken = sessionStorage.getItem('crm_csrf_token') || '';
   const requestUrl = path.startsWith('http') ? path : `${API_URL}${path}`;
   const upperMethod = method.toUpperCase();
@@ -115,9 +141,15 @@ export async function apiRequest(path, { method = 'GET', body, token, headers = 
         ...headers,
       },
       body: body ? (body instanceof FormData ? body : JSON.stringify(body)) : undefined,
-    });
+    }, timeoutMs);
   } catch (error) {
-    throw new Error(error.name === 'AbortError' ? 'Request timeout' : 'Network request failed');
+    if (error?.status || error?.isTransient || error?.isAuthFailure) {
+      throw error;
+    }
+    throw createRequestError(
+      error.name === 'AbortError' ? 'Request timeout' : 'Network request failed',
+      { isTransient: true },
+    );
   }
 
   if (response.status === 401 && retryOnAuthError && !path.includes('/api/auth/refresh')) {
@@ -130,6 +162,7 @@ export async function apiRequest(path, { method = 'GET', body, token, headers = 
       retryOnAuthError: false,
       retryOnCsrfError,
       cacheTtlMs,
+      timeoutMs,
     });
   }
 
@@ -145,9 +178,14 @@ export async function apiRequest(path, { method = 'GET', body, token, headers = 
         retryOnAuthError,
         retryOnCsrfError: false,
         cacheTtlMs,
+        timeoutMs,
       });
     }
-    throw new Error(data.message || 'Request failed');
+    throw createRequestError(data.message || 'Request failed', {
+      status: response.status,
+      isTransient: isTransientStatus(response.status),
+      isAuthFailure: response.status === 401 || response.status === 403,
+    });
   }
 
   const contentType = response.headers.get('content-type') || '';
