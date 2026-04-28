@@ -2,6 +2,7 @@ const routePrefetchers = {
   '/dashboard': () => import('../pages/Dashboard'),
   '/leads': () => import('../pages/Leads'),
   '/treated': () => import('../pages/Treated'),
+  '/candidatures': () => import('../pages/Candidatures'),
   '/pipeline': () => import('../pages/Pipeline'),
   '/chat': () => import('../pages/Chat'),
   '/tracking': () => import('../pages/Tracking'),

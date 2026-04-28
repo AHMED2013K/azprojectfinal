@@ -100,3 +100,33 @@ export function serializeMessage(message) {
     recipient: sanitizeUser(message.recipient),
   };
 }
+
+export function serializeCandidateApplication(application) {
+  return {
+    id: application._id.toString(),
+    name: application.name,
+    email: application.email,
+    phone: application.phone,
+    experienceYears: application.experienceYears || 0,
+    experienceMonths: application.experienceMonths || 0,
+    studyField: application.studyField,
+    languages: {
+      frenchLevel: application.languages?.frenchLevel || '',
+      englishLevel: application.languages?.englishLevel || '',
+      otherLanguage: application.languages?.otherLanguage || '',
+      otherLanguageLevel: application.languages?.otherLanguageLevel || '',
+    },
+    summerInternshipAvailable: Boolean(application.summerInternshipAvailable),
+    summerInternshipMonths: application.summerInternshipMonths ?? null,
+    hoursPerDayAvailable: application.hoursPerDayAvailable || 0,
+    workMode: application.workMode || '',
+    source: application.source || '',
+    cv: {
+      fileName: application.cvFileName || 'cv.pdf',
+      mimeType: application.cvMimeType || 'application/pdf',
+      sizeBytes: application.cvSizeBytes || 0,
+    },
+    createdAt: application.createdAt,
+    updatedAt: application.updatedAt,
+  };
+}

@@ -20,7 +20,6 @@ export default function Layout() {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const audioUnlockedRef = useRef(false);
-  const [audioUnlocked, setAudioUnlocked] = useState(false);
 
   function isTbsNotification(notification = {}) {
     const source = String(notification.source || '').toLowerCase();
@@ -39,10 +38,11 @@ export default function Layout() {
       return;
     }
     const isTbs = isTbsNotification(notification);
-    const sound = new Audio(isTbs ? '/samurai.mp3' : '/ringtone.mp3');
+    const primarySrc = isTbs ? '/samurai.mp3' : '/ringtone.mp3';
+    const sound = new Audio(primarySrc);
     sound.preload = 'auto';
     sound.volume = 1;
-    const tryPlay = () => sound.play().catch(() => {
+    const playFallback = () => {
       if (!isTbs) {
         return;
       }
@@ -50,24 +50,14 @@ export default function Layout() {
       fallbackSound.preload = 'auto';
       fallbackSound.volume = 1;
       fallbackSound.play().catch(() => {});
-    });
-    sound.addEventListener('loadedmetadata', () => {
-      tryPlay();
-    }, { once: true });
-    if (sound.readyState >= 1) {
-      tryPlay();
-    } else {
-      sound.load();
-    }
+    };
+    sound.addEventListener('error', playFallback, { once: true });
+    sound.play().catch(playFallback);
   }
 
   useEffect(() => {
     const unlockAudio = () => {
-      if (audioUnlocked) {
-        return;
-      }
       audioUnlockedRef.current = true;
-      setAudioUnlocked(true);
     };
 
     window.addEventListener('pointerdown', unlockAudio, { once: true });
@@ -78,7 +68,7 @@ export default function Layout() {
       window.removeEventListener('keydown', unlockAudio);
       audioUnlockedRef.current = false;
     };
-  }, [audioUnlocked]);
+  }, []);
 
   useEffect(() => {
     async function loadNotifications() {
@@ -90,7 +80,7 @@ export default function Layout() {
   }, [token]);
 
   useEffect(() => {
-    ['/dashboard', '/leads', '/pipeline', '/settings'].forEach((route) => {
+    ['/dashboard', '/leads', '/candidatures', '/pipeline', '/settings'].forEach((route) => {
       prefetchRouteModule(route);
     });
   }, []);

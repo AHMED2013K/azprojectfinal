@@ -19,6 +19,7 @@ import dashboardRoutes from './src/routes/dashboard.routes.js';
 import trackingRoutes from './src/routes/tracking.routes.js';
 import announcementRoutes from './src/routes/announcements.routes.js';
 import inviteRoutes from './src/routes/invites.routes.js';
+import candidateRoutes from './src/routes/candidates.routes.js';
 import chatRoutes from './src/routes/chat.routes.js';
 import notificationRoutes from './src/routes/notifications.routes.js';
 import backupRoutes from './src/routes/backups.routes.js';
@@ -61,6 +62,7 @@ app.use(helmet({
       fontSrc: ["'self'", 'data:'],
       formAction: ["'self'"],
       frameAncestors: ["'none'"],
+      frameSrc: ["'self'", 'blob:'],
       imgSrc: ["'self'", 'data:', 'https:'],
       objectSrc: ["'none'"],
       scriptSrc: ["'self'"],
@@ -109,6 +111,16 @@ app.use('/api/invites/public', rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 }));
+app.use('/api/candidates/public', cors({
+  origin: createOriginChecker(env.PUBLIC_FORM_ALLOWED_ORIGINS_LIST),
+  credentials: true,
+}));
+app.use('/api/candidates/public', rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+}));
 
 app.get('/api/health', (_req, res) => {
   res.json({
@@ -128,6 +140,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/invites', inviteRoutes);
+app.use('/api/candidates', candidateRoutes);
 app.use('/api/users', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, userRoutes);
 app.use('/api/leads', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, leadRoutes);
 app.use('/api/dashboard', authMiddleware, createIpAllowlistMiddleware(env.CRM_ALLOWED_IPS_LIST), csrfProtection, dashboardRoutes);
