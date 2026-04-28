@@ -144,11 +144,15 @@ router.get('/', validate(candidateQuerySchema), asyncHandler(async (req, res) =>
   }
 
   if (bucket) {
-    query.bucket = bucket;
+    query.bucket = bucket === 'active'
+      ? { $in: ['active', null] }
+      : 'treated';
   }
 
   if (reviewStatus) {
-    query.reviewStatus = reviewStatus;
+    query.reviewStatus = reviewStatus === 'pending'
+      ? { $in: ['pending', null] }
+      : reviewStatus;
   }
 
   const [applications, total] = await Promise.all([
