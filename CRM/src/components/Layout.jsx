@@ -19,7 +19,7 @@ export default function Layout() {
   const { showToast } = useToast();
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
-  const audioRefs = useRef({ default: null, tbs: null });
+  const audioUnlockedRef = useRef(false);
   const [audioUnlocked, setAudioUnlocked] = useState(false);
 
   function isTbsNotification(notification = {}) {
@@ -35,42 +35,23 @@ export default function Layout() {
   }
 
   function playNotificationSound(notification = {}) {
-    const sound = isTbsNotification(notification)
-      ? audioRefs.current.tbs
-      : audioRefs.current.default;
-    if (!sound) {
+    if (!audioUnlockedRef.current) {
       return;
     }
-
+    const sound = new Audio(isTbsNotification(notification) ? '/samurai.mp3' : '/ringtone.mp3');
+    sound.preload = 'auto';
     sound.currentTime = 0;
     sound.volume = 1;
     sound.play().catch(() => {});
   }
 
   useEffect(() => {
-    const defaultSound = new Audio('/ringtone.mp3');
-    defaultSound.preload = 'auto';
-    const tbsSound = new Audio('/samurai.mp3');
-    tbsSound.preload = 'auto';
-    audioRefs.current = { default: defaultSound, tbs: tbsSound };
-
     const unlockAudio = () => {
       if (audioUnlocked) {
         return;
       }
-      const sounds = Object.values(audioRefs.current).filter(Boolean);
-      Promise.all(sounds.map((sound) => {
-        sound.volume = 0;
-        return sound.play()
-          .then(() => {
-            sound.pause();
-            sound.currentTime = 0;
-            sound.volume = 1;
-          })
-          .catch(() => {});
-      })).finally(() => {
-        setAudioUnlocked(true);
-      });
+      audioUnlockedRef.current = true;
+      setAudioUnlocked(true);
     };
 
     window.addEventListener('pointerdown', unlockAudio, { once: true });
@@ -79,7 +60,7 @@ export default function Layout() {
     return () => {
       window.removeEventListener('pointerdown', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
-      audioRefs.current = { default: null, tbs: null };
+      audioUnlockedRef.current = false;
     };
   }, [audioUnlocked]);
 
