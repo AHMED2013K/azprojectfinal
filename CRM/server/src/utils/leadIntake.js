@@ -97,6 +97,8 @@ export async function notifyNewLead(req, lead) {
   req.app.get('io').emit('notification:new', {
     id: `${lead._id.toString()}-lead-notification`,
     type: 'lead',
+    source: lead.source || '',
+    campaign: lead.campaign || '',
     title,
     body,
     createdAt: new Date().toISOString(),

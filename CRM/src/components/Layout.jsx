@@ -19,11 +19,13 @@ export default function Layout() {
   const { showToast } = useToast();
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
-  const audioRef = useRef(null);
+  const audioRefs = useRef({ default: null, tbs: null });
   const [audioUnlocked, setAudioUnlocked] = useState(false);
 
-  function playNotificationSound() {
-    const sound = audioRef.current;
+  function playNotificationSound(source = '') {
+    const sound = source === 'tbs-event-form'
+      ? audioRefs.current.tbs
+      : audioRefs.current.default;
     if (!sound) {
       return;
     }
@@ -34,24 +36,29 @@ export default function Layout() {
   }
 
   useEffect(() => {
-    const sound = new Audio('/samurai.mp3');
-    sound.preload = 'auto';
-    audioRef.current = sound;
+    const defaultSound = new Audio('/ringtone.mp3');
+    defaultSound.preload = 'auto';
+    const tbsSound = new Audio('/samurai.mp3');
+    tbsSound.preload = 'auto';
+    audioRefs.current = { default: defaultSound, tbs: tbsSound };
 
     const unlockAudio = () => {
-      if (!audioRef.current || audioUnlocked) {
+      if (audioUnlocked) {
         return;
       }
-
-      audioRef.current.volume = 0;
-      audioRef.current.play()
-        .then(() => {
-          audioRef.current.pause();
-          audioRef.current.currentTime = 0;
-          audioRef.current.volume = 1;
-          setAudioUnlocked(true);
-        })
-        .catch(() => {});
+      const sounds = Object.values(audioRefs.current).filter(Boolean);
+      Promise.all(sounds.map((sound) => {
+        sound.volume = 0;
+        return sound.play()
+          .then(() => {
+            sound.pause();
+            sound.currentTime = 0;
+            sound.volume = 1;
+          })
+          .catch(() => {});
+      })).finally(() => {
+        setAudioUnlocked(true);
+      });
     };
 
     window.addEventListener('pointerdown', unlockAudio, { once: true });
@@ -60,7 +67,7 @@ export default function Layout() {
     return () => {
       window.removeEventListener('pointerdown', unlockAudio);
       window.removeEventListener('keydown', unlockAudio);
-      audioRef.current = null;
+      audioRefs.current = { default: null, tbs: null };
     };
   }, [audioUnlocked]);
 
@@ -108,6 +115,7 @@ export default function Layout() {
           title: notification.title,
           body: notification.body,
           type: notification.type,
+          source: notification.source || '',
           readAt: null,
         },
         ...current,
@@ -117,7 +125,7 @@ export default function Layout() {
         message: notification.body,
         type: notification.type === 'system' ? 'info' : 'success',
       });
-      playNotificationSound();
+      playNotificationSound(notification.source || '');
     };
 
     socket.on('announcement:new', handleAnnouncement);
