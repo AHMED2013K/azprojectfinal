@@ -17,6 +17,8 @@ export default function Team() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState('');
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'commercial' });
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState({ type: '', message: '' });
 
   const loadUsers = useCallback(async () => {
     const params = new URLSearchParams({
@@ -34,13 +36,26 @@ export default function Team() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    await apiRequest('/api/users', {
-      method: 'POST',
-      token,
-      body: form,
-    });
-    setForm({ name: '', email: '', password: '', role: 'commercial' });
-    await loadUsers();
+    setSubmitting(true);
+    setFeedback({ type: '', message: '' });
+
+    try {
+      await apiRequest('/api/users', {
+        method: 'POST',
+        token,
+        body: form,
+      });
+      setForm({ name: '', email: '', password: '', role: 'commercial' });
+      setFeedback({ type: 'success', message: 'User created successfully.' });
+      await loadUsers();
+    } catch (error) {
+      setFeedback({
+        type: 'error',
+        message: error.message || 'Unable to create the user.',
+      });
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -82,11 +97,14 @@ export default function Team() {
 
       <section className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
         <h2 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Create a new user</h2>
+        <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>
+          Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number.
+        </p>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           {['name', 'email', 'password'].map((field) => (
             <input
               key={field}
-              type={field === 'password' ? 'password' : 'text'}
+              type={field === 'password' ? 'password' : field === 'email' ? 'email' : 'text'}
               value={form[field]}
               onChange={(event) => setForm((current) => ({ ...current, [field]: event.target.value }))}
               placeholder={field[0].toUpperCase() + field.slice(1)}
@@ -104,7 +122,18 @@ export default function Team() {
             ))}
           </select>
 
-          <button type="submit" className="btn-primary w-full justify-center">Create user</button>
+          {feedback.message && (
+            <p className={feedback.type === 'error'
+              ? 'rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200'
+              : 'rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200'}
+            >
+              {feedback.message}
+            </p>
+          )}
+
+          <button type="submit" disabled={submitting} className="btn-primary w-full justify-center disabled:cursor-not-allowed disabled:opacity-60">
+            {submitting ? 'Creating user...' : 'Create user'}
+          </button>
         </form>
       </section>
     </div>

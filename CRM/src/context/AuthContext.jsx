@@ -120,6 +120,17 @@ export function AuthProvider({ children }) {
     return () => window.clearTimeout(retryId);
   }, [loading, token, user]);
 
+  useEffect(() => {
+    const role = user?.role || '';
+    document.documentElement.dataset.userRole = role;
+    document.body.dataset.userRole = role;
+
+    return () => {
+      document.documentElement.dataset.userRole = '';
+      document.body.dataset.userRole = '';
+    };
+  }, [user?.role]);
+
   // 🔐 LOGIN
   async function login(email, password, otpCode = '', recoveryCode = '') {
     try {
