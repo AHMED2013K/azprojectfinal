@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { apiRequest } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -13,23 +13,43 @@ export default function Chat() {
   const [selectedUserId, setSelectedUserId] = useState('');
   const [messages, setMessages] = useState([]);
   const [draft, setDraft] = useState('');
+  const [unreadByUser, setUnreadByUser] = useState({});
 
   useEffect(() => {
-    apiRequest('/api/chat/users', { token }).then((data) => {
+    Promise.all([
+      apiRequest('/api/chat/users', { token }),
+      apiRequest('/api/chat/unread-count', { token }),
+    ]).then(([data, unreadData]) => {
       const filteredUsers = data.users.filter((item) => item.id !== user.id);
       setUsers(filteredUsers);
+      setUnreadByUser(unreadData.byUser || {});
       if (filteredUsers[0]) {
         setSelectedUserId(filteredUsers[0].id);
       }
     }).catch(() => {});
   }, [token, user]);
 
+  const markConversationRead = useCallback(async (recipientId) => {
+    if (!recipientId) {
+      return;
+    }
+
+    setUnreadByUser((current) => ({ ...current, [recipientId]: 0 }));
+    await apiRequest(`/api/chat/messages/${recipientId}/read`, {
+      method: 'POST',
+      token,
+    });
+  }, [token]);
+
   useEffect(() => {
     if (!selectedUserId) {
       return;
     }
 
-    apiRequest(`/api/chat/messages/${selectedUserId}`, { token }).then((data) => setMessages(data.messages)).catch(() => {});
+    apiRequest(`/api/chat/messages/${selectedUserId}`, { token }).then((data) => {
+      setMessages(data.messages);
+      setUnreadByUser((current) => ({ ...current, [selectedUserId]: 0 }));
+    }).catch(() => {});
   }, [selectedUserId, token]);
 
   useEffect(() => {
@@ -41,6 +61,21 @@ export default function Chat() {
       if (message.sender.id === selectedUserId || message.recipient.id === selectedUserId) {
         setMessages((current) => [...current, message]);
       }
+
+      if (message.recipient.id === user.id) {
+        if (message.sender.id === selectedUserId) {
+          markConversationRead(message.sender.id).catch(() => {});
+        } else {
+          setUnreadByUser((current) => ({
+            ...current,
+            [message.sender.id]: (current[message.sender.id] || 0) + 1,
+          }));
+        }
+      }
+    };
+
+    const handleRead = ({ otherUserId }) => {
+      setUnreadByUser((current) => ({ ...current, [otherUserId]: 0 }));
     };
 
     const handlePresence = ({ userId, isOnline, lastSeenAt }) => {
@@ -50,17 +85,23 @@ export default function Chat() {
     };
 
     socket.on('chat:message', handleMessage);
+    socket.on('chat:read', handleRead);
     socket.on('presence:update', handlePresence);
 
     return () => {
       socket.off('chat:message', handleMessage);
+      socket.off('chat:read', handleRead);
       socket.off('presence:update', handlePresence);
     };
-  }, [socket, selectedUserId]);
+  }, [markConversationRead, selectedUserId, socket, user.id]);
 
   const selectedUser = useMemo(
     () => users.find((item) => item.id === selectedUserId),
     [users, selectedUserId],
+  );
+  const totalUnread = useMemo(
+    () => Object.values(unreadByUser).reduce((sum, count) => sum + (Number(count) || 0), 0),
+    [unreadByUser],
   );
 
   async function handleSend() {
@@ -87,9 +128,18 @@ export default function Chat() {
   return (
     <div className="grid min-h-[75vh] gap-6 xl:grid-cols-[300px_1fr]">
       <aside className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-5' : 'rounded-3xl border border-slate-200 bg-white p-5 shadow-sm'}>
-        <h1 className={theme === 'dark' ? 'text-2xl font-semibold text-white' : 'text-2xl font-semibold text-slate-900'}>Team chat</h1>
+        <div className="flex items-center justify-between gap-3">
+          <h1 className={theme === 'dark' ? 'text-2xl font-semibold text-white' : 'text-2xl font-semibold text-slate-900'}>Team chat</h1>
+          {totalUnread > 0 && (
+            <span className="inline-flex min-w-6 items-center justify-center rounded-full bg-rose-500 px-2 py-1 text-xs font-bold text-white">
+              {totalUnread > 99 ? '99+' : totalUnread}
+            </span>
+          )}
+        </div>
         <div className="mt-5 space-y-3">
-          {users.map((member) => (
+          {users.map((member) => {
+            const unreadCount = unreadByUser[member.id] || 0;
+            return (
             <button
               key={member.id}
               type="button"
@@ -104,12 +154,22 @@ export default function Chat() {
               ].join(' ')}
             >
               <div className="flex items-center justify-between">
-                <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{member.name}</p>
-                <span className={member.isOnline ? 'status-dot online' : 'status-dot offline'} />
+                <div className="min-w-0">
+                  <p className={theme === 'dark' ? 'truncate font-medium text-white' : 'truncate font-medium text-slate-900'}>{member.name}</p>
+                  <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>{member.role}</p>
+                </div>
+                <div className="flex shrink-0 items-center gap-2">
+                  {unreadCount > 0 && (
+                    <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-rose-500 px-1.5 py-0.5 text-[11px] font-bold text-white">
+                      {unreadCount > 99 ? '99+' : unreadCount}
+                    </span>
+                  )}
+                  <span className={member.isOnline ? 'status-dot online' : 'status-dot offline'} />
+                </div>
               </div>
-              <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-400' : 'mt-1 text-sm text-slate-500'}>{member.role}</p>
             </button>
-          ))}
+          );
+          })}
         </div>
       </aside>
 

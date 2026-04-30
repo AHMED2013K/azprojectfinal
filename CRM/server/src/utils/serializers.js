@@ -37,6 +37,7 @@ export function serializeLead(lead, metadata = {}) {
     monthCode: metadata.monthCode || null,
     statusTimeline: {
       contactedAt: lead.statusTimeline?.contactedAt || null,
+      unreachableAt: lead.statusTimeline?.unreachableAt || null,
       nonQualifiedAt: lead.statusTimeline?.nonQualifiedAt || null,
       notInterestedAt: lead.statusTimeline?.notInterestedAt || null,
       interestedAt: lead.statusTimeline?.interestedAt || null,
@@ -95,6 +96,7 @@ export function serializeMessage(message) {
     id: message._id.toString(),
     conversationId: message.conversationId,
     body: message.body,
+    readAt: message.readAt || null,
     createdAt: message.createdAt,
     sender: sanitizeUser(message.sender),
     recipient: sanitizeUser(message.recipient),

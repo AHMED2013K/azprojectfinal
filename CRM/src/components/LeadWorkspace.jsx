@@ -182,7 +182,7 @@ const LeadTableRow = memo(function LeadTableRow({
       </td>
       <td className="px-5 py-4">
         <div className="flex items-start gap-3">
-          <span className={`mt-1 h-2.5 w-2.5 rounded-full ${lead.status === 'Interested' ? 'bg-emerald-300' : lead.status === 'Contacted' ? 'bg-amber-300' : lead.status === 'Non Qualified' ? 'bg-rose-300' : lead.status === 'Not Interested' ? 'bg-orange-300' : 'bg-fuchsia-300'}`} />
+          <span className={`mt-1 h-2.5 w-2.5 rounded-full ${lead.status === 'Interested' ? 'bg-emerald-300' : lead.status === 'Contacted' ? 'bg-amber-300' : lead.status === 'Unreachable' ? 'bg-violet-300' : lead.status === 'Non Qualified' ? 'bg-rose-300' : lead.status === 'Not Interested' ? 'bg-orange-300' : 'bg-fuchsia-300'}`} />
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <p className={theme === 'dark' ? 'font-medium text-white' : 'font-medium text-slate-900'}>{lead.name}</p>
@@ -220,10 +220,11 @@ const LeadTableRow = memo(function LeadTableRow({
       <td className="px-5 py-4">
         <div className="flex flex-wrap gap-2">
           <button type="button" onClick={(event) => { event.stopPropagation(); onOpen(); }} className="table-action">Open</button>
-          {canEdit && lead.status !== 'Contacted' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Contacted'); }} className="table-action">Contacte</button>}
-          {canEdit && lead.status !== 'Non Qualified' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Non Qualified'); }} className="table-action">Non qualifie</button>}
-          {canEdit && lead.status !== 'Not Interested' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Not Interested'); }} className="table-action">Pas interesse</button>}
-          {canEdit && lead.status !== 'Interested' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Interested'); }} className="table-action">Interesse</button>}
+          {canEdit && lead.status !== 'Contacted' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Contacted'); }} className="table-action">Contacté</button>}
+          {canEdit && lead.status !== 'Unreachable' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Unreachable'); }} className="table-action">Injoignable</button>}
+          {canEdit && lead.status !== 'Non Qualified' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Non Qualified'); }} className="table-action">Non qualifié</button>}
+          {canEdit && lead.status !== 'Not Interested' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Not Interested'); }} className="table-action">Pas intéressé</button>}
+          {canEdit && lead.status !== 'Interested' && <button type="button" onClick={(event) => { event.stopPropagation(); onStatusChange('Interested'); }} className="table-action">Intéressé</button>}
           {canEdit && bucket === 'leads' && <button type="button" onClick={(event) => { event.stopPropagation(); onMoveBucket('treated'); }} className="table-action">Traiter</button>}
           {canEdit && bucket === 'treated' && <button type="button" onClick={(event) => { event.stopPropagation(); onMoveBucket('leads'); }} className="table-action">Remettre</button>}
           {canEdit && <button type="button" onClick={(event) => { event.stopPropagation(); onEdit(); }} className="table-action">Edit</button>}
@@ -1187,7 +1188,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
           >
             <p className="text-sm uppercase tracking-[0.24em]">Zone traitée</p>
             <p className="mt-2 text-lg font-semibold">Glissez un lead ici pour l’envoyer vers Traités</p>
-            <p className={theme === 'dark' ? 'mt-2 text-sm text-cyan-100/75' : 'mt-2 text-sm text-sky-800/75'}>{isMovingLead ? 'Mise a jour en cours...' : 'Le lead disparaitra de cette liste et restera visible dans la nouvelle rubrique Traités.'}</p>
+            <p className={theme === 'dark' ? 'mt-2 text-sm text-cyan-100/75' : 'mt-2 text-sm text-sky-800/75'}>{isMovingLead ? 'Mise à jour en cours...' : 'Le lead disparaitra de cette liste et restera visible dans la nouvelle rubrique Traités.'}</p>
           </div>
         )}
 
@@ -1309,10 +1310,10 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                 <CheckSquare size={16} /> Select visible
               </button>
               <button type="button" onClick={() => handleBulkAction('status', 'Contacted').catch(() => {})} className="btn-secondary" disabled={isBulkProcessing || !canEdit}>
-                Mark Contacted
+                Marquer contacté
               </button>
               <button type="button" onClick={() => handleBulkAction('status', 'Interested').catch(() => {})} className="btn-secondary" disabled={isBulkProcessing || !canEdit}>
-                Mark Interested
+                Marquer intéressé
               </button>
               <button type="button" onClick={() => handleBulkAction('bucket', bucket === 'leads' ? 'treated' : 'leads').catch(() => {})} className="btn-secondary" disabled={isBulkProcessing || !canEdit}>
                 {bucket === 'leads' ? 'Move To Treated' : 'Move To Leads'}
@@ -1470,7 +1471,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
         </div>
       </section>
 
-      <section className="space-y-6">
+      <section className="space-y-6 xl:sticky xl:top-6 xl:max-h-[calc(100vh-3rem)] xl:self-start xl:overflow-y-auto xl:pr-1">
         {selectedLead && (
           <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -1486,8 +1487,19 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                 </span>
               )}
             </div>
-            <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>ID: {selectedLead.leadCode || '-'} · Numero: {selectedLead.sequenceNumber || '-'}</p>
-            <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>Campaign: {selectedLead.campaign || 'General'} · Country: {selectedLead.country || '-'}</p>
+            <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-400' : 'mt-2 text-sm text-slate-500'}>ID: {selectedLead.leadCode || '-'} · Numéro: {selectedLead.sequenceNumber || '-'}</p>
+            <div className={theme === 'dark' ? 'mt-4 rounded-3xl border border-white/10 bg-slate-950/40 p-4' : 'mt-4 rounded-3xl border border-slate-200 bg-slate-50 p-4'}>
+              <h3 className={theme === 'dark' ? 'text-xs font-semibold uppercase tracking-[0.2em] text-slate-400' : 'text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'}>Coordonnées</h3>
+              <div className="mt-3 grid gap-2 text-sm">
+                <a className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition hover:bg-white/10' : 'rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 transition hover:bg-slate-100'} href={`tel:${selectedLead.phone || ''}`}>
+                  Phone: {selectedLead.phone || '-'}
+                </a>
+                <a className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition hover:bg-white/10' : 'rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 transition hover:bg-slate-100'} href={`mailto:${selectedLead.email || ''}`}>
+                  Email: {selectedLead.email || '-'}
+                </a>
+              </div>
+            </div>
+            <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Campaign: {selectedLead.campaign || 'General'} · Country: {selectedLead.country || '-'}</p>
             {selectedLead.source && <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-500' : 'mt-1 text-sm text-slate-500'}>Source: {selectedLead.source}</p>}
             <p className={theme === 'dark' ? 'mt-1 text-sm text-slate-500' : 'mt-1 text-sm text-slate-500'}>Last activity: {formatDate(selectedLead.lastActivityAt)}</p>
             {selectedLead.duplicateFlag?.isDuplicate && canManageAssignments && (
@@ -1521,10 +1533,11 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                   <option key={item} value={item}>{getLeadStatusLabel(item)}</option>
                 ))}
               </select>
-              {selectedLead.statusTimeline?.contactedAt && <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs text-amber-100">Contacte: {formatDate(selectedLead.statusTimeline.contactedAt)}</span>}
-              {selectedLead.statusTimeline?.nonQualifiedAt && <span className="rounded-full bg-rose-500/10 px-3 py-1 text-xs text-rose-100">Non qualifie: {formatDate(selectedLead.statusTimeline.nonQualifiedAt)}</span>}
-              {selectedLead.statusTimeline?.notInterestedAt && <span className="rounded-full bg-orange-500/10 px-3 py-1 text-xs text-orange-100">Pas interesse: {formatDate(selectedLead.statusTimeline.notInterestedAt)}</span>}
-              {selectedLead.statusTimeline?.interestedAt && <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs text-emerald-100">Interesse: {formatDate(selectedLead.statusTimeline.interestedAt)}</span>}
+              {selectedLead.statusTimeline?.contactedAt && <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs text-amber-100">Contacté: {formatDate(selectedLead.statusTimeline.contactedAt)}</span>}
+              {selectedLead.statusTimeline?.unreachableAt && <span className="rounded-full bg-violet-500/10 px-3 py-1 text-xs text-violet-100">Injoignable: {formatDate(selectedLead.statusTimeline.unreachableAt)}</span>}
+              {selectedLead.statusTimeline?.nonQualifiedAt && <span className="rounded-full bg-rose-500/10 px-3 py-1 text-xs text-rose-100">Non qualifié: {formatDate(selectedLead.statusTimeline.nonQualifiedAt)}</span>}
+              {selectedLead.statusTimeline?.notInterestedAt && <span className="rounded-full bg-orange-500/10 px-3 py-1 text-xs text-orange-100">Pas intéressé: {formatDate(selectedLead.statusTimeline.notInterestedAt)}</span>}
+              {selectedLead.statusTimeline?.interestedAt && <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs text-emerald-100">Intéressé: {formatDate(selectedLead.statusTimeline.interestedAt)}</span>}
             </div>
 
             {(selectedLead.country || selectedLead.phone || selectedLead.email || selectedLead.details?.studyField || selectedLead.details?.studyLevel || selectedLead.details?.financialSituation || selectedLead.details?.alternanceAwareness || selectedLead.details?.dateOfBirth || selectedLead.details?.message) && (
@@ -1771,7 +1784,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               </div>
             ))}
           </div>
-          {(isStatusUpdating || isMovingLead || isLoadingLeads || isSubmittingLead || isAddingNote || isBulkProcessing) && <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Mise a jour en cours...</p>}
+          {(isStatusUpdating || isMovingLead || isLoadingLeads || isSubmittingLead || isAddingNote || isBulkProcessing) && <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Mise à jour en cours...</p>}
         </div>
       </section>
 

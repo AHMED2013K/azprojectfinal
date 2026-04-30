@@ -463,7 +463,7 @@ export default function Candidatures() {
                 <p className={theme === 'dark' ? 'mt-2 text-2xl font-semibold text-white' : 'mt-2 text-2xl font-semibold text-slate-900'}>{totals.active}</p>
               </div>
               <div className={theme === 'dark' ? 'rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3' : 'rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3'}>
-                <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.22em] text-slate-400' : 'text-xs uppercase tracking-[0.22em] text-slate-500'}>Traitees</p>
+                <p className={theme === 'dark' ? 'text-xs uppercase tracking-[0.22em] text-slate-400' : 'text-xs uppercase tracking-[0.22em] text-slate-500'}>Traitées</p>
                 <p className={theme === 'dark' ? 'mt-2 text-2xl font-semibold text-white' : 'mt-2 text-2xl font-semibold text-slate-900'}>{totals.treated}</p>
               </div>
             </div>

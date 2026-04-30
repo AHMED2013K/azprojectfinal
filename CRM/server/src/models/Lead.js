@@ -44,6 +44,7 @@ const leadSchema = new mongoose.Schema({
   inviteToken: { type: String, default: '' },
   statusTimeline: {
     contactedAt: { type: Date, default: null },
+    unreachableAt: { type: Date, default: null },
     nonQualifiedAt: { type: Date, default: null },
     notInterestedAt: { type: Date, default: null },
     interestedAt: { type: Date, default: null },

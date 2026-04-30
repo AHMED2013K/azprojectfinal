@@ -229,22 +229,51 @@ body[data-user-role='commercial'][data-theme='light'],
   color: #5c0075 !important;
 }
 
+[data-user-role='commercial'][data-theme='light'] .text-slate-300,
+[data-user-role='commercial'][data-theme='light'] .text-slate-200,
+[data-user-role='commercial'][data-theme='light'] .text-slate-100,
+[data-user-role='commercial'][data-theme='light'] .text-fuchsia-100,
+[data-user-role='commercial'][data-theme='light'] .text-fuchsia-200,
+[data-user-role='commercial'][data-theme='light'] .text-amber-100,
+[data-user-role='commercial'][data-theme='light'] .text-amber-200,
+[data-user-role='commercial'][data-theme='light'] .text-violet-100,
+[data-user-role='commercial'][data-theme='light'] .text-violet-200,
+[data-user-role='commercial'][data-theme='light'] .text-rose-100,
+[data-user-role='commercial'][data-theme='light'] .text-rose-200,
+[data-user-role='commercial'][data-theme='light'] .text-orange-100,
+[data-user-role='commercial'][data-theme='light'] .text-orange-200,
+[data-user-role='commercial'][data-theme='light'] .text-emerald-100,
+[data-user-role='commercial'][data-theme='light'] .text-emerald-200 {
+  color: #3c1748 !important;
+}
+
 [data-user-role='commercial'] .bg-cyan-500,
 [data-user-role='commercial'] .bg-cyan-600,
-[data-user-role='commercial'] .bg-sky-700 {
+[data-user-role='commercial'] .bg-sky-700,
+[data-user-role='commercial'] .bg-sky-600 {
   background-color: #5C0075 !important;
 }
 
-[data-user-role='commercial'] .from-cyan-500\/20,
-[data-user-role='commercial'] .from-sky-700 {
+[data-user-role='commercial'] .from-cyan-500\/20 {
   --tw-gradient-from: rgba(92, 0, 117, 0.24) var(--tw-gradient-from-position) !important;
   --tw-gradient-to: rgba(92, 0, 117, 0) var(--tw-gradient-to-position) !important;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
 }
 
-[data-user-role='commercial'] .to-cyan-500\/5,
-[data-user-role='commercial'] .to-cyan-600 {
+[data-user-role='commercial'] .from-sky-700,
+[data-user-role='commercial'] .from-sky-600 {
+  --tw-gradient-from: #5C0075 var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(92, 0, 117, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+[data-user-role='commercial'] .to-cyan-500\/5 {
   --tw-gradient-to: rgba(68, 0, 86, 0.08) var(--tw-gradient-to-position) !important;
+}
+
+[data-user-role='commercial'] .to-cyan-500,
+[data-user-role='commercial'] .to-cyan-600 {
+  --tw-gradient-to: #440056 var(--tw-gradient-to-position) !important;
 }
 
 [data-user-role='commercial'] .border-cyan-200,

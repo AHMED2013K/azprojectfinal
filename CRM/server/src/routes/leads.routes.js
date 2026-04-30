@@ -51,9 +51,10 @@ function getStatusPriority(status = 'New') {
   return {
     New: 0,
     Contacted: 1,
-    Interested: 2,
-    'Not Interested': 3,
-    'Non Qualified': 4,
+    Unreachable: 2,
+    Interested: 3,
+    'Not Interested': 4,
+    'Non Qualified': 5,
   }[status] ?? 0;
 }
 
@@ -290,6 +291,9 @@ function applyStatusTimeline(lead, nextStatus) {
   if (nextStatus === 'Contacted' && !lead.statusTimeline.contactedAt) {
     lead.statusTimeline.contactedAt = new Date();
   }
+  if (nextStatus === 'Unreachable' && !lead.statusTimeline.unreachableAt) {
+    lead.statusTimeline.unreachableAt = new Date();
+  }
   if (nextStatus === 'Non Qualified' && !lead.statusTimeline.nonQualifiedAt) {
     lead.statusTimeline.nonQualifiedAt = new Date();
   }
@@ -302,10 +306,11 @@ function applyStatusTimeline(lead, nextStatus) {
 }
 
 async function fetchBucketSummary(query) {
-  const [total, newCount, contacted, nonQualified, notInterested, interested] = await Promise.all([
+  const [total, newCount, contacted, unreachable, nonQualified, notInterested, interested] = await Promise.all([
     Lead.countDocuments(query),
     Lead.countDocuments({ ...query, status: 'New' }),
     Lead.countDocuments({ ...query, status: 'Contacted' }),
+    Lead.countDocuments({ ...query, status: 'Unreachable' }),
     Lead.countDocuments({ ...query, status: 'Non Qualified' }),
     Lead.countDocuments({ ...query, status: 'Not Interested' }),
     Lead.countDocuments({ ...query, status: 'Interested' }),
@@ -315,6 +320,7 @@ async function fetchBucketSummary(query) {
     total,
     newCount,
     contacted,
+    unreachable,
     nonQualified,
     notInterested,
     interested,

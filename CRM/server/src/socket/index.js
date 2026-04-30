@@ -17,17 +17,30 @@ export function attachSocketHandlers(io) {
       if (!recipientId || !body?.trim()) {
         return;
       }
+      if (recipientId === userId) {
+        return;
+      }
 
-      const message = await Message.create({
-        conversationId: createConversationId(userId, recipientId),
-        sender: userId,
-        recipient: recipientId,
-        body: body.trim(),
-      });
+      try {
+        const recipient = await User.findById(recipientId).select('_id');
+        if (!recipient) {
+          return;
+        }
 
-      const populated = await Message.findById(message._id).populate('sender').populate('recipient');
-      const payload = serializeMessage(populated);
-      io.to(`user:${userId}`).to(`user:${recipientId}`).emit('chat:message', payload);
+        const message = await Message.create({
+          conversationId: createConversationId(userId, recipientId),
+          sender: userId,
+          recipient: recipientId,
+          body: body.trim(),
+        });
+
+        const populated = await Message.findById(message._id).populate('sender').populate('recipient');
+        const payload = serializeMessage(populated);
+        io.to(`user:${userId}`).to(`user:${recipientId}`).emit('chat:message', payload);
+        io.to(`user:${recipientId}`).emit('chat:unread', { senderId: userId, message: payload });
+      } catch {
+        socket.emit('chat:error', { message: 'Message could not be sent' });
+      }
     });
 
     socket.on('disconnect', async () => {

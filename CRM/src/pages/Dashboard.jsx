@@ -6,12 +6,13 @@ import StatCard from '../components/StatCard';
 import { formatDate } from '../lib/format';
 import { getLeadStatusLabel } from '../lib/leads';
 
-const CHART_COLORS = ['#0891b2', '#0284c7', '#059669', '#d97706', '#db2777', '#7c3aed', '#e11d48', '#64748b'];
+const DEFAULT_CHART_COLORS = ['#0891b2', '#0284c7', '#059669', '#d97706', '#db2777', '#7c3aed', '#e11d48', '#64748b'];
+const COMMERCIAL_CHART_COLORS = ['#5C0075', '#440056', '#7B2294', '#A653B8', '#1D0024', '#8F3AA3', '#C07AD0', '#6B2C79'];
 const DONUT_RADIUS = 72;
 const DONUT_STROKE = 24;
 const DONUT_CIRCUMFERENCE = 2 * Math.PI * DONUT_RADIUS;
 
-function buildDonutSegments(data, totalLeads) {
+function buildDonutSegments(data, totalLeads, chartColors) {
   if (!totalLeads) {
     return [];
   }
@@ -23,7 +24,7 @@ function buildDonutSegments(data, totalLeads) {
     const segment = {
       label: item.label,
       value: item.value,
-      color: CHART_COLORS[index % CHART_COLORS.length],
+      color: chartColors[index % chartColors.length],
       dasharray: `${length} ${DONUT_CIRCUMFERENCE - length}`,
       dashoffset: -offset,
     };
@@ -32,17 +33,17 @@ function buildDonutSegments(data, totalLeads) {
   });
 }
 
-function PieBreakdownCard({ title, data, totalLeads, theme }) {
+function PieBreakdownCard({ title, data, totalLeads, theme, chartColors }) {
   if (!data?.length) {
     return (
       <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
         <h3 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>{title}</h3>
-        <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Pas encore assez de donnees.</p>
+        <p className={theme === 'dark' ? 'mt-4 text-sm text-slate-400' : 'mt-4 text-sm text-slate-500'}>Pas encore assez de données.</p>
       </div>
     );
   }
 
-  const segments = buildDonutSegments(data, totalLeads);
+  const segments = buildDonutSegments(data, totalLeads, chartColors);
 
   return (
     <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
@@ -87,7 +88,7 @@ function PieBreakdownCard({ title, data, totalLeads, theme }) {
         {data.map((item, index) => (
           <div key={item.label} className={theme === 'dark' ? 'flex items-center justify-between text-sm text-slate-300' : 'flex items-center justify-between text-sm text-slate-600'}>
             <div className="flex items-center gap-3">
-              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: CHART_COLORS[index % CHART_COLORS.length] }} />
+              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: chartColors[index % chartColors.length] }} />
               <span>{item.label}</span>
             </div>
             <span>{item.value} · {totalLeads ? ((item.value / totalLeads) * 100).toFixed(1) : '0.0'}%</span>
@@ -99,9 +100,10 @@ function PieBreakdownCard({ title, data, totalLeads, theme }) {
 }
 
 export default function Dashboard() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const { theme } = useTheme();
   const [data, setData] = useState(null);
+  const chartColors = user?.role === 'commercial' ? COMMERCIAL_CHART_COLORS : DEFAULT_CHART_COLORS;
 
   useEffect(() => {
     apiRequest('/api/dashboard', { token }).then(setData).catch(() => {});
@@ -118,8 +120,8 @@ export default function Dashboard() {
         <StatCard title="Rubrique Leads" value={data.stats.openLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.openLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
         <StatCard title="Rubrique Traités" value={data.stats.treatedLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.treatedLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
         <StatCard title="Agents Active" value={data.stats.agentsActivity} subtitle={`${data.stats.unreadNotifications} unread notifications`} />
-        <StatCard title="Taches En Retard" value={data.stats.overdueTasks} subtitle="Relances a traiter en priorite" />
-        <StatCard title="Leads Stales" value={data.stats.staleLeads} subtitle="Aucune activite depuis 3 jours" />
+        <StatCard title="Tâches En Retard" value={data.stats.overdueTasks} subtitle="Relances à traiter en priorité" />
+        <StatCard title="Leads Stales" value={data.stats.staleLeads} subtitle="Aucune activité depuis 3 jours" />
         <StatCard title="Non Assignes" value={data.stats.unassignedLeads} subtitle="A distribuer a l equipe" />
       </section>
 
@@ -221,7 +223,7 @@ export default function Dashboard() {
                     <p className={theme === 'dark' ? 'text-sm text-cyan-200' : 'text-sm text-sky-700'}>{month.total} leads</p>
                   </div>
                   <p className={theme === 'dark' ? 'mt-3 text-sm text-slate-300' : 'mt-3 text-sm text-slate-600'}>
-                    Nouveaux {month.newCount} · Contactes {month.contacted} · Non qualifies {month.nonQualified} · Pas interesses {month.notInterested} · Interesses {month.interested}
+                    Nouveaux {month.newCount} · Contactés {month.contacted} · Injoignables {month.unreachable || 0} · Non qualifiés {month.nonQualified} · Pas intéressés {month.notInterested} · Intéressés {month.interested}
                   </p>
                 </div>
               ))}
@@ -316,10 +318,10 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <PieBreakdownCard title="Domaines d'etudes / specialites" data={data.formBreakdowns.studyField} totalLeads={data.stats.totalLeads} theme={theme} />
-        <PieBreakdownCard title="Niveaux d'etudes" data={data.formBreakdowns.studyLevel} totalLeads={data.stats.totalLeads} theme={theme} />
-        <PieBreakdownCard title="Situation financiere" data={data.formBreakdowns.financialSituation} totalLeads={data.stats.totalLeads} theme={theme} />
-        <PieBreakdownCard title="Connaissance de l'alternance" data={data.formBreakdowns.alternanceAwareness} totalLeads={data.stats.totalLeads} theme={theme} />
+        <PieBreakdownCard title="Domaines d'etudes / specialites" data={data.formBreakdowns.studyField} totalLeads={data.stats.totalLeads} theme={theme} chartColors={chartColors} />
+        <PieBreakdownCard title="Niveaux d'etudes" data={data.formBreakdowns.studyLevel} totalLeads={data.stats.totalLeads} theme={theme} chartColors={chartColors} />
+        <PieBreakdownCard title="Situation financiere" data={data.formBreakdowns.financialSituation} totalLeads={data.stats.totalLeads} theme={theme} chartColors={chartColors} />
+        <PieBreakdownCard title="Connaissance de l'alternance" data={data.formBreakdowns.alternanceAwareness} totalLeads={data.stats.totalLeads} theme={theme} chartColors={chartColors} />
       </section>
     </div>
   );

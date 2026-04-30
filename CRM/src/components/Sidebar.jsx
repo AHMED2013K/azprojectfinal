@@ -1,12 +1,17 @@
 import { NavLink } from 'react-router-dom';
 import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield, Database, Inbox, BriefcaseBusiness } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { useSocket } from '../context/SocketContext';
+import { apiRequest } from '../lib/api';
 import { prefetchRouteModule } from '../lib/prefetch';
 
 export default function Sidebar() {
-  const { user } = useAuth();
+  const { token, user } = useAuth();
   const { theme } = useTheme();
+  const { socket } = useSocket();
+  const [unreadChatCount, setUnreadChatCount] = useState(0);
   const brandLogo = user?.role === 'commercial' ? '/DCB_LOGO.jpeg' : '/Submark.png';
   const brandAlt = user?.role === 'commercial' ? 'DCB' : 'EduGrowth';
   const activeNavClass = user?.role === 'commercial'
@@ -33,6 +38,38 @@ export default function Sidebar() {
   } else if (user?.role === 'viewer') {
     navItems.push({ to: '/settings', icon: Settings, label: 'Settings' });
   }
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+
+    apiRequest('/api/chat/unread-count', { token })
+      .then((data) => setUnreadChatCount(data.total || 0))
+      .catch(() => {});
+  }, [token]);
+
+  useEffect(() => {
+    if (!socket) {
+      return undefined;
+    }
+
+    const handleUnread = () => {
+      setUnreadChatCount((count) => count + 1);
+    };
+    const handleRead = () => {
+      apiRequest('/api/chat/unread-count', { token })
+        .then((data) => setUnreadChatCount(data.total || 0))
+        .catch(() => {});
+    };
+
+    socket.on('chat:unread', handleUnread);
+    socket.on('chat:read', handleRead);
+    return () => {
+      socket.off('chat:unread', handleUnread);
+      socket.off('chat:read', handleRead);
+    };
+  }, [socket, token]);
 
   return (
     <aside className={theme === 'dark' ? 'hidden w-72 shrink-0 border-r border-white/10 bg-slate-950/85 p-6 lg:block' : 'hidden w-72 shrink-0 border-r border-slate-200 bg-white p-6 lg:block'}>
@@ -63,6 +100,11 @@ export default function Sidebar() {
               >
                 <Icon size={18} />
                 <span>{item.label}</span>
+                {item.to === '/chat' && unreadChatCount > 0 && (
+                  <span className="ml-auto inline-flex min-w-5 items-center justify-center rounded-full bg-rose-500 px-1.5 py-0.5 text-[11px] font-bold text-white">
+                    {unreadChatCount > 99 ? '99+' : unreadChatCount}
+                  </span>
+                )}
               </NavLink>
             );
           })}

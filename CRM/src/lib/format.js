@@ -19,6 +19,8 @@ export function getLeadStatusTone(status) {
   switch (status) {
     case 'Contacted':
       return 'bg-amber-500/10 text-amber-200 ring-1 ring-amber-400/20';
+    case 'Unreachable':
+      return 'bg-violet-500/10 text-violet-200 ring-1 ring-violet-400/20';
     case 'Non Qualified':
       return 'bg-rose-500/10 text-rose-200 ring-1 ring-rose-400/20';
     case 'Not Interested':
@@ -34,6 +36,8 @@ export function getLeadRowTone(status) {
   switch (status) {
     case 'Contacted':
       return 'bg-amber-500/[0.06]';
+    case 'Unreachable':
+      return 'bg-violet-500/[0.06]';
     case 'Non Qualified':
       return 'bg-rose-500/[0.06]';
     case 'Not Interested':
