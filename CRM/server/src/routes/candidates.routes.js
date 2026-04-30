@@ -4,7 +4,7 @@ import multer from 'multer';
 import CandidateApplication from '../models/CandidateApplication.js';
 import Notification from '../models/Notification.js';
 import User from '../models/User.js';
-import { authMiddleware, csrfProtection } from '../middleware/auth.js';
+import { authMiddleware, csrfProtection, requireRole } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { badRequest, notFound } from '../utils/errors.js';
@@ -91,7 +91,7 @@ router.post('/public/student-job', handleCvUpload, validate(publicCandidateAppli
     },
   });
 
-  const users = await User.find({}, '_id');
+  const users = await User.find({ role: 'admin' }, '_id');
   const title = 'Nouvelle candidature job recue';
   const body = `${application.name} a postule via le formulaire student-job.`;
   if (users.length) {
@@ -120,6 +120,7 @@ router.post('/public/student-job', handleCvUpload, validate(publicCandidateAppli
 }));
 
 router.use(authMiddleware, createIpAllowlistMiddleware(getEnv().CRM_ALLOWED_IPS_LIST), csrfProtection);
+router.use(requireRole('admin'));
 
 router.get('/', validate(candidateQuerySchema), asyncHandler(async (req, res) => {
   const { search, workMode, internship, bucket, reviewStatus, page, limit } = req.validated.query;

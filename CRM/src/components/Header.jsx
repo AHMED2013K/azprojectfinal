@@ -1,12 +1,46 @@
-import { Bell, LogOut, Moon, Sun } from 'lucide-react';
+import { Bell, Briefcase, LogOut, Moon, Pause, Play, Sun } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { formatDate } from '../lib/format';
+import { apiRequest } from '../lib/api';
 
 export default function Header({ notifications = [], onOpenNotifications }) {
   const { theme, setTheme } = useTheme();
-  const { user, logout } = useAuth();
+  const { token, user, logout } = useAuth();
   const unread = notifications.filter((item) => !item.readAt).length;
+  const [workSession, setWorkSession] = useState(null);
+  const [trackingBusy, setTrackingBusy] = useState(false);
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+    apiRequest('/api/tracking/me', { token }).then((data) => setWorkSession(data.session)).catch(() => {});
+  }, [token]);
+
+  async function triggerWorkAction(action) {
+    setTrackingBusy(true);
+    try {
+      const data = await apiRequest('/api/tracking/action', {
+        method: 'POST',
+        token,
+        body: { action },
+      });
+      setWorkSession(data.session);
+    } finally {
+      setTrackingBusy(false);
+    }
+  }
+
+  const nextTrackingAction = !workSession?.startedAt || (!workSession.active && !workSession.endedAt)
+    ? ['start', 'Start work', Play]
+    : workSession.paused
+      ? ['resume', 'Resume', Play]
+      : workSession.active
+        ? ['pause', 'Pause', Pause]
+        : ['start', 'Start work', Briefcase];
+  const TrackingIcon = nextTrackingAction[2];
 
   return (
     <header className={theme === 'dark' ? 'flex flex-col gap-4 border-b border-white/10 bg-slate-950/60 px-6 py-5 backdrop-blur xl:flex-row xl:items-center xl:justify-between' : 'flex flex-col gap-4 border-b border-slate-200 bg-white/90 px-6 py-5 backdrop-blur xl:flex-row xl:items-center xl:justify-between'}>
@@ -16,6 +50,17 @@ export default function Header({ notifications = [], onOpenNotifications }) {
       </div>
 
       <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => triggerWorkAction(nextTrackingAction[0])}
+          disabled={trackingBusy}
+          className="btn-primary px-4 py-3 disabled:cursor-not-allowed disabled:opacity-60"
+          title="Tracking"
+        >
+          <TrackingIcon size={18} />
+          <span className="hidden sm:inline">{trackingBusy ? 'Saving...' : nextTrackingAction[1]}</span>
+        </button>
+
         <button
           type="button"
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}

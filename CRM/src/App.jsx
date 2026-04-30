@@ -79,13 +79,13 @@ export default function App() {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/leads" element={<Leads />} />
                     <Route path="/treated" element={<Treated />} />
-                    <Route path="/candidatures" element={<Candidatures />} />
-                    <Route path="/pipeline" element={<Pipeline />} />
+                    <Route path="/candidatures" element={<ProtectedRoute roles={['admin']}><Candidatures /></ProtectedRoute>} />
+                    <Route path="/pipeline" element={<ProtectedRoute roles={['admin', 'manager']}><Pipeline /></ProtectedRoute>} />
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/tracking" element={<Tracking />} />
                     <Route path="/team" element={<ProtectedRoute roles={['admin']}><Team /></ProtectedRoute>} />
                     <Route path="/backups" element={<ProtectedRoute roles={['admin']}><Backups /></ProtectedRoute>} />
-                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/settings" element={<ProtectedRoute roles={['admin', 'manager', 'viewer']}><Settings /></ProtectedRoute>} />
                   </Route>
                 </Routes>
               </Suspense>

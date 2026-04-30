@@ -171,14 +171,35 @@ async function aggregateSlaMetrics(match) {
 }
 
 function withLeadBucketScope(query, bucket) {
-  if (bucket === 'leads') {
-    return {
-      ...query,
-      $or: [...(query.$or || []), { bucket: 'leads' }, { bucket: { $exists: false } }, { bucket: null }, { bucket: '' }],
-    };
+  const bucketQuery = bucket === 'leads'
+    ? { $or: [{ bucket: 'leads' }, { bucket: { $exists: false } }, { bucket: null }, { bucket: '' }] }
+    : { bucket };
+
+  if (!query || !Object.keys(query).length) {
+    return bucketQuery;
   }
 
-  return { ...query, bucket };
+  return { $and: [query, bucketQuery] };
+}
+
+function mergeQueryClauses(...clauses) {
+  const filteredClauses = clauses.filter((clause) => clause && Object.keys(clause).length);
+  if (filteredClauses.length === 0) {
+    return {};
+  }
+  if (filteredClauses.length === 1) {
+    return filteredClauses[0];
+  }
+  return { $and: filteredClauses };
+}
+
+function buildUnassignedScope(leadScope) {
+  return mergeQueryClauses(leadScope, {
+    $or: [
+      { assignedTo: { $exists: false } },
+      { assignedTo: null },
+    ],
+  });
 }
 
 router.get('/', asyncHandler(async (req, res) => {
@@ -196,18 +217,7 @@ router.get('/', asyncHandler(async (req, res) => {
     ...leadScope,
     lastActivityAt: { $lte: staleCutoff },
   };
-  const unassignedLeadsQuery = {
-    ...leadScope,
-    $and: [
-      ...(leadScope.$and || []),
-      {
-        $or: [
-          { assignedTo: { $exists: false } },
-          { assignedTo: null },
-        ],
-      },
-    ],
-  };
+  const unassignedLeadsQuery = buildUnassignedScope(leadScope);
 
   const openLeadScope = withLeadBucketScope(leadScope, 'leads');
 

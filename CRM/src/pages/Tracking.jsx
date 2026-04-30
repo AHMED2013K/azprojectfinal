@@ -14,8 +14,10 @@ export default function Tracking() {
 
   useEffect(() => {
     apiRequest('/api/tracking/me', { token }).then((data) => setSession(data.session)).catch(() => {});
-    apiRequest('/api/tracking/users', { token }).then((data) => setSessions(data.sessions)).catch(() => {});
-  }, [token]);
+    if (user?.role === 'admin') {
+      apiRequest('/api/tracking/users', { token }).then((data) => setSessions(data.sessions)).catch(() => {});
+    }
+  }, [token, user?.role]);
 
   useEffect(() => {
     if (!socket) {
@@ -27,7 +29,9 @@ export default function Tracking() {
         setSession(updatedSession);
       }
 
-      apiRequest('/api/tracking/users', { token }).then((data) => setSessions(data.sessions)).catch(() => {});
+      if (user.role === 'admin') {
+        apiRequest('/api/tracking/users', { token }).then((data) => setSessions(data.sessions)).catch(() => {});
+      }
     };
 
     socket.on('tracking:updated', handleUpdate);
@@ -41,8 +45,10 @@ export default function Tracking() {
       body: { action },
     });
     setSession(data.session);
-    const usersData = await apiRequest('/api/tracking/users', { token });
-    setSessions(usersData.sessions);
+    if (user?.role === 'admin') {
+      const usersData = await apiRequest('/api/tracking/users', { token });
+      setSessions(usersData.sessions);
+    }
   }
 
   return (
@@ -79,7 +85,7 @@ export default function Tracking() {
           </div>
         </section>
 
-        <section className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
+        {user?.role === 'admin' && <section className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/6 p-6' : 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'}>
           <h2 className={theme === 'dark' ? 'text-xl font-semibold text-white' : 'text-xl font-semibold text-slate-900'}>Team logs</h2>
           <div className="mt-5 overflow-x-auto">
             <table className={theme === 'dark' ? 'min-w-full text-left text-sm text-slate-300' : 'min-w-full text-left text-sm text-slate-600'}>
@@ -104,7 +110,7 @@ export default function Tracking() {
               </tbody>
             </table>
           </div>
-        </section>
+        </section>}
       </div>
     </div>
   );
