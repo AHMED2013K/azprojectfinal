@@ -7,6 +7,9 @@ import { prefetchRouteModule } from '../lib/prefetch';
 export default function Sidebar() {
   const { user } = useAuth();
   const { theme } = useTheme();
+  const activeNavClass = user?.role === 'commercial'
+    ? 'bg-gradient-to-r from-[#5C0075] to-[#440056] text-white shadow-lg shadow-[#1D0024]/30'
+    : 'bg-gradient-to-r from-sky-700 to-cyan-600 text-white shadow-lg shadow-cyan-900/30';
 
   const navItems = [
     { to: '/dashboard', icon: BarChart3, label: 'Dashboard' },
@@ -50,7 +53,7 @@ export default function Sidebar() {
                 className={({ isActive }) => [
                   'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition',
                   isActive
-                    ? 'bg-gradient-to-r from-[#5C0075] to-[#440056] text-white shadow-lg shadow-[#1D0024]/30'
+                    ? activeNavClass
                     : theme === 'dark'
                       ? 'text-slate-300 hover:bg-white/6 hover:text-white'
                       : 'text-slate-700 hover:bg-slate-200 hover:text-slate-950',
