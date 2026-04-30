@@ -7,6 +7,8 @@ import { prefetchRouteModule } from '../lib/prefetch';
 export default function Sidebar() {
   const { user } = useAuth();
   const { theme } = useTheme();
+  const brandLogo = user?.role === 'commercial' ? '/DCB_LOGO.jpeg' : '/Submark.png';
+  const brandAlt = user?.role === 'commercial' ? 'DCB' : 'EduGrowth';
   const activeNavClass = user?.role === 'commercial'
     ? 'bg-gradient-to-r from-[#5C0075] to-[#440056] text-white shadow-lg shadow-[#1D0024]/30'
     : 'bg-gradient-to-r from-sky-700 to-cyan-600 text-white shadow-lg shadow-cyan-900/30';
@@ -36,7 +38,7 @@ export default function Sidebar() {
     <aside className={theme === 'dark' ? 'hidden w-72 shrink-0 border-r border-white/10 bg-slate-950/85 p-6 lg:block' : 'hidden w-72 shrink-0 border-r border-slate-200 bg-white p-6 lg:block'}>
       <div className={theme === 'dark' ? 'rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl' : 'rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-xl'}>
         <div className="mb-8">
-          <img src="/DCB_LOGO.jpeg" alt="DCB" className="h-14 w-auto rounded-xl object-contain" />
+          <img src={brandLogo} alt={brandAlt} className="h-14 w-auto rounded-xl object-contain" />
           <h1 className={theme === 'dark' ? 'mt-4 text-2xl font-semibold text-white' : 'mt-4 text-2xl font-semibold text-slate-900'}>Outsourcing CRM</h1>
           <p className={theme === 'dark' ? 'mt-2 text-sm text-slate-300' : 'mt-2 text-sm text-slate-600'}>Operations, leads, chat, and tracking in one workspace.</p>
         </div>

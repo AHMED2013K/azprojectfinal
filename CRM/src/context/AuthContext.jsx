@@ -136,6 +136,7 @@ export function AuthProvider({ children }) {
     try {
       const data = await apiRequest('/api/auth/login', {
         method: 'POST',
+        retryOnAuthError: false,
         body: {
           email,
           password,
@@ -182,6 +183,7 @@ export function AuthProvider({ children }) {
   async function requestPasswordReset(email) {
     return apiRequest('/api/auth/password-reset/request', {
       method: 'POST',
+      retryOnAuthError: false,
       body: { email },
     });
   }
@@ -189,6 +191,7 @@ export function AuthProvider({ children }) {
   async function confirmPasswordReset(tokenValue, newPassword) {
     return apiRequest('/api/auth/password-reset/confirm', {
       method: 'POST',
+      retryOnAuthError: false,
       body: { token: tokenValue, newPassword },
     });
   }

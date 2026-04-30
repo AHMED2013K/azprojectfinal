@@ -1,4 +1,4 @@
-import { Bell, Briefcase, LogOut, Moon, Pause, Play, Sun } from 'lucide-react';
+import { Bell, Briefcase, LogOut, Moon, Pause, Play, Square, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -41,6 +41,7 @@ export default function Header({ notifications = [], onOpenNotifications }) {
         ? ['pause', 'Pause', Pause]
         : ['start', 'Start work', Briefcase];
   const TrackingIcon = nextTrackingAction[2];
+  const canEndDay = Boolean(workSession?.startedAt) && !workSession?.endedAt;
 
   return (
     <header className={theme === 'dark' ? 'flex flex-col gap-4 border-b border-white/10 bg-slate-950/60 px-6 py-5 backdrop-blur xl:flex-row xl:items-center xl:justify-between' : 'flex flex-col gap-4 border-b border-slate-200 bg-white/90 px-6 py-5 backdrop-blur xl:flex-row xl:items-center xl:justify-between'}>
@@ -59,6 +60,17 @@ export default function Header({ notifications = [], onOpenNotifications }) {
         >
           <TrackingIcon size={18} />
           <span className="hidden sm:inline">{trackingBusy ? 'Saving...' : nextTrackingAction[1]}</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => triggerWorkAction('end')}
+          disabled={trackingBusy || !canEndDay}
+          className="btn-secondary px-4 py-3 disabled:cursor-not-allowed disabled:opacity-60"
+          title="End of the day"
+        >
+          <Square size={18} />
+          <span className="hidden sm:inline">{trackingBusy ? 'Saving...' : 'End of the day'}</span>
         </button>
 
         <button
