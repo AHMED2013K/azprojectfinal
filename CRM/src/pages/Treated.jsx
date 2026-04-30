@@ -4,8 +4,8 @@ export default function Treated() {
   return (
     <LeadWorkspace
       bucket="treated"
-      title="Traites"
-      description="Les leads de cette rubrique ont deja ete traites, mais restent consultables, modifiables et analyses."
+      title="Traités"
+      description="Les leads de cette rubrique ont deja ete traités, mais restent consultables, modifiables et analyses."
     />
   );
 }

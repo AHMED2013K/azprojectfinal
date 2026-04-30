@@ -325,7 +325,7 @@ router.get('/', asyncHandler(async (req, res) => {
     ],
     bucketBreakdown: [
       { label: 'Leads', value: openLeads },
-      { label: 'Traites', value: totalLeads - openLeads },
+      { label: 'Traités', value: totalLeads - openLeads },
     ],
     monthlyBreakdown,
     formBreakdowns: {

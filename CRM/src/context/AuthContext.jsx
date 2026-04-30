@@ -22,8 +22,16 @@ export function AuthProvider({ children }) {
     async function restoreSession() {
       try {
         const storedToken = sessionStorage.getItem(TOKEN_KEY);
+        const isPublicAuthPage = ['/login', '/apply', '/inscription', '/student-job'].includes(window.location.pathname)
+          || window.location.pathname.startsWith('/public/');
 
         if (!storedToken) {
+          if (isPublicAuthPage) {
+            clearStoredAuthSession();
+            setAuthStatusMessage('');
+            return;
+          }
+
           setAuthStatusMessage('Reconnexion au CRM en cours...');
           const refreshData = await apiRequest('/api/auth/refresh', {
             method: 'POST',
@@ -102,10 +110,19 @@ export function AuthProvider({ children }) {
       return undefined;
     }
 
-    setAuthStatusMessage((current) => current || 'Reconnexion automatique au CRM...');
-    const retryId = window.setTimeout(async () => {
+    let retryId;
+    let cancelled = false;
+
+    async function retryUserLoad() {
+      if (cancelled) {
+        return;
+      }
+
       try {
         const data = await apiRequest('/api/auth/me', { token });
+        if (cancelled) {
+          return;
+        }
         setUser(data.user);
         setAuthStatusMessage('');
       } catch (error) {
@@ -113,11 +130,18 @@ export function AuthProvider({ children }) {
           clearStoredAuthSession();
           return;
         }
-        setAuthStatusMessage('Le backend est en train de se reveiller. Nouvelle tentative automatique...');
+        setAuthStatusMessage('Connexion au CRM en cours...');
+        retryId = window.setTimeout(retryUserLoad, 4000);
       }
-    }, 12000);
+    }
 
-    return () => window.clearTimeout(retryId);
+    setAuthStatusMessage((current) => current || 'Connexion au CRM en cours...');
+    retryId = window.setTimeout(retryUserLoad, 1200);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(retryId);
+    };
   }, [loading, token, user]);
 
   useEffect(() => {

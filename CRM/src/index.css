@@ -15,6 +15,13 @@
     font-family: 'Sora', ui-sans-serif, system-ui, sans-serif;
   }
 
+  html,
+  body,
+  #root {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-slate-100 text-slate-950 antialiased transition-colors duration-300;
   }
@@ -133,6 +140,7 @@
   background: linear-gradient(135deg, #5C0075 0%, #440056 100%);
 }
 
+body[data-user-role='commercial'][data-theme='light'],
 [data-user-role='commercial'][data-theme='light'] body {
   background: #f7eef8;
   color: #2b1534;
@@ -149,8 +157,13 @@
 }
 
 [data-user-role='commercial'][data-theme='light'] .bg-slate-50,
+[data-user-role='commercial'][data-theme='light'] .bg-slate-100,
 [data-user-role='commercial'][data-theme='light'] .bg-slate-100\/95 {
   background-color: #f4e7f7 !important;
+}
+
+[data-user-role='commercial'][data-theme='light'] .bg-slate-200 {
+  background-color: #ead7f0 !important;
 }
 
 [data-user-role='commercial'][data-theme='light'] .border-slate-200 {
@@ -163,12 +176,16 @@
 }
 
 [data-user-role='commercial'][data-theme='light'] .text-slate-700 {
-  color: #5a3867 !important;
+  color: #4d275b !important;
 }
 
 [data-user-role='commercial'][data-theme='light'] .text-slate-600,
 [data-user-role='commercial'][data-theme='light'] .text-slate-500 {
-  color: #71537d !important;
+  color: #62406e !important;
+}
+
+[data-user-role='commercial'][data-theme='light'] .text-slate-400 {
+  color: #7d6288 !important;
 }
 
 [data-user-role='commercial'][data-theme='light'] .shadow-sm,
@@ -190,7 +207,9 @@
 }
 
 [data-user-role='commercial'][data-theme='light'] .btn-secondary:hover,
-[data-user-role='commercial'][data-theme='light'] .table-action:hover {
+[data-user-role='commercial'][data-theme='light'] .table-action:hover,
+[data-user-role='commercial'][data-theme='light'] .hover\:bg-slate-100:hover,
+[data-user-role='commercial'][data-theme='light'] .hover\:bg-slate-200:hover {
   background-color: #f2e2f6 !important;
 }
 
@@ -211,8 +230,21 @@
 }
 
 [data-user-role='commercial'] .bg-cyan-500,
-[data-user-role='commercial'] .bg-cyan-600 {
+[data-user-role='commercial'] .bg-cyan-600,
+[data-user-role='commercial'] .bg-sky-700 {
   background-color: #5C0075 !important;
+}
+
+[data-user-role='commercial'] .from-cyan-500\/20,
+[data-user-role='commercial'] .from-sky-700 {
+  --tw-gradient-from: rgba(92, 0, 117, 0.24) var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(92, 0, 117, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+[data-user-role='commercial'] .to-cyan-500\/5,
+[data-user-role='commercial'] .to-cyan-600 {
+  --tw-gradient-to: rgba(68, 0, 86, 0.08) var(--tw-gradient-to-position) !important;
 }
 
 [data-user-role='commercial'] .border-cyan-200,

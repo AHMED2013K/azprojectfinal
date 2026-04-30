@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createUserSchema } from '../server/src/validators/auth.validators.js';
+import { createUserSchema, updateUserSchema } from '../server/src/validators/auth.validators.js';
 import { bulkLeadsSchema, createLeadSchema, publicLeadSchema, savedLeadFilterSchema } from '../server/src/validators/lead.validators.js';
 
 describe('validation schemas', () => {
@@ -38,6 +38,20 @@ describe('validation schemas', () => {
         role: 'commercial',
       },
     })).rejects.toBeTruthy();
+  });
+
+  it('accepts admin user updates and ignores an empty password field', async () => {
+    const parsed = await updateUserSchema.parseAsync({
+      body: {
+        name: 'Updated Member',
+        email: 'MEMBER@example.com',
+        password: '',
+        role: 'commercial',
+      },
+    });
+
+    expect(parsed.body.email).toBe('member@example.com');
+    expect(parsed.body.password).toBeUndefined();
   });
 
   it('normalizes lead emails', async () => {

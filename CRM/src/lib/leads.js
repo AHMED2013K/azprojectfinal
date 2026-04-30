@@ -10,7 +10,7 @@ export const LEAD_STATUS_LABELS = {
 
 export const LEAD_BUCKET_LABELS = {
   leads: 'Leads',
-  treated: 'Traites',
+  treated: 'Traités',
 };
 
 export const QUICK_FILTER_OPTIONS = [

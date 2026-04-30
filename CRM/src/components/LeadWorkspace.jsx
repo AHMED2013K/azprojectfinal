@@ -1185,9 +1185,9 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               ? 'rounded-3xl border border-dashed border-cyan-400/30 bg-cyan-500/10 p-5 text-cyan-100'
               : 'rounded-3xl border border-dashed border-cyan-300 bg-cyan-50 p-5 text-sky-900'}
           >
-            <p className="text-sm uppercase tracking-[0.24em]">Zone traite</p>
-            <p className="mt-2 text-lg font-semibold">Glissez un lead ici pour l’envoyer vers Traites</p>
-            <p className={theme === 'dark' ? 'mt-2 text-sm text-cyan-100/75' : 'mt-2 text-sm text-sky-800/75'}>{isMovingLead ? 'Mise a jour en cours...' : 'Le lead disparaitra de cette liste et restera visible dans la nouvelle rubrique Traites.'}</p>
+            <p className="text-sm uppercase tracking-[0.24em]">Zone traitée</p>
+            <p className="mt-2 text-lg font-semibold">Glissez un lead ici pour l’envoyer vers Traités</p>
+            <p className={theme === 'dark' ? 'mt-2 text-sm text-cyan-100/75' : 'mt-2 text-sm text-sky-800/75'}>{isMovingLead ? 'Mise a jour en cours...' : 'Le lead disparaitra de cette liste et restera visible dans la nouvelle rubrique Traités.'}</p>
           </div>
         )}
 

@@ -44,13 +44,13 @@ export default function Header({ notifications = [], onOpenNotifications }) {
   const canEndDay = Boolean(workSession?.startedAt) && !workSession?.endedAt;
 
   return (
-    <header className={theme === 'dark' ? 'flex flex-col gap-4 border-b border-white/10 bg-slate-950/60 px-6 py-5 backdrop-blur xl:flex-row xl:items-center xl:justify-between' : 'flex flex-col gap-4 border-b border-slate-200 bg-white/90 px-6 py-5 backdrop-blur xl:flex-row xl:items-center xl:justify-between'}>
-      <div>
+    <header className={theme === 'dark' ? 'flex flex-col gap-4 border-b border-white/10 bg-slate-950/60 px-4 py-5 backdrop-blur sm:px-6 xl:flex-row xl:items-center xl:justify-between' : 'flex flex-col gap-4 border-b border-slate-200 bg-white/90 px-4 py-5 backdrop-blur sm:px-6 xl:flex-row xl:items-center xl:justify-between'}>
+      <div className="min-w-0">
         <p className={theme === 'dark' ? 'text-sm text-slate-400' : 'text-sm text-slate-500'}>Premium CRM workspace</p>
-        <h2 className={theme === 'dark' ? 'text-2xl font-semibold text-white' : 'text-2xl font-semibold text-slate-900'}>Welcome back, {user?.name}</h2>
+        <h2 className={theme === 'dark' ? 'truncate text-2xl font-semibold text-white' : 'truncate text-2xl font-semibold text-slate-900'}>Welcome back, {user?.name}</h2>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex min-w-0 flex-wrap items-center gap-3">
         <button
           type="button"
           onClick={() => triggerWorkAction(nextTrackingAction[0])}

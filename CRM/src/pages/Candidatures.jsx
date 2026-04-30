@@ -58,7 +58,7 @@ function getStatusMeta(status = 'pending') {
 }
 
 function bucketLabel(bucket) {
-  return bucket === 'treated' ? 'Candidatures traitees' : 'Candidatures';
+  return bucket === 'treated' ? 'Candidatures traitées' : 'Candidatures';
 }
 
 function CandidateLane({
@@ -405,7 +405,7 @@ export default function Candidatures() {
       applicationId,
       { bucket: nextBucket },
       nextBucket === 'treated'
-        ? 'Candidature deplacee vers candidatures traitees.'
+        ? 'Candidature deplacee vers candidatures traitées.'
         : 'Candidature remise dans la file active.',
     );
     setDraggedId('');
@@ -454,7 +454,7 @@ export default function Candidatures() {
             <div>
               <h1 className={theme === 'dark' ? 'text-3xl font-semibold text-white' : 'text-3xl font-semibold text-slate-900'}>Candidatures</h1>
               <p className={theme === 'dark' ? 'mt-2 text-slate-300' : 'mt-2 text-slate-600'}>
-                Poste de travail du charge de recrutement pour qualifier vite, trier les CV et archiver les dossiers traites.
+                Poste de travail du charge de recrutement pour qualifier vite, trier les CV et archiver les dossiers traités.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -524,7 +524,7 @@ export default function Candidatures() {
           <div className="space-y-6">
             <CandidateLane
               title="Candidatures"
-              description="File active a examiner. Glissez vers la colonne traitee quand le dossier a ete passe en revue."
+              description="File active a examiner. Glissez vers la colonne traitée quand le dossier a ete passe en revue."
               applications={activeApplications}
               selectedId={selectedId}
               draggedId={draggedId}
@@ -535,7 +535,7 @@ export default function Candidatures() {
             />
 
             <CandidateLane
-              title="Candidatures traitees"
+              title="Candidatures traitées"
               description="Dossiers qualifies, refuses ou archives apres revue interne."
               applications={treatedApplications}
               selectedId={selectedId}
@@ -603,13 +603,13 @@ export default function Candidatures() {
                     selectedApplication.id,
                     { bucket: selectedApplication.bucket === 'active' ? 'treated' : 'active' },
                     selectedApplication.bucket === 'active'
-                      ? 'Candidature deplacee vers la colonne traitee.'
+                      ? 'Candidature deplacee vers la colonne traitée.'
                       : 'Candidature remise dans la colonne active.',
                   )}
                   disabled={actionLoading}
                   className="btn-secondary"
                 >
-                  {selectedApplication.bucket === 'active' ? 'Marquer traitee' : 'Remettre active'}
+                  {selectedApplication.bucket === 'active' ? 'Marquer traitée' : 'Remettre active'}
                 </button>
                 <button
                   type="button"

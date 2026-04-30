@@ -35,6 +35,20 @@ export const createUserSchema = z.object({
   }),
 });
 
+export const updateUserSchema = z.object({
+  body: z.object({
+    name: z.string().trim().min(2, 'Name is required').max(80, 'Name is too long').optional(),
+    email: emailSchema.optional(),
+    password: z.preprocess(
+      (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
+      passwordSchema.optional(),
+    ),
+    role: z.enum(['admin', 'manager', 'commercial', 'viewer']).optional(),
+  }).refine((body) => Object.values(body).some((value) => value !== undefined), {
+    message: 'At least one field is required',
+  }),
+});
+
 export const twoFactorSetupSchema = z.object({
   body: z.object({
     password: z.string().min(1, 'Current password is required'),

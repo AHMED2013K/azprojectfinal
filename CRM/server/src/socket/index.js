@@ -36,10 +36,11 @@ export function attachSocketHandlers(io) {
         return;
       }
 
-      user.isOnline = false;
+      const hasOtherActiveSockets = Boolean(io.sockets.adapter.rooms.get(`user:${userId}`)?.size);
+      user.isOnline = hasOtherActiveSockets;
       user.lastSeenAt = new Date();
       await user.save();
-      io.emit('presence:update', { userId, isOnline: false, lastSeenAt: user.lastSeenAt });
+      io.emit('presence:update', { userId, isOnline: user.isOnline, lastSeenAt: user.lastSeenAt });
     });
   });
 }

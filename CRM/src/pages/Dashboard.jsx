@@ -116,7 +116,7 @@ export default function Dashboard() {
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <StatCard title="Total Leads" value={data.stats.totalLeads} subtitle="Tous les leads dans le CRM" />
         <StatCard title="Rubrique Leads" value={data.stats.openLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.openLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
-        <StatCard title="Rubrique Traites" value={data.stats.treatedLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.treatedLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
+        <StatCard title="Rubrique Traités" value={data.stats.treatedLeads} subtitle={`${data.stats.totalLeads ? ((data.stats.treatedLeads / data.stats.totalLeads) * 100).toFixed(1) : '0.0'}% du total`} />
         <StatCard title="Agents Active" value={data.stats.agentsActivity} subtitle={`${data.stats.unreadNotifications} unread notifications`} />
         <StatCard title="Taches En Retard" value={data.stats.overdueTasks} subtitle="Relances a traiter en priorite" />
         <StatCard title="Leads Stales" value={data.stats.staleLeads} subtitle="Aucune activite depuis 3 jours" />

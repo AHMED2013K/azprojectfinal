@@ -238,10 +238,10 @@ export default function Layout() {
   }
 
   return (
-    <div className={theme === 'dark' ? 'min-h-screen bg-app' : 'min-h-screen bg-slate-100 text-slate-900'}>
+    <div className={theme === 'dark' ? 'min-h-screen overflow-x-hidden bg-app' : 'min-h-screen overflow-x-hidden bg-slate-100 text-slate-900'}>
       <div className="flex min-h-screen">
         <Sidebar />
-        <div className="flex min-h-screen flex-1 flex-col">
+        <div className="flex min-h-screen min-w-0 flex-1 flex-col">
           <Header
             notifications={notifications}
             onOpenNotifications={() => setShowNotifications((value) => !value)}
@@ -272,7 +272,7 @@ export default function Layout() {
             </div>
           )}
 
-          <main className="flex-1 overflow-hidden px-6 py-6">
+          <main className="min-w-0 flex-1 overflow-x-hidden px-4 py-6 sm:px-6">
             <AnimatePresence mode="wait" initial={false}>
               <MotionMain
                 key={location.pathname}
@@ -280,7 +280,7 @@ export default function Layout() {
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="h-full"
+                className="h-full min-w-0"
               >
                 <Outlet />
               </MotionMain>
