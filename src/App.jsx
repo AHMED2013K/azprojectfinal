@@ -20,6 +20,8 @@ const AdsOutsourcingPage = lazy(() => import('./pages/AdsOutsourcingPage.jsx'));
 const ThankYouPage = lazy(() => import('./pages/ThankYouPage.jsx'));
 const FranceStudyPage = lazy(() => import('./pages/FranceStudyPage.jsx'));
 const AlternanceFranceTunisiensPage = lazy(() => import('./pages/AlternanceFranceTunisiensPage.jsx'));
+const AlternanceFrancePage = lazy(() => import('./pages/AlternanceFrancePage.jsx'));
+const StudyInNorthCyprusPage = lazy(() => import('./pages/StudyInNorthCyprusPage.jsx'));
 const CampusFranceTunisieGuidePage = lazy(() => import('./pages/CampusFranceTunisieGuidePage.jsx'));
 const CanadaStudyPage = lazy(() => import('./pages/CanadaStudyPage.jsx'));
 const CustomerServiceOutsourcingPage = lazy(() => import('./pages/CustomerServiceOutsourcingPage.jsx'));
@@ -76,6 +78,8 @@ export default function App() {
         <Route path="/book-consultation" element={<Suspense fallback={<LoadingFallback />}><BookConsultationPage /></Suspense>} />
 
         <Route path="/etudier-en-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><FranceStudyPage /></Suspense>} />
+        <Route path="/study-in-north-cyprus" element={<Suspense fallback={<LoadingFallback />}><StudyInNorthCyprusPage /></Suspense>} />
+        <Route path="/alternance-france" element={<Suspense fallback={<LoadingFallback />}><AlternanceFrancePage /></Suspense>} />
         <Route path="/alternance-en-france-pour-tunisiens" element={<Suspense fallback={<LoadingFallback />}><AlternanceFranceTunisiensPage /></Suspense>} />
         <Route path="/campus-france-tunisie-guide" element={<Suspense fallback={<LoadingFallback />}><CampusFranceTunisieGuidePage /></Suspense>} />
         <Route path="/etudier-en-allemagne-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />

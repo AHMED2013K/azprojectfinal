@@ -299,9 +299,10 @@ const AbroadZonePage = () => {
             <h2 className="text-2xl font-black text-slate-900">{ui.guides}</h2>
             <div className="mt-4 flex flex-wrap gap-3 text-sm font-bold text-[#175c7d]">
               <Link to="/etudier-en-france-depuis-tunisie">Étudier en France depuis la Tunisie</Link>
+              <Link to="/alternance-france">Alternance en France pour étudiants tunisiens</Link>
+              <Link to="/study-in-north-cyprus">Étudier à Chypre du Nord depuis la Tunisie</Link>
               <Link to="/etudier-en-allemagne-depuis-tunisie">Étudier en Allemagne depuis la Tunisie</Link>
               <Link to="/etudier-au-canada-depuis-tunisie">Étudier au Canada depuis la Tunisie</Link>
-              <Link to="/etudier-a-chypre-depuis-tunisie">Étudier à Chypre depuis la Tunisie</Link>
               <Link to="/agence-etude-etranger-tunis">Agence à Tunis</Link>
               <Link to="/agence-etude-etranger-sousse">Agence à Sousse</Link>
               <Link to="/agence-etude-etranger-sfax">Agence à Sfax</Link>
@@ -459,16 +460,26 @@ const AbroadZonePage = () => {
               <p className="text-xl text-gray-500 font-medium max-w-2xl mx-auto">{t.stdDestDesc}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {destinationsData.map((d, i) => (
-                <div key={i} className="group relative h-96 rounded-[2.5rem] overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all duration-300">
+              {destinationsData.map((d, i) => {
+                const CardTag = d.path ? Link : 'div';
+                const cardProps = d.path ? { to: d.path } : {};
+                return (
+                <CardTag key={i} {...cardProps} className="group relative h-96 rounded-[2.5rem] overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-all duration-300">
                   <img src={d.img} alt={d.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-0 p-10 text-white">
-                    <h3 className="text-3xl font-black uppercase mb-2">{d.name}</h3>
+                    <h3 className="text-3xl font-black uppercase mb-2">{d.overlayTitle || d.name}</h3>
                     <p className="text-sm font-medium opacity-80">{d.desc}</p>
+                    {d.path && (
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        <span className="rounded-xl bg-white px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#175c7d]">Découvrir</span>
+                        <span className="rounded-xl border border-white/40 bg-white/10 px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-white">Postuler</span>
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                </CardTag>
+              );
+              })}
             </div>
           </div>
         </section>
