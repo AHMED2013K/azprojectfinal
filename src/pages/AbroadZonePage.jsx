@@ -303,6 +303,13 @@ const AbroadZonePage = () => {
               <Link to="/study-in-north-cyprus">Étudier à Chypre du Nord depuis la Tunisie</Link>
               <Link to="/etudier-en-allemagne-depuis-tunisie">Étudier en Allemagne depuis la Tunisie</Link>
               <Link to="/etudier-au-canada-depuis-tunisie">Étudier au Canada depuis la Tunisie</Link>
+              <Link to="/etudier-en-turquie-depuis-tunisie">Étudier en Turquie depuis la Tunisie</Link>
+              <Link to="/etudier-a-dubai-depuis-tunisie">Étudier à Dubai depuis la Tunisie</Link>
+              <Link to="/etudier-en-russie-depuis-tunisie">Étudier en Russie depuis la Tunisie</Link>
+              <Link to="/etudier-en-italie-depuis-tunisie">Étudier en Italie depuis la Tunisie</Link>
+              <Link to="/etudier-au-maroc-depuis-tunisie">Étudier au Maroc depuis la Tunisie</Link>
+              <Link to="/etudier-au-royaume-uni-depuis-tunisie">Étudier au Royaume-Uni depuis la Tunisie</Link>
+              <Link to="/etudier-aux-usa-depuis-tunisie">Étudier aux USA depuis la Tunisie</Link>
               <Link to="/agence-etude-etranger-tunis">Agence à Tunis</Link>
               <Link to="/agence-etude-etranger-sousse">Agence à Sousse</Link>
               <Link to="/agence-etude-etranger-sfax">Agence à Sfax</Link>

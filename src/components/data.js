@@ -1,15 +1,15 @@
 export const destinationsData = [
   { name: 'France', img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=400&q=80', desc: 'Étudier et travailler en France depuis la Tunisie', path: '/alternance-france', overlayTitle: 'Alternance en France' },
-  { name: 'Germany', img: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=400&q=80', desc: 'Ausbildung, excellence technique' },
-  { name: 'Canada', img: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=400&q=80', desc: 'Études, immigration, nature' },
-  { name: 'UAE', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=80', desc: 'Luxury, business, opportunities' },
-  { name: 'UK', img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=400&q=80', desc: 'History, education, finance' },
-  { name: 'Turkey', img: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=400&q=80', desc: 'Culture, studies, affordability' },
+  { name: 'Germany', img: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=400&q=80', desc: 'Ausbildung, visa, compte bloqué', path: '/etudier-en-allemagne-depuis-tunisie', overlayTitle: 'Étudier en Allemagne' },
+  { name: 'Canada', img: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=400&q=80', desc: 'Permis d’études et immigration', path: '/etudier-au-canada-depuis-tunisie', overlayTitle: 'Étudier au Canada' },
+  { name: 'UAE', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=80', desc: 'Universités à Dubai et programmes internationaux', path: '/etudier-a-dubai-depuis-tunisie', overlayTitle: 'Étudier à Dubai' },
+  { name: 'UK', img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=400&q=80', desc: 'UK universities, IELTS, visa étudiant', path: '/etudier-au-royaume-uni-depuis-tunisie', overlayTitle: 'Étudier au Royaume-Uni' },
+  { name: 'Turkey', img: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=400&q=80', desc: 'Universités, bourses et admission', path: '/etudier-en-turquie-depuis-tunisie', overlayTitle: 'Étudier en Turquie' },
   { name: 'North Cyprus', img: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=400&q=80', desc: 'European University of Lefke, bourses jusqu’à 70%', path: '/study-in-north-cyprus', overlayTitle: 'Étudier à Chypre du Nord' },
-  { name: 'Russia', img: 'https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=400&q=80', desc: 'Engineering excellence, affordable tuition' },
-  { name: 'Italy', img: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=400&q=80', desc: 'Art, fashion, culinary studies' },
-  { name: 'Morocco', img: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=400&q=80', desc: 'Arabic studies, cultural immersion' },
-  { name: 'USA', img: 'https://images.unsplash.com/photo-1496588152823-86ff7695e68f?auto=format&fit=crop&w=400&q=80', desc: 'World-class universities, innovation' }
+  { name: 'Russia', img: 'https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=400&q=80', desc: 'Médecine, ingénierie, budget accessible', path: '/etudier-en-russie-depuis-tunisie', overlayTitle: 'Étudier en Russie' },
+  { name: 'Italy', img: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=400&q=80', desc: 'Bourses, design, architecture, business', path: '/etudier-en-italie-depuis-tunisie', overlayTitle: 'Étudier en Italie' },
+  { name: 'Morocco', img: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=400&q=80', desc: 'Proximité, écoles privées, santé, business', path: '/etudier-au-maroc-depuis-tunisie', overlayTitle: 'Étudier au Maroc' },
+  { name: 'USA', img: 'https://images.unsplash.com/photo-1496588152823-86ff7695e68f?auto=format&fit=crop&w=400&q=80', desc: 'Universités, scholarships, visa F-1', path: '/etudier-aux-usa-depuis-tunisie', overlayTitle: 'Étudier aux USA' }
 ];
 
 export const services = [

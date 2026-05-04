@@ -87,6 +87,11 @@ export default function App() {
         <Route path="/etudier-a-chypre-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-turquie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-a-dubai-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-russie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-italie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-au-maroc-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-au-royaume-uni-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-aux-usa-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
 
         <Route path="/agence-etude-etranger-tunis" element={<Suspense fallback={<LoadingFallback />}><CityLandingPage /></Suspense>} />
         <Route path="/agence-etude-etranger-sousse" element={<Suspense fallback={<LoadingFallback />}><CityLandingPage /></Suspense>} />
