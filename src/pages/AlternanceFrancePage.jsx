@@ -87,8 +87,8 @@ export default function AlternanceFrancePage() {
   return (
     <>
       <SEOHelmet
-        title="Alternance en France pour les Tunisiens | Étudier et travailler"
-        description="Alternance en France pour les étudiants tunisiens: étudier et travailler, obtenir une expérience professionnelle, préparer son dossier et candidater depuis la Tunisie."
+        title="Alternance France Tunisie 2026 | Étudier et travailler en France"
+        description="Alternance en France pour les Tunisiens en 2026: étudier et travailler, gagner un salaire, préparer son dossier et candidater depuis la Tunisie."
         canonical="https://edugrowth.tn/alternance-france"
         lang="fr"
         structuredData={structuredData}
@@ -104,7 +104,7 @@ export default function AlternanceFrancePage() {
           </nav>
           <div className="mx-auto grid max-w-6xl gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
-              <p className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-cyan-100">Alternance France Tunisie 2026</p>
+              <p className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-cyan-100">Alternance France Tunisie 2026 • Étudiants tunisiens</p>
               <h1 className="max-w-4xl text-4xl font-black uppercase leading-tight md:text-6xl">Étudier en alternance en France</h1>
               <p className="mt-6 max-w-2xl text-lg font-medium text-cyan-50/90">
                 Un parcours pour étudier et travailler en France, gagner de l’expérience, préparer un diplôme reconnu et construire un profil professionnel solide depuis la Tunisie.
@@ -126,9 +126,9 @@ export default function AlternanceFrancePage() {
 
         <section className="px-5 py-16 md:px-8">
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-black uppercase md:text-4xl">Définition de l’alternance</h2>
-            <p className="mt-5 max-w-3xl text-lg text-slate-600">
-              La formation en alternance en France associe des cours dans une école et des périodes en entreprise. Pour les étudiants tunisiens, c’est une voie concrète pour étudier et travailler en France avec un projet professionnel clair.
+              <h2 className="text-3xl font-black uppercase md:text-4xl">Définition de l’alternance</h2>
+              <p className="mt-5 max-w-3xl text-lg text-slate-600">
+              La formation en alternance en France associe des cours dans une école et des périodes en entreprise. Pour les étudiants tunisiens, c’est une voie concrète pour étudier et travailler en France avec un projet professionnel clair depuis la Tunisie.
             </p>
             <div className="mt-8 grid gap-5 md:grid-cols-3">
               {[

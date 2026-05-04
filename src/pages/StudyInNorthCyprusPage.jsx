@@ -7,14 +7,24 @@ const WA_NUMBER = '21656590703';
 
 const faqItems = [
   {
+    question: 'European University of Lefke est-elle une bonne option pour les Tunisiens ?',
+    answer:
+      "Oui. European University of Lefke est une destination intéressante pour les étudiants tunisiens qui cherchent un large choix de programmes, des frais plus accessibles et des bourses pouvant aller jusqu'à 70% des frais de scolarité selon le dossier.",
+  },
+  {
     question: 'Est-ce reconnu ?',
     answer:
-      "Les universités de Chypre du Nord proposent des diplômes structurés selon des standards internationaux. La reconnaissance dépend du pays, du programme et de l'organisme concerné; Abroad Zone vérifie le parcours avant la candidature.",
+      "Les diplômes doivent être vérifiés selon le programme, le pays visé et le projet de l'étudiant. Abroad Zone accompagne les étudiants tunisiens dans cette vérification avant toute candidature.",
   },
   {
     question: 'Combien ça coûte ?',
     answer:
-      "Le budget dépend de la spécialité et du niveau d'étude. Les bourses peuvent aller jusqu'à 70%, ce qui rend Chypre du Nord accessible pour de nombreux étudiants tunisiens depuis la Tunisie.",
+      "Le budget dépend de la spécialité, du niveau et de la bourse obtenue. Les bourses peuvent aller jusqu'à 70% des frais de scolarité, ce qui rend Chypre du Nord accessible pour de nombreux étudiants tunisiens depuis la Tunisie.",
+  },
+  {
+    question: 'Y a-t-il un visa ou un compte bloqué ?',
+    answer:
+      "La procédure est généralement plus simple que d'autres destinations: pas de compte bloqué demandé pour ce parcours lorsque les conditions du programme s'appliquent, et entrée avec procédure facilitée. Abroad Zone vérifie toujours les règles applicables au moment du dossier.",
   },
   {
     question: 'Peut-on travailler ?',
@@ -44,16 +54,18 @@ const structuredData = {
     },
     {
       '@type': 'Service',
-      name: 'Admission universitaire à Chypre du Nord depuis la Tunisie',
+      name: 'Admission à European University of Lefke à Chypre du Nord depuis la Tunisie',
       serviceType: 'Student admissions consulting',
       provider: { '@id': 'https://edugrowth.tn/#organization' },
-      areaServed: ['Tunisie', 'Chypre du Nord'],
+      areaServed: ['Tunisie', 'Chypre du Nord', 'TRNC'],
       audience: {
         '@type': 'Audience',
         audienceType: 'Étudiants tunisiens',
       },
       description:
-        "Accompagnement pour étudier à Chypre du Nord depuis la Tunisie avec bourses jusqu'à 70%, admission simple et préparation du dossier.",
+        "Accompagnement pour étudier à European University of Lefke à Chypre du Nord depuis la Tunisie avec bourses jusqu'à 70%, admission simple et préparation du dossier.",
+      keywords:
+        "etudier à chypre du nord tunisie, european university of lefke tunisie, université chypre du nord sans visa, chypre du nord sans compte bloqué, bourse chypre du nord 70%, study in north cyprus for tunisian students",
     },
   ],
 };
@@ -94,8 +106,8 @@ export default function StudyInNorthCyprusPage() {
   return (
     <>
       <SEOHelmet
-        title="Étudier à Chypre du Nord depuis la Tunisie | Bourses jusqu’à 70%"
-        description="Étudier à Chypre du Nord depuis la Tunisie avec des bourses jusqu’à 70%. Admission simple, plusieurs spécialités disponibles."
+        title="European University of Lefke Tunisie | Étudier à Chypre du Nord"
+        description="Étudier à European University of Lefke depuis la Tunisie: bourses jusqu’à 70%, IT, business, ingénierie, dentaire, Bachelor, Master et PhD."
         canonical="https://edugrowth.tn/study-in-north-cyprus"
         lang="fr"
         structuredData={structuredData}
@@ -111,10 +123,10 @@ export default function StudyInNorthCyprusPage() {
           </nav>
           <div className="mx-auto grid max-w-6xl gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
-              <p className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-cyan-100">Tunisie • étudiants tunisiens • depuis la Tunisie</p>
+              <p className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-cyan-100">European University of Lefke • Tunisie • TRNC</p>
               <h1 className="max-w-4xl text-4xl font-black uppercase leading-tight md:text-6xl">Étudier à Chypre du Nord depuis la Tunisie</h1>
               <p className="mt-6 max-w-2xl text-lg font-medium text-cyan-50/90">
-                Admission universitaire simple, bourses jusqu’à 70%, filières variées et accompagnement complet pour les étudiants tunisiens qui veulent construire un parcours international accessible.
+                Abroad Zone accompagne les étudiants tunisiens vers European University of Lefke avec admission simple, bourses jusqu’à 70% des frais de scolarité, filières variées et parcours Bachelor, Master ou PhD.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a href="#formulaire" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#175c7d]">
@@ -127,6 +139,26 @@ export default function StudyInNorthCyprusPage() {
             </div>
             <div id="formulaire">
               <LandingForm />
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 py-16 md:px-8">
+          <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <p className="mb-3 text-sm font-black uppercase tracking-[0.2em] text-[#175c7d]">Partenariat officiel</p>
+              <h2 className="text-3xl font-black uppercase md:text-4xl">European University of Lefke pour les étudiants tunisiens</h2>
+              <p className="mt-5 text-slate-600">
+                Grâce au nouveau partenariat Abroad Zone, les étudiants depuis la Tunisie peuvent candidater à European University of Lefke à Chypre du Nord avec un accompagnement complet: choix du programme, vérification du dossier, admission et préparation du départ.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {['Bourses jusqu’à 70% des frais de scolarité', 'Admission Bachelor, Master et PhD', 'Procédure plus simple que plusieurs destinations européennes', 'Accompagnement Abroad Zone depuis la Tunisie'].map((item) => (
+                <div key={item} className="rounded-2xl bg-slate-50 p-5">
+                  <CheckCircle2 className="mb-3 text-[#175c7d]" />
+                  <h3 className="font-black">{item}</h3>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -149,11 +181,19 @@ export default function StudyInNorthCyprusPage() {
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2">
             <div>
               <h2 className="text-3xl font-black uppercase md:text-4xl">Programmes disponibles</h2>
-              <p className="mt-4 text-slate-600">Abroad Zone accompagne les étudiants tunisiens vers des parcours adaptés au niveau académique, au budget et au projet professionnel.</p>
+              <p className="mt-4 text-slate-600">European University of Lefke propose de nombreux domaines pour les étudiants tunisiens: informatique, business, génie mécanique, ingénierie, santé, dentaire et plusieurs autres filières selon les admissions ouvertes.</p>
             </div>
             <div className="grid gap-4">
               {['Licence (Bachelor)', 'Master', 'PhD'].map((program) => (
                 <h3 key={program} className="rounded-2xl bg-white p-5 text-xl font-black shadow-sm"><GraduationCap className="mr-3 inline text-[#175c7d]" />{program}</h3>
+              ))}
+            </div>
+          </div>
+          <div className="mx-auto mt-10 max-w-6xl">
+            <h3 className="text-2xl font-black uppercase">Domaines populaires</h3>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {['IT & Computer Science', 'Business & Management', 'Génie mécanique', 'Ingénierie', 'Dentisterie', 'Santé', 'Architecture', 'Sciences sociales'].map((field) => (
+                <div key={field} className="rounded-2xl bg-white p-5 font-black shadow-sm">{field}</div>
               ))}
             </div>
           </div>
@@ -166,8 +206,8 @@ export default function StudyInNorthCyprusPage() {
               {[
                 'Procédure simple et lisible',
                 'Accompagnement complet depuis la Tunisie',
-                'Pas de compte bloqué lorsque cette condition ne s’applique pas au programme choisi',
-                'Procédure de visa facilitée avec préparation du dossier, sans promettre une exemption automatique',
+                'Pas de compte bloqué demandé pour ce parcours lorsque les conditions applicables sont respectées',
+                'Procédure sans visa préalable dans les cas applicables, avec vérification des règles avant le départ',
               ].map((item) => (
                 <div key={item} className="flex gap-4 rounded-2xl bg-slate-50 p-6">
                   <ShieldCheck className="shrink-0 text-[#175c7d]" />
@@ -182,7 +222,7 @@ export default function StudyInNorthCyprusPage() {
           <div className="mx-auto max-w-6xl">
             <h2 className="text-3xl font-black uppercase md:text-4xl">Comment postuler ?</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-3">
-              {['Remplir le formulaire', 'Étude du dossier', 'Admission'].map((step, index) => (
+              {['Remplir le formulaire Abroad Zone', 'Étude du dossier pour European University of Lefke', 'Admission et préparation du départ'].map((step, index) => (
                 <div key={step} className="rounded-2xl bg-white/10 p-6">
                   <div className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Step {index + 1}</div>
                   <h3 className="text-2xl font-black">{step}</h3>
@@ -210,7 +250,7 @@ export default function StudyInNorthCyprusPage() {
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
             <div>
               <h2 className="text-3xl font-black uppercase md:text-4xl">Abroad Zone, votre référence en Tunisie</h2>
-              <p className="mt-4 text-slate-600">Étudiants tunisiens déjà placés, suivi personnalisé et conseils transparents pour choisir entre Chypre du Nord et l’alternance en France.</p>
+              <p className="mt-4 text-slate-600">Objectif: devenir la première référence en Tunisie pour étudier à Chypre du Nord, avec une page dédiée à European University of Lefke, un suivi personnalisé et des conseils transparents pour choisir entre Chypre du Nord et l’alternance en France.</p>
               <div className="mt-6 flex gap-3 text-sm font-black text-[#175c7d]">
                 <Link to="/alternance-france">Voir alternance en France</Link>
                 <Link to="/abroad-zone">Retour Abroad Zone</Link>
