@@ -41,7 +41,7 @@ export default function Header({ notifications = [], onOpenNotifications }) {
         ? ['pause', 'Pause', Pause]
         : ['start', 'Start work', Briefcase];
   const TrackingIcon = nextTrackingAction[2];
-  const canEndDay = Boolean(workSession?.startedAt) && !workSession?.endedAt;
+  const canEndDay = !workSession?.endedAt;
 
   return (
     <header className={theme === 'dark' ? 'flex flex-col gap-4 border-b border-white/10 bg-slate-950/60 px-4 py-5 backdrop-blur sm:px-6 xl:flex-row xl:items-center xl:justify-between' : 'flex flex-col gap-4 border-b border-slate-200 bg-white/90 px-4 py-5 backdrop-blur sm:px-6 xl:flex-row xl:items-center xl:justify-between'}>

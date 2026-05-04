@@ -66,6 +66,9 @@ router.post('/action', validate(trackingActionSchema), asyncHandler(async (req, 
   }
 
   if (action === 'end') {
+    if (!session.startedAt) {
+      session.startedAt = now;
+    }
     if (session.lastResumedAt) {
       session.totalWorkedMinutes += minutesBetween(session.lastResumedAt, now);
     }

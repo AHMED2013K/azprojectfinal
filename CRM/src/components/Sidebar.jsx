@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield, Database, Inbox, BriefcaseBusiness } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -8,6 +8,7 @@ import { apiRequest } from '../lib/api';
 import { prefetchRouteModule } from '../lib/prefetch';
 
 export default function Sidebar() {
+  const location = useLocation();
   const { token, user } = useAuth();
   const { theme } = useTheme();
   const { socket } = useSocket();
@@ -48,6 +49,12 @@ export default function Sidebar() {
       .then((data) => setUnreadChatCount(data.total || 0))
       .catch(() => {});
   }, [token]);
+
+  useEffect(() => {
+    if (location.pathname === '/chat') {
+      setUnreadChatCount(0);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!socket) {
