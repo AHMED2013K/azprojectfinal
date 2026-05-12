@@ -17,7 +17,7 @@ const canadaStudyStructuredData = {
       "serviceType": "Accompagnement études Canada",
       "provider": {
         "@type": "Organization",
-        "name": "EduGrowth Outsourcing",
+          "name": "EduGrowth Tunisia",
         "url": "https://edugrowth.tn/"
       },
       "areaServed": ["Tunisia", "Canada"],
@@ -58,8 +58,8 @@ const canadaStudyStructuredData = {
 
 const translations = {
   fr: {
-    heroTitle: "Étudier au Canada pour les Tunisiens : Guide Complet 2026",
-    heroSubtitle: "Accompagnement expert pour votre projet d'études au Canada. De l'admission à l'installation, nous vous guidons.",
+    heroTitle: "Étudier au Canada depuis la Tunisie : admission, budget et permis d'études",
+    heroSubtitle: "Accompagnement clair pour choisir la province, préparer l'admission, cadrer les preuves financières et avancer vers le permis d'études.",
     heroCTA: "Commencer ma demande de permis d'études",
     heroSecondary: "Estimer mon budget",
 
@@ -138,7 +138,7 @@ const translations = {
     ],
 
     ctaTitle: "Prêt à étudier au Canada ?",
-    ctaText: "Notre équipe vous accompagne pour maximiser vos chances d'admission et faciliter votre installation.",
+    ctaText: "Notre équipe vous aide à valider la faisabilité du projet, préparer un dossier cohérent et anticiper les étapes sensibles.",
     ctaPrimary: "Commencer maintenant",
     ctaSecondary: "WhatsApp direct"
   }

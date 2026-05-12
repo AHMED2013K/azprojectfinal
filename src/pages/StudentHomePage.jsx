@@ -101,6 +101,7 @@ const copy = {
     navAbout: 'A propos',
     navContact: 'Contact',
     navPartners: 'Espace partenaires',
+    navBusiness: 'Entreprises',
     primaryCta: 'Tester mon profil gratuitement',
     whatsappCta: 'Parler sur WhatsApp',
     badge: 'Accompagnement etudiant depuis la Tunisie',
@@ -263,6 +264,7 @@ const copy = {
     navAbout: 'About',
     navContact: 'Contact',
     navPartners: 'Partner area',
+    navBusiness: 'Businesses',
     primaryCta: 'Check my profile for free',
     whatsappCta: 'Talk on WhatsApp',
     badge: 'Student guidance from Tunisia',
@@ -470,7 +472,6 @@ export default function StudentHomePage() {
 
   const navLinks = [
     { label: t.navDestinations, href: '#destinations' },
-    { label: t.navServices, href: '#services' },
     { label: t.navTestimonials, href: '#stories' },
     { label: t.navResources, to: '/resources' },
     { label: t.navContact, href: '#contact' },
@@ -505,7 +506,10 @@ export default function StudentHomePage() {
                 )
               ))}
               <Link to="/programmes/alternance-france" className="hover:text-[#176b87]">{t.navAlternance}</Link>
-              <Link to="/blog" className="hover:text-[#176b87]">{t.navGuides}</Link>
+              <Link to="/outsourcing" className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-[#17324d] hover:border-[#176b87] hover:text-[#176b87]">
+                <Building2 size={15} />
+                {t.navBusiness}
+              </Link>
             </nav>
 
             <div className="flex items-center gap-2">
@@ -538,7 +542,7 @@ export default function StudentHomePage() {
                   )
                 ))}
                 <Link to="/programmes/alternance-france" onClick={() => setIsMobileMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">{t.navAlternance}</Link>
-                <Link to="/blog" onClick={() => setIsMobileMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">{t.navGuides}</Link>
+                <Link to="/outsourcing" onClick={() => setIsMobileMenuOpen(false)} className="rounded-xl border border-slate-200 px-3 py-3 text-sm font-black text-[#17324d] hover:bg-slate-50">{t.navBusiness} / Outsourcing</Link>
                 <div className="px-3 py-2">
                   <LanguageSwitch lang={lang} onToggle={toggleLanguage} className="border-slate-200 bg-white" />
                 </div>
@@ -1057,6 +1061,7 @@ export default function StudentHomePage() {
             <div className="space-y-3 text-sm font-semibold text-slate-600">
               <Link to="/book-consultation" className="block hover:text-[#176b87]"><CalendarDays size={16} className="mr-2 inline" /> Consultation</Link>
               <Link to="/resources" className="block hover:text-[#176b87]"><BookOpen size={16} className="mr-2 inline" /> {t.navResources}</Link>
+              <Link to="/blog" className="block hover:text-[#176b87]"><BookOpen size={16} className="mr-2 inline" /> {t.navGuides}</Link>
               <Link to="/outsourcing" className="block hover:text-[#176b87]"><Building2 size={16} className="mr-2 inline" /> {t.navPartners}</Link>
               <Link to="/abroad-zone" className="block hover:text-[#176b87]"><Home size={16} className="mr-2 inline" /> Student guidance</Link>
             </div>

@@ -17,7 +17,7 @@ const franceStudyStructuredData = {
       "serviceType": "Accompagnement études France",
       "provider": {
         "@type": "Organization",
-        "name": "EduGrowth Outsourcing",
+          "name": "EduGrowth Tunisia",
         "url": "https://edugrowth.tn/"
       },
       "areaServed": ["Tunisia", "France"],
@@ -58,8 +58,8 @@ const franceStudyStructuredData = {
 
 const translations = {
   fr: {
-    heroTitle: "Étudier en France depuis la Tunisie : Guide Complet 2026",
-    heroSubtitle: "Accompagnement expert pour votre projet d'études en France. De l'orientation Campus France à l'obtention du visa étudiant.",
+    heroTitle: "Étudier en France depuis la Tunisie : dossier, Campus France, visa et alternance",
+    heroSubtitle: "Accompagnement clair pour choisir les formations, préparer Campus France, cadrer le budget, anticiper le visa et rassurer la famille.",
     heroCTA: "Commencer mon dossier Campus France",
     heroSecondary: "Estimer mon budget",
 
@@ -132,7 +132,7 @@ const translations = {
     ],
 
     ctaTitle: "Prêt à étudier en France ?",
-    ctaText: "Notre équipe vous accompagne de A à Z pour maximiser vos chances de réussite.",
+    ctaText: "Notre équipe vous aide à construire un dossier cohérent, sans promesse de visa garanti, avec un plan clair pour chaque étape.",
     ctaPrimary: "Commencer maintenant",
     ctaSecondary: "WhatsApp direct"
   }

@@ -15,6 +15,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.resolve(rootDir, 'dist');
 const templatePath = path.resolve(distDir, 'index.html');
+const extraRoutes = ['/ousourcing', '/outourcing'];
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -94,7 +95,7 @@ async function renderToStringWithSuspense(element) {
 async function main() {
   console.log('Starting prerender...');
   const template = await fs.readFile(templatePath, 'utf-8');
-  const routes = await getRoutesFromSitemap();
+  const routes = [...new Set([...(await getRoutesFromSitemap()), ...extraRoutes])];
 
   const vite = await createViteServer({
     configFile: path.resolve(rootDir, 'vite.config.js'),

@@ -31,7 +31,7 @@ const structuredData = {
       '@id': 'https://edugrowth.tn/#organization',
       name: 'Abroad Zone',
       url: 'https://edugrowth.tn/',
-      logo: 'https://edugrowth.tn/Submark.png',
+      logo: 'https://edugrowth.tn/Submark.webp',
       telephone: '+21656590703',
       areaServed: ['TN', 'FR'],
     },

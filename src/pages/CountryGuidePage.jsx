@@ -367,6 +367,21 @@ export default function CountryGuidePage() {
         supportWhatsapp: `Je souhaite un accompagnement pour étudier en ${data.country}.`,
         related: 'Guides liés',
         programs: 'Programmes et domaines populaires',
+        decisionTitle: `Ce qu'il faut valider avant de choisir ${data.country}`,
+        decisionText: `Avant de lancer une candidature pour ${data.country}, il faut verifier la coherence entre votre niveau, votre budget, votre delai, la langue du programme et les exigences visa. Cette etape evite de perdre du temps sur une destination seduisante mais peu realiste.`,
+        decisionChecks: [
+          'Budget total: frais, logement, assurance, transport et installation',
+          'Delais: admission, documents, rendez-vous visa et rentree',
+          'Documents: diplomes, releves, traductions, justificatifs financiers',
+          'Projet: coherence entre parcours, formation visee et objectif professionnel',
+        ],
+        mistakesTitle: `Erreurs frequentes pour ${data.country}`,
+        mistakes: [
+          'Choisir un pays uniquement parce qu’il semble populaire',
+          'Sous-estimer le budget reel de logement et de vie quotidienne',
+          'Attendre l’admission pour preparer les preuves financieres',
+          'Envoyer un dossier sans verifier la coherence du projet',
+        ],
       };
 
   const structuredData = {
@@ -378,14 +393,14 @@ export default function CountryGuidePage() {
         description: data.description,
         author: {
           '@type': 'Organization',
-          name: 'EduGrowth Outsourcing',
+          name: 'EduGrowth Tunisia',
         },
         publisher: {
           '@type': 'Organization',
-          name: 'EduGrowth Outsourcing',
+          name: 'EduGrowth Tunisia',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://edugrowth.tn/Submark.png',
+            url: 'https://edugrowth.tn/Submark.webp',
           },
         },
       },
@@ -472,6 +487,19 @@ export default function CountryGuidePage() {
               </section>
             ) : null}
 
+            <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
+              <h2 className="text-2xl font-black">{copy.decisionTitle}</h2>
+              <p className="mt-3 leading-7 text-slate-600">{copy.decisionText}</p>
+              <div className="mt-5 grid gap-3 md:grid-cols-2">
+                {copy.decisionChecks.map((item) => (
+                  <p key={item} className="flex items-start gap-3 rounded-2xl bg-slate-50 p-4 text-sm font-semibold text-slate-700">
+                    <CheckCircle2 size={18} className="mt-0.5 text-emerald-600" />
+                    <span>{item}</span>
+                  </p>
+                ))}
+              </div>
+            </section>
+
             <section className="mt-10 grid gap-6 lg:grid-cols-2">
               <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
                 <h2 className="text-2xl font-black">{copy.highlights}</h2>
@@ -495,6 +523,15 @@ export default function CountryGuidePage() {
                     </p>
                   ))}
                 </div>
+              </div>
+            </section>
+
+            <section className="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6">
+              <h2 className="text-2xl font-black text-amber-950">{copy.mistakesTitle}</h2>
+              <div className="mt-4 grid gap-3 md:grid-cols-2">
+                {copy.mistakes.map((item) => (
+                  <p key={item} className="rounded-2xl bg-white p-4 text-sm font-bold leading-6 text-amber-950 ring-1 ring-amber-100">{item}</p>
+                ))}
               </div>
             </section>
 

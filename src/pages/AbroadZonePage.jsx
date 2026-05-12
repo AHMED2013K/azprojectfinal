@@ -30,7 +30,7 @@ const abroadStructuredData = {
       "serviceType": "Student Admissions and Visa Guidance",
       "provider": {
         "@type": "Organization",
-        "name": "EduGrowth Outsourcing",
+        "name": "EduGrowth Tunisia",
         "url": "https://edugrowth.tn/"
       },
       "areaServed": ["Tunisia", "France", "Germany", "Cyprus", "Turkey", "Canada"],
