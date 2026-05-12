@@ -9,7 +9,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor': ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
-          'animation': ['three', 'vanta'],
           'ui': ['lucide-react'],
         },
       },

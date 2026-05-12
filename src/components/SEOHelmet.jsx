@@ -32,7 +32,7 @@ const SEOHelmet = ({
         "@id": `${siteUrl}#organization`,
         "name": "EduGrowth Outsourcing",
         "url": siteUrl,
-        "logo": "https://edugrowth.tn/Submark.png",
+        "logo": "https://edugrowth.tn/Submark.webp",
         "description": "EduGrowth provides student recruitment, admissions support, lead qualification, and multilingual education outsourcing services from Tunisia for universities, language centres, and education agencies.",
         "telephone": "+21656590703",
         "contactPoint": {

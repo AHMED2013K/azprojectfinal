@@ -352,7 +352,7 @@ const structuredData = {
       '@type': 'Organization',
       name: 'EduGrowth Tunisia',
       url: 'https://edugrowth.tn/',
-      logo: 'https://edugrowth.tn/Submark.png',
+      logo: 'https://edugrowth.tn/Submark.webp',
       telephone: '+21656590703',
       contactPoint: {
         '@type': 'ContactPoint',
@@ -713,7 +713,13 @@ export default function StudentHomePage() {
                 {destinations.map((destination) => (
                   <Link key={destination.name} to={destination.path} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                     <div className="relative h-52 overflow-hidden">
-                      <img src={destination.image} alt={destination.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                      <img
+                        src={destination.image}
+                        alt={destination.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 to-transparent" />
                       <h3 className="absolute bottom-5 left-5 text-3xl font-black text-white">{destination.name}</h3>
                     </div>

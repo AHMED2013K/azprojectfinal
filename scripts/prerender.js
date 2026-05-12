@@ -30,8 +30,7 @@ async function getRoutesFromSitemap() {
     .map((match) => match[1]?.trim())
     .filter(Boolean)
     .map((url) => url.replace(new RegExp(`^${escapeRegExp(siteOrigin)}`), ''))
-    .map((route) => (route === '' ? '/' : route))
-    .filter((route) => route !== '/');
+    .map((route) => (route === '' ? '/' : route));
 }
 
 function serializeHelmet(helmet) {
@@ -53,6 +52,22 @@ function serializeHelmet(helmet) {
     safeHelmet.style.toString(),
     safeHelmet.noscript.toString(),
   ].join('');
+}
+
+function extractHeadTags(html) {
+  const extracted = [];
+  const headTagPattern =
+    /<title\b[^>]*>[\s\S]*?<\/title>|<meta\b[^>]*>|<link\b(?=[^>]*(?:rel="canonical"|rel="alternate"))[^>]*>|<script\b(?=[^>]*type="application\/ld\+json")[^>]*>[\s\S]*?<\/script>/gi;
+
+  const bodyHtml = html.replace(headTagPattern, (tag) => {
+    extracted.push(tag);
+    return '';
+  }).replace(/<link\b(?=[^>]*rel="preload")[^>]*>/gi, '');
+
+  return {
+    bodyHtml,
+    headTags: extracted.join(''),
+  };
 }
 
 async function renderToStringWithSuspense(element) {
@@ -116,15 +131,18 @@ async function main() {
     );
 
     const helmet = helmetContext.helmet || {};
-    const headTags = serializeHelmet(helmet);
+    const extracted = extractHeadTags(appHtml);
+    const headTags = `${serializeHelmet(helmet)}${extracted.headTags}`;
     const htmlAttributes = helmet.htmlAttributes?.toString() || 'lang="en"';
 
     let rendered = template
       .replace(/<html[^>]*>/, `<html ${htmlAttributes}>`)
       .replace('<!-- ssr-meta -->', headTags)
-      .replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+      .replace('<div id="root"></div>', `<div id="root">${extracted.bodyHtml}</div>`);
 
-    const outputPath = path.join(distDir, route.slice(1), 'index.html');
+    const outputPath = route === '/'
+      ? path.join(distDir, 'index.html')
+      : path.join(distDir, route.slice(1), 'index.html');
     await fs.mkdir(path.dirname(outputPath), { recursive: true });
     await fs.writeFile(outputPath, rendered, 'utf-8');
     console.log(`Prerendered ${route} -> ${path.relative(rootDir, outputPath)}`);
