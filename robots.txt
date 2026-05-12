@@ -2,5 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /backend/
 Disallow: /api/
+Disallow: /portal
+Disallow: /thank-you
+Disallow: /lp/
 
 Sitemap: https://edugrowth.tn/sitemap.xml
