@@ -37,15 +37,15 @@ export default function StickyCTA() {
         : 'Hello EduGrowth, I want a free consultation.';
 
   const copy = lang === 'fr'
-    ? {
+      ? {
         consultation: 'Réserver une consultation gratuite',
         whatsapp: 'WhatsApp',
-        apply: 'Postuler maintenant',
+        apply: 'Tester mon éligibilité',
       }
     : {
         consultation: 'Book Free Consultation',
         whatsapp: 'WhatsApp',
-        apply: 'Apply Now',
+        apply: 'Check Eligibility',
       };
 
   return (

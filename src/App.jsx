@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import HomePage from './pages/HomePage.jsx';
+import StudentHomePage from './pages/StudentHomePage.jsx';
 import PortalGatePage from './pages/PortalGatePage.jsx';
 import { initMarketing, trackPageView } from './utils/marketing.js';
 
@@ -63,12 +63,17 @@ export default function App() {
       <Routes>
         <Route path="/" element={
           <Suspense fallback={<LoadingFallback />}>
-            <PortalGatePage />
+            <StudentHomePage />
           </Suspense>
         } />
         <Route path="/home" element={
           <Suspense fallback={<LoadingFallback />}>
-            <HomePage />
+            <StudentHomePage />
+          </Suspense>
+        } />
+        <Route path="/portal" element={
+          <Suspense fallback={<LoadingFallback />}>
+            <PortalGatePage />
           </Suspense>
         } />
         <Route path="*" element={<Suspense fallback={<LoadingFallback />}><NotFoundPage /></Suspense>} />

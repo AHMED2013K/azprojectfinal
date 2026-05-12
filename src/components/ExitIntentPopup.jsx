@@ -16,8 +16,8 @@ export default function ExitIntentPopup() {
     ? {
         title: 'Avant de partir',
         description:
-          "Recevez gratuitement notre étude de cas et checklist d'action pour étudier à l'étranger ou développer vos admissions grâce à l'outsourcing en Tunisie.",
-        download: 'Télécharger le PDF gratuit',
+          "Avant de décider, faites analyser votre profil et recevez une première orientation claire pour votre projet d'études à l'étranger.",
+        eligibility: 'Tester mon éligibilité',
         consultation: 'Réserver une consultation gratuite',
         whatsapp: 'Recevoir la checklist sur WhatsApp',
         whatsappText: 'Bonjour EduGrowth, je veux la checklist et une consultation rapide.',
@@ -26,8 +26,8 @@ export default function ExitIntentPopup() {
     : {
         title: 'Before You Leave',
         description:
-          'Get our free case study and action checklist to study abroad or scale admissions with outsourcing in Tunisia.',
-        download: 'Download Free PDF',
+          'Before deciding, get your profile reviewed and receive first guidance for your study abroad project.',
+        eligibility: 'Check My Eligibility',
         consultation: 'Book Free Consultation',
         whatsapp: 'WhatsApp Me The Checklist',
         whatsappText: 'Hello EduGrowth, I want the checklist and a quick consultation.',
@@ -70,15 +70,13 @@ export default function ExitIntentPopup() {
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <a
-            href="/case-study-lp.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`https://app.edugrowth.tn/apply?utm_source=website&utm_medium=exit_popup&utm_campaign=${encodeURIComponent(pathname.replace(/\//g, '_') || 'homepage')}&utm_content=${lang}`}
             onClick={() =>
-              trackEvent('cta_click', { cta_type: 'exit_popup_download_case_study', page: pathname })
+              trackEvent('cta_click', { cta_type: 'exit_popup_eligibility', page: pathname })
             }
             className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-black text-white hover:bg-black"
           >
-            {copy.download}
+            {copy.eligibility}
           </a>
           <Link
             to="/book-consultation"
