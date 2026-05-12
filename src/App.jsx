@@ -6,8 +6,11 @@ import { initMarketing, trackPageView } from './utils/marketing.js';
 
 // Lazy loading all pages for better initial loading performance
 const AbroadZonePage = lazy(() => import('./pages/AbroadZonePage.jsx'));
+const AboutPage = lazy(() => import('./pages/AboutPage.jsx'));
 const EduGrowthOutsourcingPage = lazy(() => import('./pages/EduGrowthOutsourcingPage.jsx'));
 const BookConsultationPage = lazy(() => import('./pages/BookConsultationPage.jsx'));
+const ContactPage = lazy(() => import('./pages/ContactPage.jsx'));
+const PartnersPage = lazy(() => import('./pages/PartnersPage.jsx'));
 const CountryGuidePage = lazy(() => import('./pages/CountryGuidePage.jsx'));
 const CityLandingPage = lazy(() => import('./pages/CityLandingPage.jsx'));
 const BlogHubPage = lazy(() => import('./pages/BlogHubPage.jsx'));
@@ -79,8 +82,11 @@ export default function App() {
         <Route path="*" element={<Suspense fallback={<LoadingFallback />}><NotFoundPage /></Suspense>} />
         
         <Route path="/abroad-zone" element={<Suspense fallback={<LoadingFallback />}><AbroadZonePage /></Suspense>} />
+        <Route path="/about" element={<Suspense fallback={<LoadingFallback />}><AboutPage /></Suspense>} />
         <Route path="/outsourcing" element={<Suspense fallback={<LoadingFallback />}><EduGrowthOutsourcingPage /></Suspense>} />
         <Route path="/book-consultation" element={<Suspense fallback={<LoadingFallback />}><BookConsultationPage /></Suspense>} />
+        <Route path="/contact" element={<Suspense fallback={<LoadingFallback />}><ContactPage /></Suspense>} />
+        <Route path="/partners" element={<Suspense fallback={<LoadingFallback />}><PartnersPage /></Suspense>} />
 
         <Route path="/etudier-en-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><FranceStudyPage /></Suspense>} />
         <Route path="/study-in-north-cyprus" element={<Suspense fallback={<LoadingFallback />}><StudyInNorthCyprusPage /></Suspense>} />

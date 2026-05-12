@@ -94,6 +94,7 @@ const copy = {
     navAlternance: 'Alternance France',
     navTestimonials: 'Temoignages',
     navGuides: 'Guides',
+    navAbout: 'A propos',
     navContact: 'Contact',
     navPartners: 'Espace partenaires',
     primaryCta: 'Tester mon eligibilite gratuitement',
@@ -109,6 +110,14 @@ const copy = {
       { value: 'Pays', label: 'Destination recommandee selon votre situation' },
       { value: 'Dossier', label: 'Documents, admission, motivation et calendrier' },
       { value: 'Depart', label: 'Visa, logement et preparation pratique' },
+    ],
+    proofSystemTitle: 'Des preuves utiles, pas des promesses floues',
+    proofSystemText:
+      "EduGrowth doit rassurer avec des elements concrets : dossiers organises, admissions, avis, photos equipe et informations transparentes. Les documents personnels doivent toujours etre floutes et presentes avec accord.",
+    proofCards: [
+      { title: 'Documents floutes', text: "Lettres d'admission, checklists et preuves de depot peuvent etre montrees sans exposer les donnees personnelles." },
+      { title: 'Avis et retours', text: 'Les retours etudiants doivent indiquer destination, annee, situation de depart et resultat obtenu.' },
+      { title: 'Equipe identifiable', text: "Les parents doivent voir qui accompagne le dossier, avec un numero, une adresse et des horaires clairs." },
     ],
     problemTitle: "Etudier a l'etranger devient vite complique quand on est seul",
     problemText:
@@ -149,10 +158,21 @@ const copy = {
     proofTitle: 'Des parcours etudiants plus clairs, etapes par etapes',
     proofText:
       'Les meilleurs signaux de confiance restent les resultats reels : admissions, dossiers prepares, destinations choisies et familles rassurees.',
+    proofDisclaimer:
+      "Les exemples ci-dessous montrent le format de preuve attendu. Chaque dossier reste unique et aucun visa ne peut etre garanti.",
     parentsTitle: 'Un accompagnement qui rassure aussi les parents',
     parentsText:
       'Nous expliquons les couts, les delais, les risques et les etapes administratives avec des mots simples pour aider la famille a prendre une decision informee.',
     parentPoints: ['Budget realiste', 'Etapes administratives', 'Risques visa expliques', 'Logement et depart'],
+    credibilityTitle: 'Ce que nous refusons de promettre',
+    credibilityText:
+      'La confiance vient aussi de la transparence. Nous ne promettons pas un visa garanti, une admission automatique ou un resultat sans verification du profil.',
+    credibilityPoints: [
+      'Aucune promesse de visa garanti',
+      'Budget explique avant engagement',
+      'Etapes et documents presentes clairement',
+      'Parents bienvenus dans les echanges',
+    ],
     faqTitle: 'Questions frequentes',
     faqs: [
       {
@@ -187,6 +207,7 @@ const copy = {
     navAlternance: 'Work-study France',
     navTestimonials: 'Stories',
     navGuides: 'Guides',
+    navAbout: 'About',
     navContact: 'Contact',
     navPartners: 'Partner area',
     primaryCta: 'Check my eligibility for free',
@@ -202,6 +223,14 @@ const copy = {
       { value: 'Country', label: 'Destination advice based on your situation' },
       { value: 'File', label: 'Documents, admission, motivation, and timeline' },
       { value: 'Departure', label: 'Visa, housing, and practical preparation' },
+    ],
+    proofSystemTitle: 'Useful proof, not vague promises',
+    proofSystemText:
+      'EduGrowth should build trust through concrete elements: organized files, admissions, reviews, team photos, and transparent information. Personal documents must always be blurred and shared with consent.',
+    proofCards: [
+      { title: 'Blurred documents', text: 'Admission letters, checklists, and submission evidence can be shown without exposing personal data.' },
+      { title: 'Student feedback', text: 'Student stories should show destination, year, starting situation, and outcome.' },
+      { title: 'Identifiable team', text: 'Parents should see who supports the file, with a phone number, address, and clear hours.' },
     ],
     problemTitle: 'Studying abroad becomes confusing when you are alone',
     problemText:
@@ -242,10 +271,21 @@ const copy = {
     proofTitle: 'Clearer student journeys, step by step',
     proofText:
       'The best trust signals are real outcomes: admissions, prepared files, selected destinations, and reassured families.',
+    proofDisclaimer:
+      'The examples below show the expected proof format. Every file is unique and no visa can be guaranteed.',
     parentsTitle: 'Guidance that reassures parents too',
     parentsText:
       'We explain costs, timelines, risks, and administrative steps in simple terms so families can make informed decisions.',
     parentPoints: ['Realistic budget', 'Administrative steps', 'Visa risks explained', 'Housing and departure'],
+    credibilityTitle: 'What we do not promise',
+    credibilityText:
+      'Trust also comes from transparency. We do not promise guaranteed visas, automatic admission, or outcomes without checking the profile.',
+    credibilityPoints: [
+      'No guaranteed visa promise',
+      'Budget explained before commitment',
+      'Steps and documents clearly presented',
+      'Parents welcome in discussions',
+    ],
     faqTitle: 'Frequently asked questions',
     faqs: [
       {
@@ -338,6 +378,7 @@ export default function StudentHomePage() {
               <Link to="/programmes/alternance-france" className="hover:text-[#176b87]">{t.navAlternance}</Link>
               <a href="#stories" className="hover:text-[#176b87]">{t.navTestimonials}</a>
               <Link to="/blog" className="hover:text-[#176b87]">{t.navGuides}</Link>
+              <Link to="/about" className="hover:text-[#176b87]">{t.navAbout}</Link>
               <a href="#contact" className="hover:text-[#176b87]">{t.navContact}</a>
             </nav>
 
@@ -433,6 +474,25 @@ export default function StudentHomePage() {
                   <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{item.label}</p>
                 </div>
               ))}
+            </div>
+          </section>
+
+          <section className="px-4 pb-20 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-8 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm md:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Preuves & transparence</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-4xl">{t.proofSystemTitle}</h2>
+                <p className="mt-4 text-base leading-8 text-slate-600">{t.proofSystemText}</p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {t.proofCards.map((card) => (
+                  <article key={card.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                    <FileCheck2 size={22} className="text-[#176b87]" />
+                    <h3 className="mt-4 font-black text-[#17324d]">{card.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{card.text}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -569,24 +629,58 @@ export default function StudentHomePage() {
                 <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Confiance</p>
                 <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">{t.proofTitle}</h2>
                 <p className="mt-4 text-lg leading-8 text-slate-600">{t.proofText}</p>
+                <p className="mt-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-semibold leading-6 text-amber-900">{t.proofDisclaimer}</p>
               </div>
               <div className="mt-10 grid gap-5 lg:grid-cols-3">
                 {studentAbroadTestimonials.slice(0, 3).map((story) => (
                   <blockquote key={story.name} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-                    <div className="flex items-center gap-1 text-amber-400">
-                      {[...Array(story.rating || 5)].map((_, index) => (
-                        <Star key={index} size={16} className="fill-current" />
-                      ))}
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-1 text-amber-400">
+                        {[...Array(story.rating || 5)].map((_, index) => (
+                          <Star key={index} size={16} className="fill-current" />
+                        ))}
+                      </div>
+                      <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[#176b87] ring-1 ring-slate-200">{story.year}</span>
                     </div>
                     <p className="mt-4 text-sm leading-7 text-slate-700">"{story.content}"</p>
+                    <div className="mt-5 space-y-3 text-sm leading-6 text-slate-700">
+                      <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
+                        <strong className="text-[#17324d]">Avant : </strong>{story.before}
+                      </div>
+                      <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
+                        <strong className="text-[#17324d]">Accompagnement : </strong>{story.support}
+                      </div>
+                      <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
+                        <strong className="text-[#17324d]">Resultat : </strong>{story.result}
+                      </div>
+                    </div>
                     <footer className="mt-5 flex items-center gap-3">
                       <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-xl ring-1 ring-slate-200">{story.avatar}</div>
                       <div>
                         <div className="font-black text-[#17324d]">{story.name}</div>
                         <div className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">{story.program} - {story.destination}</div>
+                        <div className="mt-1 text-xs font-semibold text-slate-500">{story.institution} - {story.visaStatus}</div>
                       </div>
                     </footer>
                   </blockquote>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="bg-[#f7fafc] px-4 py-20 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Engagements realistes</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">{t.credibilityTitle}</h2>
+                <p className="mt-5 text-lg leading-8 text-slate-600">{t.credibilityText}</p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {t.credibilityPoints.map((point) => (
+                  <div key={point} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <ShieldCheck size={22} className="text-[#176b87]" />
+                    <p className="mt-3 font-black text-[#17324d]">{point}</p>
+                  </div>
                 ))}
               </div>
             </div>
