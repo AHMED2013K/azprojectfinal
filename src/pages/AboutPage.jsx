@@ -34,6 +34,21 @@ const copy = {
     missionTitle: 'Notre mission',
     missionText:
       "Aider chaque etudiant a comprendre les destinations realistes, les conditions d'admission, les risques administratifs et les etapes avant de s'engager.",
+    architectureTitle: 'Architecture de marque',
+    architectureText:
+      "EduGrowth doit rester la marque principale. Les sous-marques aident a organiser les offres, mais ne doivent jamais rendre le parcours etudiant confus.",
+    architecture: [
+      { title: 'EduGrowth', text: "Marque mere : confiance, orientation, accompagnement international depuis la Tunisie." },
+      { title: 'Abroad Zone by EduGrowth', text: "Programme B2C etudiant : guides pays, admission, visa, logement et alternance." },
+      { title: 'EduGrowth Partners', text: "Offre B2B separee pour ecoles, universites et partenaires de recrutement." },
+    ],
+    premiumTitle: 'Direction premium',
+    premiumItems: [
+      'Ton institutionnel, humain et prudent',
+      'Photos reelles plutot que visuels stock',
+      'Moins de gradients, plus de blanc et de bleu profond',
+      'Preuves visibles : avis, admissions floutees, equipe, evenements',
+    ],
     principlesTitle: 'Nos principes de confiance',
     principles: [
       'Transparence sur les couts, les delais et les risques',
@@ -79,6 +94,21 @@ const copy = {
     missionTitle: 'Our mission',
     missionText:
       'Help each student understand realistic destinations, admission requirements, administrative risks, and the steps required before committing.',
+    architectureTitle: 'Brand architecture',
+    architectureText:
+      'EduGrowth should remain the main brand. Sub-brands can organize offers, but they should never make the student journey confusing.',
+    architecture: [
+      { title: 'EduGrowth', text: 'Master brand: trust, guidance, and international education support from Tunisia.' },
+      { title: 'Abroad Zone by EduGrowth', text: 'B2C student program: country guides, admissions, visa steps, housing, and work-study.' },
+      { title: 'EduGrowth Partners', text: 'Separate B2B offer for schools, universities, and recruitment partners.' },
+    ],
+    premiumTitle: 'Premium direction',
+    premiumItems: [
+      'Institutional, human, and careful tone',
+      'Real photos instead of stock-style visuals',
+      'Fewer gradients, more white space and deep blue',
+      'Visible proof: reviews, blurred admissions, team, events',
+    ],
     principlesTitle: 'Our trust principles',
     principles: [
       'Transparency on costs, timelines, and risks',
@@ -199,6 +229,41 @@ export default function AboutPage() {
               <GraduationCap size={34} className="text-cyan-200" />
               <h2 className="mt-5 text-3xl font-black">{t.missionTitle}</h2>
               <p className="mt-4 max-w-4xl text-lg leading-8 text-slate-200">{t.missionText}</p>
+            </div>
+          </section>
+
+          <section className="bg-white px-4 py-20 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Master brand</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">{t.architectureTitle}</h2>
+                <p className="mt-5 text-lg leading-8 text-slate-600">{t.architectureText}</p>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {t.architecture.map((item) => (
+                  <article key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                    <h3 className="text-lg font-black text-[#17324d]">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{item.text}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="px-4 py-20 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-8 rounded-[1.75rem] border border-slate-200 bg-white p-8 shadow-sm lg:grid-cols-[0.9fr_1.1fr]">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Identite premium</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">{t.premiumTitle}</h2>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {t.premiumItems.map((item) => (
+                  <div key={item} className="rounded-2xl bg-[#eef8fb] p-5">
+                    <CheckCircle2 size={20} className="text-[#176b87]" />
+                    <p className="mt-3 font-bold leading-6 text-slate-700">{item}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 

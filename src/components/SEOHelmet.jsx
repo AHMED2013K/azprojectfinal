@@ -5,8 +5,8 @@ const siteUrl = 'https://edugrowth.tn/';
 const defaultImage = 'https://edugrowth.tn/og-image.png';
 
 const SEOHelmet = ({
-  title = 'EduGrowth Outsourcing | Higher Education BPO & Student Recruitment in Tunisia',
-  description = 'EduGrowth provides specialized BPO services for universities, language centers, and education agencies. Outsource your student recruitment, admissions, and CRM management to Tunisia.',
+  title = 'EduGrowth Tunisia | Study Abroad Guidance from Tunisia',
+  description = 'EduGrowth guides Tunisian students and families through study abroad projects, destination choice, admissions, visa preparation, housing, and work-study options.',
   canonical = siteUrl,
   alternates = null,
   robotsContent = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
@@ -33,7 +33,7 @@ const SEOHelmet = ({
         "name": "EduGrowth Outsourcing",
         "url": siteUrl,
         "logo": "https://edugrowth.tn/Submark.webp",
-        "description": "EduGrowth provides student recruitment, admissions support, lead qualification, and multilingual education outsourcing services from Tunisia for universities, language centres, and education agencies.",
+        "description": "EduGrowth guides Tunisian students and families through study abroad projects, destination choice, admissions, visa preparation, housing, and work-study options.",
         "telephone": "+21656590703",
         "contactPoint": {
           "@type": "ContactPoint",
@@ -46,18 +46,18 @@ const SEOHelmet = ({
       {
         "@type": "Service",
         "@id": `${siteUrl}#service`,
-        "name": "Student Recruitment and Admissions Outsourcing",
-        "serviceType": "Education Outsourcing",
+        "name": "Study Abroad Guidance from Tunisia",
+        "serviceType": "International student guidance",
         "provider": {
           "@id": `${siteUrl}#organization`
         },
         "audience": {
           "@type": "Audience",
-          "audienceType": "Universities, language centres, and education agencies"
+          "audienceType": "Tunisian students and families"
         },
         "areaServed": ["TN", "AE", "GB", "FR", "DE", "CA"],
         "availableLanguage": ["English", "French", "Arabic"],
-        "description": "Outsourced education operations including student lead generation support, applicant qualification, admissions coordination, CRM follow-up, and multilingual communications delivered from Tunisia."
+        "description": "Student guidance including destination selection, admissions preparation, visa steps, housing preparation, and multilingual family support from Tunisia."
       },
       {
         "@type": "WebPage",
@@ -133,7 +133,7 @@ const SEOHelmet = ({
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content={locale} />
-      <meta property="og:site_name" content="EduGrowth Outsourcing" />
+      <meta property="og:site_name" content="EduGrowth Tunisia" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />

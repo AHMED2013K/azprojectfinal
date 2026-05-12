@@ -107,6 +107,14 @@ const copy = {
     heroText:
       "EduGrowth aide les etudiants tunisiens et leurs familles a choisir la bonne destination, preparer un dossier solide, obtenir une admission et avancer sereinement vers le visa et le depart.",
     heroProof: ['Diagnostic gratuit', 'Conseillers en Tunisie', 'Suivi en francais, arabe et anglais'],
+    brandTitle: 'Une marque unique, des parcours bien separes',
+    brandText:
+      'EduGrowth devient la marque principale pour les etudes a l’etranger. Abroad Zone reste le programme etudiant, tandis que les services partenaires sont separes pour ne pas brouiller le parcours des familles.',
+    brandPillars: [
+      { title: 'EduGrowth', text: 'La marque mere : orientation, confiance et accompagnement international depuis la Tunisie.' },
+      { title: 'Abroad Zone by EduGrowth', text: 'Le programme etudiant : destinations, admission, visa, logement et alternance.' },
+      { title: 'EduGrowth Partners', text: 'Un espace discret pour ecoles, universites et partenaires, separe du parcours B2C.' },
+    ],
     trustTitle: 'Un accompagnement pense pour les etudiants et les parents',
     trustItems: [
       { value: 'Profil', label: 'Analyse du niveau, du budget et de l’objectif' },
@@ -235,6 +243,14 @@ const copy = {
     heroText:
       'EduGrowth helps Tunisian students and families choose the right destination, prepare a strong application, secure admission, and move toward visa and departure with clarity.',
     heroProof: ['Free diagnosis', 'Tunisia-based advisors', 'French, Arabic, and English support'],
+    brandTitle: 'One clear brand, separate journeys',
+    brandText:
+      'EduGrowth becomes the main study abroad brand. Abroad Zone remains the student program, while partner services stay separate so families are not confused.',
+    brandPillars: [
+      { title: 'EduGrowth', text: 'The master brand: guidance, trust, and international education support from Tunisia.' },
+      { title: 'Abroad Zone by EduGrowth', text: 'The student program: destinations, admissions, visa steps, housing, and work-study.' },
+      { title: 'EduGrowth Partners', text: 'A discreet area for schools, universities, and partners, separated from the B2C journey.' },
+    ],
     trustTitle: 'Guidance designed for students and parents',
     trustItems: [
       { value: 'Profile', label: 'Level, budget, and objective analysis' },
@@ -558,6 +574,24 @@ export default function StudentHomePage() {
                   <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{item.label}</p>
                 </div>
               ))}
+            </div>
+          </section>
+
+          <section className="px-4 pb-20 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-8 rounded-[1.75rem] bg-[#17324d] p-6 text-white shadow-xl shadow-slate-900/10 md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Architecture de marque</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-5xl">{t.brandTitle}</h2>
+                <p className="mt-5 text-lg leading-8 text-slate-200">{t.brandText}</p>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {t.brandPillars.map((pillar) => (
+                  <article key={pillar.title} className="rounded-2xl border border-white/10 bg-white/10 p-5">
+                    <div className="font-black text-white">{pillar.title}</div>
+                    <p className="mt-3 text-sm leading-6 text-slate-200">{pillar.text}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -932,7 +966,7 @@ export default function StudentHomePage() {
             <div className="space-y-3 text-sm font-semibold text-slate-600">
               <Link to="/book-consultation" className="block hover:text-[#176b87]"><CalendarDays size={16} className="mr-2 inline" /> Consultation</Link>
               <Link to="/outsourcing" className="block hover:text-[#176b87]"><Building2 size={16} className="mr-2 inline" /> {t.navPartners}</Link>
-              <Link to="/abroad-zone" className="block hover:text-[#176b87]"><Home size={16} className="mr-2 inline" /> Abroad Zone by EduGrowth</Link>
+              <Link to="/abroad-zone" className="block hover:text-[#176b87]"><Home size={16} className="mr-2 inline" /> Student guidance</Link>
             </div>
           </div>
         </footer>
