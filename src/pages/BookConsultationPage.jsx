@@ -12,56 +12,58 @@ export default function BookConsultationPage() {
 
   const copy = {
     en: {
-      title: 'Book Free Consultation | EduGrowth Outsourcing Tunisia',
-      description: 'Book a free consultation with EduGrowth for study abroad guidance or education outsourcing in Tunisia.',
-      back: 'Back to Portal',
+      title: 'Book Free Consultation | EduGrowth Study Abroad Tunisia',
+      description: 'Book a free consultation with EduGrowth for study abroad guidance from Tunisia.',
+      back: 'Back Home',
       whatsappDirect: 'WhatsApp Direct',
-      whatsappText: 'Hello EduGrowth, I want to book a free consultation.',
+      whatsappText: 'Hello EduGrowth, I want to book a free study abroad consultation.',
       badge: 'Free Consultation',
-      heading: 'Book Your Strategy Call',
+      heading: 'Book Your Study Abroad Call',
       intro:
-        'We help students study abroad and institutions outsource admissions, recruitment, and back-office operations from Tunisia.',
+        'Share your destination, budget, and current stage. The goal is to give you clear next steps without unrealistic promises.',
       points: [
-        'Custom roadmap based on your objective',
+        'Profile review based on destination, budget, and timeline',
         'Clear next steps in less than 30 minutes',
         'Fast WhatsApp follow-up from our team',
       ],
       name: 'Full name',
-      email: 'Professional email',
       phone: 'Phone / WhatsApp',
-      profilePlaceholder: 'I am...',
-      student: 'Student',
-      university: 'University / School',
-      agency: 'Education Agency',
-      need: 'Tell us what you need help with',
+      destinationPlaceholder: 'Target destination',
+      budgetPlaceholder: 'Estimated monthly budget',
+      stagePlaceholder: 'Current stage',
+      destinations: ['France', 'Germany', 'Canada', 'North Cyprus', 'Turkey', 'Dubai', 'Not sure yet'],
+      budgets: ['Under EUR 500', 'EUR 500 - 800', 'EUR 800 - 1200', 'Over EUR 1200', 'To define with my parents'],
+      stages: ['Comparing countries', 'Preparing application', 'Looking for work-study', 'Visa preparation', 'Parent discussion'],
+      need: 'Optional details',
       submit: 'Send Request on WhatsApp',
-      leadTitle: 'New Free Consultation Request',
+      leadTitle: 'New Study Abroad Consultation Request',
     },
     fr: {
       title: 'Réserver une consultation gratuite | EduGrowth Tunisie',
-      description: "Réservez une consultation gratuite avec EduGrowth pour vos études à l'étranger ou vos besoins d'outsourcing éducatif en Tunisie.",
-      back: 'Retour au portail',
+      description: "Réservez une consultation gratuite avec EduGrowth pour vos études à l'étranger depuis la Tunisie.",
+      back: 'Retour accueil',
       whatsappDirect: 'WhatsApp direct',
-      whatsappText: 'Bonjour EduGrowth, je veux réserver une consultation gratuite.',
+      whatsappText: "Bonjour EduGrowth, je veux reserver une consultation gratuite pour etudier a l'etranger.",
       badge: 'Consultation gratuite',
-      heading: 'Réservez votre appel stratégique',
+      heading: 'Réservez votre appel études à l’étranger',
       intro:
-        "Nous accompagnons les étudiants pour leurs études à l'étranger et les institutions pour l'externalisation des admissions, du recrutement et du back-office depuis la Tunisie.",
+        "Indiquez votre destination, votre budget et votre etape actuelle. L'objectif est de vous donner des prochaines etapes claires, sans promesse irrealisable.",
       points: [
-        'Feuille de route personnalisée selon votre objectif',
+        'Analyse du profil selon destination, budget et calendrier',
         'Étapes suivantes claires en moins de 30 minutes',
         'Suivi rapide de notre équipe sur WhatsApp',
       ],
       name: 'Nom complet',
-      email: 'Email professionnel',
       phone: 'Téléphone / WhatsApp',
-      profilePlaceholder: 'Je suis...',
-      student: 'Étudiant',
-      university: 'Université / école',
-      agency: "Agence d'éducation",
-      need: "Expliquez-nous votre besoin",
+      destinationPlaceholder: 'Destination visee',
+      budgetPlaceholder: 'Budget mensuel estime',
+      stagePlaceholder: 'Etape actuelle',
+      destinations: ['France', 'Allemagne', 'Canada', 'Chypre du Nord', 'Turquie', 'Dubai', 'Je ne sais pas encore'],
+      budgets: ['Moins de 500 EUR', '500 - 800 EUR', '800 - 1200 EUR', 'Plus de 1200 EUR', 'A definir avec mes parents'],
+      stages: ['Je compare les pays', 'Je prepare mon dossier', 'Je cherche une alternance', 'Je prepare le visa', 'Discussion avec mes parents'],
+      need: 'Details optionnels',
       submit: 'Envoyer la demande sur WhatsApp',
-      leadTitle: 'Nouvelle demande de consultation gratuite',
+      leadTitle: 'Nouvelle demande de consultation etudes a l’etranger',
     },
   }[lang];
 
@@ -78,9 +80,10 @@ export default function BookConsultationPage() {
     const message = [
       copy.leadTitle,
       `Name: ${formData.get('name')}`,
-      `Email: ${formData.get('email')}`,
       `Phone: ${formData.get('phone')}`,
-      `Profile: ${formData.get('profile')}`,
+      `Destination: ${formData.get('destination')}`,
+      `Budget: ${formData.get('budget')}`,
+      `Stage: ${formData.get('stage')}`,
       `Need: ${formData.get('need')}`,
     ].join('\n');
 
@@ -131,20 +134,30 @@ export default function BookConsultationPage() {
                   </div>
                 ))}
               </div>
+              <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-semibold leading-6 text-amber-900">
+                {lang === 'fr'
+                  ? 'Aucun visa ne peut etre garanti. La consultation sert a clarifier les options realistes.'
+                  : 'No visa can be guaranteed. The consultation helps clarify realistic options.'}
+              </div>
             </section>
 
             <section className="rounded-3xl bg-white p-8 shadow-sm">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input name="name" required placeholder={copy.name} data-i18n-placeholder="book_consultation.name" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
-                <input name="email" type="email" required placeholder={copy.email} data-i18n-placeholder="book_consultation.email" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
                 <input name="phone" required placeholder={copy.phone} data-i18n-placeholder="book_consultation.phone" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
-                <select name="profile" required className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]">
-                  <option value="">{copy.profilePlaceholder}</option>
-                  <option value="student">{copy.student}</option>
-                  <option value="university">{copy.university}</option>
-                  <option value="agency">{copy.agency}</option>
+                <select name="destination" required className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]">
+                  <option value="">{copy.destinationPlaceholder}</option>
+                  {copy.destinations.map((option) => <option key={option} value={option}>{option}</option>)}
                 </select>
-                <textarea name="need" rows="4" required placeholder={copy.need} data-i18n-placeholder="book_consultation.need" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
+                <select name="budget" required className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]">
+                  <option value="">{copy.budgetPlaceholder}</option>
+                  {copy.budgets.map((option) => <option key={option} value={option}>{option}</option>)}
+                </select>
+                <select name="stage" required className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]">
+                  <option value="">{copy.stagePlaceholder}</option>
+                  {copy.stages.map((option) => <option key={option} value={option}>{option}</option>)}
+                </select>
+                <textarea name="need" rows="3" placeholder={copy.need} data-i18n-placeholder="book_consultation.need" className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]" />
                 <button type="submit" className="w-full rounded-xl bg-[#005A9C] px-4 py-3 font-black text-white hover:bg-blue-700">
                   {copy.submit}
                 </button>

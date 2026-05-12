@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -14,11 +15,13 @@ import {
   Home,
   Languages,
   MapPin,
+  Menu,
   MessageCircle,
   PhoneCall,
   ShieldCheck,
   Star,
   Users,
+  X,
 } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
 import LanguageSwitch from '../components/LanguageSwitch';
@@ -128,6 +131,21 @@ const copy = {
       'J’ai peur du refus visa ou d’un dossier incomplet',
       'Je veux comprendre les etapes avant d’engager ma famille',
     ],
+    quizEyebrow: 'Test rapide',
+    quizTitle: 'Testez votre profil en 2 minutes',
+    quizText:
+      "Repondez a trois questions simples. Vous pourrez ensuite envoyer le resume sur WhatsApp ou ouvrir le formulaire d'eligibilite.",
+    quizDestination: 'Destination visee',
+    quizBudget: 'Budget mensuel estime',
+    quizStage: 'Ou en etes-vous ?',
+    quizDestinations: ['France', 'Allemagne', 'Canada', 'Chypre du Nord', 'Turquie', 'Dubai', 'Je ne sais pas encore'],
+    quizBudgets: ['Moins de 500 EUR', '500 - 800 EUR', '800 - 1200 EUR', 'Plus de 1200 EUR', 'A definir avec mes parents'],
+    quizStages: ['Je compare les pays', 'Je veux preparer mon dossier', 'Je cherche une alternance', 'Je prepare le visa', 'Je veux rassurer mes parents'],
+    quizResultTitle: 'Votre prochaine etape conseillee',
+    quizResultText:
+      "Envoyez ce resume a l'equipe. Un conseiller pourra vous orienter selon votre profil, votre budget et votre calendrier.",
+    quizWhatsApp: 'Envoyer mon profil sur WhatsApp',
+    quizApply: 'Continuer vers le formulaire',
     methodTitle: 'Une methode claire pour construire un dossier solide',
     methodText: 'Chaque projet commence par une analyse simple, puis avance avec un plan concret et des etapes suivies.',
     steps: [
@@ -241,6 +259,21 @@ const copy = {
       'I am worried about visa refusal or missing documents',
       'I want to understand the steps before involving my family',
     ],
+    quizEyebrow: 'Quick test',
+    quizTitle: 'Check your profile in 2 minutes',
+    quizText:
+      'Answer three simple questions. You can then send the summary on WhatsApp or open the eligibility form.',
+    quizDestination: 'Target destination',
+    quizBudget: 'Estimated monthly budget',
+    quizStage: 'Where are you now?',
+    quizDestinations: ['France', 'Germany', 'Canada', 'North Cyprus', 'Turkey', 'Dubai', 'I am not sure yet'],
+    quizBudgets: ['Under EUR 500', 'EUR 500 - 800', 'EUR 800 - 1200', 'Over EUR 1200', 'To define with my parents'],
+    quizStages: ['I am comparing countries', 'I want to prepare my file', 'I am looking for work-study', 'I am preparing visa steps', 'I want to reassure my parents'],
+    quizResultTitle: 'Recommended next step',
+    quizResultText:
+      'Send this summary to the team. An advisor can guide you based on your profile, budget, and timeline.',
+    quizWhatsApp: 'Send my profile on WhatsApp',
+    quizApply: 'Continue to the form',
     methodTitle: 'A clear method to build a stronger application',
     methodText: 'Every project starts with a simple analysis, then moves forward with a practical plan and guided steps.',
     steps: [
@@ -345,12 +378,35 @@ const structuredData = {
 export default function StudentHomePage() {
   const { lang, toggleLanguage } = useLanguage();
   const t = copy[lang] || copy.en;
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [quiz, setQuiz] = useState({
+    destination: t.quizDestinations[0],
+    budget: t.quizBudgets[1],
+    stage: t.quizStages[0],
+  });
   const eligibilityUrl = buildEligibilityUrl('eligibility_homepage', lang);
   const whatsappUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t.whatsappText)}`;
+  const quizSummary =
+    lang === 'fr'
+      ? `Bonjour EduGrowth, je veux tester mon eligibilite.\nDestination: ${quiz.destination}\nBudget: ${quiz.budget}\nEtape actuelle: ${quiz.stage}`
+      : `Hello EduGrowth, I want to check my eligibility.\nDestination: ${quiz.destination}\nBudget: ${quiz.budget}\nCurrent stage: ${quiz.stage}`;
+  const quizWhatsAppUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(quizSummary)}`;
 
   const handleCta = (ctaType) => {
     trackEvent('cta_click', { cta_type: ctaType, page: '/' });
   };
+
+  const updateQuiz = (field, value) => {
+    setQuiz((current) => ({ ...current, [field]: value }));
+  };
+
+  const navLinks = [
+    { label: t.navDestinations, href: '#destinations' },
+    { label: t.navServices, href: '#services' },
+    { label: t.navTestimonials, href: '#stories' },
+    { label: t.navAbout, to: '/about' },
+    { label: t.navContact, href: '#contact' },
+  ];
 
   return (
     <>
@@ -373,26 +429,54 @@ export default function StudentHomePage() {
             </Link>
 
             <nav className="hidden items-center gap-6 text-sm font-bold text-slate-600 lg:flex">
-              <a href="#destinations" className="hover:text-[#176b87]">{t.navDestinations}</a>
-              <a href="#services" className="hover:text-[#176b87]">{t.navServices}</a>
+              {navLinks.map((item) => (
+                item.to ? (
+                  <Link key={item.label} to={item.to} className="hover:text-[#176b87]">{item.label}</Link>
+                ) : (
+                  <a key={item.label} href={item.href} className="hover:text-[#176b87]">{item.label}</a>
+                )
+              ))}
               <Link to="/programmes/alternance-france" className="hover:text-[#176b87]">{t.navAlternance}</Link>
-              <a href="#stories" className="hover:text-[#176b87]">{t.navTestimonials}</a>
               <Link to="/blog" className="hover:text-[#176b87]">{t.navGuides}</Link>
-              <Link to="/about" className="hover:text-[#176b87]">{t.navAbout}</Link>
-              <a href="#contact" className="hover:text-[#176b87]">{t.navContact}</a>
             </nav>
 
             <div className="flex items-center gap-2">
               <LanguageSwitch lang={lang} onToggle={toggleLanguage} className="hidden border-slate-200 bg-white sm:inline-flex" />
               <a
-                href={eligibilityUrl}
+                href="#eligibility-quiz"
                 onClick={() => handleCta('homepage_header_eligibility')}
                 className="inline-flex items-center justify-center rounded-full bg-[#17324d] px-4 py-3 text-xs font-black text-white shadow-lg shadow-slate-900/10 transition hover:bg-[#10263b] sm:px-5 sm:text-sm"
               >
                 {t.primaryCta}
               </a>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen((open) => !open)}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-[#17324d] lg:hidden"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
             </div>
           </div>
+          {isMobileMenuOpen && (
+            <div className="border-t border-slate-200 bg-white px-4 py-4 lg:hidden">
+              <div className="mx-auto grid max-w-7xl gap-2">
+                {navLinks.map((item) => (
+                  item.to ? (
+                    <Link key={item.label} to={item.to} onClick={() => setIsMobileMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">{item.label}</Link>
+                  ) : (
+                    <a key={item.label} href={item.href} onClick={() => setIsMobileMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">{item.label}</a>
+                  )
+                ))}
+                <Link to="/programmes/alternance-france" onClick={() => setIsMobileMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">{t.navAlternance}</Link>
+                <Link to="/blog" onClick={() => setIsMobileMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">{t.navGuides}</Link>
+                <div className="px-3 py-2">
+                  <LanguageSwitch lang={lang} onToggle={toggleLanguage} className="border-slate-200 bg-white" />
+                </div>
+              </div>
+            </div>
+          )}
         </header>
 
         <main>
@@ -412,7 +496,7 @@ export default function StudentHomePage() {
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <a
-                    href={eligibilityUrl}
+                    href="#eligibility-quiz"
                     onClick={() => handleCta('homepage_hero_eligibility')}
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-[#17324d] px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-900/15 transition hover:-translate-y-0.5 hover:bg-[#10263b]"
                   >
@@ -512,6 +596,80 @@ export default function StudentHomePage() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          <section id="eligibility-quiz" className="bg-[#eef8fb] px-4 py-20 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-8 rounded-[1.75rem] bg-white p-6 shadow-sm ring-1 ring-slate-200 md:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">{t.quizEyebrow}</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">{t.quizTitle}</h2>
+                <p className="mt-4 text-lg leading-8 text-slate-600">{t.quizText}</p>
+                <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-semibold leading-6 text-amber-900">
+                  {lang === 'fr'
+                    ? "Conseil CRO : commencez par ce test si vous comparez plusieurs agences ou si vos parents veulent comprendre le projet."
+                    : 'CRO tip: start here if you compare agencies or if your parents need to understand the project.'}
+                </div>
+              </div>
+
+              <div className="grid gap-5">
+                <div className="grid gap-4 md:grid-cols-3">
+                  <label className="grid gap-2 text-sm font-black text-[#17324d]">
+                    {t.quizDestination}
+                    <select value={quiz.destination} onChange={(event) => updateQuiz('destination', event.target.value)} className="min-h-[52px] rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 outline-none focus:border-[#176b87]">
+                      {t.quizDestinations.map((option) => <option key={option}>{option}</option>)}
+                    </select>
+                  </label>
+                  <label className="grid gap-2 text-sm font-black text-[#17324d]">
+                    {t.quizBudget}
+                    <select value={quiz.budget} onChange={(event) => updateQuiz('budget', event.target.value)} className="min-h-[52px] rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 outline-none focus:border-[#176b87]">
+                      {t.quizBudgets.map((option) => <option key={option}>{option}</option>)}
+                    </select>
+                  </label>
+                  <label className="grid gap-2 text-sm font-black text-[#17324d]">
+                    {t.quizStage}
+                    <select value={quiz.stage} onChange={(event) => updateQuiz('stage', event.target.value)} className="min-h-[52px] rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 outline-none focus:border-[#176b87]">
+                      {t.quizStages.map((option) => <option key={option}>{option}</option>)}
+                    </select>
+                  </label>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <div className="flex items-start gap-3">
+                    <FileCheck2 size={22} className="mt-1 text-[#176b87]" />
+                    <div>
+                      <h3 className="font-black text-[#17324d]">{t.quizResultTitle}</h3>
+                      <p className="mt-2 text-sm leading-7 text-slate-600">{t.quizResultText}</p>
+                      <div className="mt-4 grid gap-2 text-sm font-semibold text-slate-700 sm:grid-cols-3">
+                        <span className="rounded-xl bg-white px-3 py-2 ring-1 ring-slate-200">{quiz.destination}</span>
+                        <span className="rounded-xl bg-white px-3 py-2 ring-1 ring-slate-200">{quiz.budget}</span>
+                        <span className="rounded-xl bg-white px-3 py-2 ring-1 ring-slate-200">{quiz.stage}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <a
+                    href={quizWhatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => handleCta('homepage_quiz_whatsapp')}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-6 py-4 text-sm font-black text-white hover:bg-emerald-700"
+                  >
+                    <MessageCircle size={18} />
+                    {t.quizWhatsApp}
+                  </a>
+                  <a
+                    href={eligibilityUrl}
+                    onClick={() => handleCta('homepage_quiz_apply')}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-4 text-sm font-black text-[#17324d] hover:bg-slate-50"
+                  >
+                    {t.quizApply}
+                    <ArrowRight size={17} />
+                  </a>
+                </div>
               </div>
             </div>
           </section>

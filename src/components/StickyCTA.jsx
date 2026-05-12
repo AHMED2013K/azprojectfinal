@@ -16,6 +16,62 @@ function buildApplyUrl(pathname, lang) {
   return `https://app.edugrowth.tn/apply?${params.toString()}`;
 }
 
+function getWhatsAppText(pathname, lang) {
+  const isFr = lang === 'fr';
+
+  if (pathname.includes('canada')) {
+    return isFr
+      ? 'Bonjour EduGrowth, je souhaite verifier mon eligibilite pour etudier au Canada.'
+      : 'Hello EduGrowth, I want to check my eligibility to study in Canada.';
+  }
+
+  if (pathname.includes('allemagne') || pathname.includes('ausbildung')) {
+    return isFr
+      ? "Bonjour EduGrowth, je souhaite verifier mon profil pour l'Allemagne ou l'Ausbildung."
+      : 'Hello EduGrowth, I want to check my profile for Germany or Ausbildung.';
+  }
+
+  if (pathname.includes('alternance')) {
+    return isFr
+      ? 'Bonjour EduGrowth, je souhaite etudier en France en alternance et verifier mon profil.'
+      : 'Hello EduGrowth, I want to study in France through work-study and check my profile.';
+  }
+
+  if (pathname.includes('france') || pathname.includes('campus-france')) {
+    return isFr
+      ? 'Bonjour EduGrowth, je souhaite etudier en France et preparer mon dossier Campus France.'
+      : 'Hello EduGrowth, I want to study in France and prepare my Campus France file.';
+  }
+
+  if (pathname.includes('chypre') || pathname.includes('cyprus')) {
+    return isFr
+      ? 'Bonjour EduGrowth, je souhaite verifier mon eligibilite pour Chypre du Nord.'
+      : 'Hello EduGrowth, I want to check my eligibility for North Cyprus.';
+  }
+
+  if (pathname.includes('turquie') || pathname.includes('turkey')) {
+    return isFr
+      ? 'Bonjour EduGrowth, je souhaite verifier mon eligibilite pour etudier en Turquie.'
+      : 'Hello EduGrowth, I want to check my eligibility to study in Turkey.';
+  }
+
+  if (pathname.includes('dubai') || pathname.includes('uae')) {
+    return isFr
+      ? 'Bonjour EduGrowth, je souhaite verifier mon eligibilite pour etudier a Dubai.'
+      : 'Hello EduGrowth, I want to check my eligibility to study in Dubai.';
+  }
+
+  if (pathname.includes('outsourcing')) {
+    return isFr
+      ? 'Bonjour EduGrowth, je souhaite parler de vos services partenaires.'
+      : 'Hello EduGrowth, I want to discuss your partner services.';
+  }
+
+  return isFr
+    ? "Bonjour EduGrowth, je souhaite tester mon eligibilite pour etudier a l'etranger."
+    : 'Hello EduGrowth, I want to check my eligibility to study abroad.';
+}
+
 export default function StickyCTA() {
   const { lang } = useLanguage();
   const { pathname } = useLocation();
@@ -29,23 +85,18 @@ export default function StickyCTA() {
     pathname.includes('programmes') ||
     pathname.includes('blog');
 
-  const whatsappText =
-    lang === 'fr'
-      ? "Bonjour EduGrowth, je souhaite une consultation gratuite."
-      : pathname === '/outsourcing'
-        ? 'Hello EduGrowth, I want a free outsourcing consultation.'
-        : 'Hello EduGrowth, I want a free consultation.';
+  const whatsappText = getWhatsAppText(pathname, lang);
 
   const copy = lang === 'fr'
       ? {
-        consultation: 'Réserver une consultation gratuite',
+        consultation: 'Consultation gratuite',
         whatsapp: 'WhatsApp',
-        apply: 'Tester mon éligibilité',
+        apply: 'Éligibilité',
       }
     : {
-        consultation: 'Book Free Consultation',
+        consultation: 'Free Consultation',
         whatsapp: 'WhatsApp',
-        apply: 'Check Eligibility',
+        apply: 'Eligibility',
       };
 
   return (
@@ -55,7 +106,7 @@ export default function StickyCTA() {
           <a
             href={buildApplyUrl(pathname, lang)}
             onClick={() => trackEvent('cta_click', { cta_type: 'sticky_apply', page: pathname })}
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#005A9C] px-3 py-3 text-sm font-black text-white transition-all duration-200 hover:bg-blue-700 hover:scale-105 active:scale-95 touch-manipulation sm:min-w-[210px] sm:px-4 sm:py-3"
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#17324d] px-3 py-3 text-sm font-black text-white transition-all duration-200 hover:bg-[#10263b] active:scale-95 touch-manipulation sm:min-w-[210px] sm:px-4 sm:py-3"
           >
             <GraduationCap size={16} className="flex-shrink-0" />
             <span className="truncate">{copy.apply}</span>
@@ -64,7 +115,7 @@ export default function StickyCTA() {
           <Link
             to="/book-consultation"
             onClick={() => trackEvent('cta_click', { cta_type: 'sticky_book_consultation', page: pathname })}
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#005A9C] px-3 py-3 text-sm font-black text-white transition-all duration-200 hover:bg-blue-700 hover:scale-105 active:scale-95 touch-manipulation sm:min-w-[210px] sm:px-4 sm:py-3"
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#17324d] px-3 py-3 text-sm font-black text-white transition-all duration-200 hover:bg-[#10263b] active:scale-95 touch-manipulation sm:min-w-[210px] sm:px-4 sm:py-3"
           >
             <CalendarDays size={16} className="flex-shrink-0" />
             <span className="truncate">{copy.consultation}</span>
