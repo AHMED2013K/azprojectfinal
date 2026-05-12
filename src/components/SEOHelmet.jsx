@@ -30,7 +30,7 @@ const SEOHelmet = ({
       {
         "@type": "Organization",
         "@id": `${siteUrl}#organization`,
-        "name": "EduGrowth Outsourcing",
+        "name": "EduGrowth Tunisia",
         "url": siteUrl,
         "logo": "https://edugrowth.tn/Submark.webp",
         "description": "EduGrowth guides Tunisian students and families through study abroad projects, destination choice, admissions, visa preparation, housing, and work-study options.",
@@ -38,7 +38,7 @@ const SEOHelmet = ({
         "contactPoint": {
           "@type": "ContactPoint",
           "telephone": "+21656590703",
-          "contactType": "sales",
+          "contactType": "student guidance",
           "availableLanguage": ["English", "French", "Arabic"],
           "areaServed": ["TN", "AE", "GB", "FR", "DE", "CA"]
         }
@@ -76,7 +76,7 @@ const SEOHelmet = ({
       {
         "@type": "WebSite",
         "@id": `${siteUrl}#website`,
-        "name": "EduGrowth Outsourcing",
+        "name": "EduGrowth Tunisia",
         "url": siteUrl,
         "inLanguage": ["en", "fr"],
         "publisher": {

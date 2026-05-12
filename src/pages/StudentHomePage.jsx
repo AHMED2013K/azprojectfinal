@@ -97,6 +97,7 @@ const copy = {
     navAlternance: 'Alternance France',
     navTestimonials: 'Temoignages',
     navGuides: 'Guides',
+    navResources: 'Ressources',
     navAbout: 'A propos',
     navContact: 'Contact',
     navPartners: 'Espace partenaires',
@@ -154,6 +155,16 @@ const copy = {
       "Envoyez ce resume a l'equipe. Un conseiller pourra vous orienter selon votre profil, votre budget et votre calendrier.",
     quizWhatsApp: 'Envoyer mon profil sur WhatsApp',
     quizApply: 'Continuer vers le formulaire',
+    resourcesTitle: 'Guides gratuits pour transformer une hesitation en plan clair',
+    resourcesText:
+      'Avant de reserver une consultation, commencez par une checklist ou un guide pratique : budget, Campus France, visa, alternance et choix de destination.',
+    resources: [
+      'Checklist Campus France Tunisie',
+      'Guide budget par destination',
+      'Anti-refus visa etudiant',
+      'Quiz profil alternance France',
+    ],
+    resourcesCta: 'Voir les ressources gratuites',
     methodTitle: 'Une methode claire pour construire un dossier solide',
     methodText: 'Chaque projet commence par une analyse simple, puis avance avec un plan concret et des etapes suivies.',
     steps: [
@@ -233,6 +244,7 @@ const copy = {
     navAlternance: 'Work-study France',
     navTestimonials: 'Stories',
     navGuides: 'Guides',
+    navResources: 'Resources',
     navAbout: 'About',
     navContact: 'Contact',
     navPartners: 'Partner area',
@@ -290,6 +302,16 @@ const copy = {
       'Send this summary to the team. An advisor can guide you based on your profile, budget, and timeline.',
     quizWhatsApp: 'Send my profile on WhatsApp',
     quizApply: 'Continue to the form',
+    resourcesTitle: 'Free guides that turn hesitation into a clear plan',
+    resourcesText:
+      'Before booking a consultation, start with a practical checklist or guide: budget, Campus France, visa, work-study, and destination choice.',
+    resources: [
+      'Campus France Tunisia checklist',
+      'Destination budget guide',
+      'Student visa refusal checklist',
+      'France work-study profile quiz',
+    ],
+    resourcesCta: 'View free resources',
     methodTitle: 'A clear method to build a stronger application',
     methodText: 'Every project starts with a simple analysis, then moves forward with a practical plan and guided steps.',
     steps: [
@@ -420,6 +442,7 @@ export default function StudentHomePage() {
     { label: t.navDestinations, href: '#destinations' },
     { label: t.navServices, href: '#services' },
     { label: t.navTestimonials, href: '#stories' },
+    { label: t.navResources, to: '/resources' },
     { label: t.navAbout, to: '/about' },
     { label: t.navContact, href: '#contact' },
   ];
@@ -709,6 +732,28 @@ export default function StudentHomePage() {
           </section>
 
           <section className="px-4 py-20 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-8 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Ressources gratuites</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">{t.resourcesTitle}</h2>
+                <p className="mt-4 text-lg leading-8 text-slate-600">{t.resourcesText}</p>
+                <Link to="/resources" onClick={() => handleCta('homepage_resources')} className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#17324d] px-6 py-4 text-sm font-black text-white hover:bg-[#10263b]">
+                  <BookOpen size={18} />
+                  {t.resourcesCta}
+                </Link>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {t.resources.map((resource) => (
+                  <div key={resource} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                    <FileCheck2 size={22} className="text-[#176b87]" />
+                    <p className="mt-4 font-black text-[#17324d]">{resource}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="px-4 py-20 sm:px-6">
             <div className="mx-auto max-w-7xl">
               <div className="max-w-3xl">
                 <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Methode EduGrowth</p>
@@ -965,6 +1010,7 @@ export default function StudentHomePage() {
             </div>
             <div className="space-y-3 text-sm font-semibold text-slate-600">
               <Link to="/book-consultation" className="block hover:text-[#176b87]"><CalendarDays size={16} className="mr-2 inline" /> Consultation</Link>
+              <Link to="/resources" className="block hover:text-[#176b87]"><BookOpen size={16} className="mr-2 inline" /> {t.navResources}</Link>
               <Link to="/outsourcing" className="block hover:text-[#176b87]"><Building2 size={16} className="mr-2 inline" /> {t.navPartners}</Link>
               <Link to="/abroad-zone" className="block hover:text-[#176b87]"><Home size={16} className="mr-2 inline" /> Student guidance</Link>
             </div>

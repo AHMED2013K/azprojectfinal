@@ -11,6 +11,7 @@ const EduGrowthOutsourcingPage = lazy(() => import('./pages/EduGrowthOutsourcing
 const BookConsultationPage = lazy(() => import('./pages/BookConsultationPage.jsx'));
 const ContactPage = lazy(() => import('./pages/ContactPage.jsx'));
 const PartnersPage = lazy(() => import('./pages/PartnersPage.jsx'));
+const ResourcesPage = lazy(() => import('./pages/ResourcesPage.jsx'));
 const CountryGuidePage = lazy(() => import('./pages/CountryGuidePage.jsx'));
 const CityLandingPage = lazy(() => import('./pages/CityLandingPage.jsx'));
 const BlogHubPage = lazy(() => import('./pages/BlogHubPage.jsx'));
@@ -87,6 +88,7 @@ export default function App() {
         <Route path="/book-consultation" element={<Suspense fallback={<LoadingFallback />}><BookConsultationPage /></Suspense>} />
         <Route path="/contact" element={<Suspense fallback={<LoadingFallback />}><ContactPage /></Suspense>} />
         <Route path="/partners" element={<Suspense fallback={<LoadingFallback />}><PartnersPage /></Suspense>} />
+        <Route path="/resources" element={<Suspense fallback={<LoadingFallback />}><ResourcesPage /></Suspense>} />
 
         <Route path="/etudier-en-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><FranceStudyPage /></Suspense>} />
         <Route path="/study-in-north-cyprus" element={<Suspense fallback={<LoadingFallback />}><StudyInNorthCyprusPage /></Suspense>} />

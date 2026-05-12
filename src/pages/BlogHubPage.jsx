@@ -8,9 +8,6 @@ const topics = [
   'Coût des études à l\'étranger pour un étudiant tunisien',
   'Top pays pour étudier après le bac',
   'Visa étudiant: guide étape par étape',
-  'Pourquoi externaliser ses admissions ?',
-  'Outsourcing Tunisie: avantages pour les universités',
-  'In-house vs outsourcing: calcul du ROI',
   'Comment réussir son dossier Campus France',
   'Étudier en Allemagne: compte bloqué et visa',
   'Étudier au Canada: permis d\'études et budget',
@@ -20,12 +17,6 @@ const topics = [
   'Comment préparer un entretien de visa étudiant',
   'Bourses internationales pour étudiants tunisiens',
   'Checklist départ étudiant international',
-  'CRM admissions: KPIs essentiels',
-  'Lead qualification pour student recruitment',
-  'Externalisation back-office éducatif',
-  'Comment scaler une équipe admissions rapidement',
-  'Nearshore Tunisie vs Offshore: comparaison',
-  'Externalisation multilingue FR-AR-EN',
   'Comment choisir une agence étude à l\'étranger',
   'Étudier à Chypre: coûts et démarches',
   'Étudier en Turquie: admissions et visa',
@@ -41,24 +32,13 @@ const topics = [
   'Lettre de motivation université: structure gagnante',
   'IELTS vs TOEFL: lequel choisir ?',
   'Délais de visa par destination',
-  'Pourquoi la Tunisie est un hub outsourcing éducatif',
-  'Outsourcing pour écoles de langues',
-  'Outsourcing pour agences de recrutement étudiant',
-  'Outsourcing pour universités privées',
-  'SLA admissions: standards recommandés',
-  'Construction d\'une équipe conversion étudiante',
-  'Pilot outsourcing en 30 jours',
-  'Comment réduire les coûts opérationnels admissions',
-  'Étude de cas: amélioration du taux de conversion',
   'Guide complet admission université internationale',
-  'Externalisation CRM suivi candidats',
   'Support WhatsApp dans le recrutement étudiant',
-  'Growth marketing pour agences study abroad',
   'SEO local pour agence étude à l\'étranger en Tunisie',
   'Agence étude à l\'étranger Tunis: checklist',
   'Agence étude à l\'étranger Sousse: checklist',
   'Agence étude à l\'étranger Sfax: checklist',
-  'Roadmap 90 jours pour scaler vos admissions',
+  'Roadmap 90 jours pour préparer une rentrée à l’étranger',
 ];
 
 export default function BlogHubPage() {
@@ -93,28 +73,28 @@ export default function BlogHubPage() {
 
   const copy = {
     en: {
-      title: 'Study Abroad & Outsourcing Tunisia Blog | EduGrowth',
-      description: 'Practical guides for study abroad and admissions outsourcing from Tunisia.',
-      heading: 'Blog SEO Hub: Study Abroad + Outsourcing Tunisia',
+      title: 'Study Abroad Tunisia Blog | EduGrowth',
+      description: 'Practical guides for Tunisian students preparing study abroad projects, visas, budgets, and applications.',
+      heading: 'Study Abroad Tunisia Blog Hub',
       intro:
-        'Editorial cluster designed to capture high-intent Tunisian search demand across student and B2B topics.',
+        'Editorial cluster designed to attract students from Google, TikTok, and Instagram, then guide them toward resources, WhatsApp, and a consultation.',
       published: 'Published Articles',
       ideas: '50+ Article Ideas',
       cta: 'Editorial CTA',
       ctaText:
-        'Each article should include a CTA toward a free consultation, a WhatsApp link, and a related service page.',
+        'Each article should include a contextual resource, a WhatsApp link, the eligibility quiz, and a related destination page.',
     },
     fr: {
-      title: "Blog Étudier à l'étranger & Outsourcing Tunisie | EduGrowth",
-      description: "Guides pratiques pour étudier à l'étranger et externaliser admissions et recrutement depuis la Tunisie.",
-      heading: 'Blog SEO Hub : Études à l’étranger + Outsourcing Tunisie',
+      title: "Blog Étudier à l'étranger Tunisie | EduGrowth",
+      description: "Guides pratiques pour les étudiants tunisiens qui préparent études à l'étranger, visa, budget et admission.",
+      heading: 'Blog SEO Hub : Études à l’étranger depuis la Tunisie',
       intro:
-        'Cluster éditorial pour capter les requêtes transactionnelles et informationnelles FR/EN du marché tunisien.',
+        'Cluster éditorial pour attirer les étudiants depuis Google, TikTok et Instagram, puis les guider vers les ressources, WhatsApp et la consultation.',
       published: 'Articles publiés',
       ideas: "50+ idées d'articles",
       cta: 'CTA éditorial',
       ctaText:
-        'Chaque article doit inclure un CTA vers une consultation gratuite, un lien WhatsApp et une page service associée.',
+        'Chaque article doit inclure une ressource contextuelle, un lien WhatsApp, le quiz d’éligibilité et une page destination associée.',
     },
   }[lang];
 
@@ -129,8 +109,8 @@ export default function BlogHubPage() {
         items: ['Work-study rules', 'CV and interview help', 'Student timeline content'],
       },
       {
-        title: 'Outsourcing Tunisia cluster',
-        items: ['BPO comparisons', 'Customer service outsourcing', 'Hiring cost analysis'],
+        title: 'Parents and trust cluster',
+        items: ['Budget clarity', 'Visa risk explanation', 'Family decision guides'],
       },
     ],
     fr: [
@@ -143,8 +123,8 @@ export default function BlogHubPage() {
         items: ['Règles de travail-études', 'CV et entretien', 'Timeline candidat'],
       },
       {
-        title: 'Cluster outsourcing Tunisie',
-        items: ['Comparatifs BPO', 'Customer service outsourcing', 'Analyse des coûts de recrutement'],
+        title: 'Cluster parents et confiance',
+        items: ['Budget clair', 'Risques visa expliqués', 'Guides décision famille'],
       },
     ],
   }[lang];
@@ -169,10 +149,10 @@ export default function BlogHubPage() {
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-[#005A9C]">
-            <Link to="/abroad-zone">Abroad Zone</Link>
-            <Link to="/outsourcing">Outsourcing</Link>
+            <Link to="/resources">Ressources gratuites</Link>
+            <Link to="/about">À propos</Link>
             <Link to="/etudier-en-france-depuis-tunisie">Guide France</Link>
-            <Link to="/education-outsourcing-tunisia">Education Outsourcing</Link>
+            <Link to="/campus-france-tunisie-guide">Campus France</Link>
             <Link to="/programmes/alternance-france">Programme Alternance</Link>
             <Link to="/programmes/ausbildung-allemagne">Programme Ausbildung</Link>
           </div>
@@ -214,11 +194,11 @@ export default function BlogHubPage() {
             <h2 className="text-2xl font-black">{copy.cta}</h2>
             <p className="mt-2 text-slate-300">{copy.ctaText}</p>
             <div className="mt-5 flex flex-wrap gap-3 text-sm font-black">
-              <Link to="/abroad-zone" className="rounded-full bg-white px-4 py-3 text-[#1c3450]">
-                Abroad Zone
+              <Link to="/resources" className="rounded-full bg-white px-4 py-3 text-[#1c3450]">
+                Ressources gratuites
               </Link>
-              <Link to="/outsourcing" className="rounded-full border border-white/20 bg-white/10 px-4 py-3 text-white">
-                Outsourcing
+              <Link to="/#eligibility-quiz" className="rounded-full border border-white/20 bg-white/10 px-4 py-3 text-white">
+                Quiz eligibilite
               </Link>
               <a
                 href="https://app.edugrowth.tn/apply?utm_source=website&utm_medium=blog_hub&utm_campaign=content_cluster"
