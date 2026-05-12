@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'edugrowth-language';
-const DEFAULT_LANGUAGE = 'en';
+const DEFAULT_LANGUAGE = 'fr';
 const SUPPORTED_LANGUAGES = ['en', 'fr'];
 
 const LanguageContext = createContext({

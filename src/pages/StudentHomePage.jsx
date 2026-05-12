@@ -101,20 +101,20 @@ const copy = {
     navAbout: 'A propos',
     navContact: 'Contact',
     navPartners: 'Espace partenaires',
-    primaryCta: 'Tester mon eligibilite gratuitement',
-    whatsappCta: 'Parler a un conseiller',
+    primaryCta: 'Tester mon profil gratuitement',
+    whatsappCta: 'Parler sur WhatsApp',
     badge: 'Accompagnement etudiant depuis la Tunisie',
-    heroTitle: "Etudier a l'etranger depuis la Tunisie avec un accompagnement fiable de A a Z",
+    heroTitle: "Etudier a l'etranger depuis la Tunisie avec un dossier clair, credible et bien prepare",
     heroText:
-      "EduGrowth aide les etudiants tunisiens et leurs familles a choisir la bonne destination, preparer un dossier solide, obtenir une admission et avancer sereinement vers le visa et le depart.",
-    heroProof: ['Diagnostic gratuit', 'Conseillers en Tunisie', 'Suivi en francais, arabe et anglais'],
-    brandTitle: 'Une marque unique, des parcours bien separes',
+      "EduGrowth accompagne les etudiants tunisiens et leurs familles dans le choix du pays, l'admission, Campus France, le visa, le logement et la preparation au depart.",
+    heroProof: ['Diagnostic gratuit', 'Parents bienvenus', 'Suivi en francais, arabe et anglais'],
+    brandTitle: "Un seul interlocuteur pour votre projet d'etudes a l'etranger",
     brandText:
-      'EduGrowth devient la marque principale pour les etudes a l’etranger. Abroad Zone reste le programme etudiant, tandis que les services partenaires sont separes pour ne pas brouiller le parcours des familles.',
+      "EduGrowth centralise l'orientation, les candidatures, le suivi administratif et la preparation au depart pour eviter les informations dispersees, les retards et les erreurs de dossier.",
     brandPillars: [
-      { title: 'EduGrowth', text: 'La marque mere : orientation, confiance et accompagnement international depuis la Tunisie.' },
-      { title: 'Abroad Zone by EduGrowth', text: 'Le programme etudiant : destinations, admission, visa, logement et alternance.' },
-      { title: 'EduGrowth Partners', text: 'Un espace discret pour ecoles, universites et partenaires, separe du parcours B2C.' },
+      { title: 'Orientation', text: 'Choisir le pays, le programme et le calendrier selon votre profil et votre budget.' },
+      { title: 'Dossier', text: 'Preparer les documents, la motivation, les candidatures et les etapes administratives.' },
+      { title: 'Depart', text: 'Avancer vers le visa, le logement et les prochaines etapes avec une vision claire.' },
     ],
     trustTitle: 'Un accompagnement pense pour les etudiants et les parents',
     trustItems: [
@@ -123,9 +123,9 @@ const copy = {
       { value: 'Dossier', label: 'Documents, admission, motivation et calendrier' },
       { value: 'Depart', label: 'Visa, logement et preparation pratique' },
     ],
-    proofSystemTitle: 'Des preuves utiles, pas des promesses floues',
+    proofSystemTitle: 'Des preuves concretes pour avancer avec confiance',
     proofSystemText:
-      "EduGrowth doit rassurer avec des elements concrets : dossiers organises, admissions, avis, photos equipe et informations transparentes. Les documents personnels doivent toujours etre floutes et presentes avec accord.",
+      "Avant de vous engager, vous devez comprendre les etapes, les risques, les documents et le budget. EduGrowth vous aide a construire un projet realiste, sans promesse impossible ni discours flou.",
     proofCards: [
       { title: 'Documents floutes', text: "Lettres d'admission, checklists et preuves de depot peuvent etre montrees sans exposer les donnees personnelles." },
       { title: 'Avis et retours', text: 'Les retours etudiants doivent indiquer destination, annee, situation de depart et resultat obtenu.' },
@@ -141,21 +141,21 @@ const copy = {
       'Je veux comprendre les etapes avant d’engager ma famille',
     ],
     quizEyebrow: 'Test rapide',
-    quizTitle: 'Testez votre profil en 2 minutes',
+    quizTitle: 'Quel pays correspond a votre profil et votre budget ?',
     quizText:
-      "Repondez a trois questions simples. Vous pourrez ensuite envoyer le resume sur WhatsApp ou ouvrir le formulaire d'eligibilite.",
+      "Repondez a trois questions. Vous obtenez un resume clair a envoyer sur WhatsApp pour recevoir une premiere orientation personnalisee.",
     quizDestination: 'Destination visee',
     quizBudget: 'Budget mensuel estime',
     quizStage: 'Ou en etes-vous ?',
     quizDestinations: ['France', 'Allemagne', 'Canada', 'Chypre du Nord', 'Turquie', 'Dubai', 'Je ne sais pas encore'],
     quizBudgets: ['Moins de 500 EUR', '500 - 800 EUR', '800 - 1200 EUR', 'Plus de 1200 EUR', 'A definir avec mes parents'],
     quizStages: ['Je compare les pays', 'Je veux preparer mon dossier', 'Je cherche une alternance', 'Je prepare le visa', 'Je veux rassurer mes parents'],
-    quizResultTitle: 'Votre prochaine etape conseillee',
+    quizResultTitle: 'Votre resume de profil',
     quizResultText:
       "Envoyez ce resume a l'equipe. Un conseiller pourra vous orienter selon votre profil, votre budget et votre calendrier.",
     quizWhatsApp: 'Envoyer mon profil sur WhatsApp',
     quizApply: 'Continuer vers le formulaire',
-    resourcesTitle: 'Guides gratuits pour transformer une hesitation en plan clair',
+    resourcesTitle: 'Guides gratuits pour commencer sans vous tromper',
     resourcesText:
       'Avant de reserver une consultation, commencez par une checklist ou un guide pratique : budget, Campus France, visa, alternance et choix de destination.',
     resources: [
@@ -165,8 +165,8 @@ const copy = {
       'Quiz profil alternance France',
     ],
     resourcesCta: 'Voir les ressources gratuites',
-    methodTitle: 'Une methode claire pour construire un dossier solide',
-    methodText: 'Chaque projet commence par une analyse simple, puis avance avec un plan concret et des etapes suivies.',
+    methodTitle: 'Une methode simple pour avancer sans perdre de temps',
+    methodText: 'Chaque projet commence par un diagnostic, puis avance avec des etapes lisibles pour l’etudiant et sa famille.',
     steps: [
       { title: 'Diagnostic gratuit', text: 'Nous analysons votre niveau, votre budget, votre objectif et vos contraintes.' },
       { title: 'Plan de destination', text: 'Vous recevez une orientation claire vers les pays et programmes les plus realistes.' },
@@ -192,7 +192,7 @@ const copy = {
     alternanceText:
       'Nous aidons les profils motives a comprendre les conditions, preparer leur CV, organiser les candidatures et se presenter avec plus de clarte aux entreprises.',
     alternanceCta: 'Verifier mon profil alternance',
-    proofTitle: 'Des parcours etudiants plus clairs, etapes par etapes',
+    proofTitle: 'Des parcours etudiants presentes avec transparence',
     proofText:
       'Les meilleurs signaux de confiance restent les resultats reels : admissions, dossiers prepares, destinations choisies et familles rassurees.',
     proofDisclaimer:
@@ -234,6 +234,21 @@ const copy = {
       'Faites analyser votre profil gratuitement et recevez une premiere orientation claire selon votre niveau, votre budget et votre objectif.',
     footerText: "EduGrowth accompagne les etudiants tunisiens dans leurs projets d'etudes internationales.",
     whatsappText: "Bonjour EduGrowth, je veux tester mon eligibilite pour etudier a l'etranger.",
+    seoSectionTitle: "Etudier a l'etranger depuis la Tunisie : les points a verifier",
+    seoBlocks: [
+      {
+        title: 'Choisir le bon pays selon son profil',
+        text: "Le bon pays depend du niveau d'etudes, du budget familial, de la langue, du projet professionnel et du delai disponible. Une orientation serieuse compare les options avant de lancer les candidatures.",
+      },
+      {
+        title: 'Preparer un dossier coherent',
+        text: "Un dossier solide ne se limite pas aux documents. Il doit raconter un projet clair : parcours, motivation, formation visee, budget, calendrier et coherence avec le retour ou l'avenir professionnel.",
+      },
+      {
+        title: 'Rassurer la famille avant la decision',
+        text: "Les parents doivent comprendre les couts, les risques, les delais, le logement et les etapes visa. Cette transparence reduit l'anxiete et aide a prendre une decision plus sereine.",
+      },
+    ],
   },
   en: {
     seoTitle: 'EduGrowth Tunisia | Study Abroad Guidance from Tunisia',
@@ -248,20 +263,20 @@ const copy = {
     navAbout: 'About',
     navContact: 'Contact',
     navPartners: 'Partner area',
-    primaryCta: 'Check my eligibility for free',
-    whatsappCta: 'Talk to an advisor',
+    primaryCta: 'Check my profile for free',
+    whatsappCta: 'Talk on WhatsApp',
     badge: 'Student guidance from Tunisia',
-    heroTitle: 'Study abroad from Tunisia with reliable guidance from start to finish',
+    heroTitle: 'Study abroad from Tunisia with a clear, credible, well-prepared file',
     heroText:
       'EduGrowth helps Tunisian students and families choose the right destination, prepare a strong application, secure admission, and move toward visa and departure with clarity.',
     heroProof: ['Free diagnosis', 'Tunisia-based advisors', 'French, Arabic, and English support'],
-    brandTitle: 'One clear brand, separate journeys',
+    brandTitle: 'One trusted contact for your study abroad project',
     brandText:
-      'EduGrowth becomes the main study abroad brand. Abroad Zone remains the student program, while partner services stay separate so families are not confused.',
+      'EduGrowth centralizes guidance, applications, administrative follow-up, and departure preparation so students avoid scattered information, delays, and file mistakes.',
     brandPillars: [
-      { title: 'EduGrowth', text: 'The master brand: guidance, trust, and international education support from Tunisia.' },
-      { title: 'Abroad Zone by EduGrowth', text: 'The student program: destinations, admissions, visa steps, housing, and work-study.' },
-      { title: 'EduGrowth Partners', text: 'A discreet area for schools, universities, and partners, separated from the B2C journey.' },
+      { title: 'Guidance', text: 'Choose the country, program, and timeline according to your profile and budget.' },
+      { title: 'Application', text: 'Prepare documents, motivation, applications, and administrative steps.' },
+      { title: 'Departure', text: 'Move toward visa, housing, and next steps with a clear plan.' },
     ],
     trustTitle: 'Guidance designed for students and parents',
     trustItems: [
@@ -270,9 +285,9 @@ const copy = {
       { value: 'File', label: 'Documents, admission, motivation, and timeline' },
       { value: 'Departure', label: 'Visa, housing, and practical preparation' },
     ],
-    proofSystemTitle: 'Useful proof, not vague promises',
+    proofSystemTitle: 'Concrete proof to move forward with confidence',
     proofSystemText:
-      'EduGrowth should build trust through concrete elements: organized files, admissions, reviews, team photos, and transparent information. Personal documents must always be blurred and shared with consent.',
+      'Before committing, students and parents need to understand steps, risks, documents, and budget. EduGrowth helps build a realistic project without impossible promises or vague claims.',
     proofCards: [
       { title: 'Blurred documents', text: 'Admission letters, checklists, and submission evidence can be shown without exposing personal data.' },
       { title: 'Student feedback', text: 'Student stories should show destination, year, starting situation, and outcome.' },
@@ -288,7 +303,7 @@ const copy = {
       'I want to understand the steps before involving my family',
     ],
     quizEyebrow: 'Quick test',
-    quizTitle: 'Check your profile in 2 minutes',
+    quizTitle: 'Which country fits your profile and budget?',
     quizText:
       'Answer three simple questions. You can then send the summary on WhatsApp or open the eligibility form.',
     quizDestination: 'Target destination',
@@ -297,12 +312,12 @@ const copy = {
     quizDestinations: ['France', 'Germany', 'Canada', 'North Cyprus', 'Turkey', 'Dubai', 'I am not sure yet'],
     quizBudgets: ['Under EUR 500', 'EUR 500 - 800', 'EUR 800 - 1200', 'Over EUR 1200', 'To define with my parents'],
     quizStages: ['I am comparing countries', 'I want to prepare my file', 'I am looking for work-study', 'I am preparing visa steps', 'I want to reassure my parents'],
-    quizResultTitle: 'Recommended next step',
+    quizResultTitle: 'Your profile summary',
     quizResultText:
       'Send this summary to the team. An advisor can guide you based on your profile, budget, and timeline.',
     quizWhatsApp: 'Send my profile on WhatsApp',
     quizApply: 'Continue to the form',
-    resourcesTitle: 'Free guides that turn hesitation into a clear plan',
+    resourcesTitle: 'Free guides to start without choosing blindly',
     resourcesText:
       'Before booking a consultation, start with a practical checklist or guide: budget, Campus France, visa, work-study, and destination choice.',
     resources: [
@@ -312,8 +327,8 @@ const copy = {
       'France work-study profile quiz',
     ],
     resourcesCta: 'View free resources',
-    methodTitle: 'A clear method to build a stronger application',
-    methodText: 'Every project starts with a simple analysis, then moves forward with a practical plan and guided steps.',
+    methodTitle: 'A simple method to move forward without wasting time',
+    methodText: 'Every project starts with a diagnosis, then moves forward through clear steps for the student and family.',
     steps: [
       { title: 'Free diagnosis', text: 'We review your level, budget, goal, and constraints.' },
       { title: 'Destination plan', text: 'You get clear guidance on the most realistic countries and programs.' },
@@ -339,7 +354,7 @@ const copy = {
     alternanceText:
       'We help motivated students understand requirements, prepare their CV, organize applications, and present themselves more clearly to companies.',
     alternanceCta: 'Check my work-study profile',
-    proofTitle: 'Clearer student journeys, step by step',
+    proofTitle: 'Student journeys presented with transparency',
     proofText:
       'The best trust signals are real outcomes: admissions, prepared files, selected destinations, and reassured families.',
     proofDisclaimer:
@@ -380,6 +395,21 @@ const copy = {
     finalText: 'Get your profile reviewed for free and receive first guidance based on your level, budget, and objective.',
     footerText: 'EduGrowth guides Tunisian students through international study projects.',
     whatsappText: 'Hello EduGrowth, I want to check my eligibility to study abroad.',
+    seoSectionTitle: 'Study abroad from Tunisia: what to check first',
+    seoBlocks: [
+      {
+        title: 'Choose the right country for your profile',
+        text: 'The right country depends on your study level, family budget, language, career goal, and available timeline. Serious guidance compares options before launching applications.',
+      },
+      {
+        title: 'Prepare a coherent application file',
+        text: 'A strong file is more than documents. It must show a clear project: background, motivation, target program, budget, timeline, and coherence with future goals.',
+      },
+      {
+        title: 'Reassure the family before deciding',
+        text: 'Parents need to understand costs, risks, deadlines, housing, and visa steps. This transparency reduces anxiety and supports a more confident family decision.',
+      },
+    ],
   },
 };
 
@@ -443,7 +473,6 @@ export default function StudentHomePage() {
     { label: t.navServices, href: '#services' },
     { label: t.navTestimonials, href: '#stories' },
     { label: t.navResources, to: '/resources' },
-    { label: t.navAbout, to: '/about' },
     { label: t.navContact, href: '#contact' },
   ];
 
@@ -665,8 +694,8 @@ export default function StudentHomePage() {
                 <p className="mt-4 text-lg leading-8 text-slate-600">{t.quizText}</p>
                 <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-semibold leading-6 text-amber-900">
                   {lang === 'fr'
-                    ? "Conseil CRO : commencez par ce test si vous comparez plusieurs agences ou si vos parents veulent comprendre le projet."
-                    : 'CRO tip: start here if you compare agencies or if your parents need to understand the project.'}
+                    ? "Ideal si vous comparez plusieurs pays, si votre budget n'est pas encore clair ou si vos parents veulent comprendre les options."
+                    : 'Ideal if you are comparing countries, still clarifying your budget, or helping your parents understand the options.'}
                 </div>
               </div>
 
@@ -817,6 +846,23 @@ export default function StudentHomePage() {
                       </div>
                     </div>
                   </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="bg-[#f7fafc] px-4 py-20 sm:px-6">
+            <div className="mx-auto max-w-7xl">
+              <div className="max-w-3xl">
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">SEO guide</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">{t.seoSectionTitle}</h2>
+              </div>
+              <div className="mt-10 grid gap-5 lg:grid-cols-3">
+                {t.seoBlocks.map((block) => (
+                  <article key={block.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                    <h3 className="text-xl font-black text-[#17324d]">{block.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{block.text}</p>
+                  </article>
                 ))}
               </div>
             </div>
