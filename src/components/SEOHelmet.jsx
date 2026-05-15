@@ -4,6 +4,14 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 const siteUrl = 'https://edugrowth.tn/';
 const defaultImage = 'https://edugrowth.tn/og-image.png';
 
+function normalizeCanonicalUrl(url) {
+  if (!url) return siteUrl;
+  if (!url.startsWith('https://edugrowth.tn')) return url;
+  if (url === 'https://edugrowth.tn' || url === siteUrl) return siteUrl;
+  if (url.includes('?') || url.includes('#')) return url;
+  return url.endsWith('/') ? url : `${url}/`;
+}
+
 const SEOHelmet = ({
   title = 'EduGrowth Tunisia | Study Abroad Guidance from Tunisia',
   description = 'EduGrowth guides Tunisian students and families through study abroad projects, destination choice, admissions, visa preparation, housing, and work-study options.',
@@ -19,7 +27,7 @@ const SEOHelmet = ({
   const { lang: activeLanguage } = useLanguage();
   const resolvedLanguage = lang || activeLanguage || 'en';
   const locale = resolvedLanguage === 'fr' ? 'fr_FR' : 'en_US';
-  const normalizedCanonical = canonical || siteUrl;
+  const normalizedCanonical = normalizeCanonicalUrl(canonical || siteUrl);
   const hreflangAlternates = alternates || [
     { href: normalizedCanonical, hreflang: 'x-default' },
   ];

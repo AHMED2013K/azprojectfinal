@@ -7,6 +7,11 @@ import { trackEvent } from '../utils/tracking';
 const WA_NUMBER = '21656590703';
 const APPLY_URL = 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=alternance_france';
 
+function normalizeContentPath(pathname) {
+  if (pathname === '/') return pathname;
+  return pathname.replace(/\/+$/, '');
+}
+
 const programData = {
   '/programmes/alternance-france': {
     title: 'Alternance en France depuis la Tunisie | Guide 2026',
@@ -57,7 +62,8 @@ const programData = {
 export default function ProgramGuidePage() {
   const { lang, toggleLanguage } = useLanguage();
   const { pathname } = useLocation();
-  const data = programData[pathname] || programData['/programmes/alternance-france'];
+  const contentPath = normalizeContentPath(pathname);
+  const data = programData[contentPath] || programData['/programmes/alternance-france'];
   const copy = lang === 'fr'
     ? {
         roadmap: 'Roadmap recommandée',
@@ -99,13 +105,13 @@ export default function ProgramGuidePage() {
   const handleApplyClick = () => {
     trackEvent('cta_click', {
       cta_type: 'program_apply',
-      page: pathname,
+      page: contentPath,
     });
   };
 
   return (
     <>
-      <SEOHelmet title={data.title} description={data.description} canonical={`https://edugrowth.tn${pathname}`} lang={lang} />
+      <SEOHelmet title={data.title} description={data.description} canonical={`https://edugrowth.tn${contentPath}`} lang={lang} />
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
         <div className="mx-auto max-w-4xl rounded-3xl bg-white p-8 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3 text-sm font-bold text-[#005A9C]">
@@ -164,7 +170,7 @@ export default function ProgramGuidePage() {
             <h2 className="text-2xl font-black">{copy.supportTitle}</h2>
             <p className="mt-3 text-slate-300">{copy.applyText}</p>
             <div className="mt-4 flex flex-wrap gap-3">
-              {pathname === '/programmes/alternance-france' ? (
+              {contentPath === '/programmes/alternance-france' ? (
                 <a
                   href={APPLY_URL}
                   onClick={handleApplyClick}

@@ -7,6 +7,11 @@ import { b2bOutsourcingTestimonials } from '../components/TestimonialsData.js';
 
 const WA_NUMBER = '21656590703';
 
+function normalizeContentPath(pathname) {
+  if (pathname === '/') return pathname;
+  return pathname.replace(/\/+$/, '');
+}
+
 const pageConfig = {
   '/education-outsourcing-tunisia': {
     title: 'Education Outsourcing Tunisia | EduGrowth',
@@ -28,7 +33,8 @@ const pageConfig = {
 export default function OutsourcingServicePage() {
   const { lang, toggleLanguage } = useLanguage();
   const { pathname } = useLocation();
-  const cfg = pageConfig[pathname] || pageConfig['/education-outsourcing-tunisia'];
+  const contentPath = normalizeContentPath(pathname);
+  const cfg = pageConfig[contentPath] || pageConfig['/education-outsourcing-tunisia'];
   const copy = lang === 'fr'
     ? {
         back: "Retour à l'outsourcing",
@@ -65,7 +71,7 @@ export default function OutsourcingServicePage() {
 
   return (
     <>
-      <SEOHelmet title={cfg.title} description={cfg.description} canonical={`https://edugrowth.tn${pathname}`} lang={lang} />
+      <SEOHelmet title={cfg.title} description={cfg.description} canonical={`https://edugrowth.tn${contentPath}`} lang={lang} />
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
         <div className="mx-auto max-w-5xl rounded-3xl bg-white p-8 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">

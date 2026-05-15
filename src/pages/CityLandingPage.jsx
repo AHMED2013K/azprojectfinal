@@ -6,6 +6,11 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 
+function normalizeContentPath(pathname) {
+  if (pathname === '/') return pathname;
+  return pathname.replace(/\/+$/, '');
+}
+
 const cityData = {
   '/agence-etude-etranger-tunis': {
     city: 'Tunis',
@@ -162,7 +167,8 @@ const cityData = {
 export default function CityLandingPage() {
   const { lang, toggleLanguage } = useLanguage();
   const { pathname } = useLocation();
-  const data = cityData[pathname] || cityData['/agence-etude-etranger-tunis'];
+  const contentPath = normalizeContentPath(pathname);
+  const data = cityData[contentPath] || cityData['/agence-etude-etranger-tunis'];
   const copy = lang === 'fr'
     ? {
         back: 'Retour à Abroad Zone',
@@ -208,7 +214,7 @@ export default function CityLandingPage() {
       <SEOHelmet
         title={data.title}
         description={data.description}
-        canonical={`https://edugrowth.tn${pathname}`}
+        canonical={`https://edugrowth.tn${contentPath}`}
         lang={lang}
         faqItems={data.faq}
       />

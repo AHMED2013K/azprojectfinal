@@ -7,6 +7,11 @@ import { b2bOutsourcingTestimonials } from '../components/TestimonialsData.js';
 
 const WA_NUMBER = '21656590703';
 
+function normalizeContentPath(pathname) {
+  if (pathname === '/') return pathname;
+  return pathname.replace(/\/+$/, '');
+}
+
 const cityData = {
   '/outsourcing-tunis': {
     city: 'Tunis',
@@ -28,7 +33,8 @@ const cityData = {
 export default function OutsourcingCityPage() {
   const { lang, toggleLanguage } = useLanguage();
   const { pathname } = useLocation();
-  const data = cityData[pathname] || cityData['/outsourcing-tunis'];
+  const contentPath = normalizeContentPath(pathname);
+  const data = cityData[contentPath] || cityData['/outsourcing-tunis'];
   const copy = lang === 'fr'
     ? {
         description: `Équipes dédiées à ${data.city} pour la qualification des leads, le suivi des admissions et les opérations CRM.`,
@@ -60,7 +66,7 @@ export default function OutsourcingCityPage() {
         description={lang === 'fr'
           ? `Externalisation multilingue des admissions et du recrutement étudiant à ${data.city}, Tunisie.`
           : `Multilingual admissions and student recruitment outsourcing in ${data.city}, Tunisia.`}
-        canonical={`https://edugrowth.tn${pathname}`}
+        canonical={`https://edugrowth.tn${contentPath}`}
         lang={lang}
       />
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">

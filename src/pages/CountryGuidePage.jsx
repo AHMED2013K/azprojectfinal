@@ -6,6 +6,11 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 
 const WA_NUMBER = '21656590703';
 
+function normalizeContentPath(pathname) {
+  if (pathname === '/') return pathname;
+  return pathname.replace(/\/+$/, '');
+}
+
 const countryData = {
   '/etudier-en-allemagne-depuis-tunisie': {
     country: 'Allemagne',
@@ -348,7 +353,8 @@ export default function CountryGuidePage() {
   const { toggleLanguage } = useLanguage();
   const lang = 'fr';
   const { pathname } = useLocation();
-  const data = countryData[pathname] || countryData['/etudier-en-allemagne-depuis-tunisie'];
+  const contentPath = normalizeContentPath(pathname);
+  const data = countryData[contentPath] || countryData['/etudier-en-allemagne-depuis-tunisie'];
   const copy = {
         back: 'Retour à Abroad Zone',
         advisor: 'Conseiller WhatsApp',
@@ -423,7 +429,7 @@ export default function CountryGuidePage() {
       <SEOHelmet
         title={`${data.title} | EduGrowth`}
         description={data.description}
-        canonical={`https://edugrowth.tn${pathname}`}
+        canonical={`https://edugrowth.tn${contentPath}`}
         structuredData={structuredData}
         lang={lang}
       />

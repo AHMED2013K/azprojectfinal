@@ -7,6 +7,11 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 const WA_NUMBER = '21656590703';
 const APPLY_URL = 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=blog_article&utm_campaign=alternance_france_tunisiens';
 
+function normalizeContentPath(pathname) {
+  if (pathname === '/') return pathname;
+  return pathname.replace(/\/+$/, '');
+}
+
 const posts = {
   '/blog/comment-etudier-en-france-depuis-la-tunisie': {
     title: 'Comment étudier en France depuis la Tunisie: guide complet 2026',
@@ -609,7 +614,8 @@ const posts = {
 export default function BlogArticlePage() {
   const { lang, toggleLanguage } = useLanguage();
   const { pathname } = useLocation();
-  const post = posts[pathname] || posts['/blog/comment-etudier-en-france-depuis-la-tunisie'];
+  const contentPath = normalizeContentPath(pathname);
+  const post = posts[contentPath] || posts['/blog/comment-etudier-en-france-depuis-la-tunisie'];
   const copy = lang === 'fr'
     ? {
         back: 'Retour au blog',
@@ -639,14 +645,14 @@ export default function BlogArticlePage() {
         description: post.description,
         author: {
           '@type': 'Organization',
-          name: 'EduGrowth Outsourcing',
+          name: 'EduGrowth Tunisia',
         },
         publisher: {
           '@type': 'Organization',
-          name: 'EduGrowth Outsourcing',
+          name: 'EduGrowth Tunisia',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://edugrowth.tn/Submark.png',
+            url: 'https://edugrowth.tn/Submark.webp',
           },
         },
       },
@@ -669,7 +675,7 @@ export default function BlogArticlePage() {
       <SEOHelmet
         title={`${post.title} | EduGrowth`}
         description={post.description}
-        canonical={`https://edugrowth.tn${pathname}`}
+        canonical={`https://edugrowth.tn${contentPath}`}
         lang={lang}
         structuredData={structuredData}
       />
@@ -722,10 +728,10 @@ export default function BlogArticlePage() {
             <h2 className="text-2xl font-black">{copy.ctaTitle}</h2>
             <p className="mt-2 text-slate-300">{copy.ctaText}</p>
             <div className="mt-4 flex flex-wrap gap-3">
-              {pathname === '/blog/alternance-france-pour-tunisiens' ? (
+              {contentPath === '/blog/alternance-france-pour-tunisiens' ? (
                 <a
                   href={APPLY_URL}
-                  onClick={() => trackEvent('cta_click', { cta_type: 'blog_article_apply', article: pathname })}
+                  onClick={() => trackEvent('cta_click', { cta_type: 'blog_article_apply', article: contentPath })}
                   className="rounded-xl bg-emerald-500 px-5 py-3 text-sm font-black"
                 >
                   Remplir le formulaire apply
@@ -733,14 +739,14 @@ export default function BlogArticlePage() {
               ) : null}
               <Link
                 to="/book-consultation"
-                onClick={() => trackEvent('cta_click', { cta_type: 'blog_article_consultation', article: pathname })}
+                onClick={() => trackEvent('cta_click', { cta_type: 'blog_article_consultation', article: contentPath })}
                 className="rounded-xl bg-[#005A9C] px-5 py-3 text-sm font-black"
               >
                 {copy.consultation}
               </Link>
               <a
                 href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(copy.whatsappText)}`}
-                onClick={() => trackEvent('cta_click', { cta_type: 'blog_article_whatsapp', article: pathname })}
+                onClick={() => trackEvent('cta_click', { cta_type: 'blog_article_whatsapp', article: contentPath })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-xl border border-white/30 px-5 py-3 text-sm font-black"
