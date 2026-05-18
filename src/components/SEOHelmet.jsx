@@ -12,6 +12,18 @@ function normalizeCanonicalUrl(url) {
   return url.endsWith('/') ? url : `${url}/`;
 }
 
+function normalizeFaqItem(item) {
+  if (Array.isArray(item)) {
+    const [question, answer] = item;
+    return { question, answer };
+  }
+
+  return {
+    question: item?.question || item?.q || item?.name,
+    answer: item?.answer || item?.a || item?.text,
+  };
+}
+
 const SEOHelmet = ({
   title = 'EduGrowth Tunisia | Study Abroad Guidance from Tunisia',
   description = 'EduGrowth guides Tunisian students and families through study abroad projects, destination choice, admissions, visa preparation, housing, and work-study options.',
@@ -94,14 +106,26 @@ const SEOHelmet = ({
     ]
   };
 
-  const faqStructuredData = faqItems?.length
+  const normalizedFaqItems = Array.isArray(faqItems)
+    ? faqItems
+        .map(normalizeFaqItem)
+        .filter(({ question, answer }) => question?.trim() && answer?.trim())
+    : [];
+
+  const faqStructuredData = normalizedFaqItems.length
     ? {
+        '@id': `${normalizedCanonical}#faq`,
         '@type': 'FAQPage',
-        mainEntity: faqItems.map(({ question, answer }) => ({
+        url: normalizedCanonical,
+        name: `${title} - FAQ`,
+        inLanguage: resolvedLanguage,
+        mainEntity: normalizedFaqItems.map(({ question, answer }, index) => ({
           '@type': 'Question',
+          '@id': `${normalizedCanonical}#faq-question-${index + 1}`,
           name: question,
           acceptedAnswer: {
             '@type': 'Answer',
+            '@id': `${normalizedCanonical}#faq-answer-${index + 1}`,
             text: answer,
           },
         })),
