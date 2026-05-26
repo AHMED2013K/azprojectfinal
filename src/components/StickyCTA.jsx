@@ -63,8 +63,8 @@ function getWhatsAppText(pathname, lang) {
 
   if (pathname.includes('outsourcing')) {
     return isFr
-      ? 'Bonjour EduGrowth, je souhaite parler de vos services partenaires.'
-      : 'Hello EduGrowth, I want to discuss your partner services.';
+      ? 'Bonjour EduGrowth, je souhaite auditer mon acquisition B2B et tester un sprint IA.'
+      : 'Hello EduGrowth, I want to audit my B2B acquisition and test an AI sprint.';
   }
 
   return isFr

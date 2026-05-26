@@ -23,16 +23,16 @@ function buildApplyUrl(source, lang) {
 
 const translations = {
   en: {
-    seoTitle: 'EduGrowth Tunisia | Study Abroad Tunisia, Alternance France & Outsourcing Services',
+    seoTitle: 'EduGrowth Tunisia | Study Abroad Tunisia & B2B AI Growth',
     seoDescription:
-      'EduGrowth helps Tunisian students study abroad and helps international companies outsource customer service, virtual teams, and education operations from Tunisia.',
+      'EduGrowth helps Tunisian students study abroad and helps companies deploy AI systems for prospecting, CRM qualification, and qualified lead generation.',
     badge: 'Tunisia growth platform for students and companies',
-    heroTitle: 'Study abroad, alternance, and outsourcing from Tunisia.',
+    heroTitle: 'Study abroad and scale acquisition with AI from Tunisia.',
     gateTitle: 'Choose your portal',
-    gateSubtitle: 'Access Abroad Zone for student guidance or EduGrowth for outsourcing and B2B services from Tunisia.',
+    gateSubtitle: 'Access Abroad Zone for student guidance or EduGrowth AI Growth Systems for B2B prospecting and qualification.',
     portalButton: 'Portal',
     heroText:
-      'EduGrowth connects Tunisian students with international opportunities and helps companies in Europe, North America, and the Gulf build multilingual offshore teams in Tunisia.',
+      'EduGrowth connects Tunisian students with international opportunities and helps companies deploy AI workflows for prospecting, qualification, and CRM follow-up.',
     heroPrimary: 'Apply Now',
     heroSecondary: 'Get Free Consultation',
     heroTertiary: 'WhatsApp Us',
@@ -40,7 +40,7 @@ const translations = {
     trustItems: [
       'Study abroad guidance for Tunisian students',
       'Alternance France funnel connected to CRM',
-      'Outsourcing positioning for Europe, USA, Canada, and UAE',
+      'AI growth positioning for Europe, USA, Canada, and UAE',
     ],
     studentBadge: 'Student funnel',
     studentTitle: 'Study abroad Tunisia and alternance France support',
@@ -54,15 +54,15 @@ const translations = {
     studentPrimary: 'Go to Abroad Zone',
     studentSecondary: 'Open Apply Form',
     b2bBadge: 'B2B funnel',
-    b2bTitle: 'Outsourcing services Tunisia for global companies',
+    b2bTitle: 'AI growth, LinkedIn prospecting, and CRM qualification',
     b2bText:
-      'Position EduGrowth as a Tunisia-based outsourcing bridge for customer service, virtual assistants, admissions support, and multilingual operations.',
+      'Position EduGrowth as an agile infrastructure combining scraping, LinkedIn automation, AI qualification, CRM routing, and expert supervision.',
     b2bPoints: [
-      'Customer service outsourcing Tunisia',
-      'Virtual assistants and back-office support',
-      'Business process outsourcing for Europe and GCC',
+      'Smart LinkedIn prospecting',
+      'AI-powered CRM qualification',
+      'Performance sprint and pay-per-qualified-lead',
     ],
-    b2bPrimary: 'Explore Outsourcing',
+    b2bPrimary: 'Explore AI Growth',
     b2bSecondary: 'Book Strategy Call',
     pillarsTitle: 'Core pages designed to rank and convert',
     pillarsText:
@@ -81,8 +81,8 @@ const translations = {
         cta: 'View program',
       },
       {
-        title: 'Outsourcing Services',
-        body: 'Target international buyers looking for offshore teams, BPO, and multilingual support from Tunisia.',
+        title: 'B2B AI Growth',
+        body: 'Target buyers looking for qualified leads, LinkedIn prospecting, and better automated CRM workflows.',
         to: '/outsourcing',
         cta: 'View services',
       },
@@ -95,15 +95,15 @@ const translations = {
     ],
     marketTitle: 'Positioning for Tunisia and international markets',
     marketText:
-      'EduGrowth now speaks to two profitable audiences: students in Tunisia and companies hiring offshore support.',
+      'EduGrowth now speaks to two profitable audiences: students in Tunisia and companies that want to automate acquisition.',
     marketBlocks: [
       {
         title: 'Tunisia SEO domination',
         body: 'Build authority for study abroad Tunisia, études en France Tunisie, and alternance France Tunisie.',
       },
       {
-        title: 'International outsourcing reach',
-        body: 'Target outsourcing services Tunisia, customer service outsourcing, and virtual assistants Tunisia.',
+        title: 'International AI growth reach',
+        body: 'Target AI lead qualification, LinkedIn prospecting, CRM automation, and performance sprint searches.',
       },
       {
         title: 'CRM-connected conversion',
@@ -122,8 +122,8 @@ const translations = {
     blogItems: [
       'Comment étudier en France depuis la Tunisie',
       'Top 10 universités en France pour étudiants tunisiens',
-      'Outsourcing from Tunisia: why companies choose North Africa',
-      'Cost comparison: hiring in Europe vs outsourcing in Tunisia',
+      'AI lead qualification: reduce manual CRM processing',
+      'B2B LinkedIn prospecting without ad spend',
     ],
     blogPrimary: 'Visit the Blog Hub',
     socialProofTitle: 'Trust signals',
@@ -137,16 +137,16 @@ const translations = {
     finalWhatsApp: 'Chat on WhatsApp',
   },
   fr: {
-    seoTitle: "EduGrowth Tunisie | Étudier à l'étranger, Alternance France & Outsourcing",
+    seoTitle: "EduGrowth Tunisie | Étudier à l'étranger & Growth IA B2B",
     seoDescription:
-      "EduGrowth aide les étudiants tunisiens à étudier à l'étranger et accompagne les entreprises internationales avec des services d'outsourcing, customer service et équipes offshore depuis la Tunisie.",
+      "EduGrowth aide les étudiants tunisiens à étudier à l'étranger et accompagne les entreprises avec des systèmes IA de prospection, qualification CRM et génération de leads.",
     badge: 'Plateforme de croissance tunisienne pour étudiants et entreprises',
-    heroTitle: "Étudier à l'étranger, alternance et outsourcing depuis la Tunisie.",
+    heroTitle: "Étudier à l'étranger et scaler votre acquisition avec l'IA depuis la Tunisie.",
     gateTitle: 'Choisissez votre portail',
-    gateSubtitle: "Accédez à Abroad Zone pour l'accompagnement étudiant ou à EduGrowth pour l'outsourcing et les services B2B depuis la Tunisie.",
+    gateSubtitle: "Accédez à Abroad Zone pour l'accompagnement étudiant ou à EduGrowth AI Growth Systems pour la prospection et la qualification B2B.",
     portalButton: 'Portail',
     heroText:
-      "EduGrowth relie les étudiants tunisiens aux opportunités internationales et aide les entreprises en Europe, Amérique du Nord et Golfe à déployer des équipes multilingues offshore en Tunisie.",
+      "EduGrowth relie les étudiants tunisiens aux opportunités internationales et aide les entreprises à déployer des workflows IA de prospection, qualification et suivi CRM.",
     heroPrimary: 'Postuler maintenant',
     heroSecondary: 'Consultation gratuite',
     heroTertiary: 'WhatsApp',
@@ -154,7 +154,7 @@ const translations = {
     trustItems: [
       "Accompagnement étude à l'étranger pour les étudiants tunisiens",
       'Funnel alternance France connecté au CRM',
-      "Positionnement outsourcing pour l'Europe, les USA, le Canada et les Émirats",
+      "Positionnement Growth IA pour l'Europe, les USA, le Canada et les Émirats",
     ],
     studentBadge: 'Funnel étudiant',
     studentTitle: "Étudier à l'étranger Tunisie et alternance France",
@@ -168,15 +168,15 @@ const translations = {
     studentPrimary: 'Voir Abroad Zone',
     studentSecondary: 'Ouvrir le formulaire',
     b2bBadge: 'Funnel B2B',
-    b2bTitle: "Services d'outsourcing en Tunisie pour clients internationaux",
+    b2bTitle: "Growth IA, prospection LinkedIn et qualification CRM",
     b2bText:
-      "Positionne EduGrowth comme un pont tunisien entre Afrique du Nord, Europe, Amérique du Nord et Golfe pour le customer service, les assistants virtuels et les opérations multilingues.",
+      "Positionne EduGrowth comme une infrastructure agile qui combine scraping, automatisation LinkedIn, qualification IA, routage CRM et supervision experte.",
     b2bPoints: [
-      'Customer service outsourcing Tunisia',
-      'Assistants virtuels et support back-office',
-      "Business process outsourcing pour l'Europe et le GCC",
+      'Prospection LinkedIn intelligente',
+      'Qualification CRM par IA',
+      "Sprint de performance et coût par lead qualifié",
     ],
-    b2bPrimary: "Découvrir l'outsourcing",
+    b2bPrimary: "Découvrir Growth IA",
     b2bSecondary: 'Réserver un appel stratégique',
     pillarsTitle: 'Pages clés pour ranker et convertir',
     pillarsText:
@@ -195,8 +195,8 @@ const translations = {
         cta: 'Voir le programme',
       },
       {
-        title: "Services d'outsourcing",
-        body: "Cible les entreprises qui cherchent des équipes offshore, du BPO et du support multilingue en Tunisie.",
+        title: "Growth IA B2B",
+        body: "Cible les entreprises qui cherchent des leads qualifiés, une prospection LinkedIn et un CRM mieux automatisé.",
         to: '/outsourcing',
         cta: 'Voir les services',
       },
@@ -209,15 +209,15 @@ const translations = {
     ],
     marketTitle: 'Positionnement Tunisie + marchés internationaux',
     marketText:
-      'EduGrowth parle maintenant à deux audiences rentables : les étudiants en Tunisie et les entreprises qui recrutent offshore.',
+      'EduGrowth parle maintenant à deux audiences rentables : les étudiants en Tunisie et les entreprises qui veulent automatiser leur acquisition.',
     marketBlocks: [
       {
         title: 'Domination SEO Tunisie',
         body: "Construire l'autorité sur étudier à l'étranger Tunisie, études en France Tunisie et alternance France Tunisie.",
       },
       {
-        title: 'Portée outsourcing internationale',
-        body: 'Cibler outsourcing services Tunisia, customer service outsourcing et virtual assistants Tunisia.',
+        title: 'Portée Growth IA internationale',
+        body: 'Cibler AI lead qualification, LinkedIn prospecting, CRM automation et performance sprint.',
       },
       {
         title: 'Conversion connectée au CRM',
@@ -236,8 +236,8 @@ const translations = {
     blogItems: [
       "Comment étudier en France depuis la Tunisie",
       'Top 10 universités en France pour étudiants tunisiens',
-      'Outsourcing from Tunisia: why companies choose North Africa',
-      'Comparatif coût embauche Europe vs outsourcing Tunisie',
+      'AI lead qualification: comment réduire le temps de traitement CRM',
+      'Prospection LinkedIn B2B sans budget publicitaire',
     ],
     blogPrimary: 'Voir le Blog Hub',
     socialProofTitle: 'Éléments de confiance',

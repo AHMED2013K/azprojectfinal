@@ -11,80 +11,80 @@ const WA_NUMBER = '21656590703';
 
 function buildB2BMessage(source, lang) {
   return lang === 'fr'
-    ? `Bonjour EduGrowth, je souhaite un échange B2B sur vos services outsourcing en Tunisie. Source: ${source}`
-    : `Hello EduGrowth, I want a B2B conversation about your outsourcing services in Tunisia. Source: ${source}`;
+    ? `Bonjour EduGrowth, je souhaite auditer mon acquisition B2B et tester un sprint IA/automatisation. Source: ${source}`
+    : `Hello EduGrowth, I want to audit my B2B acquisition and test an AI/automation sprint. Source: ${source}`;
 }
 
 const translations = {
   en: {
-    heroBadge: "STRATEGIC EDUCATION OUTSOURCING HUB",
-    heroTitle: "Scale Your Global Admissions",
-    heroTitleSpan: "Effortlessly from Tunisia.",
-    heroDesc: "The cost-effective alternative to local hiring. Deploy highly-skilled, multilingual education experts in 72 hours and save up to 60% on operational costs.",
-    heroCTA: "Talk to our Experts",
-    stat1: "Multilingual Support",
-    stat2: "Cost Reduction",
-    stat3: "Nearshore Advantage",
-    stat4: "Rapid Onboarding",
-    serviceTitle: "Global Higher Ed",
-    serviceTitleSpan: "Operations Partner",
-    serviceDesc: "We act as a seamless extension of your university, language school, or education agency, handling the entire student journey from first inquiry to final enrollment.",
-    s1Title: "Student Inquiry Management",
-    s1Desc: "Expert qualification and fast response times in English, French, and Arabic to maximize your conversion rates.",
-    s2Title: "Global Lead Qualification",
-    s2Desc: "Our agents filter and nurture leads, ensuring your admissions team only speaks with highly qualified applicants.",
-    s3Title: "Admissions & Compliance",
-    s3Desc: "Comprehensive administrative support, document verification, and visa checklist guidance for all major destinations.",
-    s4Title: "Partner Relations (B2B)",
-    s4Desc: "Managing and expanding your educational agent network and school counselor relations across diverse global markets.",
-    s5Title: "CRM & Tech Integration",
-    s5Desc: "Deep integration with HubSpot, Salesforce, and Zoho for transparent, real-time reporting and data-driven decisions.",
-    s6Title: "Market Research & Strategy",
-    s6Desc: "Data-driven insights to help you enter and scale in new student recruitment territories with confidence.",
-    pricingTitle: "Flexible Operations Model",
-    pricingFixed: "Standard Fixed",
-    pricingHybrid: "Hybrid Performance",
-    perfModelTitle: "Performance Alignment Model",
-    perfModelDesc: "Lower your monthly fixed costs by up to 33% with our hybrid success-based model. We win when you enroll students.",
-    savingsTitle: "Tunisia vs. In-house (EU/UK)",
-    savingsLabel1: "Internal Team Costs",
-    savingsLabel2: "EduGrowth Managed Operations",
-    footerText: "Your nearshore partner for scalable student recruitment and education BPO. Headquartered in Tunisia, serving the global Higher Ed community.",
+    heroBadge: "AI GROWTH ENGINEERING FOR EDUCATION & B2B",
+    heroTitle: "Scale admissions and prospecting",
+    heroTitleSpan: "with AI-powered automation.",
+    heroDesc: "We deploy ultra-targeted lead qualification and B2B prospecting systems. Faster than manual teams, lighter than a classic agency, and aligned with performance.",
+    heroCTA: "Audit My Pipeline",
+    stat1: "Automated Workflows",
+    stat2: "Lower Fixed Cost",
+    stat3: "LinkedIn + CRM",
+    stat4: "Fast Sprint Launch",
+    serviceTitle: "AI Growth",
+    serviceTitleSpan: "Infrastructure",
+    serviceDesc: "We build agile acquisition systems that combine data scraping, LinkedIn outreach, CRM enrichment, AI qualification, and expert supervision.",
+    s1Title: "Smart Data Scraping",
+    s1Desc: "We build targeted lead lists from LinkedIn, directories, school databases, and niche B2B sources with clean enrichment rules.",
+    s2Title: "LinkedIn Prospecting Engine",
+    s2Desc: "Connection, messaging, follow-up, and segmentation workflows built to start conversations without burning your brand.",
+    s3Title: "AI Lead Qualification",
+    s3Desc: "AI-assisted scoring, intent tags, fit analysis, and CRM routing so your team spends time only on qualified opportunities.",
+    s4Title: "Admissions Funnel Automation",
+    s4Desc: "Automated WhatsApp, email, and CRM sequences for student profiles, documents, reminders, and follow-up priority.",
+    s5Title: "CRM Ops & Reporting",
+    s5Desc: "HubSpot, Zoho, Airtable, Sheets, Notion, and custom dashboards with weekly KPI reporting and pipeline hygiene.",
+    s6Title: "Growth Engineering Sprint",
+    s6Desc: "We test hooks, audiences, lead magnets, workflows, and conversion scripts in short cycles focused on ROI.",
+    pricingTitle: "Performance Sprint Models",
+    pricingFixed: "Pilot Sprint",
+    pricingHybrid: "Pay-per-Qualified Lead",
+    perfModelTitle: "Pay when the pipeline moves",
+    perfModelDesc: "Start with a low-risk sprint, then scale through a hybrid model based on qualified conversations, booked calls, or verified student profiles.",
+    savingsTitle: "Classic agency vs AI-assisted growth system",
+    savingsLabel1: "Classic agency / hiring stack",
+    savingsLabel2: "EduGrowth AI sprint",
+    footerText: "EduGrowth builds AI-assisted acquisition infrastructure for education companies, admissions teams, and B2B operators.",
   },
   fr: {
-    heroBadge: "HUB STRATÉGIQUE D'OUTSOURCING ÉDUCATIF",
-    heroTitle: "Développez vos admissions",
-    heroTitleSpan: "depuis la Tunisie.",
-    heroDesc: "L'alternative rentable au recrutement local. Déployez des experts éducatifs multilingues en 72 heures et réduisez jusqu'à 60% vos coûts opérationnels.",
-    heroCTA: 'Parler à nos experts',
-    stat1: 'Support multilingue',
-    stat2: 'Réduction des coûts',
-    stat3: 'Avantage nearshore',
-    stat4: 'Onboarding rapide',
-    serviceTitle: 'Partenaire opérationnel',
-    serviceTitleSpan: 'Higher Ed',
-    serviceDesc: "Nous agissons comme une extension fluide de votre université, école de langue ou agence éducative, en gérant tout le parcours étudiant du premier contact jusqu'à l'inscription.",
-    s1Title: 'Gestion des demandes étudiantes',
-    s1Desc: 'Qualification experte et temps de réponse rapides en anglais, français et arabe pour maximiser vos conversions.',
-    s2Title: 'Qualification globale des leads',
-    s2Desc: "Nos agents filtrent et nourrissent les leads afin que votre équipe admissions parle uniquement à des candidats qualifiés.",
-    s3Title: 'Admissions & conformité',
-    s3Desc: 'Support administratif complet, vérification documentaire et guidance visa pour les principales destinations.',
-    s4Title: 'Relations partenaires (B2B)',
-    s4Desc: "Gestion et développement de votre réseau d'agents éducatifs et de conseillers scolaires sur plusieurs marchés.",
-    s5Title: 'CRM & intégration tech',
-    s5Desc: 'Intégration poussée avec HubSpot, Salesforce et Zoho pour un reporting temps réel et des décisions pilotées par la donnée.',
-    s6Title: 'Recherche marché & stratégie',
-    s6Desc: 'Des insights data pour entrer et grandir sur de nouveaux territoires de recrutement étudiant avec confiance.',
-    pricingTitle: 'Modèle opérationnel flexible',
-    pricingFixed: 'Fixe standard',
-    pricingHybrid: 'Performance hybride',
-    perfModelTitle: "Modèle aligné sur la performance",
-    perfModelDesc: 'Réduisez vos coûts fixes mensuels jusqu’à 33% avec notre modèle hybride basé sur le succès. Nous gagnons quand vous inscrivez des étudiants.',
-    savingsTitle: 'Tunisie vs équipe interne (UE/RU)',
-    savingsLabel1: "Coûts de l'équipe interne",
-    savingsLabel2: 'Opérations gérées par EduGrowth',
-    footerText: "Votre partenaire nearshore pour un recrutement étudiant scalable et un BPO éducatif structuré, basé en Tunisie au service du Higher Ed mondial.",
+    heroBadge: "GROWTH ENGINEERING IA POUR EDUCATION & B2B",
+    heroTitle: "Scalez vos admissions et votre prospection",
+    heroTitleSpan: "grâce à l'IA et l'automatisation intelligente.",
+    heroDesc: "Nous déployons des systèmes de qualification de leads et de prospection B2B ultra-ciblés. Plus rapide que l'humain, sans les coûts d'une agence classique. Payez au résultat.",
+    heroCTA: 'Auditer mon pipeline',
+    stat1: 'Workflows automatisés',
+    stat2: 'Coûts fixes réduits',
+    stat3: 'LinkedIn + CRM',
+    stat4: 'Sprint rapide',
+    serviceTitle: 'Infrastructure',
+    serviceTitleSpan: 'Growth IA',
+    serviceDesc: "Nous construisons des systèmes d'acquisition agiles qui combinent scraping de données, prospection LinkedIn, enrichissement CRM, qualification IA et supervision experte.",
+    s1Title: 'Scraping & enrichissement data',
+    s1Desc: 'Listes de prospects ciblées depuis LinkedIn, annuaires, bases écoles et sources B2B de niche, avec règles de nettoyage et scoring.',
+    s2Title: 'Prospection LinkedIn intelligente',
+    s2Desc: 'Connexions, messages, relances et segmentation automatisées pour créer des conversations sans abîmer votre marque.',
+    s3Title: 'Qualification CRM par IA',
+    s3Desc: 'Scoring assisté par IA, tags d’intention, analyse du fit et routage CRM pour prioriser les meilleurs profils.',
+    s4Title: 'Automatisation funnel admissions',
+    s4Desc: 'Séquences WhatsApp, email et CRM pour profils étudiants, documents, relances, rappels et priorisation commerciale.',
+    s5Title: 'CRM Ops & reporting',
+    s5Desc: 'HubSpot, Zoho, Airtable, Sheets, Notion et dashboards avec reporting KPI hebdomadaire et hygiène pipeline.',
+    s6Title: 'Sprint Growth Engineering',
+    s6Desc: 'Tests rapides des audiences, messages, lead magnets, workflows et scripts de conversion avec logique ROI.',
+    pricingTitle: 'Modèles sprint & performance',
+    pricingFixed: 'Sprint pilote',
+    pricingHybrid: 'Coût par lead qualifié',
+    perfModelTitle: "Payez quand le pipeline avance",
+    perfModelDesc: 'Démarrez avec un sprint à risque limité, puis scalez sur un modèle hybride basé sur conversations qualifiées, rendez-vous bookés ou profils étudiants vérifiés.',
+    savingsTitle: 'Agence classique vs système growth assisté par IA',
+    savingsLabel1: "Agence classique / recrutement",
+    savingsLabel2: 'Sprint IA EduGrowth',
+    footerText: "EduGrowth construit des infrastructures d'acquisition assistées par IA pour les acteurs de l'éducation, admissions teams et opérateurs B2B.",
   },
 };
 
@@ -98,18 +98,18 @@ const ServiceCard = ({ icon, title, description }) => (
   </div>
 );
 
-const PricingCard = ({ title, price, agents, leads, sla, isFeatured, hybridPrice, isHybrid, onSelect }) => (
+const PricingCard = ({ title, price, system, leads, sla, isFeatured, hybridPrice, isHybrid, onSelect }) => (
   <div className={`relative p-10 rounded-[2.5rem] border transition-all duration-500 ${isFeatured ? 'border-[#2E8B57] shadow-2xl bg-white scale-105 z-10' : 'border-gray-200 bg-white/50'}`}>
     {isFeatured && <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#2E8B57] text-white px-6 py-1.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg">Recommended</div>}
     <h3 className="text-xl font-bold mb-2 uppercase text-gray-900">{title}</h3>
     <div className="mb-8 text-5xl font-black tracking-tighter text-gray-900">{isHybrid ? (hybridPrice || 'Custom') : price}<span className="text-sm font-medium text-gray-400">/mo</span></div>
     <div className="space-y-5 mb-10 text-sm font-medium text-gray-600">
-      <div className="flex items-center gap-4"><div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center"><CheckCircle2 className="text-[#2E8B57] w-4 h-4" /></div><span><strong>{agents}</strong> Dedicated Agents</span></div>
-      <div className="flex items-center gap-4"><div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center"><CheckCircle2 className="text-[#2E8B57] w-4 h-4" /></div><span><strong>{leads}</strong> Leads Processed</span></div>
+      <div className="flex items-center gap-4"><div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center"><CheckCircle2 className="text-[#2E8B57] w-4 h-4" /></div><span><strong>{system}</strong></span></div>
+      <div className="flex items-center gap-4"><div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center"><CheckCircle2 className="text-[#2E8B57] w-4 h-4" /></div><span><strong>{leads}</strong></span></div>
       <div className="flex items-center gap-4"><div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center"><Clock className="text-[#2E8B57] w-4 h-4" /></div><span>SLA: {sla}</span></div>
     </div>
     <button onClick={onSelect} className={`w-full py-5 rounded-2xl font-bold text-lg transition-all ${isFeatured ? 'bg-[#2E8B57] text-white hover:bg-[#256f45] shadow-xl shadow-green-100' : 'bg-gray-900 text-white hover:bg-black'}`}>
-      Select {title}
+      Demander {title}
     </button>
   </div>
 );
@@ -119,34 +119,34 @@ const outsourcingStructuredData = {
   "@graph": [
     {
       "@type": "Service",
-      "name": "Education Outsourcing Tunisia",
-      "serviceType": "Student Recruitment and Admissions Outsourcing",
+      "name": "AI Growth Engineering and Lead Qualification Systems",
+      "serviceType": "AI-assisted B2B prospecting, CRM automation, and lead qualification",
       "provider": {
         "@type": "Organization",
-        "name": "EduGrowth Outsourcing",
+        "name": "EduGrowth Tunisia",
         "url": "https://edugrowth.tn/"
       },
       "areaServed": ["Tunisia", "France", "United Kingdom", "United Arab Emirates", "Africa"],
       "availableLanguage": ["English", "French", "Arabic"],
-      "description": "Outsourcing services for universities, language schools, and agencies: admissions follow-up, lead qualification, and multilingual conversion teams from Tunisia."
+      "description": "AI-assisted growth infrastructure for education companies and B2B teams: data scraping, LinkedIn prospecting, CRM enrichment, automated qualification, and expert supervision."
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How fast can EduGrowth launch an outsourced admissions team?",
+          "name": "How fast can EduGrowth launch an AI-assisted growth sprint?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Most partner operations are launched in a few days after process alignment, scripts validation, and KPI setup."
+            "text": "Most pilot sprints can start within a few days after ICP definition, data-source validation, CRM access, and message approval."
           }
         },
         {
           "@type": "Question",
-          "name": "Who is outsourcing best for?",
+          "name": "Who is the sprint best for?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Universities, language schools, and education agencies that want to scale admissions and student recruitment without expanding in-house hiring costs."
+            "text": "Education companies, admissions teams, agencies, SaaS operators, and B2B teams that need qualified leads without building a full internal outbound team."
           }
         }
       ]
@@ -167,44 +167,50 @@ const EduGrowthOutsourcingPage = () => {
         consultation: 'Consultation gratuite',
         demo: 'Réserver une démo',
         consultationButton: 'Réserver une consultation gratuite',
-        betterTitle: 'Mieux qu’un recrutement',
-        betterTitleAccent: 'interne.',
+        betterTitle: 'Mieux qu’une agence',
+        betterTitleAccent: 'classique.',
         betterText:
-          "Déployer une équipe interne coûte bien plus que le salaire. Nous vous offrons jusqu'à 60% d'économie sur les frais fixes avec de meilleurs résultats.",
-        auditBadge: 'Audit B2B gratuit',
-        auditTitle: 'Recevez votre plan d’économie outsourcing',
+          "Une agence facture du temps. Nous construisons un système mesurable: données ciblées, séquences, qualification IA, routage CRM et supervision humaine là où elle crée vraiment de la valeur.",
+        auditBadge: 'Audit growth gratuit',
+        auditTitle: 'Recevez votre plan de sprint IA',
         auditText:
-          'Partagez votre volume mensuel de leads et votre organisation actuelle. Nous vous enverrons un plan de transition réaliste avec KPI opérationnels.',
-        auditPoints: ['1. Diagnostic des temps de réponse', '2. Estimation des coûts interne vs externalisé', '3. Scénario de lancement en 30 jours'],
+          'Partagez votre cible, votre CRM et votre objectif. Nous vous envoyons un plan de prospection/qualification avec KPI, sources data et scénario de test.',
+        auditPoints: ['1. ICP et sources de données prioritaires', '2. Séquences LinkedIn/email/WhatsApp à tester', '3. KPI: leads qualifiés, rendez-vous, coût par opportunité'],
         name: 'Nom complet',
         organization: "Nom de l'organisation",
         email: 'Email professionnel',
-        volume: 'Volume mensuel de leads',
+        volume: 'Objectif mensuel',
         less: 'Moins de 300',
         medium: '300 - 1000',
         more: 'Plus de 1000',
-        need: 'Que souhaitez-vous externaliser en premier ?',
-        submit: 'Demander ma consultation gratuite',
-        roiTitle: 'Pourquoi un acheteur B2B agit vite',
+        need: 'Que voulez-vous automatiser ou qualifier en premier ?',
+        submit: 'Demander mon sprint IA',
+        roiTitle: 'Pourquoi ce modèle convertit mieux',
         roiText:
-          "Les directions admissions, sales ops et support client n'achètent pas seulement un prestataire. Elles cherchent un levier de marge, de vitesse de réponse et de couverture multilingue.",
+          "Vous ne payez pas une promesse de main-d'oeuvre. Vous payez un système d'acquisition qui trouve, enrichit, contacte, score et route les bonnes opportunités.",
         roiBlocks: [
-          { title: 'ROI clair', body: 'Réduction des coûts fixes, meilleure capacité de traitement et moins de pression sur les équipes internes.' },
-          { title: 'Nearshore Tunisie', body: "Fuseau compatible Europe, talents francophones, anglophones et arabophones, onboarding rapide." },
-          { title: 'Exécution mesurable', body: 'SLA, KPI de réponse, volume traité, qualification et reporting CRM structurés.' },
+          { title: 'ROI traçable', body: 'Coût par lead qualifié, taux de réponse, taux de rendez-vous et pipeline visible chaque semaine.' },
+          { title: 'Automation + supervision', body: "L'IA exécute les tâches répétitives; un expert ajuste les audiences, messages, filtres et priorités." },
+          { title: 'Stack léger', body: 'Pas de recrutement lourd: data, LinkedIn, CRM, scripts, scoring et reporting livrés en sprint.' },
         ],
         buyerTitle: 'Idéal pour',
         buyerItems: [
-          'Universités privées et écoles supérieures',
-          "Agences d'éducation et student recruitment firms",
-          'Équipes customer support, sales ops et back-office',
+          'Écoles, universités privées et équipes admissions',
+          "Agences d'éducation qui veulent plus de profils qualifiés",
+          'Startups B2B, SaaS, services et équipes sales ops',
         ],
         roiStatsTitle: 'Projection ROI 12 mois',
         roiStats: [
-          { label: 'Coût équipe interne Europe', value: '€75k - €110k' },
-          { label: 'Modèle EduGrowth Tunisie', value: '€36k - €54k' },
-          { label: 'Délai de mise en route', value: '72h à 14 jours' },
+          { label: 'Setup agence classique', value: '€3k - €8k/mois' },
+          { label: 'Sprint pilote EduGrowth', value: 'dès €490' },
+          { label: 'Délai de mise en route', value: '5 à 10 jours' },
         ],
+        pilotBadge: 'Offre pilote - Juin 2026',
+        pilotTitle: 'Sprint de Performance IA',
+        pilotText: 'Un test court pour prouver le canal avant de scaler: ciblage, scraping, enrichissement, séquences, qualification et reporting.',
+        pilotItems: ['1 ICP + 1 source data prioritaire', '100 à 300 prospects enrichis', 'Séquence LinkedIn/email prête à tester', 'Dashboard simple: réponses, leads qualifiés, next actions'],
+        pilotPrice: 'À partir de €490 ou coût par lead qualifié',
+        pilotCTA: 'Lancer le sprint pilote',
       }
     : {
         navServices: 'Services',
@@ -214,43 +220,49 @@ const EduGrowthOutsourcingPage = () => {
         demo: 'Book Demo',
         consultationButton: 'Book a Free Consultation',
         betterTitle: 'Better than',
-        betterTitleAccent: 'Internal Hiring.',
+        betterTitleAccent: 'a classic agency.',
         betterText:
-          'Deploying an internal team costs more than just salary. We offer a 60% saving on overhead with better results.',
-        auditBadge: 'Free B2B Audit',
-        auditTitle: 'Get Your Outsourcing Cost-Saving Plan',
+          'Classic agencies sell hours. We build a measurable system: targeted data, sequences, AI qualification, CRM routing, and expert supervision where it matters.',
+        auditBadge: 'Free Growth Audit',
+        auditTitle: 'Get Your AI Sprint Plan',
         auditText:
-          'Share your monthly lead volume and current team setup. We will send a realistic transition plan with operational KPIs.',
-        auditPoints: ['1. Response-time diagnosis', '2. In-house vs outsourced cost estimate', '3. 30-day launch scenario'],
+          'Share your ICP, CRM, and growth target. We will send a prospecting and qualification plan with KPIs, data sources, and a test scenario.',
+        auditPoints: ['1. ICP and priority data sources', '2. LinkedIn/email/WhatsApp sequences to test', '3. KPI: qualified leads, booked calls, cost per opportunity'],
         name: 'Full name',
         organization: 'Organization name',
         email: 'Work email',
-        volume: 'Monthly lead volume',
+        volume: 'Monthly objective',
         less: 'Less than 300',
         medium: '300 - 1000',
         more: 'More than 1000',
-        need: 'What do you want to outsource first?',
-        submit: 'Request My Free Consultation',
-        roiTitle: 'Why B2B buyers move fast',
+        need: 'What do you want to automate or qualify first?',
+        submit: 'Request My AI Sprint',
+        roiTitle: 'Why this model converts better',
         roiText:
-          'Admissions leaders, sales ops managers, and customer support teams are not buying a vendor only. They are buying margin improvement, faster response times, and multilingual execution.',
+          'You are not paying for headcount. You are paying for an acquisition system that finds, enriches, contacts, scores, and routes the right opportunities.',
         roiBlocks: [
-          { title: 'Clear ROI', body: 'Lower fixed costs, more processing capacity, and less pressure on internal teams.' },
-          { title: 'Tunisia nearshore advantage', body: 'Europe-compatible timezone, multilingual talent, and fast onboarding.' },
-          { title: 'Measurable execution', body: 'Structured SLA, KPI reporting, qualified pipeline handling, and CRM visibility.' },
+          { title: 'Trackable ROI', body: 'Cost per qualified lead, reply rate, booked-call rate, and weekly visible pipeline.' },
+          { title: 'Automation + supervision', body: 'AI handles repetitive tasks; a growth expert tunes audiences, messaging, filters, and priorities.' },
+          { title: 'Lightweight stack', body: 'No heavy hiring: data, LinkedIn, CRM, scripts, scoring, and reporting delivered in a sprint.' },
         ],
         buyerTitle: 'Best fit for',
         buyerItems: [
-          'Private universities and higher-ed institutions',
-          'Education agencies and student recruitment firms',
-          'Customer support, sales ops, and back-office teams',
+          'Schools, private universities, and admissions teams',
+          'Education agencies that need more qualified profiles',
+          'B2B startups, SaaS, services, and sales ops teams',
         ],
         roiStatsTitle: '12-month ROI snapshot',
         roiStats: [
-          { label: 'Internal Europe team cost', value: '€75k - €110k' },
-          { label: 'EduGrowth Tunisia model', value: '€36k - €54k' },
-          { label: 'Go-live timeline', value: '72h to 14 days' },
+          { label: 'Classic agency setup', value: '€3k - €8k/mo' },
+          { label: 'EduGrowth pilot sprint', value: 'from €490' },
+          { label: 'Go-live timeline', value: '5 to 10 days' },
         ],
+        pilotBadge: 'Pilot offer - June 2026',
+        pilotTitle: 'AI Performance Sprint',
+        pilotText: 'A short test to prove the channel before scaling: targeting, scraping, enrichment, sequences, qualification, and reporting.',
+        pilotItems: ['1 ICP + 1 priority data source', '100 to 300 enriched prospects', 'LinkedIn/email sequence ready to test', 'Simple dashboard: replies, qualified leads, next actions'],
+        pilotPrice: 'From €490 or pay-per-qualified-lead',
+        pilotCTA: 'Launch the pilot sprint',
       };
 
   const openDemo = (source = 'outsourcing_page') => {
@@ -285,8 +297,8 @@ const EduGrowthOutsourcingPage = () => {
   return (
     <>
       <SEOHelmet 
-        title="Outsourcing Tunisie | Externalisation Admissions & Student Recruitment"
-        description="Externalisez vos admissions et opérations de recrutement étudiant en Tunisie. Réduisez vos coûts, déployez en quelques jours et scalez votre conversion."
+        title="Growth IA Tunisie | Prospection B2B, CRM & Leads Qualifiés"
+        description="EduGrowth déploie des systèmes IA de prospection B2B, scraping, qualification CRM et automatisation pour générer des leads qualifiés à la performance."
         canonical="https://edugrowth.tn/outsourcing"
         structuredData={outsourcingStructuredData}
         lang={lang}
@@ -300,7 +312,7 @@ const EduGrowthOutsourcingPage = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold leading-none uppercase">EduGrowth</span>
-              <span className="text-[10px] uppercase tracking-widest text-[#005A9C] font-black">Outsourcing</span>
+              <span className="text-[10px] uppercase tracking-widest text-[#005A9C] font-black">AI Growth Systems</span>
             </div>
           </div>
           <div className="hidden lg:flex items-center gap-10 text-sm font-semibold text-gray-500">
@@ -349,10 +361,10 @@ const EduGrowthOutsourcingPage = () => {
         <section className="pb-32 px-8">
           <div className="max-w-6xl mx-auto bg-gray-900 rounded-[3rem] p-12 md:p-16 text-white grid grid-cols-2 lg:grid-cols-4 gap-12 shadow-2xl">
             {[
-              { v: "24/7", l: t.stat1 },
-              { v: "60%", l: t.stat2 },
-              { v: "UK/EU", l: t.stat3 },
-              { v: "4h", l: t.stat4 }
+              { v: "AI", l: t.stat1 },
+              { v: "-50%", l: t.stat2 },
+              { v: "CRM", l: t.stat3 },
+              { v: "5j", l: t.stat4 }
             ].map((stat, i) => (
               <div key={i}>
                 <div className="text-5xl font-black mb-2 tracking-tighter">{stat.v}</div>
@@ -435,6 +447,38 @@ const EduGrowthOutsourcingPage = () => {
           </div>
         </section>
 
+        <section className="px-8 pb-32 bg-white">
+          <div className="mx-auto grid max-w-6xl gap-10 rounded-[2.5rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-blue-50 p-10 shadow-sm lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <p className="inline-flex rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-white">
+                {ui.pilotBadge}
+              </p>
+              <h2 className="mt-6 text-4xl font-black uppercase tracking-tight text-slate-950">
+                {ui.pilotTitle}
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-slate-600">
+                {ui.pilotText}
+              </p>
+              <div className="mt-6 inline-flex rounded-2xl bg-white px-5 py-4 text-lg font-black text-emerald-700 shadow-sm ring-1 ring-emerald-100">
+                {ui.pilotPrice}
+              </div>
+            </div>
+            <div className="rounded-[2rem] bg-white p-6 shadow-sm ring-1 ring-slate-100">
+              <div className="grid gap-4">
+                {ui.pilotItems.map((item) => (
+                  <div key={item} className="flex items-start gap-3 rounded-2xl bg-slate-50 p-4 text-sm font-bold leading-6 text-slate-700">
+                    <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-emerald-600" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <button onClick={() => openDemo('pilot_sprint')} className="mt-6 w-full rounded-2xl bg-[#005A9C] px-5 py-4 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:bg-blue-700">
+                {ui.pilotCTA}
+              </button>
+            </div>
+          </div>
+        </section>
+
         {/* Pricing */}
         <section id="pricing" className="py-32 px-8 bg-gray-50">
           <div className="max-w-6xl mx-auto text-center">
@@ -447,9 +491,9 @@ const EduGrowthOutsourcingPage = () => {
               <span className={`text-lg font-bold ${isHybrid ? 'text-[#2E8B57] scale-110' : 'text-gray-400'}`}>{t.pricingHybrid}</span>
             </div>
             <div className="grid lg:grid-cols-3 gap-10 items-end">
-              <PricingCard title="Starter" price="€800" agents="1" leads="350" sla="24h" isHybrid={isHybrid} hybridPrice="" lang={lang} onSelect={() => openDemo('pricing_starter')} />
-              <PricingCard title="Growth Engine" price="€1500" agents="2" leads="800" sla="12h" isFeatured={true} isHybrid={isHybrid} hybridPrice="€1200" lang={lang} onSelect={() => openDemo('pricing_growth')} />
-              <PricingCard title="Elite Enterprise" price="€3000+" agents="3-5+" leads="Unlimited" sla="4h" isHybrid={isHybrid} hybridPrice="€2500" lang={lang} onSelect={() => openDemo('pricing_enterprise')} />
+              <PricingCard title="Pilot Sprint" price="€490" system="1 workflow IA + CRM" leads="100-300 prospects enrichis" sla="5-10j" isHybrid={isHybrid} hybridPrice="CPL" lang={lang} onSelect={() => openDemo('pricing_pilot')} />
+              <PricingCard title="Growth Engine" price="€1500" system="Scraping + LinkedIn + CRM" leads="500+ leads ciblés / mois" sla="hebdo" isFeatured={true} isHybrid={isHybrid} hybridPrice="€900 + CPL" lang={lang} onSelect={() => openDemo('pricing_growth')} />
+              <PricingCard title="Scale System" price="€3000+" system="Multi-canal + dashboard" leads="Volume sur mesure" sla="48h" isHybrid={isHybrid} hybridPrice="sur mesure" lang={lang} onSelect={() => openDemo('pricing_scale')} />
             </div>
             {isHybrid && (
               <div className="mt-20 max-w-2xl mx-auto bg-[#2E8B57]/5 border border-[#2E8B57]/20 p-8 rounded-[2rem] flex items-start gap-6 shadow-sm">
@@ -477,7 +521,7 @@ const EduGrowthOutsourcingPage = () => {
               <div className="space-y-8">
                 <div>
                   <div className="flex justify-between mb-2 uppercase text-xs font-black tracking-widest text-gray-400">
-                    <span>{t.savingsLabel1}</span><span>€75,000/yr</span>
+                    <span>{t.savingsLabel1}</span><span>€3k-€8k/mo</span>
                   </div>
                   <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
                     <div className="h-full bg-red-500 w-full" />
@@ -485,10 +529,10 @@ const EduGrowthOutsourcingPage = () => {
                 </div>
                 <div>
                   <div className="flex justify-between mb-2 uppercase text-xs font-black tracking-widest text-[#2E8B57]">
-                    <span>{t.savingsLabel2}</span><span>€36,000/yr</span>
+                    <span>{t.savingsLabel2}</span><span>€490+</span>
                   </div>
                   <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#2E8B57] w-[48%]" />
+                    <div className="h-full bg-[#2E8B57] w-[22%]" />
                   </div>
                 </div>
               </div>
@@ -500,8 +544,8 @@ const EduGrowthOutsourcingPage = () => {
 <section id="testimonials" className="min-h-screen py-32 px-8 bg-gray-50 scroll-mt-20">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-20">
-              <h2 className="text-5xl font-black mb-6 uppercase tracking-tight">Client Testimonials</h2>
-              <p className="text-xl text-gray-500 font-medium max-w-2xl mx-auto">See how we've helped agencies and companies scale their operations with high-performing outsourced teams.</p>
+              <h2 className="text-5xl font-black mb-6 uppercase tracking-tight">Études de cas process</h2>
+              <p className="text-xl text-gray-500 font-medium max-w-2xl mx-auto">Pas de faux logos, pas de profils génériques. Voici les systèmes que nous déployons et les KPI que nous cherchons à améliorer.</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {b2bTestimonials.map((t, i) => (

@@ -13,54 +13,54 @@ export const destinationsData = [
 ];
 
 export const services = [
-  { title: 'Student Lead Generation', desc: 'Dedicated Tunisia-based teams generate, pre-qualify, and nurture prospective students for universities, language centres, and education agencies.' },
-  { title: 'Admissions & Application Support', desc: 'We handle follow-up, document collection, interview scheduling, offer coordination, and applicant progress tracking from first enquiry to enrolment.' },
-  { title: 'Agency & Partner Growth Support', desc: 'Scale outbound partner development, school outreach, WhatsApp conversion, and bilingual sales operations without recruiting in-house teams.' },
-  { title: 'CRM, Reporting & QA', desc: 'Get structured pipeline reporting, SLA tracking, conversion insights, and multilingual quality assurance tailored to education recruitment workflows.' }
+  { title: 'AI Lead Qualification', desc: 'Score, segment, and route student or B2B leads with AI-assisted criteria, CRM tags, and clear next actions.' },
+  { title: 'LinkedIn Prospecting Engine', desc: 'Build targeted lead lists, enrich profiles, launch connection sequences, and generate qualified B2B conversations.' },
+  { title: 'Admissions Funnel Automation', desc: 'Automate WhatsApp, email, reminders, document follow-up, and CRM updates without hiring a large operations team.' },
+  { title: 'Growth Reporting & QA', desc: 'Track reply rate, qualified leads, booked calls, processing time, and conversion bottlenecks with weekly optimisation.' }
 ];
 
 export const testimonials = [
   {
-    name: 'Sarah Mitchell',
-    role: 'CEO',
-    company: 'DCB Authority Group',
-    text: 'EduGrowth completely transformed our sales operations. Their team handled everything from lead generation to closing, allowing us to scale faster while reducing internal costs by 45%. Our revenue increased by 60% in just 6 months.',
-    avatar: '🇺🇸'
+    name: 'LinkedIn Outbound Engine',
+    role: 'Process KPI',
+    company: 'EduGrowth',
+    text: 'Targeted scraping, enrichment, connection messages, follow-ups and CRM routing designed to generate qualified conversations without ad spend.',
+    avatar: 'AI'
   },
   {
-    name: 'Marcus Johnson',
-    role: 'Head of Sales',
-    company: 'TechFlow SaaS',
-    text: 'We reduced our customer support costs by 60% by outsourcing to EduGrowth. Their multilingual team handles complex technical queries with the same quality as our in-house staff, but at a fraction of the cost.',
-    avatar: '🇬🇧'
+    name: 'CRM Qualification System',
+    role: 'Ops KPI',
+    company: 'EduGrowth',
+    text: 'AI-assisted scoring, document-status tags and priority routing to reduce manual handling and improve speed on high-intent leads.',
+    avatar: 'CRM'
   },
   {
-    name: 'Elena Rodriguez',
-    role: 'Founder',
-    company: 'EduConnect Platform',
-    text: 'Our conversion rate increased by 35% after EduGrowth took over our lead qualification process. Their structured approach and fast response times have been game-changing for our business growth.',
-    avatar: '🇪🇸'
+    name: 'Performance Sprint',
+    role: 'Pilot KPI',
+    company: 'EduGrowth',
+    text: 'A short sprint to validate one audience, one message system and one CRM workflow before scaling budget or operations.',
+    avatar: 'ROI'
   },
   {
-    name: 'David Chen',
-    role: 'Operations Director',
-    company: 'Global E-commerce Ltd',
-    text: 'EduGrowth scaled our support team in just 2 weeks during our peak season. We handled 3x more customer inquiries without compromising quality, and our customer satisfaction scores improved by 25%.',
-    avatar: '🇸🇬'
+    name: 'Human Supervision Layer',
+    role: 'Quality KPI',
+    company: 'EduGrowth',
+    text: 'Automation handles volume while a growth operator reviews targeting, replies, objections and pipeline hygiene every week.',
+    avatar: 'QA'
   },
   {
-    name: 'Anna Kowalski',
-    role: 'Marketing Director',
-    company: 'Digital Agency Pro',
-    text: 'The ROI from outsourcing our lead generation to EduGrowth has been exceptional. We\'ve seen a 40% increase in qualified leads while cutting our marketing costs by 50%. Their Tunisia-based team delivers European-level quality.',
-    avatar: '🇵🇱'
+    name: 'No-Ad Acquisition Loop',
+    role: 'Organic KPI',
+    company: 'EduGrowth',
+    text: 'SEO pages, lead magnets, outbound data and WhatsApp qualification are connected to reduce dependency on paid acquisition.',
+    avatar: 'SEO'
   },
   {
-    name: 'Thomas Weber',
-    role: 'CEO',
-    company: 'FinTech Solutions GmbH',
-    text: 'EduGrowth\'s compliance-focused approach gave us confidence to outsource our sensitive customer onboarding process. We\'ve reduced processing time by 55% while maintaining 100% regulatory compliance.',
-    avatar: '🇩🇪'
+    name: 'Student Profile Scoring',
+    role: 'Admissions KPI',
+    company: 'EduGrowth',
+    text: 'Budget, destination fit, timing, language level and readiness are scored before consultation so teams focus on better profiles.',
+    avatar: 'FIT'
   }
 ];
 

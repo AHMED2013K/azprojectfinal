@@ -1,63 +1,63 @@
 export const b2bOutsourcingTestimonials = [
   {
-    name: "Johnathan Reyes",
-    role: "CEO",
-    company: "DCB Authority Group",
-    industry: "Marketing Agency",
-    content: "EduGrowth completely transformed our sales operations. They outsourced their sales team to us and we handled everything from lead generation to closing deals. This allowed us to scale 3x faster while reducing internal sales costs by 52%. Revenue increased 62% in 6 months.",
+    name: "LinkedIn Outbound Engine",
+    role: "Process playbook",
+    company: "EduGrowth",
+    industry: "B2B Education",
+    content: "ICP definition, targeted LinkedIn scraping, enrichment, connection sequencing, follow-up logic, CRM routing and weekly optimisation. Objective: generate qualified conversations without ad spend.",
     rating: 5,
-    avatar: "https://ui-avatars.com/api/?name=JR&background=005A9C&color=fff&bold=true&size=128",
-    result: "+62% Revenue"
+    avatar: "https://ui-avatars.com/api/?name=AI&background=005A9C&color=fff&bold=true&size=128",
+    result: "500+ leads/mois"
   },
   {
-    name: "Elena Vasquez",
-    role: "Head of Growth",
-    company: "NexaStream",
-    industry: "FinTech SaaS",
-    content: "We reduced customer acquisition costs by 48% and increased our conversion rate by 35% after EduGrowth took over lead qualification and nurturing. Their Tunisia team integrates seamlessly with our CRM and delivers qualified meetings daily.",
+    name: "CRM Qualification System",
+    role: "Automation workflow",
+    company: "EduGrowth",
+    industry: "Admissions Ops",
+    content: "Lead source tracking, AI-assisted scoring, document-status tagging, WhatsApp follow-up triggers and priority routing for sales/admissions teams. Objective: reduce manual handling and focus on high-intent profiles.",
     rating: 5,
-    avatar: "https://ui-avatars.com/api/?name=EV&background=2E8B57&color=fff&bold=true&size=128",
-    result: "+35% Conversion"
+    avatar: "https://ui-avatars.com/api/?name=CRM&background=2E8B57&color=fff&bold=true&size=128",
+    result: "-40% temps dossier"
   },
   {
-    name: "Michael Chen",
-    role: "Operations Director",
-    company: "GlobalEdu Solutions",
-    industry: "EdTech",
-    content: "Customer support costs dropped 60% while maintaining 98% CSAT. EduGrowth's multilingual agents from Tunisia handle complex education inquiries better than our previous in-house team, with 40% faster resolution times.",
+    name: "Student Profile Scoring",
+    role: "AI qualification layer",
+    company: "EduGrowth",
+    industry: "Student Recruitment",
+    content: "Profiles are scored by budget, destination fit, timing, language level, academic background and readiness to apply. Objective: push serious candidates to consultation and keep weak leads in nurturing.",
     rating: 5,
-    avatar: "https://ui-avatars.com/api/?name=MC&background=FF6B35&color=fff&bold=true&size=128",
-    result: "-60% Costs"
+    avatar: "https://ui-avatars.com/api/?name=QS&background=FF6B35&color=fff&bold=true&size=128",
+    result: "Lead scoring IA"
   },
   {
-    name: "Sarah Linden",
-    role: "Founder",
-    company: "Vertex Commerce",
-    industry: "E-commerce",
-    content: "Scaled support from 2 to 8 agents in 10 days without recruitment headaches. Response times improved 65%, CSAT hit 96%, and we saved $42K annually outsourcing to EduGrowth Tunisia.",
+    name: "Performance Sprint",
+    role: "Pilot offer",
+    company: "EduGrowth",
+    industry: "Growth Ops",
+    content: "A 10-day sprint to validate one market: data source, lead list, messages, CRM fields, qualification criteria and KPI dashboard. Objective: prove signal before scaling spend.",
     rating: 5,
-    avatar: "https://ui-avatars.com/api/?name=SL&background=9C27B0&color=fff&bold=true&size=128",
-    result: "10-Day Scale"
+    avatar: "https://ui-avatars.com/api/?name=SP&background=9C27B0&color=fff&bold=true&size=128",
+    result: "5-10 jours"
   },
   {
-    name: "David Hartmann",
-    role: "Head of Operations",
-    company: "Horizon Realty Group",
-    industry: "Real Estate",
-    content: "Lead-to-appointment conversion jumped 42% with EduGrowth handling qualification. Operating costs reduced 48% while maintaining premium service quality for our international property clients.",
+    name: "No-Ad Acquisition Loop",
+    role: "Organic growth system",
+    company: "EduGrowth",
+    industry: "B2B Prospecting",
+    content: "SEO pages, lead magnets, LinkedIn scraping, outbound messages and WhatsApp qualification are connected into one loop. Objective: reduce dependency on paid ads while improving lead quality.",
     rating: 5,
-    avatar: "https://ui-avatars.com/api/?name=DH&background=00BCD4&color=fff&bold=true&size=128",
-    result: "+42% Appointments"
+    avatar: "https://ui-avatars.com/api/?name=OA&background=00BCD4&color=fff&bold=true&size=128",
+    result: "Sans budget ads"
   },
   {
-    name: "Priya Sharma",
-    role: "Chief Revenue Officer",
-    company: "Quantum Analytics",
-    industry: "Data SaaS",
-    content: "40% faster inquiry response times led to 28% revenue lift from upsell opportunities. EduGrowth's Tunisia outsourcing Tunisia specialists became true extensions of our sales team.",
+    name: "Human Supervision Layer",
+    role: "Quality control",
+    company: "EduGrowth",
+    industry: "AI + Ops",
+    content: "Automation handles volume; a growth operator reviews targeting, message quality, replies, objections and CRM hygiene. Objective: keep speed without losing commercial judgment.",
     rating: 5,
-    avatar: "https://ui-avatars.com/api/?name=PS&background=F44336&color=fff&bold=true&size=128",
-    result: "+28% Revenue"
+    avatar: "https://ui-avatars.com/api/?name=QC&background=F44336&color=fff&bold=true&size=128",
+    result: "QA hebdo"
   }
 ];
 
