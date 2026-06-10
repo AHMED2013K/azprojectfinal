@@ -46,7 +46,7 @@ const destinations = [
   {
     name: 'France privé',
     path: '/etudier-en-france-ecole-privee-depuis-tunisie',
-    focus: 'Écoles privées, Bachelor, BTS',
+    focus: 'Écoles privées, Bachelor, BTS, rentrée après bac',
     timing: 'Idéal pendant ou juste après le bac',
     image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&q=80',
   },
@@ -98,6 +98,41 @@ const destinations = [
     focus: 'Europe, médecine, ingénierie, business',
     timing: 'Très pertinent après le bac',
     image: 'https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Royaume-Uni',
+    path: '/etudier-au-royaume-uni-depuis-tunisie',
+    focus: 'Universités anglophones, IELTS, visa étudiant',
+    timing: 'Dossier à préparer plusieurs mois avant la rentrée',
+    image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Italie',
+    path: '/etudier-en-italie-depuis-tunisie',
+    focus: 'Bourses, design, architecture, business',
+    timing: 'Bon choix pour budget européen maîtrisé',
+    image: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Maroc',
+    path: '/etudier-au-maroc-depuis-tunisie',
+    focus: 'Proximité, écoles privées, santé, business',
+    timing: 'Option régionale plus proche des familles',
+    image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Russie',
+    path: '/etudier-en-russie-depuis-tunisie',
+    focus: 'Médecine, ingénierie, budget accessible',
+    timing: 'À vérifier selon langue et reconnaissance',
+    image: 'https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'États-Unis',
+    path: '/etudier-aux-usa-depuis-tunisie',
+    focus: 'Universités, scholarships, visa F-1',
+    timing: 'Préparation longue, idéalement 12 mois avant',
+    image: 'https://images.unsplash.com/photo-1496588152823-86ff7695e68f?auto=format&fit=crop&w=700&q=80',
   },
 ];
 
@@ -844,6 +879,9 @@ export default function StudentHomePage() {
                         alt={destination.name}
                         loading="lazy"
                         decoding="async"
+                        onError={(event) => {
+                          event.currentTarget.src = '/abroad.webp';
+                        }}
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 to-transparent" />

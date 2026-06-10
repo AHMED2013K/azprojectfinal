@@ -541,6 +541,9 @@ export default function CountryGuidePage() {
                 width="1200"
                 height="480"
                 loading="eager"
+                onError={(event) => {
+                  event.currentTarget.src = '/abroad.webp';
+                }}
               />
             ) : null}
 
