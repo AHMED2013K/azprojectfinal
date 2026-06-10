@@ -428,6 +428,7 @@ export default function CountryGuidePage() {
   const { pathname } = useLocation();
   const contentPath = normalizeContentPath(pathname);
   const data = countryData[contentPath] || countryData['/etudier-en-allemagne-depuis-tunisie'];
+  const canonicalUrl = `https://edugrowth.tn${contentPath}/`;
   const copy = {
         back: 'Retour à Abroad Zone',
         advisor: 'Conseiller WhatsApp',
@@ -468,6 +469,11 @@ export default function CountryGuidePage() {
     '@graph': [
       {
         '@type': 'Article',
+        '@id': `${canonicalUrl}#article`,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': `${canonicalUrl}#webpage`,
+        },
         headline: data.h1,
         description: data.description,
         author: {
@@ -485,11 +491,17 @@ export default function CountryGuidePage() {
       },
       {
         '@type': 'FAQPage',
-        mainEntity: data.faq.map((item) => ({
+        '@id': `${canonicalUrl}#faq`,
+        url: canonicalUrl,
+        name: `FAQ - ${data.country}`,
+        inLanguage: 'fr',
+        mainEntity: data.faq.map((item, index) => ({
           '@type': 'Question',
+          '@id': `${canonicalUrl}#faq-question-${index + 1}`,
           name: item.q,
           acceptedAnswer: {
             '@type': 'Answer',
+            '@id': `${canonicalUrl}#faq-answer-${index + 1}`,
             text: item.a,
           },
         })),
@@ -502,7 +514,7 @@ export default function CountryGuidePage() {
       <SEOHelmet
         title={`${data.title} | EduGrowth`}
         description={data.description}
-        canonical={`https://edugrowth.tn${contentPath}`}
+        canonical={canonicalUrl}
         structuredData={structuredData}
         lang={lang}
       />
