@@ -44,7 +44,14 @@ function buildEligibilityUrl(source, lang) {
 
 const destinations = [
   {
-    name: 'France',
+    name: 'France privé',
+    path: '/etudier-en-france-ecole-privee-depuis-tunisie',
+    focus: 'Écoles privées, Bachelor, BTS',
+    timing: 'Idéal pendant ou juste après le bac',
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'France alternance',
     path: '/etudier-en-france-depuis-tunisie',
     focus: 'Campus France, master, alternance',
     timing: '8 a 10 mois avant la rentree',
@@ -81,9 +88,16 @@ const destinations = [
   {
     name: 'Dubai',
     path: '/etudier-a-dubai-depuis-tunisie',
-    focus: 'Programmes internationaux, business',
-    timing: 'Admissions selon calendrier ecole',
+    focus: '100% anglais, diplômes reconnus, dès 5000 USD/an',
+    timing: 'Même sans bac possible selon dossier',
     image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Roumanie',
+    path: '/etudier-en-roumanie-depuis-tunisie',
+    focus: 'Europe, médecine, ingénierie, business',
+    timing: 'Très pertinent après le bac',
+    image: 'https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=700&q=80',
   },
 ];
 
@@ -148,9 +162,9 @@ const copy = {
     quizDestination: 'Destination visee',
     quizBudget: 'Budget mensuel estime',
     quizStage: 'Ou en etes-vous ?',
-    quizDestinations: ['France', 'Allemagne', 'Canada', 'Chypre du Nord', 'Turquie', 'Dubai', 'Je ne sais pas encore'],
+    quizDestinations: ['France privé', 'France alternance', 'Dubai', 'Roumanie', 'Allemagne', 'Canada', 'Chypre du Nord', 'Turquie', 'Je ne sais pas encore'],
     quizBudgets: ['Moins de 500 EUR', '500 - 800 EUR', '800 - 1200 EUR', 'Plus de 1200 EUR', 'A definir avec mes parents'],
-    quizStages: ['Je compare les pays', 'Je veux preparer mon dossier', 'Je cherche une alternance', 'Je prepare le visa', 'Je veux rassurer mes parents'],
+    quizStages: ['Je passe le bac cette année', 'Je n’ai pas le bac', 'Je compare les pays', 'Je veux preparer mon dossier', 'Je cherche une alternance', 'Je prepare le visa', 'Je veux rassurer mes parents'],
     quizResultTitle: 'Votre resume de profil',
     quizResultText:
       "Envoyez ce resume a l'equipe. Un conseiller pourra vous orienter selon votre profil, votre budget et votre calendrier.",
@@ -311,9 +325,9 @@ const copy = {
     quizDestination: 'Target destination',
     quizBudget: 'Estimated monthly budget',
     quizStage: 'Where are you now?',
-    quizDestinations: ['France', 'Germany', 'Canada', 'North Cyprus', 'Turkey', 'Dubai', 'I am not sure yet'],
+    quizDestinations: ['France private school', 'France work-study', 'Dubai', 'Romania', 'Germany', 'Canada', 'North Cyprus', 'Turkey', 'I am not sure yet'],
     quizBudgets: ['Under EUR 500', 'EUR 500 - 800', 'EUR 800 - 1200', 'Over EUR 1200', 'To define with my parents'],
-    quizStages: ['I am comparing countries', 'I want to prepare my file', 'I am looking for work-study', 'I am preparing visa steps', 'I want to reassure my parents'],
+    quizStages: ['I am taking the bac this year', 'I do not have the bac', 'I am comparing countries', 'I want to prepare my file', 'I am looking for work-study', 'I am preparing visa steps', 'I want to reassure my parents'],
     quizResultTitle: 'Your profile summary',
     quizResultText:
       'Send this summary to the team. An advisor can guide you based on your profile, budget, and timeline.',
@@ -613,7 +627,7 @@ export default function StudentHomePage() {
                     <div>
                       <div className="font-black text-[#17324d]">{t.trustTitle}</div>
                       <p className="mt-1 text-sm leading-6 text-slate-600">
-                        France, Allemagne, Canada, Chypre, Turquie, Dubai et autres destinations selon profil.
+                        France privé, alternance, Dubai, Roumanie, Allemagne, Canada, Chypre et Turquie selon profil, bac 2026 ou parcours sans bac.
                       </p>
                     </div>
                   </div>

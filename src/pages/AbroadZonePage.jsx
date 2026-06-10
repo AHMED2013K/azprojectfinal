@@ -74,7 +74,7 @@ const translations = {
     stdLogement: "Global Housing Search",
     stdLogementDesc: "Fast and reliable housing search assistance in your destination country, including all administrative and guarantee support.",
     stdEtudes: "University Admissions",
-    stdEtudesDesc: "Strategic guidance for university applications in Turkey, Cyprus, Russia, Morocco, Dubai, and beyond.",
+    stdEtudesDesc: "Strategic guidance for university applications in Dubai, Romania, France private schools, Turkey, Cyprus, Russia, Morocco, and beyond.",
     stdAusbildung: "Ausbildung in Germany",
     stdAusbildungDesc: "Dual training programs in Germany & Switzerland: combine high-quality theory with paid practical experience.",
     stdDestTitle: "Strategic Destinations",
@@ -105,7 +105,7 @@ const translations = {
     stdLogement: 'Recherche de logement',
     stdLogementDesc: "Aide rapide et fiable pour trouver un logement dans votre pays de destination, avec support administratif et garanties.",
     stdEtudes: 'Admissions universitaires',
-    stdEtudesDesc: 'Accompagnement stratégique pour les candidatures universitaires en Turquie, à Chypre, en Russie, au Maroc, à Dubai et au-delà.',
+    stdEtudesDesc: 'Accompagnement stratégique pour les candidatures universitaires à Dubai, en Roumanie, en établissement privé en France, en Turquie, à Chypre, en Russie, au Maroc et au-delà.',
     stdAusbildung: 'Ausbildung en Allemagne',
     stdAusbildungDesc: "Programmes de formation duale en Allemagne et en Suisse, mêlant théorie de qualité et expérience pratique rémunérée.",
     stdDestTitle: 'Destinations stratégiques',
@@ -305,6 +305,8 @@ const AbroadZonePage = () => {
               <Link to="/etudier-au-canada-depuis-tunisie">Étudier au Canada depuis la Tunisie</Link>
               <Link to="/etudier-en-turquie-depuis-tunisie">Étudier en Turquie depuis la Tunisie</Link>
               <Link to="/etudier-a-dubai-depuis-tunisie">Étudier à Dubai depuis la Tunisie</Link>
+              <Link to="/etudier-en-roumanie-depuis-tunisie">Étudier en Roumanie depuis la Tunisie</Link>
+              <Link to="/etudier-en-france-ecole-privee-depuis-tunisie">Étudier en France dans une école privée</Link>
               <Link to="/etudier-en-russie-depuis-tunisie">Étudier en Russie depuis la Tunisie</Link>
               <Link to="/etudier-en-italie-depuis-tunisie">Étudier en Italie depuis la Tunisie</Link>
               <Link to="/etudier-au-maroc-depuis-tunisie">Étudier au Maroc depuis la Tunisie</Link>

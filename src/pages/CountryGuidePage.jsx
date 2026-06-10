@@ -121,34 +121,105 @@ const countryData = {
   },
   '/etudier-a-dubai-depuis-tunisie': {
     country: 'Dubai',
-    title: "Étudier à Dubai depuis la Tunisie | Universités UAE",
-    description: "Étudier à Dubai depuis la Tunisie: admissions, universités aux Émirats, budget, visa étudiant, logement et programmes internationaux.",
-    h1: "Étudier à Dubai depuis la Tunisie",
-    tuition: "Frais académiques variables selon institution",
-    visa: "Visa étudiant sponsorisé par l’établissement",
-    timeline: ["Sélection programme", "Admission", "Paiement initial", "Visa et installation"],
+    title: "Étudier à Dubai depuis la Tunisie | Anglais, diplômes reconnus, dès 5000 USD",
+    description: "Étudier à Dubai depuis la Tunisie: partenariat universitaire, cursus 100% en anglais, diplômes reconnus, frais dès 5000 USD/an et parcours possibles même sans bac selon dossier.",
+    h1: "Étudier à Dubai depuis la Tunisie après le bac ou sans bac selon profil",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80",
+    tuition: "À partir de 5000 USD par an selon programme et niveau",
+    visa: "Visa étudiant accompagné par l’établissement après admission",
+    timeline: ["Évaluation bac 2026 ou niveau secondaire", "Choix programme 100% anglais", "Admission partenaire universitaire", "Visa, logement et rentrée"],
     highlights: [
-      "Destination premium avec forte orientation internationale",
-      "Le budget global doit être étudié avec précision",
-      "Le choix de l’établissement est central",
-      "Le projet doit rester réaliste par rapport aux coûts",
+      "Nouveau partenariat avec un groupe universitaire à Dubai",
+      "Programmes enseignés 100% en anglais avec diplômes reconnus",
+      "Frais accessibles dès 5000 USD/an pour certains parcours",
+      "Des options peuvent exister pour les étudiants sans bac selon dossier, niveau et programme",
     ],
     budget: [
-      "Frais de scolarité souvent plus élevés",
-      "Logement à budgéter sérieusement",
-      "Assurance santé et frais divers",
-      "Transport et coût de vie global",
+      "Frais académiques dès 5000 USD/an selon programme",
+      "Logement étudiant ou résidence à anticiper tôt",
+      "Assurance, visa et frais administratifs",
+      "Budget de vie à Dubai à valider avec les parents",
     ],
-    programs: ['Business', 'Marketing', 'IT', 'Hospitality', 'Finance', 'Engineering', 'Bachelor', 'Master'],
+    programs: ['Foundation', 'Bachelor', 'Business', 'Marketing', 'IT', 'Hospitality', 'Finance', 'Engineering'],
     faq: [
-      { q: "Dubai est-elle adaptée à tous les budgets ?", a: "Non. C’est souvent une destination plus coûteuse, donc il faut valider la faisabilité financière avant de se lancer." },
-      { q: "Pourquoi choisir Dubai ?", a: "Pour l’environnement international, certains programmes spécifiques et la proximité avec le Golfe." },
+      { q: "Peut-on étudier à Dubai sans le bac ?", a: "Certains parcours peuvent accepter des profils sans bac via foundation, pathway ou admission conditionnelle selon le dossier. L’éligibilité doit être vérifiée avant candidature." },
+      { q: "Les études sont-elles en anglais ?", a: "Oui, les programmes du partenariat Dubai sont pensés pour un environnement 100% anglophone. Un niveau d’anglais cohérent reste important." },
+      { q: "Combien coûtent les études à Dubai ?", a: "Certains frais commencent autour de 5000 USD par an, mais le budget complet dépend du programme, du logement, du visa et du coût de vie." },
     ],
     relatedLinks: [
       { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/etudier-en-france-ecole-privee-depuis-tunisie", label: "Comparer avec France privé" },
+      { to: "/etudier-en-roumanie-depuis-tunisie", label: "Comparer avec Roumanie" },
       { to: "/blog/top-pays-pour-etudier", label: "Comparer les destinations" },
       { to: "/book-consultation", label: "Réserver une consultation" },
-      { to: "/etudier-a-chypre-depuis-tunisie", label: "Voir aussi Chypre" },
+    ],
+  },
+  '/etudier-en-roumanie-depuis-tunisie': {
+    country: 'Roumanie',
+    title: "Étudier en Roumanie depuis la Tunisie | Médecine, ingénierie, budget",
+    description: "Étudier en Roumanie depuis la Tunisie: universités européennes, médecine, ingénierie, business, admission, visa, budget et préparation du dossier après le bac.",
+    h1: "Étudier en Roumanie depuis la Tunisie",
+    image: "https://images.unsplash.com/photo-1541849546-216549ae216d?auto=format&fit=crop&w=1200&q=80",
+    tuition: "Budget souvent plus accessible que plusieurs destinations d’Europe de l’Ouest",
+    visa: "Admission universitaire + dossier visa étudiant + justificatifs financiers",
+    timeline: ["Orientation après bac", "Choix université et spécialité", "Admission et documents", "Visa, logement et départ"],
+    highlights: [
+      "Destination européenne intéressante pour médecine, ingénierie, informatique et business",
+      "Bonne option pour les élèves qui passent le bac et veulent une alternative hors Campus France",
+      "Comparer langue d’enseignement, reconnaissance du diplôme et budget total",
+      "Anticiper traductions, légalisation, logement et délais visa",
+    ],
+    budget: [
+      "Frais de scolarité selon spécialité et université",
+      "Logement étudiant ou colocation",
+      "Assurance, traduction et légalisation",
+      "Billet, installation et dépenses mensuelles",
+    ],
+    programs: ['Médecine', 'Dentisterie', 'Pharmacie', 'Ingénierie', 'IT', 'Business', 'Bachelor', 'Master'],
+    faq: [
+      { q: "La Roumanie est-elle adaptée aux étudiants tunisiens ?", a: "Oui pour certains profils, notamment après le bac, si le programme, la langue d’enseignement, le budget et la reconnaissance sont bien vérifiés." },
+      { q: "Peut-on étudier en anglais en Roumanie ?", a: "Certains programmes existent en anglais, surtout dans les filières internationales. Il faut vérifier les exigences de chaque université." },
+      { q: "Quand préparer un dossier Roumanie ?", a: "Idéalement dès la période du bac ou juste après les résultats, car les documents, traductions et délais administratifs prennent du temps." },
+    ],
+    relatedLinks: [
+      { to: "/etudier-a-dubai-depuis-tunisie", label: "Comparer avec Dubai" },
+      { to: "/etudier-en-france-ecole-privee-depuis-tunisie", label: "Comparer avec France privé" },
+      { to: "/etudier-en-italie-depuis-tunisie", label: "Comparer avec Italie" },
+      { to: "/book-consultation", label: "Tester mon éligibilité" },
+    ],
+  },
+  '/etudier-en-france-ecole-privee-depuis-tunisie': {
+    country: 'France privé',
+    title: "Étudier en France dans un établissement privé depuis la Tunisie | Bac 2026",
+    description: "Étudier en France dans une école privée depuis la Tunisie: admission hors alternance, Bachelor, BTS, business, informatique, rentrée 2026/2027 et dossier après le bac.",
+    h1: "Étudier en France dans un établissement privé depuis la Tunisie",
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
+    tuition: "Frais variables selon école privée, ville et programme",
+    visa: "Admission école privée + dossier visa étudiant + preuves financières",
+    timeline: ["Diagnostic bac 2026", "Choix école privée et programme", "Dossier admission", "Visa, logement et départ"],
+    highlights: [
+      "Page dédiée aux études en France hors alternance",
+      "Option pertinente pour élèves qui passent le bac et veulent sécuriser une admission privée",
+      "Bachelor, BTS, business, informatique, marketing, design et management selon écoles",
+      "Le dossier doit rester cohérent: notes, projet, budget, motivation et calendrier visa",
+    ],
+    budget: [
+      "Frais de scolarité selon établissement privé",
+      "Logement, transport et coût de vie en France",
+      "Assurance, CVEC et frais administratifs",
+      "Preuves financières à préparer tôt avec la famille",
+    ],
+    programs: ['Bachelor', 'BTS', 'Business', 'Marketing', 'Informatique', 'Design', 'Management', 'Finance'],
+    faq: [
+      { q: "Quelle différence avec l’alternance en France ?", a: "Cette page cible les admissions en établissement privé hors alternance. L’alternance dépend d’un contrat entreprise, alors qu’une école privée peut être une voie d’admission académique directe." },
+      { q: "Puis-je postuler pendant que je passe le bac ?", a: "Oui, il est possible de préparer l’orientation, la liste d’écoles et certains éléments du dossier avant les résultats du bac." },
+      { q: "Le visa est-il garanti avec une école privée ?", a: "Non. Le visa dépend de la cohérence du projet, du sérieux de l’établissement, des preuves financières et du dossier complet." },
+    ],
+    relatedLinks: [
+      { to: "/etudier-en-france-depuis-tunisie", label: "Guide France général" },
+      { to: "/alternance-france", label: "Voir alternance France" },
+      { to: "/campus-france-tunisie-guide", label: "Guide Campus France Tunisie" },
+      { to: "/book-consultation", label: "Tester mon éligibilité" },
     ],
   },
   '/etudier-en-russie-depuis-tunisie': {
@@ -334,7 +405,9 @@ function QuickApplicationForm({ country }) {
         <input name="email" required type="email" placeholder="Email" className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#005A9C]" />
         <select name="level" required className="rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#005A9C]">
           <option value="">Niveau</option>
+          <option>Bac en cours / Bac 2026</option>
           <option>Bac</option>
+          <option>Sans bac / niveau secondaire</option>
           <option>Licence / Bachelor</option>
           <option>Master</option>
           <option>PhD</option>
@@ -459,6 +532,17 @@ export default function CountryGuidePage() {
             </p>
             <h1 className="mt-4 text-4xl font-black leading-tight">{data.h1}</h1>
             <p className="mt-4 text-slate-600">{data.description}</p>
+
+            {data.image ? (
+              <img
+                src={data.image}
+                alt={data.h1}
+                className="mt-8 h-72 w-full rounded-3xl object-cover shadow-sm"
+                width="1200"
+                height="480"
+                loading="eager"
+              />
+            ) : null}
 
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               <div className="rounded-2xl border border-slate-200 p-5">
