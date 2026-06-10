@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.resolve(rootDir, 'dist');
 const templatePath = path.resolve(distDir, 'index.html');
-const extraRoutes = ['/ousourcing', '/outourcing'];
+const extraRoutes = ['/home', '/ousourcing', '/outourcing'];
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
