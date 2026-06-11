@@ -136,6 +136,15 @@ const destinations = [
   },
 ];
 
+const seoPillarLinks = [
+  { label: "Étudier à l'étranger depuis la Tunisie", path: '/fr/etudier-a-l-etranger-depuis-tunisie' },
+  { label: "Étudier à l'étranger depuis Tunis", path: '/fr/etudier-a-l-etranger-depuis-tunis' },
+  { label: 'Médecine et pharmacie à l’étranger', path: '/fr/etudier-medecine-pharmacie-etranger' },
+  { label: 'Médecine privée en Tunisie', path: '/fr/medecine-privee-tunisie' },
+  { label: 'Licence privée en Tunisie', path: '/fr/licence-privee-tunisie' },
+  { label: 'Mastère privé en Tunisie', path: '/fr/mastere-prive-tunisie' },
+];
+
 const copy = {
   fr: {
     seoTitle: "EduGrowth Tunisie | Etudier a l'etranger depuis la Tunisie",
@@ -468,11 +477,32 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'Organization',
+      '@type': ['EducationalOrganization', 'LocalBusiness'],
+      '@id': 'https://edugrowth.tn/#organization',
       name: 'EduGrowth Tunisia',
       url: 'https://edugrowth.tn/',
       logo: 'https://edugrowth.tn/Submark.webp',
+      image: 'https://edugrowth.tn/og-image.png',
       telephone: '+21656590703',
+      priceRange: '$$',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Tunis',
+        addressCountry: 'TN',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 36.8065,
+        longitude: 10.1815,
+      },
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          opens: '09:00',
+          closes: '18:00',
+        },
+      ],
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: '+21656590703',
@@ -920,6 +950,16 @@ export default function StudentHomePage() {
                     <p className="mt-3 text-sm leading-7 text-slate-600">{block.text}</p>
                   </article>
                 ))}
+              </div>
+              <div className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <h3 className="text-2xl font-black text-[#17324d]">Guides prioritaires pour Google.tn</h3>
+                <div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+                  {seoPillarLinks.map((item) => (
+                    <Link key={item.path} to={item.path} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-black text-[#176b87] transition hover:-translate-y-0.5 hover:bg-white hover:shadow-sm">
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </section>

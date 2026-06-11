@@ -31,6 +31,7 @@ const CanadaStudyPage = lazy(() => import('./pages/CanadaStudyPage.jsx'));
 const CustomerServiceOutsourcingPage = lazy(() => import('./pages/CustomerServiceOutsourcingPage.jsx'));
 const CostCalculatorPage = lazy(() => import('./pages/CostCalculatorPage.jsx'));
 const OutsourcingTunisiaPage = lazy(() => import('./pages/OutsourcingTunisiaPage.jsx'));
+const SeoPillarPage = lazy(() => import('./pages/SeoPillarPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
 const StickyCTA = lazy(() => import('./components/StickyCTA.jsx'));
@@ -91,6 +92,19 @@ export default function App() {
         <Route path="/contact" element={<Suspense fallback={<LoadingFallback />}><ContactPage /></Suspense>} />
         <Route path="/partners" element={<Suspense fallback={<LoadingFallback />}><PartnersPage /></Suspense>} />
         <Route path="/resources" element={<Suspense fallback={<LoadingFallback />}><ResourcesPage /></Suspense>} />
+
+        <Route path="/fr/etudier-a-l-etranger-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/fr/etudier-a-l-etranger-depuis-tunis" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/fr/etudier-medecine-pharmacie-etranger" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/fr/medecine-privee-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/fr/licence-privee-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/fr/mastere-prive-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/en/study-abroad-from-tunisia" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/en/study-abroad-from-tunis" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/en/study-medicine-pharmacy-abroad" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/en/private-medicine-tunisia" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/en/private-bachelor-tunisia" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/en/private-master-tunisia" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
 
         <Route path="/etudier-en-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><FranceStudyPage /></Suspense>} />
         <Route path="/study-in-north-cyprus" element={<Suspense fallback={<LoadingFallback />}><StudyInNorthCyprusPage /></Suspense>} />
