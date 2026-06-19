@@ -166,11 +166,25 @@ const destinations = [
 
 const seoPillarLinks = [
   { label: "Étudier à l'étranger depuis la Tunisie", path: '/fr/etudier-a-l-etranger-depuis-tunisie' },
+  { label: 'Visa étudiant depuis la Tunisie', path: '/visa-etudiant-tunisie' },
+  { label: 'Bourses pour étudiants tunisiens', path: '/bourses-etudes-tunisiens' },
+  { label: 'Comparatif des pays', path: '/comparatif-pays-etudes-etranger-tunisie' },
+  { label: 'Étudier en Europe depuis la Tunisie', path: '/etudier-en-europe-depuis-tunisie' },
+  { label: 'Après bac : étudier à l’étranger', path: '/apres-bac-etudier-a-l-etranger' },
+  { label: 'Guide parents', path: '/parents-etudes-etranger-tunisie' },
   { label: "Étudier à l'étranger depuis Tunis", path: '/fr/etudier-a-l-etranger-depuis-tunis' },
   { label: 'Médecine et pharmacie à l’étranger', path: '/fr/etudier-medecine-pharmacie-etranger' },
   { label: 'Médecine privée en Tunisie', path: '/fr/medecine-privee-tunisie' },
   { label: 'Licence privée en Tunisie', path: '/fr/licence-privee-tunisie' },
   { label: 'Mastère privé en Tunisie', path: '/fr/mastere-prive-tunisie' },
+];
+
+const homepageComparisonRows = [
+  ['France', 'Moyen à élevé', 'Français', 'Campus France + visa étudiant', '/etudier-en-france-depuis-tunisie'],
+  ['Canada', 'Élevé', 'Français / anglais', 'Permis d’études', '/etudier-au-canada-depuis-tunisie'],
+  ['Allemagne', 'Modéré en public', 'Allemand / anglais', 'Compte bloqué fréquent', '/etudier-en-allemagne-depuis-tunisie'],
+  ['Roumanie', 'Moyen', 'Français / anglais', 'Visa étudiant européen', '/etudier-en-roumanie-depuis-tunisie'],
+  ['Dubai', 'À partir de 5000 USD/an selon programme', 'Anglais', 'Visa étudiant après admission', '/etudier-a-dubai-depuis-tunisie'],
 ];
 
 const copy = {
@@ -511,6 +525,8 @@ const structuredData = {
       url: 'https://edugrowth.tn/',
       logo: 'https://edugrowth.tn/Submark.webp',
       image: 'https://edugrowth.tn/og-image.png',
+      description:
+        "EduGrowth accompagne les bacheliers, étudiants et parents en Tunisie dans les projets d'études à l'étranger avec orientation transparente, budget réaliste, admission, visa étudiant et suivi WhatsApp.",
       telephone: '+21656590703',
       priceRange: '$$',
       address: {
@@ -538,17 +554,86 @@ const structuredData = {
         availableLanguage: ['French', 'Arabic', 'English'],
         areaServed: 'TN',
       },
+      sameAs: [
+        'https://edugrowth.tn/',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://edugrowth.tn/#website',
+      name: 'EduGrowth Tunisia',
+      url: 'https://edugrowth.tn/',
+      inLanguage: ['fr-TN', 'en-TN'],
+      publisher: { '@id': 'https://edugrowth.tn/#organization' },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': 'https://edugrowth.tn/#webpage',
+      url: 'https://edugrowth.tn/',
+      name: "Étudier à l'étranger depuis la Tunisie",
+      description:
+        "Page d'accueil EduGrowth pour les étudiants tunisiens qui veulent étudier à l'étranger: orientation, admission, budget, visa, logement et suivi.",
+      inLanguage: 'fr-TN',
+      isPartOf: { '@id': 'https://edugrowth.tn/#website' },
+      about: { '@id': 'https://edugrowth.tn/#organization' },
     },
     {
       '@type': 'Service',
+      '@id': 'https://edugrowth.tn/#study-abroad-service',
       name: 'Study Abroad Guidance from Tunisia',
       serviceType: 'International student guidance',
-      provider: { '@type': 'Organization', name: 'EduGrowth Tunisia' },
-      areaServed: ['Tunisia', 'France', 'Germany', 'Canada', 'Turkey', 'Cyprus', 'United Arab Emirates'],
+      provider: { '@id': 'https://edugrowth.tn/#organization' },
+      areaServed: ['Tunisia', 'France', 'Germany', 'Canada', 'Romania', 'Turkey', 'Cyprus', 'United Arab Emirates'],
       availableLanguage: ['French', 'Arabic', 'English'],
+      audience: {
+        '@type': 'Audience',
+        audienceType: 'Bacheliers, étudiants et parents résidant en Tunisie',
+      },
       description:
         'Guidance for Tunisian students choosing a destination, preparing admissions, visa steps, housing, and work-study projects abroad.',
     },
+    {
+      '@type': 'ItemList',
+      '@id': 'https://edugrowth.tn/#destination-list',
+      name: "Destinations pour étudier à l'étranger depuis la Tunisie",
+      itemListElement: destinations.slice(0, 10).map((destination, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: destination.name,
+        url: `https://edugrowth.tn${destination.path}/`,
+      })),
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://edugrowth.tn/#faq',
+      inLanguage: 'fr-TN',
+      mainEntity: copy.fr.faqs.map((faq, index) => ({
+        '@type': 'Question',
+        '@id': `https://edugrowth.tn/#faq-question-${index + 1}`,
+        name: faq.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          '@id': `https://edugrowth.tn/#faq-answer-${index + 1}`,
+          text: faq.a,
+        },
+      })),
+    },
+    ...studentAbroadTestimonials.slice(0, 3).map((testimonial, index) => ({
+      '@type': 'Review',
+      '@id': `https://edugrowth.tn/#student-review-${index + 1}`,
+      itemReviewed: { '@id': 'https://edugrowth.tn/#study-abroad-service' },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: String(testimonial.rating || 5),
+        bestRating: '5',
+      },
+      author: {
+        '@type': 'Person',
+        name: testimonial.name,
+      },
+      datePublished: `${testimonial.year}-01-01`,
+      reviewBody: `${testimonial.content} Destination: ${testimonial.destination}. Programme: ${testimonial.program}. Resultat: ${testimonial.result}`,
+    })),
   ],
 };
 
@@ -978,6 +1063,43 @@ export default function StudentHomePage() {
                     <p className="mt-3 text-sm leading-7 text-slate-600">{block.text}</p>
                   </article>
                 ))}
+              </div>
+              <div className="mt-10 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                <div className="border-b border-slate-200 bg-slate-50 px-5 py-4">
+                  <h3 className="text-xl font-black text-[#17324d]">Comparatif rapide des destinations depuis la Tunisie</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Ces informations servent de premier filtre. Le choix final dépend toujours du profil, des notes, du budget familial et des délais.
+                  </p>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full text-left text-sm">
+                    <caption className="sr-only">Budget, langue et visa pour étudier à l’étranger depuis la Tunisie</caption>
+                    <thead className="bg-white text-xs uppercase tracking-[0.14em] text-slate-500">
+                      <tr>
+                        <th scope="col" className="px-4 py-4">Pays</th>
+                        <th scope="col" className="px-4 py-4">Budget</th>
+                        <th scope="col" className="px-4 py-4">Langue</th>
+                        <th scope="col" className="px-4 py-4">Point visa</th>
+                        <th scope="col" className="px-4 py-4">Guide</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {homepageComparisonRows.map(([country, budget, language, visa, path]) => (
+                        <tr key={country}>
+                          <th scope="row" className="px-4 py-4 font-black text-[#17324d]">{country}</th>
+                          <td className="px-4 py-4 text-slate-700">{budget}</td>
+                          <td className="px-4 py-4 text-slate-700">{language}</td>
+                          <td className="px-4 py-4 text-slate-700">{visa}</td>
+                          <td className="px-4 py-4">
+                            <Link to={path} className="font-black text-[#176b87] hover:text-[#17324d]">
+                              Voir
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <div className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h3 className="text-2xl font-black text-[#17324d]">Guides prioritaires pour Google.tn</h3>
