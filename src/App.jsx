@@ -112,6 +112,8 @@ export default function App() {
         <Route path="/alternance-en-france-pour-tunisiens" element={<Suspense fallback={<LoadingFallback />}><AlternanceFranceTunisiensPage /></Suspense>} />
         <Route path="/campus-france-tunisie-guide" element={<Suspense fallback={<LoadingFallback />}><CampusFranceTunisieGuidePage /></Suspense>} />
         <Route path="/etudier-en-allemagne-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-autriche-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-hongrie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-au-canada-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CanadaStudyPage /></Suspense>} />
         <Route path="/etudier-a-chypre-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-turquie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
@@ -120,6 +122,8 @@ export default function App() {
         <Route path="/etudier-en-france-ecole-privee-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-russie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-italie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-espagne-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-chine-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-au-maroc-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-au-royaume-uni-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-aux-usa-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
