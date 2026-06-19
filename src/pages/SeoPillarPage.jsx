@@ -43,6 +43,26 @@ const priorityDestinations = [
   { label: 'Chine', path: '/etudier-en-chine-depuis-tunisie', intent: 'Bourses, médecine, ingénierie et cursus internationaux' },
 ];
 
+const authoritySupportPages = [
+  { label: 'Visa étudiant depuis la Tunisie', path: '/visa-etudiant-tunisie', intent: 'Documents, preuves financières, délais et erreurs à éviter' },
+  { label: 'Bourses pour Tunisiens', path: '/bourses-etudes-tunisiens', intent: 'Bourses publiques, universités, critères et stratégie de dossier' },
+  { label: 'Comparatif pays', path: '/comparatif-pays-etudes-etranger-tunisie', intent: 'Budget, langue, visa, admission et niveau de difficulté' },
+  { label: 'Étudier en Europe', path: '/etudier-en-europe-depuis-tunisie', intent: 'France, Allemagne, Autriche, Hongrie, Roumanie, Espagne' },
+  { label: 'Après bac', path: '/apres-bac-etudier-a-l-etranger', intent: 'Calendrier bac, documents, choix pays et inscription' },
+  { label: 'Guide parents', path: '/parents-etudes-etranger-tunisie', intent: 'Budget, sécurité, visa, logement et suivi étudiant' },
+];
+
+const comparisonRows = [
+  ['France', 'Moyen à élevé', 'Français', 'Campus France + visa', 'Très forte demande, bon choix si dossier cohérent'],
+  ['Canada', 'Élevé', 'Français / anglais', 'Permis d’études', 'Projet solide, budget clair et délais longs'],
+  ['Allemagne', 'Modéré en public', 'Allemand / anglais', 'Visa + compte bloqué', 'Excellent rapport coût/réputation si langue préparée'],
+  ['Autriche', 'Modéré', 'Allemand / anglais', 'Visa long séjour', 'Option européenne sérieuse pour profils autonomes'],
+  ['Hongrie', 'Moyen à élevé', 'Anglais', 'Visa étudiant', 'Forte pour médecine, ingénierie et programmes internationaux'],
+  ['Roumanie', 'Moyen', 'Français / anglais / roumain', 'Visa étudiant', 'Très pertinente pour médecine, pharmacie et ingénierie'],
+  ['Espagne', 'Moyen', 'Espagnol / anglais', 'Visa étudiant', 'Bonne option européenne avec coût souvent modéré'],
+  ['Chine', 'Variable', 'Anglais / chinois', 'Admission + visa', 'Bourses possibles, forte en ingénierie et médecine'],
+];
+
 const pages = {
   '/fr/etudier-a-l-etranger-depuis-tunisie': {
     lang: 'fr',
@@ -50,9 +70,11 @@ const pages = {
     description: "Guide pour étudier à l'étranger depuis la Tunisie: visa, budget, équivalence, admission, logement et dossier étudiant.",
     h1: "Étudier à l'étranger depuis la Tunisie",
     eyebrow: 'Guide national',
+    directAnswer: "Pour étudier à l’étranger depuis la Tunisie, il faut choisir un pays réaliste selon votre budget, préparer un dossier académique complet, obtenir une admission, sécuriser les preuves financières, puis déposer un visa étudiant dans les délais.",
     intro: "EduGrowth aide les étudiants tunisiens et leurs parents à choisir une destination réaliste, préparer les documents, comprendre les étapes visa et éviter les erreurs de dossier.",
     cta: 'Tester mon profil gratuitement',
     whatsapp: "Bonjour EduGrowth, je veux étudier à l'étranger depuis la Tunisie.",
+    updatedAt: '19 juin 2026',
     sections: [
       {
         h2: 'Les étapes clés depuis la Tunisie',
@@ -73,6 +95,213 @@ const pages = {
     faq: [
       ['Quand commencer un dossier depuis la Tunisie ?', "Idéalement plusieurs mois avant la rentrée, surtout pour la France, le Canada, l'Allemagne et les pays avec visa long séjour."],
       ['Quel pays choisir avec un budget limité ?', "Il faut comparer le budget total, pas seulement les frais d'inscription. Chypre, Turquie, Roumanie, Dubai ou certaines écoles privées peuvent être étudiées selon profil."],
+      ['EduGrowth peut-il aider les parents à valider le budget ?', "Oui. L’objectif est de clarifier les frais académiques, le logement, l’assurance, le visa, l’installation et les alternatives avant de lancer le dossier."],
+    ],
+  },
+  '/visa-etudiant-tunisie': {
+    lang: 'fr',
+    title: 'Visa étudiant Tunisie | Documents, délais et erreurs',
+    description: 'Visa étudiant depuis la Tunisie: documents, admission, preuves financières, logement, assurance, délais et erreurs à éviter.',
+    h1: 'Visa étudiant depuis la Tunisie',
+    eyebrow: 'Guide visa',
+    directAnswer: "Un visa étudiant depuis la Tunisie se prépare après une admission officielle. Le dossier doit prouver l’objectif d’études, le financement, le logement, l’assurance et la cohérence du parcours académique.",
+    intro: "Le visa est souvent l’étape la plus sensible du projet. Une admission seule ne suffit pas: le consulat analyse la cohérence du dossier, la capacité financière, le projet d’études et les garanties de séjour.",
+    cta: 'Vérifier mon dossier visa',
+    whatsapp: 'Bonjour EduGrowth, je veux vérifier mon dossier visa étudiant depuis la Tunisie.',
+    updatedAt: '19 juin 2026',
+    sections: [
+      {
+        h2: 'Quels documents préparer pour un visa étudiant ?',
+        body: "Les documents varient selon le pays, mais les bases reviennent souvent: passeport, admission, relevés, diplômes, preuves financières, logement, assurance, formulaire visa et lettre explicative.",
+        h3: ['Passeport et admission', 'Preuves financières', 'Logement et assurance'],
+      },
+      {
+        h2: 'Pourquoi certains visas étudiants sont refusés ?',
+        body: "Les refus viennent souvent d’un budget mal expliqué, d’un projet incohérent, de documents incomplets, de délais mal gérés ou d’une incapacité à expliquer le choix du pays.",
+        h3: ['Projet non cohérent', 'Financement insuffisant', 'Documents incomplets'],
+      },
+      {
+        h2: 'Comment réduire le risque de refus ?',
+        body: "Il faut construire une histoire logique: parcours précédent, choix du programme, budget familial, logement, projet professionnel et retour possible. Le dossier doit être clair avant le rendez-vous.",
+        h3: ['Audit du dossier', 'Préparation entretien', 'Plan B réaliste'],
+      },
+    ],
+    faq: [
+      ['Une admission garantit-elle le visa ?', 'Non. L’admission est nécessaire, mais le visa dépend aussi du financement, du logement, de la cohérence et des règles consulaires.'],
+      ['Quand préparer le visa étudiant ?', 'Dès le choix du pays. Les preuves financières, traductions, logement et rendez-vous prennent souvent plus de temps que prévu.'],
+      ['Quel pays demande un compte bloqué ?', 'L’Allemagne demande souvent une preuve financière structurée comme un compte bloqué. Les règles exactes doivent être vérifiées au moment du dossier.'],
+    ],
+  },
+  '/bourses-etudes-tunisiens': {
+    lang: 'fr',
+    title: 'Bourses d’études pour Tunisiens | Guide étranger',
+    description: 'Bourses d’études pour étudiants tunisiens: pays, critères, documents, calendrier et stratégie pour étudier à l’étranger.',
+    h1: 'Bourses d’études pour Tunisiens',
+    eyebrow: 'Financement',
+    directAnswer: "Les étudiants tunisiens peuvent viser des bourses universitaires, régionales ou gouvernementales selon le pays, le niveau, les notes, la langue et la solidité du dossier.",
+    intro: "Une bourse ne se cherche pas à la dernière minute. Le meilleur dossier combine bonnes notes, projet clair, documents traduits, preuve linguistique et candidatures ciblées par pays.",
+    cta: 'Trouver les bourses adaptées',
+    whatsapp: 'Bonjour EduGrowth, je veux chercher une bourse d’études adaptée à mon profil.',
+    updatedAt: '19 juin 2026',
+    sections: [
+      {
+        h2: 'Quels types de bourses existent ?',
+        body: "Les bourses peuvent couvrir une partie des frais, les frais complets ou parfois le logement. Les critères changent selon université, pays, niveau et filière.",
+        h3: ['Bourses universitaires', 'Bourses gouvernementales', 'Réductions sur frais de scolarité'],
+      },
+      {
+        h2: 'Quels pays sont à comparer ?',
+        body: "La Chine, l’Allemagne, l’Autriche, la Hongrie, la Roumanie, l’Espagne, le Canada et certaines écoles privées peuvent proposer des aides selon profil.",
+        h3: ['Chine et bourses publiques', 'Europe et frais modérés', 'Canada et aides ciblées'],
+      },
+      {
+        h2: 'Comment augmenter ses chances ?',
+        body: "Il faut postuler tôt, présenter un dossier propre, éviter les candidatures massives non ciblées et adapter la motivation à chaque université.",
+        h3: ['Calendrier clair', 'Documents traduits', 'Lettre de motivation précise'],
+      },
+    ],
+    faq: [
+      ['Peut-on étudier gratuitement à l’étranger ?', 'Parfois, mais rarement sans frais du tout. Même avec bourse, il faut prévoir visa, logement, assurance, billet et installation.'],
+      ['Les bourses sont-elles garanties ?', 'Non. Elles dépendent du profil, de la concurrence, des critères du pays et du nombre de places.'],
+      ['Quand chercher une bourse ?', 'Idéalement 6 à 12 mois avant la rentrée, selon pays et université.'],
+    ],
+  },
+  '/comparatif-pays-etudes-etranger-tunisie': {
+    lang: 'fr',
+    title: 'Comparatif pays études à l’étranger Tunisie',
+    description: 'Comparatif des pays pour étudier à l’étranger depuis la Tunisie: budget, langue, visa, admission, bourses et profils adaptés.',
+    h1: 'Comparatif des pays pour étudier à l’étranger depuis la Tunisie',
+    eyebrow: 'Choix destination',
+    directAnswer: "Le meilleur pays dépend du budget, de la langue, du niveau académique, de la filière, du visa et de l’objectif professionnel. Il n’existe pas une destination parfaite pour tous les étudiants tunisiens.",
+    intro: "Comparer les pays évite les mauvais choix: une destination populaire peut être trop chère, trop lente ou trop risquée pour un profil donné. Le bon choix doit être stratégique.",
+    cta: 'Comparer mon profil',
+    whatsapp: 'Bonjour EduGrowth, je veux comparer les pays adaptés à mon profil.',
+    updatedAt: '19 juin 2026',
+    showComparison: true,
+    sections: [
+      {
+        h2: 'Quels critères comparer ?',
+        body: "Il faut comparer le coût total, la langue d’enseignement, la difficulté du visa, les délais, la reconnaissance du diplôme et les possibilités après études.",
+        h3: ['Budget total', 'Visa et preuves financières', 'Débouchés après diplôme'],
+      },
+      {
+        h2: 'Quels pays pour petit budget ?',
+        body: "L’Allemagne publique, l’Autriche, la Roumanie, la Hongrie, l’Espagne, la Turquie ou Chypre peuvent être étudiés selon filière et niveau.",
+        h3: ['Europe centrale', 'Frais publics', 'Coût de vie modéré'],
+      },
+      {
+        h2: 'Quels pays pour médecine ou ingénierie ?',
+        body: "La Roumanie, la Hongrie, la Chine, l’Espagne et certaines destinations européennes reviennent souvent pour santé, ingénierie et programmes internationaux.",
+        h3: ['Médecine et pharmacie', 'Ingénierie', 'Programmes en anglais'],
+      },
+    ],
+    faq: [
+      ['Quel pays est le plus facile pour un Tunisien ?', 'Cela dépend du dossier. Un pays facile pour l’admission peut être plus difficile pour le visa ou le budget.'],
+      ['Quel pays choisir après le bac ?', 'Il faut comparer filière, budget familial, langue, notes du bac et délais de rentrée.'],
+      ['Faut-il choisir selon le prix seulement ?', 'Non. Le coût est important, mais la reconnaissance, le visa, la sécurité et les débouchés comptent autant.'],
+    ],
+  },
+  '/etudier-en-europe-depuis-tunisie': {
+    lang: 'fr',
+    title: 'Étudier en Europe depuis la Tunisie | Guide complet',
+    description: 'Étudier en Europe depuis la Tunisie: France, Allemagne, Autriche, Roumanie, Hongrie, Espagne, budget, visa et admission.',
+    h1: 'Étudier en Europe depuis la Tunisie',
+    eyebrow: 'Europe',
+    directAnswer: "Étudier en Europe depuis la Tunisie est possible via plusieurs parcours: France, Allemagne, Autriche, Roumanie, Hongrie ou Espagne. Le choix dépend du budget, de la langue, du visa et de la filière.",
+    intro: "L’Europe attire les étudiants tunisiens pour la proximité, la reconnaissance des diplômes, les universités publiques et les programmes internationaux. Mais chaque pays a ses propres règles.",
+    cta: 'Choisir mon pays en Europe',
+    whatsapp: 'Bonjour EduGrowth, je veux étudier en Europe depuis la Tunisie.',
+    updatedAt: '19 juin 2026',
+    showComparison: true,
+    sections: [
+      {
+        h2: 'Quels pays européens choisir ?',
+        body: "France, Allemagne, Autriche, Roumanie, Hongrie et Espagne couvrent plusieurs profils: études publiques, écoles privées, médecine, ingénierie, alternance et programmes en anglais.",
+        h3: ['France et Campus France', 'Allemagne et Autriche', 'Roumanie, Hongrie, Espagne'],
+      },
+      {
+        h2: 'Quel budget prévoir ?',
+        body: "Le budget inclut frais académiques, logement, assurance, preuves financières, visa, billet et installation. Les pays publics ne sont pas toujours les moins chers si le coût de vie est élevé.",
+        h3: ['Frais de scolarité', 'Coût de vie', 'Preuves financières'],
+      },
+      {
+        h2: 'Comment préparer le dossier depuis la Tunisie ?',
+        body: "Il faut anticiper les traductions, la légalisation, les candidatures, les rendez-vous visa, le logement et les dates limites propres à chaque pays.",
+        h3: ['Documents académiques', 'Admission', 'Visa long séjour'],
+      },
+    ],
+    faq: [
+      ['L’Europe est-elle accessible après le bac tunisien ?', 'Oui, selon pays, filière, notes, langue et budget. Les délais doivent être anticipés tôt.'],
+      ['Peut-on étudier en anglais en Europe ?', 'Oui, surtout en Hongrie, Roumanie, Espagne, Allemagne, Autriche et dans certaines écoles privées.'],
+      ['Quel pays européen est le plus abordable ?', 'Cela dépend du programme et du logement. Il faut comparer le coût total, pas seulement les frais universitaires.'],
+    ],
+  },
+  '/apres-bac-etudier-a-l-etranger': {
+    lang: 'fr',
+    title: 'Après bac : étudier à l’étranger depuis la Tunisie',
+    description: 'Guide après bac pour étudier à l’étranger depuis la Tunisie: calendrier, documents, pays, admission, visa et choix de filière.',
+    h1: 'Après le bac : étudier à l’étranger depuis la Tunisie',
+    eyebrow: 'Bac 2026',
+    directAnswer: "Après le bac, un étudiant tunisien doit choisir une filière réaliste, comparer les pays, préparer relevés et diplômes, postuler rapidement, puis organiser visa, logement et budget.",
+    intro: "La période du bac est décisive. Beaucoup d’étudiants attendent les résultats pour commencer, alors que les meilleurs dossiers se préparent avant avec plusieurs scénarios.",
+    cta: 'Préparer mon dossier après bac',
+    whatsapp: 'Bonjour EduGrowth, je passe le bac et je veux préparer mes études à l’étranger.',
+    updatedAt: '19 juin 2026',
+    sections: [
+      {
+        h2: 'Quand commencer après le bac ?',
+        body: "Il faut idéalement préparer la stratégie avant les résultats: pays possibles, budget familial, documents, passeport, langue et calendrier de rentrée.",
+        h3: ['Avant résultats', 'Après résultats', 'Plan A et plan B'],
+      },
+      {
+        h2: 'Quels pays pour les bacheliers tunisiens ?',
+        body: "France privé, Roumanie, Hongrie, Dubai, Espagne, Allemagne, Autriche, Chine ou Canada peuvent être étudiés selon niveau, budget et filière.",
+        h3: ['Médecine et santé', 'Business et IT', 'Ingénierie et sciences'],
+      },
+      {
+        h2: 'Quels documents préparer ?',
+        body: "Passeport, relevés, diplôme du bac, traductions, attestation de réussite, lettre de motivation, preuve de langue et justificatifs financiers.",
+        h3: ['Documents scolaires', 'Traductions', 'Financement'],
+      },
+    ],
+    faq: [
+      ['Puis-je postuler avant le résultat du bac ?', 'Dans certains cas oui, avec admission conditionnelle ou pré-évaluation. Le dossier final dépendra des résultats.'],
+      ['Quel pays accepte les profils moyens ?', 'Il faut comparer plusieurs options. Certaines écoles privées, Dubai, Roumanie ou autres parcours peuvent être plus flexibles selon dossier.'],
+      ['Un étudiant sans bac peut-il postuler ?', 'Certains parcours foundation ou pathway peuvent exister selon pays et établissement, mais l’éligibilité doit être vérifiée précisément.'],
+    ],
+  },
+  '/parents-etudes-etranger-tunisie': {
+    lang: 'fr',
+    title: 'Guide parents Tunisie | Études à l’étranger',
+    description: 'Guide pour parents tunisiens: budget, visa, sécurité, logement, suivi et choix fiable pour étudier à l’étranger.',
+    h1: 'Guide parents : sécuriser un projet d’études à l’étranger',
+    eyebrow: 'Confiance parents',
+    directAnswer: "Pour les parents tunisiens, un projet d’études à l’étranger doit être validé sur quatre points: budget total, sérieux de l’établissement, chances de visa et conditions de logement/sécurité.",
+    intro: "La décision n’est pas seulement académique. Les parents doivent comprendre les coûts réels, les risques, les délais, les preuves financières et le suivi après départ.",
+    cta: 'Parler à un conseiller',
+    whatsapp: 'Bonjour EduGrowth, je suis parent et je veux sécuriser le projet d’études à l’étranger de mon enfant.',
+    updatedAt: '19 juin 2026',
+    sections: [
+      {
+        h2: 'Comment vérifier qu’un projet est sérieux ?',
+        body: "Un projet sérieux repose sur une admission vérifiable, un établissement reconnu, un budget réaliste, un calendrier clair et un dossier visa cohérent.",
+        h3: ['Admission vérifiable', 'Établissement reconnu', 'Budget complet'],
+      },
+      {
+        h2: 'Quels coûts anticiper ?',
+        body: "Il faut compter frais de scolarité, logement, assurance, visa, billet, installation, dépenses mensuelles et marge de sécurité.",
+        h3: ['Frais académiques', 'Logement et vie quotidienne', 'Marge de sécurité'],
+      },
+      {
+        h2: 'Comment rassurer la famille ?',
+        body: "Un bon accompagnement montre les étapes, les documents, les risques, les alternatives et le suivi. Il ne promet pas un visa garanti.",
+        h3: ['Transparence', 'Suivi WhatsApp', 'Plan B'],
+      },
+    ],
+    faq: [
+      ['Faut-il payer avant d’avoir une admission ?', 'Cela dépend du service et de l’établissement. Il faut exiger de la transparence sur les frais, étapes et conditions.'],
+      ['Peut-on garantir un visa étudiant ?', 'Non. Personne ne peut garantir une décision consulaire. On peut seulement préparer un dossier plus solide.'],
+      ['Comment choisir une agence fiable ?', 'Vérifiez les preuves réelles, la clarté du processus, les avis, les partenaires et la transparence sur les limites.'],
     ],
   },
   '/en/study-abroad-from-tunisia': {
@@ -433,14 +662,21 @@ export default function SeoPillarPage() {
   const { pathname } = useLocation();
   const contentPath = normalizePath(pathname);
   const page = pages[contentPath] || pages['/fr/etudier-a-l-etranger-depuis-tunisie'];
-  const pair = getPair(contentPath) || pagePairs[0];
+  const pair = getPair(contentPath);
   const canonical = `${SITE}${contentPath}/`;
-  const alternates = [
-    { hreflang: 'fr-TN', href: `${SITE}${pair.fr}/` },
-    { hreflang: 'en-TN', href: `${SITE}${pair.en}/` },
-    { hreflang: 'x-default', href: `${SITE}${pair.fr}/` },
-  ];
-  const otherLang = page.lang === 'fr' ? `${SITE}${pair.en}/` : `${SITE}${pair.fr}/`;
+  const alternates = pair
+    ? [
+        { hreflang: 'fr-TN', href: `${SITE}${pair.fr}/` },
+        { hreflang: 'en-TN', href: `${SITE}${pair.en}/` },
+        { hreflang: 'x-default', href: `${SITE}${pair.fr}/` },
+      ]
+    : [
+        { hreflang: 'fr-TN', href: canonical },
+        { hreflang: 'x-default', href: canonical },
+      ];
+  const otherLang = pair ? (page.lang === 'fr' ? `${SITE}${pair.en}/` : `${SITE}${pair.fr}/`) : null;
+  const isMainStudyAbroadPage = contentPath === '/fr/etudier-a-l-etranger-depuis-tunisie';
+  const isAuthorityPage = authoritySupportPages.some((item) => item.path === contentPath);
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -501,7 +737,7 @@ export default function SeoPillarPage() {
           },
         ],
       },
-      ...(contentPath === '/fr/etudier-a-l-etranger-depuis-tunisie'
+      ...(isMainStudyAbroadPage
         ? [
             {
               '@type': 'ItemList',
@@ -513,6 +749,28 @@ export default function SeoPillarPage() {
                 name: `Étudier en ${destination.label} depuis la Tunisie`,
                 url: `${SITE}${destination.path}/`,
               })),
+            },
+            {
+              '@type': 'ItemList',
+              '@id': `${canonical}#support-guides`,
+              name: 'Guides pratiques pour étudiants tunisiens',
+              itemListElement: authoritySupportPages.map((guide, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: guide.label,
+                url: `${SITE}${guide.path}/`,
+              })),
+            },
+          ]
+        : []),
+      ...(page.showComparison
+        ? [
+            {
+              '@type': 'Dataset',
+              '@id': `${canonical}#comparison-data`,
+              name: 'Comparatif des pays pour étudier à l’étranger depuis la Tunisie',
+              description: 'Comparaison éditoriale des destinations selon budget, langue, visa et profil étudiant tunisien.',
+              creator: { '@id': `${SITE}/#organization` },
             },
           ]
         : []),
@@ -549,14 +807,16 @@ export default function SeoPillarPage() {
       />
       <div className="min-h-screen bg-slate-50 text-slate-900">
         <header className="border-b border-slate-200 bg-white px-4 py-5 sm:px-6">
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
+            <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
             <Link to="/" className="inline-flex items-center gap-2 text-sm font-black text-[#17324d]">
               <Home size={17} /> EduGrowth
             </Link>
             <div className="flex items-center gap-3">
-              <a href={otherLang} className="rounded-full border border-slate-200 px-4 py-2 text-xs font-black uppercase text-[#176b87]">
-                {page.lang === 'fr' ? 'EN' : 'FR'}
-              </a>
+              {otherLang ? (
+                <a href={otherLang} className="rounded-full border border-slate-200 px-4 py-2 text-xs font-black uppercase text-[#176b87]">
+                  {page.lang === 'fr' ? 'EN' : 'FR'}
+                </a>
+              ) : null}
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-black text-white">
                 <MessageCircle size={15} /> WhatsApp
               </a>
@@ -569,6 +829,15 @@ export default function SeoPillarPage() {
             <div className="mx-auto max-w-6xl">
               <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">{page.eyebrow}</p>
               <h1 className="mt-4 max-w-4xl text-4xl font-black leading-tight text-[#17324d] sm:text-6xl">{page.h1}</h1>
+              {page.updatedAt ? (
+                <p className="mt-4 text-xs font-black uppercase tracking-[0.18em] text-slate-500">Mis à jour le {page.updatedAt}</p>
+              ) : null}
+              {page.directAnswer ? (
+                <div className="mt-6 max-w-4xl rounded-2xl border border-[#176b87]/20 bg-[#176b87]/5 p-5">
+                  <h2 className="text-lg font-black text-[#17324d]">Réponse directe</h2>
+                  <p className="mt-2 text-base leading-8 text-slate-700">{page.directAnswer}</p>
+                </div>
+              ) : null}
               <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">{page.intro}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#17324d] px-6 py-4 text-sm font-black text-white">
@@ -620,6 +889,70 @@ export default function SeoPillarPage() {
                       </span>
                     </Link>
                   ))}
+                </div>
+              </div>
+            </section>
+          ) : null}
+
+          {page.showComparison ? (
+            <section className="bg-white px-4 py-14 sm:px-6">
+              <div className="mx-auto max-w-6xl">
+                <div className="max-w-3xl">
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Tableau comparatif</p>
+                  <h2 className="mt-3 text-3xl font-black text-[#17324d]">Comparer les destinations selon budget, langue et visa</h2>
+                  <p className="mt-4 text-sm leading-7 text-slate-600">
+                    Ce tableau aide les étudiants tunisiens et leurs parents à filtrer rapidement les pays avant de demander un diagnostic personnalisé.
+                  </p>
+                </div>
+                <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full text-left text-sm">
+                      <thead className="bg-slate-50 text-xs uppercase tracking-[0.14em] text-slate-500">
+                        <tr>
+                          <th className="px-4 py-4">Pays</th>
+                          <th className="px-4 py-4">Budget</th>
+                          <th className="px-4 py-4">Langue</th>
+                          <th className="px-4 py-4">Visa</th>
+                          <th className="px-4 py-4">Profil adapté</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {comparisonRows.map(([country, budget, language, visa, profile]) => (
+                          <tr key={country} className="align-top">
+                            <td className="px-4 py-4 font-black text-[#17324d]">{country}</td>
+                            <td className="px-4 py-4 text-slate-700">{budget}</td>
+                            <td className="px-4 py-4 text-slate-700">{language}</td>
+                            <td className="px-4 py-4 text-slate-700">{visa}</td>
+                            <td className="px-4 py-4 text-slate-700">{profile}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : null}
+
+          {(isMainStudyAbroadPage || isAuthorityPage) ? (
+            <section className="px-4 py-14 sm:px-6">
+              <div className="mx-auto max-w-6xl">
+                <div className="max-w-3xl">
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Guides utiles</p>
+                  <h2 className="mt-3 text-3xl font-black text-[#17324d]">Continuer avec les guides pratiques EduGrowth</h2>
+                </div>
+                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {authoritySupportPages
+                    .filter((guide) => guide.path !== contentPath)
+                    .map((guide) => (
+                      <Link key={guide.path} to={guide.path} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#176b87]">
+                        <h3 className="text-lg font-black text-[#17324d]">{guide.label}</h3>
+                        <p className="mt-3 text-sm leading-6 text-slate-600">{guide.intent}</p>
+                        <span className="mt-4 inline-flex items-center gap-2 text-sm font-black text-[#176b87]">
+                          Lire le guide <ArrowRight size={15} />
+                        </span>
+                      </Link>
+                    ))}
                 </div>
               </div>
             </section>

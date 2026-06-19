@@ -99,6 +99,12 @@ export default function App() {
         <Route path="/fr/medecine-privee-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/fr/licence-privee-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/fr/mastere-prive-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/visa-etudiant-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/bourses-etudes-tunisiens" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/comparatif-pays-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/etudier-en-europe-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/apres-bac-etudier-a-l-etranger" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/parents-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/en/study-abroad-from-tunisia" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/en/study-abroad-from-tunis" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/en/study-medicine-pharmacy-abroad" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />

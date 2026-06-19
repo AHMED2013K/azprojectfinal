@@ -138,8 +138,8 @@ async function main() {
 
     let rendered = template
       .replace(/<html[^>]*>/, `<html ${htmlAttributes}>`)
-      .replace('<!-- ssr-meta -->', headTags)
-      .replace('<div id="root"></div>', `<div id="root">${extracted.bodyHtml}</div>`);
+      .replace('<!-- ssr-meta -->', () => headTags)
+      .replace('<div id="root"></div>', () => `<div id="root">${extracted.bodyHtml}</div>`);
 
     const outputPath = route === '/'
       ? path.join(distDir, 'index.html')
