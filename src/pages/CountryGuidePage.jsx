@@ -604,6 +604,44 @@ export default function CountryGuidePage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: data.title,
+        description: data.description,
+        inLanguage: 'fr',
+        isPartOf: {
+          '@type': 'WebSite',
+          '@id': 'https://edugrowth.tn/#website',
+          name: 'EduGrowth Tunisia',
+          url: 'https://edugrowth.tn/',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Accueil',
+            item: 'https://edugrowth.tn/',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: "Étudier à l'étranger depuis la Tunisie",
+            item: 'https://edugrowth.tn/fr/etudier-a-l-etranger-depuis-tunisie/',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: data.h1,
+            item: canonicalUrl,
+          },
+        ],
+      },
+      {
         '@type': 'Article',
         '@id': `${canonicalUrl}#article`,
         mainEntityOfPage: {

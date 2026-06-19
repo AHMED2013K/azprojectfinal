@@ -32,6 +32,17 @@ const pagePairs = [
   },
 ];
 
+const priorityDestinations = [
+  { label: 'France', path: '/etudier-en-france-depuis-tunisie', intent: 'Campus France, écoles privées, alternance et visa étudiant' },
+  { label: 'Canada', path: '/etudier-au-canada-depuis-tunisie', intent: 'Études, budget, permis et parcours francophone ou anglophone' },
+  { label: 'Allemagne', path: '/etudier-en-allemagne-depuis-tunisie', intent: 'Universités publiques, compte bloqué, Ausbildung et allemand' },
+  { label: 'Autriche', path: '/etudier-en-autriche-depuis-tunisie', intent: 'Études abordables en Europe, universités publiques et admission' },
+  { label: 'Hongrie', path: '/etudier-en-hongrie-depuis-tunisie', intent: 'Médecine, ingénierie, programmes en anglais et coût modéré' },
+  { label: 'Roumanie', path: '/etudier-en-roumanie-depuis-tunisie', intent: 'Médecine, pharmacie, ingénierie et admissions européennes' },
+  { label: 'Espagne', path: '/etudier-en-espagne-depuis-tunisie', intent: 'Universités européennes accessibles et programmes internationaux' },
+  { label: 'Chine', path: '/etudier-en-chine-depuis-tunisie', intent: 'Bourses, médecine, ingénierie et cursus internationaux' },
+];
+
 const pages = {
   '/fr/etudier-a-l-etranger-depuis-tunisie': {
     lang: 'fr',
@@ -473,6 +484,39 @@ export default function SeoPillarPage() {
         isPartOf: { '@id': `${SITE}/#website` },
       },
       {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonical}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Accueil',
+            item: `${SITE}/`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: page.h1,
+            item: canonical,
+          },
+        ],
+      },
+      ...(contentPath === '/fr/etudier-a-l-etranger-depuis-tunisie'
+        ? [
+            {
+              '@type': 'ItemList',
+              '@id': `${canonical}#destinations`,
+              name: "Destinations pour étudier à l'étranger depuis la Tunisie",
+              itemListElement: priorityDestinations.map((destination, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: `Étudier en ${destination.label} depuis la Tunisie`,
+                url: `${SITE}${destination.path}/`,
+              })),
+            },
+          ]
+        : []),
+      {
         '@type': 'FAQPage',
         '@id': `${canonical}#faq`,
         url: canonical,
@@ -555,6 +599,31 @@ export default function SeoPillarPage() {
               ))}
             </div>
           </section>
+
+          {page.lang === 'fr' && contentPath === '/fr/etudier-a-l-etranger-depuis-tunisie' ? (
+            <section className="bg-white px-4 py-14 sm:px-6">
+              <div className="mx-auto max-w-6xl">
+                <div className="max-w-3xl">
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Destinations prioritaires</p>
+                  <h2 className="mt-3 text-3xl font-black text-[#17324d]">Comparer les meilleurs pays pour étudier à l’étranger depuis la Tunisie</h2>
+                  <p className="mt-4 text-sm leading-7 text-slate-600">
+                    Chaque destination doit être comparée selon le budget réel, la langue, les délais d’admission, les preuves financières, le visa étudiant et les débouchés après diplôme.
+                  </p>
+                </div>
+                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {priorityDestinations.map((destination) => (
+                    <Link key={destination.path} to={destination.path} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-1 hover:border-[#176b87] hover:bg-white hover:shadow-sm">
+                      <h3 className="text-lg font-black text-[#17324d]">Étudier en {destination.label}</h3>
+                      <p className="mt-3 text-sm leading-6 text-slate-600">{destination.intent}</p>
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-black text-[#176b87]">
+                        Voir le guide <ArrowRight size={15} />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          ) : null}
 
           <section className="bg-white px-4 py-14 sm:px-6">
             <div className="mx-auto max-w-4xl">
