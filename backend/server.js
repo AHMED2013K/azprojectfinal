@@ -26,6 +26,10 @@ function escapeHtml(value = '') {
     .replaceAll("'", '&#39;');
 }
 
+function sanitizeHeaderValue(value = '') {
+  return String(value).replace(/[\r\n]+/g, ' ').trim();
+}
+
 app.disable('x-powered-by');
 app.use(helmet({
   contentSecurityPolicy: false,
@@ -69,6 +73,8 @@ app.post('/api/contact', async (req, res) => {
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT || 587),
       secure: process.env.SMTP_SECURE === 'true',
+      disableFileAccess: true,
+      disableUrlAccess: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
@@ -76,11 +82,13 @@ app.post('/api/contact', async (req, res) => {
     });
 
     const info = await transporter.sendMail({
-      from: `Edugrowth Outsourcing <${process.env.SMTP_FROM}>`,
-      to: process.env.CONTACT_TO,
-      subject: `B2B Contact Form - ${organization}`,
+      from: `Edugrowth Outsourcing <${sanitizeHeaderValue(process.env.SMTP_FROM)}>`,
+      to: sanitizeHeaderValue(process.env.CONTACT_TO),
+      subject: `B2B Contact Form - ${sanitizeHeaderValue(organization)}`,
       text: `Name: ${name}\nEmail: ${email}\nOrganization: ${organization}\nMessage:\n${message}`,
-      html: `<h3>B2B Contact Form</h3><p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Organization:</strong> ${escapeHtml(organization)}</p><p><strong>Message:</strong><br/>${escapeHtml(message)}</p>`
+      html: `<h3>B2B Contact Form</h3><p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Organization:</strong> ${escapeHtml(organization)}</p><p><strong>Message:</strong><br/>${escapeHtml(message)}</p>`,
+      disableFileAccess: true,
+      disableUrlAccess: true,
     });
 
     return res.json({ status: 'success', messageId: info.messageId });
