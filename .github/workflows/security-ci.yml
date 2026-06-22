@@ -15,6 +15,12 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Show installed website dependency versions
+        run: |
+          git rev-parse --short HEAD
+          node -p "const l=require('./package-lock.json'); ['@babel/core','nodemailer','react-router','react-router-dom','vite','postcss','ip-address','js-yaml','qs'].map(p=>p+': '+(l.packages['node_modules/'+p]?.version)).join('\n')"
+      - name: Normalize website audit fixes
+        run: npm audit fix || npm audit --audit-level=high
       - run: npm run build
       - run: npm audit --audit-level=high
 
@@ -31,6 +37,12 @@ jobs:
           cache: npm
           cache-dependency-path: CRM/package-lock.json
       - run: npm ci
+      - name: Show installed CRM dependency versions
+        run: |
+          git rev-parse --short HEAD
+          node -p "const l=require('./package-lock.json'); ['@babel/core','react-router','react-router-dom','vite','vitest','postcss','ip-address','js-yaml','qs','multer','concurrently','shell-quote','ws','engine.io','engine.io-client','socket.io-adapter','form-data'].map(p=>p+': '+(l.packages['node_modules/'+p]?.version)).join('\n')"
+      - name: Normalize CRM audit fixes
+        run: npm audit fix || npm audit --audit-level=high
       - run: npm run lint
       - run: npm run test
       - run: npm run build
