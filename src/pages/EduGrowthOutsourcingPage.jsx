@@ -202,14 +202,14 @@ const EduGrowthOutsourcingPage = () => {
         roiStatsTitle: 'Projection ROI 12 mois',
         roiStats: [
           { label: 'Setup agence classique', value: '€3k - €8k/mois' },
-          { label: 'Sprint pilote EduGrowth', value: 'dès €490' },
+          { label: 'Sprint pilote EduGrowth', value: 'dès €800' },
           { label: 'Délai de mise en route', value: '5 à 10 jours' },
         ],
         pilotBadge: 'Offre pilote - Juin 2026',
         pilotTitle: 'Sprint de Performance IA',
         pilotText: 'Un test court pour prouver le canal avant de scaler: ciblage, scraping, enrichissement, séquences, qualification et reporting.',
         pilotItems: ['1 ICP + 1 source data prioritaire', '100 à 300 prospects enrichis', 'Séquence LinkedIn/email prête à tester', 'Dashboard simple: réponses, leads qualifiés, next actions'],
-        pilotPrice: 'À partir de €490 ou coût par lead qualifié',
+        pilotPrice: 'À partir de €800 ou coût par lead qualifié',
         pilotCTA: 'Lancer le sprint pilote',
       }
     : {
@@ -254,14 +254,14 @@ const EduGrowthOutsourcingPage = () => {
         roiStatsTitle: '12-month ROI snapshot',
         roiStats: [
           { label: 'Classic agency setup', value: '€3k - €8k/mo' },
-          { label: 'EduGrowth pilot sprint', value: 'from €490' },
+          { label: 'EduGrowth pilot sprint', value: 'from €800' },
           { label: 'Go-live timeline', value: '5 to 10 days' },
         ],
         pilotBadge: 'Pilot offer - June 2026',
         pilotTitle: 'AI Performance Sprint',
         pilotText: 'A short test to prove the channel before scaling: targeting, scraping, enrichment, sequences, qualification, and reporting.',
         pilotItems: ['1 ICP + 1 priority data source', '100 to 300 enriched prospects', 'LinkedIn/email sequence ready to test', 'Simple dashboard: replies, qualified leads, next actions'],
-        pilotPrice: 'From €490 or pay-per-qualified-lead',
+        pilotPrice: 'From €800 or pay-per-qualified-lead',
         pilotCTA: 'Launch the pilot sprint',
       };
 
@@ -491,7 +491,7 @@ const EduGrowthOutsourcingPage = () => {
               <span className={`text-lg font-bold ${isHybrid ? 'text-[#2E8B57] scale-110' : 'text-gray-400'}`}>{t.pricingHybrid}</span>
             </div>
             <div className="grid lg:grid-cols-3 gap-10 items-end">
-              <PricingCard title="Pilot Sprint" price="€490" system="1 workflow IA + CRM" leads="100-300 prospects enrichis" sla="5-10j" isHybrid={isHybrid} hybridPrice="CPL" lang={lang} onSelect={() => openDemo('pricing_pilot')} />
+              <PricingCard title="Pilot Sprint" price="€800" system="1 workflow IA + CRM" leads="100-300 prospects enrichis" sla="5-10j" isHybrid={isHybrid} hybridPrice="CPL" lang={lang} onSelect={() => openDemo('pricing_pilot')} />
               <PricingCard title="Growth Engine" price="€1500" system="Scraping + LinkedIn + CRM" leads="500+ leads ciblés / mois" sla="hebdo" isFeatured={true} isHybrid={isHybrid} hybridPrice="€900 + CPL" lang={lang} onSelect={() => openDemo('pricing_growth')} />
               <PricingCard title="Scale System" price="€3000+" system="Multi-canal + dashboard" leads="Volume sur mesure" sla="48h" isHybrid={isHybrid} hybridPrice="sur mesure" lang={lang} onSelect={() => openDemo('pricing_scale')} />
             </div>
@@ -529,7 +529,7 @@ const EduGrowthOutsourcingPage = () => {
                 </div>
                 <div>
                   <div className="flex justify-between mb-2 uppercase text-xs font-black tracking-widest text-[#2E8B57]">
-                    <span>{t.savingsLabel2}</span><span>€490+</span>
+                    <span>{t.savingsLabel2}</span><span>€800+</span>
                   </div>
                   <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
                     <div className="h-full bg-[#2E8B57] w-[22%]" />
