@@ -273,6 +273,10 @@ const posts = {
     title: 'Compte bloqué Allemagne Tunisie: montant, étapes et erreurs à éviter',
     description: 'Comprendre le compte bloqué Allemagne depuis la Tunisie: montant, justificatifs, calendrier et rôle dans le visa étudiant.',
     h1: 'Compte bloqué Allemagne Tunisie: guide pratique',
+    updatedAt: '14 juillet 2026',
+    sources: [
+      { label: 'Ambassade d’Allemagne à Tunis — visas nationaux', url: 'https://tunis.diplo.de/tn-fr/service/05-visaeinreise/1672716-1672716?isLocal=false&isPreview=false' },
+    ],
     sections: [
       { h2: '1. À quoi sert le compte bloqué', text: 'Le compte bloqué aide à prouver votre capacité financière pour les études en Allemagne et joue un rôle important dans le dossier visa.' },
       { h2: '2. Quand l’ouvrir et comment le préparer', text: 'Il faut l’anticiper assez tôt pour éviter qu’un bon projet soit bloqué par une contrainte de calendrier ou de transfert.' },
@@ -287,6 +291,87 @@ const posts = {
       { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
       { to: '/programmes/ausbildung-allemagne', label: 'Programme Ausbildung' },
       { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses à l’étranger' },
+    ],
+  },
+  '/blog/visa-etudiant-france-tunisie-documents': {
+    title: 'Visa étudiant France Tunisie : documents, étapes et calendrier',
+    description: 'Préparez un visa étudiant France depuis la Tunisie : admission, pièces justificatives, cohérence du dossier et étapes à anticiper.',
+    h1: 'Visa étudiant France depuis la Tunisie : préparer son dossier',
+    updatedAt: '14 juillet 2026',
+    sources: [
+      { label: 'Campus France Tunisie — procédures et informations officielles', url: 'https://www.tunisie.campusfrance.org/' },
+      { label: 'France-Visas — portail officiel des visas', url: 'https://france-visas.gouv.fr/' },
+    ],
+    sections: [
+      { h2: '1. Commencer par une admission et un projet cohérent', text: 'Le visa ne se prépare pas isolément : la formation choisie, le parcours académique, le budget et le projet professionnel doivent raconter la même histoire. Vérifiez toujours les exigences de votre formation et de la procédure applicable avant de constituer le dossier.' },
+      { h2: '2. Organiser les justificatifs avant les périodes chargées', text: 'Passeport, admission, pièces académiques, preuves de financement, logement et assurance peuvent nécessiter des démarches ou traductions. Préparez une checklist datée ; la liste officielle applicable à votre situation reste la seule référence.' },
+      { h2: '3. Expliquer clairement le financement', text: 'Un budget crédible couvre les frais de formation, de vie, de logement, de voyage et les dépenses administratives. Ne présentez jamais de document ambigu ou non vérifiable : la transparence du dossier est essentielle.' },
+      { h2: '4. Vérifier les informations juste avant le dépôt', text: 'Les modalités et délais peuvent évoluer. Avant tout rendez-vous, contrôlez les consignes sur Campus France Tunisie et France-Visas, puis conservez une copie organisée de chaque pièce transmise.' },
+    ],
+    faq: [
+      ['Quand faut-il commencer le dossier visa France ?', 'Dès que le projet d’études est défini : admission, financement et documents prennent du temps. Vérifiez le calendrier officiel de votre procédure avant de réserver un rendez-vous.'],
+      ['Campus France remplace-t-il la demande de visa ?', 'Non. Campus France et la demande de visa sont des étapes distinctes dont l’ordre et les exigences dépendent de votre situation. Consultez les sites officiels avant toute démarche.'],
+      ['Quel est le point le plus important ?', 'La cohérence globale : formation, parcours, budget et pièces justificatives doivent être clairs, complets et vérifiables.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-france-depuis-tunisie', label: 'Étudier en France depuis la Tunisie' },
+      { to: '/campus-france-tunisie-guide', label: 'Guide Campus France Tunisie' },
+      { to: '/blog/refus-visa-etudiant-france-erreurs', label: 'Éviter un refus de visa étudiant' },
+      { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Préparer son budget études à l’étranger' },
+    ],
+  },
+  '/blog/ausbildung-allemagne-tunisiens-conditions': {
+    title: 'Ausbildung Allemagne pour les Tunisiens : conditions et préparation',
+    description: 'Comprendre l’Ausbildung en Allemagne depuis la Tunisie : projet, langue, contrat, visa et étapes de préparation.',
+    h1: 'Ausbildung Allemagne pour les Tunisiens : conditions et démarche',
+    updatedAt: '14 juillet 2026',
+    sources: [
+      { label: 'Ambassade d’Allemagne à Tunis — visas nationaux', url: 'https://tunis.diplo.de/tn-fr/service/05-visaeinreise/1672716-1672716?isLocal=false&isPreview=false' },
+      { label: 'Make it in Germany — formation professionnelle', url: 'https://www.make-it-in-germany.com/fr/etudier-formation/formation-professionnelle-en-allemagne' },
+    ],
+    sections: [
+      { h2: '1. Comprendre ce qui distingue l’Ausbildung', text: 'L’Ausbildung est une voie de formation professionnelle qui combine apprentissage théorique et expérience pratique. Elle ne se choisit pas comme un simple raccourci : le métier, la langue et les conditions contractuelles doivent correspondre à votre profil.' },
+      { h2: '2. Choisir un métier et vérifier l’éligibilité', text: 'Avant de candidater, analysez les compétences demandées, le niveau de langue, le rythme de formation et les perspectives du métier. Les conditions exactes dépendent du programme, de l’employeur et de la procédure de visa.' },
+      { h2: '3. Préparer une candidature orientée employeur', text: 'Le CV et la motivation doivent expliquer le choix du métier, le parcours et votre capacité à vous adapter au travail en Allemagne. Préparez des candidatures ciblées, avec un suivi précis des réponses et des échéances.' },
+      { h2: '4. Ne valider le départ qu’après les contrôles officiels', text: 'Contrat, financement, logement, assurance et visa constituent un même parcours. Consultez les sources officielles et l’ambassade avant de payer un intermédiaire ou de prendre un engagement non remboursable.' },
+    ],
+    faq: [
+      ['Faut-il parler allemand pour une Ausbildung ?', 'La langue est généralement déterminante pour suivre la formation et travailler. Le niveau réellement exigé doit être vérifié auprès du programme et dans la procédure de visa applicable.'],
+      ['Une Ausbildung est-elle la même chose que l’université ?', 'Non. Elle relève de la formation professionnelle et combine généralement enseignement et pratique ; l’université suit un parcours académique différent.'],
+      ['Peut-on préparer l’Ausbildung depuis la Tunisie ?', 'Oui, mais un dossier solide demande anticipation, langue, candidatures ciblées et vérification des étapes officielles.'],
+    ],
+    relatedLinks: [
+      { to: '/programmes/ausbildung-allemagne', label: 'Programme Ausbildung Allemagne' },
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Étudier en Allemagne depuis la Tunisie' },
+      { to: '/blog/compte-bloque-allemagne-tunisie', label: 'Compte bloqué Allemagne : guide' },
+      { to: '/book-consultation', label: 'Évaluer mon projet Allemagne' },
+    ],
+  },
+  '/blog/etudier-medecine-roumanie-tunisie': {
+    title: 'Étudier médecine en Roumanie depuis la Tunisie : admission et budget',
+    description: 'Guide de préparation pour étudier médecine en Roumanie depuis la Tunisie : choix d’université, admission, budget, visa et reconnaissance.',
+    h1: 'Étudier médecine en Roumanie depuis la Tunisie',
+    updatedAt: '14 juillet 2026',
+    sources: [
+      { label: 'Study in Romania — portail national de l’enseignement supérieur', url: 'https://studyinromania.gov.ro/' },
+      { label: 'Ministère roumain de l’Éducation', url: 'https://www.edu.ro/' },
+    ],
+    sections: [
+      { h2: '1. Choisir un programme avant de comparer les frais', text: 'Pour médecine, la langue d’enseignement, le contenu du cursus, les modalités d’admission et la reconnaissance future du diplôme sont aussi importantes que les frais. Comparez les informations directement publiées par chaque université.' },
+      { h2: '2. Vérifier l’admission et les documents académiques', text: 'Les études de santé demandent généralement un dossier académique structuré. Préparez relevés, diplôme, passeport, éventuelles traductions et preuves linguistiques selon les exigences de l’université visée.' },
+      { h2: '3. Calculer le coût total du projet', text: 'Le budget doit intégrer la scolarité, le logement, l’assurance, le visa, le transport et une marge de sécurité. Un prix affiché par une université n’est jamais le coût complet du projet.' },
+      { h2: '4. Contrôler la reconnaissance avant l’inscription', text: 'La reconnaissance d’un diplôme de santé dépend du pays et du projet professionnel futur. Demandez les éléments officiels à l’université et vérifiez les règles applicables auprès de l’autorité compétente avant tout paiement.' },
+    ],
+    faq: [
+      ['Les études de médecine sont-elles disponibles en anglais ?', 'Certaines universités proposent des cursus internationaux ; il faut vérifier la langue, le programme et les conditions d’admission auprès de chaque établissement.'],
+      ['Quel budget faut-il prévoir ?', 'Il varie selon l’université et la ville. Le calcul doit couvrir scolarité, vie sur place, assurance, visa et installation, pas seulement les frais académiques.'],
+      ['Comment vérifier la reconnaissance du diplôme ?', 'Avant de s’inscrire, demandez les informations à l’université puis vérifiez les règles applicables dans le pays où vous prévoyez d’exercer.'],
+    ],
+    relatedLinks: [
+      { to: '/etudier-en-roumanie-depuis-tunisie', label: 'Étudier en Roumanie depuis la Tunisie' },
+      { to: '/fr/etudier-medecine-pharmacie-etranger', label: 'Médecine et pharmacie à l’étranger' },
+      { to: '/blog/quel-pays-etudier-petit-budget', label: 'Comparer les pays selon le budget' },
+      { to: '/book-consultation', label: 'Évaluer mon projet médecine' },
     ],
   },
   '/blog/quel-pays-etudier-petit-budget': {
@@ -641,8 +726,11 @@ export default function BlogArticlePage() {
     '@graph': [
       {
         '@type': 'Article',
+        '@id': `https://edugrowth.tn${contentPath}/#article`,
+        url: `https://edugrowth.tn${contentPath}/`,
         headline: post.h1,
         description: post.description,
+        dateModified: post.updatedAt ? '2026-07-14' : undefined,
         author: {
           '@type': 'Organization',
           name: 'EduGrowth Tunisia',
@@ -693,6 +781,10 @@ export default function BlogArticlePage() {
 
           <h1 className="mt-4 text-4xl font-black leading-tight">{post.h1}</h1>
           <p className="mt-4 text-slate-600">{post.description}</p>
+
+          {post.updatedAt ? (
+            <p className="mt-3 text-sm font-semibold text-slate-500">Mis à jour le {post.updatedAt} · Informations à confirmer auprès des sources officielles.</p>
+          ) : null}
 
           {post.chips?.length ? (
             <div className="mt-5 flex flex-wrap gap-2">
@@ -767,6 +859,17 @@ export default function BlogArticlePage() {
               ))}
             </div>
           </section>
+
+          {post.sources?.length ? (
+            <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <h3 className="text-xl font-black">Sources officielles à consulter</h3>
+              <ul className="mt-3 space-y-2 text-sm font-semibold text-[#005A9C]">
+                {post.sources.map((source) => (
+                  <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{source.label}</a></li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <section className="mt-10">
             <h3 className="text-xl font-black">{copy.related}</h3>

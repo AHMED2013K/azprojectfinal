@@ -186,6 +186,9 @@ export default function App() {
         <Route path="/blog/hire-call-center-tunisia" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/outsourcing-tunisia-vs-india" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
         <Route path="/blog/outsourcing-tunisia-vs-philippines" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/visa-etudiant-france-tunisie-documents" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/ausbildung-allemagne-tunisiens-conditions" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
+        <Route path="/blog/etudier-medecine-roumanie-tunisie" element={<Suspense fallback={<LoadingFallback />}><BlogArticlePage /></Suspense>} />
 
         <Route path="/lp/study-abroad" element={<Suspense fallback={<LoadingFallback />}><AdsStudyAbroadPage /></Suspense>} />
         <Route path="/lp/outsourcing" element={<Suspense fallback={<LoadingFallback />}><AdsOutsourcingPage /></Suspense>} />
