@@ -221,7 +221,7 @@ const PortalSelector = ({ isOpen, onClose, onSelect, onToggleLanguage, translati
                 <div className="mb-4 sm:mb-6 flex items-center gap-4 sm:gap-6">
                   <div className="flex h-12 w-12 sm:h-16 sm:w-16 lg:h-20 lg:w-20 items-center justify-center rounded-xl sm:rounded-2xl border-2 border-blue-300/30 bg-blue-500/20 text-blue-100 transition-all group-hover:bg-blue-400/30 group-hover:scale-110 flex-shrink-0">
                     <img
-                      src="/abraod.jpeg"
+                      src="/abraod.webp"
                       alt="Abroad Zone"
                       loading="eager"
                       decoding="sync"
@@ -280,7 +280,7 @@ const PortalSelector = ({ isOpen, onClose, onSelect, onToggleLanguage, translati
                 <div className="mb-4 sm:mb-6 flex items-center gap-4 sm:gap-6">
                   <div className="flex h-12 w-12 sm:h-16 sm:w-16 lg:h-20 lg:w-20 items-center justify-center rounded-xl sm:rounded-2xl border-2 border-emerald-300/30 bg-emerald-500/20 text-emerald-100 transition-all group-hover:bg-emerald-400/30 group-hover:scale-110 flex-shrink-0">
                     <img
-                      src="/Submark.png"
+                      src="/Submark.webp"
                       alt="EduGrowth"
                       loading="eager"
                       decoding="sync"
