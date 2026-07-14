@@ -37,8 +37,8 @@ async function getRoutesFromSitemap() {
 async function syncSeoTopicGuides(guides) {
   const markerStart = '<!-- seo-topic-guides:start -->';
   const markerEnd = '<!-- seo-topic-guides:end -->';
-  const urls = guides.map(({ slug }) =>
-    `  <url><loc>https://edugrowth.tn/guides/${slug}/</loc><lastmod>2026-07-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>`
+  const urls = guides.map(({ slug, path: guidePath }) =>
+    `  <url><loc>https://edugrowth.tn${guidePath || `/guides/${slug}`}/</loc><lastmod>2026-07-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>`
   ).join('\n');
   const block = `${markerStart}\n${urls}\n${markerEnd}`;
 
@@ -134,8 +134,13 @@ async function main() {
   const App = appModule.default;
   const { LanguageProvider } = languageModule;
   const seoGuides = guideModule.seoGuides || [];
-  await syncSeoTopicGuides(seoGuides);
-  const guideRoutes = seoGuides.map(({ slug }) => `/guides/${slug}/`);
+  const priorityGuides = guideModule.priorityGuides || [];
+  const allSeoGuides = [...seoGuides, ...priorityGuides];
+  await syncSeoTopicGuides(allSeoGuides);
+  const guideRoutes = [
+    ...seoGuides.map(({ slug }) => `/guides/${slug}/`),
+    ...priorityGuides.map(({ path: guidePath }) => `${guidePath}/`),
+  ];
   const renderRoutes = [...new Set([...routes, ...guideRoutes])];
 
   for (const route of renderRoutes) {

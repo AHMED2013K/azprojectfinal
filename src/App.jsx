@@ -107,6 +107,16 @@ export default function App() {
         <Route path="/apres-bac-etudier-a-l-etranger" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/parents-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/guides/:slug" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/cout-etudier-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/campus-france-tunisie-calendrier-2026-2027" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/alternance-france-tunisiens-conditions-visa" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/universites-allemagne-etudiants-tunisiens" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/visa-etudiant-espagne-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/cout-etudier-espagne-etudiant-tunisien" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/etudier-medecine-hongrie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/bourses-france-etudiants-tunisiens" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/logement-etudiant-allemagne-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/equivalence-diplome-tunisien-etudes-etranger" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
         <Route path="/en/study-abroad-from-tunisia" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/en/study-abroad-from-tunis" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/en/study-medicine-pharmacy-abroad" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />

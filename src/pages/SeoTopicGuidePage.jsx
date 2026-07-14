@@ -1,7 +1,19 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import SEOHelmet from '../components/SEOHelmet';
 
 const SOURCES = {
+  france: [
+    { label: 'Campus France Tunisie — informations officielles', url: 'https://www.tunisie.campusfrance.org/' },
+    { label: 'France-Visas — portail officiel', url: 'https://france-visas.gouv.fr/' },
+  ],
+  germany: [
+    { label: 'Ambassade d’Allemagne à Tunis — visas nationaux', url: 'https://tunis.diplo.de/tn-fr/service/05-visaeinreise/1672716-1672716?isLocal=false&isPreview=false' },
+    { label: 'DAAD — informations sur les études en Allemagne', url: 'https://www.daad.de/en/studying-in-germany/' },
+  ],
+  spain: [
+    { label: 'Ministère espagnol des Affaires étrangères — visas', url: 'https://www.exteriores.gob.es/en/ServicesToCitizens/Pages/Visas.aspx' },
+    { label: 'Study in Spain — portail officiel', url: 'https://www.universidades.gob.es/' },
+  ],
   med: [
     { label: 'Study in Romania — portail officiel', url: 'https://studyinromania.gov.ro/' },
     { label: 'Autorité roumaine de reconnaissance des diplômes', url: 'https://www.cnred.edu.ro/' },
@@ -71,19 +83,44 @@ const rawGuides = [
 
 export const seoGuides = rawGuides.map(([slug, title, cluster, angle]) => ({ slug, title, cluster, angle }));
 
+export const priorityGuides = [
+  { path: '/cout-etudier-france-depuis-tunisie', slug: 'cout-etudier-france-depuis-tunisie', title: 'Coût des études en France depuis la Tunisie', cluster: 'france', angle: 'budgéter études, logement, visa, assurance et installation en France' },
+  { path: '/campus-france-tunisie-calendrier-2026-2027', slug: 'campus-france-tunisie-calendrier-2026-2027', title: 'Campus France Tunisie : calendrier 2026-2027', cluster: 'france', angle: 'organiser les étapes Campus France et les échéances de candidature' },
+  { path: '/alternance-france-tunisiens-conditions-visa', slug: 'alternance-france-tunisiens-conditions-visa', title: 'Alternance en France pour Tunisiens : conditions et visa', cluster: 'france', angle: 'vérifier l’éligibilité, le contrat et les étapes administratives' },
+  { path: '/universites-allemagne-etudiants-tunisiens', slug: 'universites-allemagne-etudiants-tunisiens', title: 'Universités allemandes pour étudiants tunisiens', cluster: 'germany', angle: 'comparer université, programme, langue et admission en Allemagne' },
+  { path: '/visa-etudiant-espagne-tunisie', slug: 'visa-etudiant-espagne-tunisie', title: 'Visa étudiant Espagne depuis la Tunisie', cluster: 'spain', angle: 'préparer un dossier de visa étudiant Espagne cohérent' },
+  { path: '/cout-etudier-espagne-etudiant-tunisien', slug: 'cout-etudier-espagne-etudiant-tunisien', title: 'Coût des études en Espagne pour un étudiant tunisien', cluster: 'spain', angle: 'calculer le budget études, logement et installation en Espagne' },
+  { path: '/etudier-medecine-hongrie-depuis-tunisie', slug: 'etudier-medecine-hongrie-depuis-tunisie', title: 'Étudier médecine en Hongrie depuis la Tunisie', cluster: 'med', angle: 'comparer un cursus médical, l’admission et la reconnaissance future' },
+  { path: '/bourses-france-etudiants-tunisiens', slug: 'bourses-france-etudiants-tunisiens', title: 'Bourses d’études en France pour étudiants tunisiens', cluster: 'france', angle: 'chercher des bourses et préparer un financement réaliste' },
+  { path: '/logement-etudiant-allemagne-depuis-tunisie', slug: 'logement-etudiant-allemagne-depuis-tunisie', title: 'Logement étudiant en Allemagne depuis la Tunisie', cluster: 'germany', angle: 'anticiper le logement, le budget et l’installation en Allemagne' },
+  { path: '/equivalence-diplome-tunisien-etudes-etranger', slug: 'equivalence-diplome-tunisien-etudes-etranger', title: 'Équivalence du diplôme tunisien pour étudier à l’étranger', cluster: 'general', angle: 'vérifier la reconnaissance des études et les documents académiques' },
+];
+
 function destinationLabel(cluster) {
+  if (cluster === 'france') return 'la France';
+  if (cluster === 'germany') return 'l’Allemagne';
+  if (cluster === 'spain') return 'l’Espagne';
   if (cluster === 'cyprus') return 'Chypre du Nord';
   if (cluster === 'russia') return 'Russie';
-  return 'les études de médecine à l’étranger';
+  if (cluster === 'med') return 'les études de médecine à l’étranger';
+  return 'les études à l’étranger';
 }
 
 export default function SeoTopicGuidePage() {
   const { slug } = useParams();
-  const guide = seoGuides.find((item) => item.slug === slug) || seoGuides[0];
+  const { pathname } = useLocation();
+  const guide = seoGuides.find((item) => item.slug === slug) || priorityGuides.find((item) => item.path === pathname.replace(/\/$/, '')) || seoGuides[0];
   const destination = destinationLabel(guide.cluster);
-  const sources = SOURCES[guide.cluster];
-  const canonical = `https://edugrowth.tn/guides/${guide.slug}/`;
-  const related = guide.cluster === 'cyprus'
+  const sources = SOURCES[guide.cluster] || [];
+  const healthStudy = guide.cluster === 'med' || /médecine|dentisterie|pharmacie/i.test(guide.title);
+  const canonical = guide.path ? `https://edugrowth.tn${guide.path}/` : `https://edugrowth.tn/guides/${guide.slug}/`;
+  const related = guide.cluster === 'france'
+    ? [{ to: '/etudier-en-france-depuis-tunisie', label: 'Étudier en France depuis la Tunisie' }, { to: '/campus-france-tunisie-guide', label: 'Guide Campus France Tunisie' }]
+    : guide.cluster === 'germany'
+      ? [{ to: '/etudier-en-allemagne-depuis-tunisie', label: 'Étudier en Allemagne depuis la Tunisie' }, { to: '/programmes/ausbildung-allemagne', label: 'Programme Ausbildung Allemagne' }]
+      : guide.cluster === 'spain'
+        ? [{ to: '/etudier-en-espagne-depuis-tunisie', label: 'Étudier en Espagne depuis la Tunisie' }, { to: '/comparatif-pays-etudes-etranger-tunisie', label: 'Comparer les destinations' }]
+    : guide.cluster === 'cyprus'
     ? [{ to: '/etudier-a-chypre-depuis-tunisie', label: 'Guide Chypre du Nord' }, { to: '/fr/etudier-medecine-pharmacie-etranger', label: 'Médecine à l’étranger' }]
     : guide.cluster === 'russia'
       ? [{ to: '/etudier-en-russie-depuis-tunisie', label: 'Guide Russie' }, { to: '/blog/etudier-medecine-roumanie-tunisie', label: 'Médecine : autre option européenne' }]
@@ -105,11 +142,11 @@ export default function SeoTopicGuidePage() {
       <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#176b87]">Guide vérifié · 14 juillet 2026</p><h1 className="mt-3 text-4xl font-black leading-tight">{guide.title}</h1>
       <p className="mt-5 text-lg leading-8 text-slate-700">Ce guide aide les étudiants tunisiens à {guide.angle}. Il ne remplace pas les exigences de l’université, de l’ambassade ou de l’autorité de reconnaissance compétente.</p>
       <section className="mt-9"><h2 className="text-2xl font-black">1. Commencer par un projet vérifiable</h2><p className="mt-3 leading-7 text-slate-700">Avant de candidater, définissez le niveau d’études, la spécialité, la langue et le pays où vous souhaitez ensuite exercer. Pour {destination}, le choix doit reposer sur le programme précis et non sur une promesse générale.</p></section>
-      <section className="mt-8"><h2 className="text-2xl font-black">2. Contrôler l’établissement et le programme</h2><p className="mt-3 leading-7 text-slate-700">Consultez la page officielle de l’université : accréditation, durée, langue d’enseignement, stages, frais et conditions d’admission. Pour les filières santé, vérifiez aussi les conditions de pratique clinique et les règles de reconnaissance du diplôme.</p></section>
+      <section className="mt-8"><h2 className="text-2xl font-black">2. Contrôler l’établissement et le programme</h2><p className="mt-3 leading-7 text-slate-700">Consultez la page officielle de l’université : accréditation, durée, langue d’enseignement, frais et conditions d’admission. {healthStudy ? 'Pour les filières santé, vérifiez aussi les conditions de pratique clinique et les règles de reconnaissance du diplôme.' : 'Vérifiez également la reconnaissance du programme et les prérequis académiques applicables à votre projet.'}</p></section>
       <section className="mt-8"><h2 className="text-2xl font-black">3. Calculer le budget complet</h2><p className="mt-3 leading-7 text-slate-700">Additionnez scolarité, logement, assurance, visa, transport, traductions, installation et une marge de sécurité. Un projet finançable est plus important qu’un prix d’inscription attractif isolé.</p></section>
       <section className="mt-8"><h2 className="text-2xl font-black">4. Préparer un dossier et un calendrier</h2><p className="mt-3 leading-7 text-slate-700">Préparez passeport, relevés, diplôme, traductions, preuve linguistique et financement selon la checklist officielle. Les délais d’admission et de visa imposent de commencer assez tôt et de conserver les preuves de chaque démarche.</p></section>
       <section className="mt-8"><h2 className="text-2xl font-black">5. Vérifier avant de payer</h2><p className="mt-3 leading-7 text-slate-700">Ne versez pas de somme importante uniquement sur la base d’un intermédiaire. Confirmez l’offre directement auprès de l’établissement, vérifiez les conditions de remboursement et contrôlez la procédure officielle de visa.</p></section>
-      <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5"><h2 className="text-xl font-black">Sources à consulter avant toute décision</h2><ul className="mt-3 space-y-2 text-sm font-semibold text-[#005A9C]">{sources.map((source) => <li key={source.url}><a className="underline" href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>)}</ul></section>
+      {sources.length ? <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5"><h2 className="text-xl font-black">Sources à consulter avant toute décision</h2><ul className="mt-3 space-y-2 text-sm font-semibold text-[#005A9C]">{sources.map((source) => <li key={source.url}><a className="underline" href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>)}</ul></section> : null}
       <section className="mt-10"><h2 className="text-2xl font-black">Questions fréquentes</h2>{faq.map((item) => <div className="mt-4 rounded-2xl border border-slate-200 p-4" key={item.q}><h3 className="font-black">{item.q}</h3><p className="mt-2 text-slate-700">{item.a}</p></div>)}</section>
       <section className="mt-10 grid gap-3 md:grid-cols-2">{related.map((item) => <Link key={item.to} to={item.to} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 font-bold text-[#005A9C]">{item.label}</Link>)}<Link to="/book-consultation" className="rounded-2xl bg-[#005A9C] px-4 py-4 font-bold text-white">Évaluer mon projet avec EduGrowth</Link></section>
     </article></main></>;
