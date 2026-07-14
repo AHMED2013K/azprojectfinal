@@ -32,6 +32,7 @@ const CustomerServiceOutsourcingPage = lazy(() => import('./pages/CustomerServic
 const CostCalculatorPage = lazy(() => import('./pages/CostCalculatorPage.jsx'));
 const OutsourcingTunisiaPage = lazy(() => import('./pages/OutsourcingTunisiaPage.jsx'));
 const SeoPillarPage = lazy(() => import('./pages/SeoPillarPage.jsx'));
+const SeoTopicGuidePage = lazy(() => import('./pages/SeoTopicGuidePage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
 const StickyCTA = lazy(() => import('./components/StickyCTA.jsx'));
@@ -105,6 +106,7 @@ export default function App() {
         <Route path="/etudier-en-europe-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/apres-bac-etudier-a-l-etranger" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/parents-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/guides/:slug" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
         <Route path="/en/study-abroad-from-tunisia" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/en/study-abroad-from-tunis" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/en/study-medicine-pharmacy-abroad" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />

@@ -34,6 +34,26 @@ async function getRoutesFromSitemap() {
     .map((route) => (route === '' ? '/' : route));
 }
 
+async function syncSeoTopicGuides(guides) {
+  const markerStart = '<!-- seo-topic-guides:start -->';
+  const markerEnd = '<!-- seo-topic-guides:end -->';
+  const urls = guides.map(({ slug }) =>
+    `  <url><loc>https://edugrowth.tn/guides/${slug}/</loc><lastmod>2026-07-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>`
+  ).join('\n');
+  const block = `${markerStart}\n${urls}\n${markerEnd}`;
+
+  for (const sitemapPath of [
+    path.resolve(rootDir, 'sitemap.xml'),
+    path.resolve(rootDir, 'public/sitemap.xml'),
+    path.resolve(distDir, 'sitemap.xml'),
+  ]) {
+    const sitemap = await fs.readFile(sitemapPath, 'utf-8');
+    const withoutPreviousBlock = sitemap.replace(new RegExp(`\\s*${escapeRegExp(markerStart)}[\\s\\S]*?${escapeRegExp(markerEnd)}`), '');
+    const updated = withoutPreviousBlock.replace('</urlset>', `${block}\n</urlset>`);
+    await fs.writeFile(sitemapPath, updated, 'utf-8');
+  }
+}
+
 function serializeHelmet(helmet) {
   const safeHelmet = {
     title: { toString: () => '' },
@@ -110,10 +130,15 @@ async function main() {
 
   const appModule = await vite.ssrLoadModule('/src/App.jsx');
   const languageModule = await vite.ssrLoadModule('/src/context/LanguageContext.jsx');
+  const guideModule = await vite.ssrLoadModule('/src/pages/SeoTopicGuidePage.jsx');
   const App = appModule.default;
   const { LanguageProvider } = languageModule;
+  const seoGuides = guideModule.seoGuides || [];
+  await syncSeoTopicGuides(seoGuides);
+  const guideRoutes = seoGuides.map(({ slug }) => `/guides/${slug}/`);
+  const renderRoutes = [...new Set([...routes, ...guideRoutes])];
 
-  for (const route of routes) {
+  for (const route of renderRoutes) {
     const helmetContext = {};
     const appHtml = await renderToStringWithSuspense(
       React.createElement(
