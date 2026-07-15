@@ -87,7 +87,7 @@ export default function PortalGatePage() {
       <div className="min-h-screen bg-slate-950 text-white">
         <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 backdrop-blur-sm">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-            <Link to="/home" className="inline-flex items-center gap-2 rounded-full border border-slate-600/40 bg-slate-900/90 px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-slate-100 transition hover:bg-slate-800">
+            <Link to="/" className="inline-flex items-center gap-2 rounded-full border border-slate-600/40 bg-slate-900/90 px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-slate-100 transition hover:bg-slate-800">
               {copy.seoPage}
             </Link>
             <div className="flex items-center gap-2 rounded-full border border-slate-600/40 bg-slate-900/90 px-2 py-2">
@@ -114,7 +114,7 @@ export default function PortalGatePage() {
                   {copy.openPortal}
                 </button>
                 <Link
-                  to="/home"
+                  to="/"
                   className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white/15"
                 >
                   {copy.seoPage}
