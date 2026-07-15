@@ -1,8 +1,8 @@
 export const destinationsData = [
-  { name: 'France privé', img: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=400&q=80', desc: 'Écoles privées, Bachelor, BTS, rentrée après bac', path: '/etudier-en-france-ecole-privee-depuis-tunisie', overlayTitle: 'France établissement privé' },
+  { name: 'France privé', img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=400&q=80', desc: 'Écoles privées, Bachelor, BTS, rentrée après bac', path: '/etudier-en-france-ecole-privee-depuis-tunisie', overlayTitle: 'France établissement privé' },
   { name: 'France alternance', img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=400&q=80', desc: 'Étudier et travailler en France depuis la Tunisie', path: '/alternance-france', overlayTitle: 'Alternance en France' },
   { name: 'Germany', img: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=400&q=80', desc: 'Ausbildung, visa, compte bloqué', path: '/etudier-en-allemagne-depuis-tunisie', overlayTitle: 'Étudier en Allemagne' },
-  { name: 'Austria', img: 'https://images.unsplash.com/photo-1516550893885-985c6f8f951b?auto=format&fit=crop&w=400&q=80', desc: 'Universités publiques, études abordables', path: '/etudier-en-autriche-depuis-tunisie', overlayTitle: 'Étudier en Autriche' },
+  { name: 'Austria', img: 'https://images.unsplash.com/photo-1530423492383-2c6ff04b6d25?auto=format&fit=crop&w=400&q=80', desc: 'Universités publiques, études abordables', path: '/etudier-en-autriche-depuis-tunisie', overlayTitle: 'Étudier en Autriche' },
   { name: 'Hungary', img: 'https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=400&q=80', desc: 'Médecine, ingénierie, programmes en anglais', path: '/etudier-en-hongrie-depuis-tunisie', overlayTitle: 'Étudier en Hongrie' },
   { name: 'Canada', img: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=400&q=80', desc: 'Permis d’études et immigration', path: '/etudier-au-canada-depuis-tunisie', overlayTitle: 'Étudier au Canada' },
   { name: 'Dubai', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=80', desc: '100% anglais, dès 5000 USD/an, sans bac possible selon profil', path: '/etudier-a-dubai-depuis-tunisie', overlayTitle: 'Étudier à Dubai' },
@@ -15,7 +15,9 @@ export const destinationsData = [
   { name: 'Spain', img: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=400&q=80', desc: 'Universités européennes accessibles, coût modéré', path: '/etudier-en-espagne-depuis-tunisie', overlayTitle: 'Étudier en Espagne' },
   { name: 'China', img: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=400&q=80', desc: 'Bourses, médecine, ingénierie, programmes internationaux', path: '/etudier-en-chine-depuis-tunisie', overlayTitle: 'Étudier en Chine' },
   { name: 'Morocco', img: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=400&q=80', desc: 'Proximité, écoles privées, santé, business', path: '/etudier-au-maroc-depuis-tunisie', overlayTitle: 'Étudier au Maroc' },
-  { name: 'USA', img: 'https://images.unsplash.com/photo-1496588152823-86ff7695e68f?auto=format&fit=crop&w=400&q=80', desc: 'Universités, scholarships, visa F-1', path: '/etudier-aux-usa-depuis-tunisie', overlayTitle: 'Étudier aux USA' }
+  { name: 'USA', img: 'https://images.unsplash.com/photo-1496588152823-86ff7695e68f?auto=format&fit=crop&w=400&q=80', desc: 'Universités, scholarships, visa F-1', path: '/etudier-aux-usa-depuis-tunisie', overlayTitle: 'Étudier aux USA' },
+  { name: 'Albania', img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Xhamia%20e%20Et-hem%20Beut%20ne%20Tirane.jpg?width=1200', desc: 'Universités, programmes internationaux, admission', path: '/etudier-en-albanie-depuis-tunisie', overlayTitle: 'Étudier en Albanie' },
+  { name: 'Malaysia', img: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=400&q=80', desc: 'Universités internationales, anglais et Student Pass', path: '/etudier-en-malaisie-depuis-tunisie', overlayTitle: 'Étudier en Malaisie' }
 ];
 
 export const services = [

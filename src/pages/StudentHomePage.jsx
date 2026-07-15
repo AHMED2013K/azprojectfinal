@@ -48,7 +48,7 @@ const destinations = [
     path: '/etudier-en-france-ecole-privee-depuis-tunisie',
     focus: 'Écoles privées, Bachelor, BTS, rentrée après bac',
     timing: 'Idéal pendant ou juste après le bac',
-    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&q=80',
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=700&q=80',
   },
   {
     name: 'France alternance',
@@ -69,7 +69,7 @@ const destinations = [
     path: '/etudier-en-autriche-depuis-tunisie',
     focus: 'Universités publiques, études abordables',
     timing: 'Dossier langue et budget à cadrer tôt',
-    image: 'https://images.unsplash.com/photo-1516550893885-985c6f8f951b?auto=format&fit=crop&w=700&q=80',
+    image: 'https://images.unsplash.com/photo-1530423492383-2c6ff04b6d25?auto=format&fit=crop&w=700&q=80',
   },
   {
     name: 'Hongrie',
@@ -154,6 +154,20 @@ const destinations = [
     focus: 'Médecine, ingénierie, budget accessible',
     timing: 'À vérifier selon langue et reconnaissance',
     image: 'https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Albanie',
+    path: '/etudier-en-albanie-depuis-tunisie',
+    focus: 'Europe, programmes internationaux, budget à comparer',
+    timing: 'Vérifier admission et reconnaissance avant inscription',
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Xhamia%20e%20Et-hem%20Beut%20ne%20Tirane.jpg?width=1200',
+  },
+  {
+    name: 'Malaisie',
+    path: '/etudier-en-malaisie-depuis-tunisie',
+    focus: 'Universités internationales, anglais, Student Pass',
+    timing: 'Préparer admission puis procédure EMGS',
+    image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=700&q=80',
   },
   {
     name: 'États-Unis',

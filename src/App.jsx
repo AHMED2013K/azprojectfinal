@@ -145,6 +145,8 @@ export default function App() {
         <Route path="/etudier-au-maroc-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-au-royaume-uni-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-aux-usa-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-albanie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-malaisie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
 
         <Route path="/agence-etude-etranger-tunis" element={<Suspense fallback={<LoadingFallback />}><CityLandingPage /></Suspense>} />
         <Route path="/agence-etude-etranger-sousse" element={<Suspense fallback={<LoadingFallback />}><CityLandingPage /></Suspense>} />
