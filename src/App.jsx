@@ -164,6 +164,7 @@ export default function App() {
         <Route path="/education-outsourcing-tunisia" element={<Suspense fallback={<LoadingFallback />}><OutsourcingServicePage /></Suspense>} />
         <Route path="/student-recruitment-outsourcing" element={<Suspense fallback={<LoadingFallback />}><OutsourcingServicePage /></Suspense>} />
         <Route path="/externalisation-services-tunisie" element={<Suspense fallback={<LoadingFallback />}><OutsourcingServicePage /></Suspense>} />
+        <Route path="/agence-recrutement-etudiants-tunisie" element={<Suspense fallback={<LoadingFallback />}><OutsourcingServicePage /></Suspense>} />
 
         <Route path="/outsource-customer-service-tunisia" element={<Suspense fallback={<LoadingFallback />}><CustomerServiceOutsourcingPage /></Suspense>} />
 

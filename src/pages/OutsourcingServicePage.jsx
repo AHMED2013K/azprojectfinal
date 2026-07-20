@@ -28,6 +28,11 @@ const pageConfig = {
     h1: 'Externalisation des services éducatifs en Tunisie',
     description: 'Externalisez admissions, qualification des leads et suivi CRM avec une équipe dédiée en Tunisie.',
   },
+  '/agence-recrutement-etudiants-tunisie': {
+    title: 'Agence de recrutement étudiant en Tunisie | Universités',
+    h1: 'Agence de recrutement d’étudiants en Tunisie pour universités',
+    description: 'Développez vos admissions en Tunisie avec une équipe locale : recrutement étudiant, qualification des dossiers, suivi des candidats et reporting pour universités et écoles internationales.',
+  },
 };
 
 export default function OutsourcingServicePage() {
@@ -145,6 +150,7 @@ export default function OutsourcingServicePage() {
             <div className="mt-3 flex flex-wrap gap-3 text-sm font-bold text-[#005A9C]">
               <Link to="/outsourcing">Outsourcing Main Page</Link>
               <Link to="/student-recruitment-outsourcing">Student Recruitment Outsourcing</Link>
+              <Link to="/agence-recrutement-etudiants-tunisie">Agence recrutement étudiant Tunisie</Link>
               <Link to="/externalisation-services-tunisie">Externalisation Services Tunisie</Link>
               <Link to="/blog">Blog</Link>
             </div>
