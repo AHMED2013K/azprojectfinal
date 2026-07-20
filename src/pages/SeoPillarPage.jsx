@@ -41,6 +41,8 @@ const priorityDestinations = [
   { label: 'Roumanie', path: '/etudier-en-roumanie-depuis-tunisie', intent: 'Médecine, pharmacie, ingénierie et admissions européennes' },
   { label: 'Espagne', path: '/etudier-en-espagne-depuis-tunisie', intent: 'Universités européennes accessibles et programmes internationaux' },
   { label: 'Chine', path: '/etudier-en-chine-depuis-tunisie', intent: 'Bourses, médecine, ingénierie et cursus internationaux' },
+  { label: 'Corée du Sud', path: '/etudier-en-coree-du-sud-depuis-tunisie', intent: 'Technologie, business, ingénierie, bourses et visa D-2' },
+  { label: 'Japon', path: '/etudier-au-japon-depuis-tunisie', intent: 'Universités japonaises, MEXT, anglais ou japonais et visa étudiant' },
 ];
 
 const authoritySupportPages = [
@@ -61,6 +63,8 @@ const comparisonRows = [
   ['Roumanie', 'Moyen', 'Français / anglais / roumain', 'Visa étudiant', 'Très pertinente pour médecine, pharmacie et ingénierie'],
   ['Espagne', 'Moyen', 'Espagnol / anglais', 'Visa étudiant', 'Bonne option européenne avec coût souvent modéré'],
   ['Chine', 'Variable', 'Anglais / chinois', 'Admission + visa', 'Bourses possibles, forte en ingénierie et médecine'],
+  ['Corée du Sud', 'Moyen à élevé', 'Anglais / coréen', 'Visa D-2', 'Attractive pour IT, ingénierie, business et profils internationaux'],
+  ['Japon', 'Moyen à élevé', 'Japonais / anglais', 'Visa étudiant', 'Option solide pour technologie, recherche et bourses MEXT'],
 ];
 
 const pages = {

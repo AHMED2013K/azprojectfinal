@@ -59,7 +59,11 @@ const countryData = {
     title: "Étudier en Autriche depuis la Tunisie | Universités publiques",
     description: "Étudier en Autriche depuis la Tunisie: universités publiques, frais abordables, admission, allemand ou anglais, budget et visa étudiant.",
     h1: "Étudier en Autriche depuis la Tunisie",
-    image: "https://images.unsplash.com/photo-1530423492383-2c6ff04b6d25?auto=format&fit=crop&w=1200&q=80",
+    image: '/austria-vienna-schonbrunn.jpg',
+    imageCredit: {
+      label: 'Photo : Thomas Wolf (CC BY-SA 3.0 DE)',
+      href: 'https://commons.wikimedia.org/wiki/File:Schloss_Sch%C3%B6nbrunn_Wien_2014_(Zuschnitt_1).jpg',
+    },
     tuition: "Frais souvent abordables en université publique, avec budget de vie à anticiper",
     visa: "Admission + preuves financières + assurance + dossier visa long séjour",
     timeline: ["Choix université et langue", "Préparation documents et admission", "Budget, logement et assurance", "Visa étudiant depuis la Tunisie"],
@@ -561,6 +565,74 @@ const countryData = {
     ],
     relatedLinks: [{ to: '/etudier-en-chine-depuis-tunisie', label: 'Comparer avec Chine' }, { to: '/etudier-en-turquie-depuis-tunisie', label: 'Comparer avec Turquie' }, { to: '/book-consultation', label: 'Évaluer mon projet' }],
   },
+  '/etudier-en-coree-du-sud-depuis-tunisie': {
+    country: 'Corée du Sud',
+    title: "Étudier en Corée du Sud depuis la Tunisie | Universités, visa D-2",
+    description: "Étudier en Corée du Sud depuis la Tunisie: universités, programmes en anglais ou coréen, bourses, admission, budget, logement et visa étudiant D-2.",
+    h1: "Étudier en Corée du Sud depuis la Tunisie",
+    image: '/south-korea-university-campus.jpg',
+    tuition: "Variable selon université, niveau, programme et bourse obtenue",
+    visa: "Admission universitaire puis préparation du visa étudiant D-2 avec justificatifs académiques et financiers",
+    timeline: ["Diagnostic du profil et de la langue", "Choix université, programme et bourse", "Dossier admission et documents", "Visa D-2, logement et départ"],
+    highlights: [
+      "Destination forte pour technologie, ingénierie, business, design et sciences",
+      "Programmes en anglais possibles, mais le coréen reste un vrai avantage pour la vie quotidienne",
+      "Bourses universitaires ou programmes publics à étudier selon niveau et calendrier",
+      "Le dossier doit prouver niveau académique, financement, projet et capacité d'adaptation",
+    ],
+    budget: [
+      "Frais de scolarité selon université publique ou privée",
+      "Logement en dortoir, résidence ou colocation",
+      "Assurance, visa, billet, installation et dépenses mensuelles",
+      "Cours de langue ou TOPIK à prévoir selon le programme visé",
+    ],
+    programs: ['IT', 'Ingénierie', 'Business', 'Design', 'Data', 'Sciences', 'Langue coréenne', 'Bachelor', 'Master'],
+    faq: [
+      { q: "Peut-on étudier en anglais en Corée du Sud ?", a: "Oui, plusieurs universités proposent des programmes internationaux en anglais, surtout en master, business, ingénierie et sciences. Il faut vérifier les exigences de chaque programme." },
+      { q: "Quel visa pour étudier en Corée du Sud ?", a: "Le visa étudiant le plus courant pour un cursus universitaire est le D-2, après admission et préparation des justificatifs demandés." },
+      { q: "La Corée du Sud convient-elle aux étudiants tunisiens ?", a: "Elle peut convenir aux profils motivés par l'Asie, la technologie et les cursus internationaux, avec budget, langue et calendrier bien cadrés." },
+    ],
+    relatedLinks: [
+      { to: "/etudier-au-japon-depuis-tunisie", label: "Comparer avec Japon" },
+      { to: "/etudier-en-chine-depuis-tunisie", label: "Comparer avec Chine" },
+      { to: "/blog/bourses-etudes-etranger-tunisiens", label: "Bourses pour Tunisiens" },
+      { to: "/book-consultation", label: "Tester mon profil" },
+    ],
+  },
+  '/etudier-au-japon-depuis-tunisie': {
+    country: 'Japon',
+    title: "Étudier au Japon depuis la Tunisie | Universités, MEXT, visa",
+    description: "Étudier au Japon depuis la Tunisie: universités japonaises, programmes en anglais ou japonais, bourses MEXT, admission, budget, logement et visa étudiant.",
+    h1: "Étudier au Japon depuis la Tunisie",
+    image: '/japan-tokyo-study-destination.jpg',
+    tuition: "Variable selon université publique, privée, langue du cursus et bourse",
+    visa: "Admission, Certificate of Eligibility puis demande de visa étudiant",
+    timeline: ["Choix du parcours: anglais ou japonais", "Recherche universités et bourses", "Dossier admission et financement", "Certificate of Eligibility, visa et départ"],
+    highlights: [
+      "Destination reconnue pour ingénierie, IT, robotique, recherche, business et design",
+      "Bourses MEXT et aides universitaires à surveiller tôt car les délais sont longs",
+      "Programmes en anglais possibles, mais le japonais augmente les options et l'intégration",
+      "Le projet doit être très clair: spécialité, budget, langue, logement et retour professionnel",
+    ],
+    budget: [
+      "Frais de scolarité selon établissement et programme",
+      "Logement étudiant, dortoir ou location selon ville",
+      "Assurance, visa, billet, installation et transport local",
+      "Cours de japonais ou examens de langue à anticiper",
+    ],
+    programs: ['Ingénierie', 'IT', 'Robotique', 'Business', 'Design', 'Sciences', 'Langue japonaise', 'Bachelor', 'Master'],
+    faq: [
+      { q: "Peut-on étudier au Japon en anglais ?", a: "Oui, certains programmes internationaux existent en anglais, surtout en master et dans des universités internationales. Le japonais reste fortement recommandé." },
+      { q: "Qu'est-ce que le Certificate of Eligibility ?", a: "C'est un document préparé avec l'établissement au Japon qui facilite ensuite la demande de visa étudiant auprès des autorités consulaires." },
+      { q: "Les bourses MEXT sont-elles accessibles ?", a: "Elles existent mais restent sélectives et doivent être préparées tôt avec un dossier académique cohérent et des délais stricts." },
+    ],
+    relatedLinks: [
+      { to: "/etudier-en-coree-du-sud-depuis-tunisie", label: "Comparer avec Corée du Sud" },
+      { to: "/etudier-en-chine-depuis-tunisie", label: "Comparer avec Chine" },
+      { to: "/blog/bourses-etudes-etranger-tunisiens", label: "Bourses pour Tunisiens" },
+      { to: "/book-consultation", label: "Tester mon profil" },
+    ],
+  },
 };
 
 function QuickApplicationForm({ country }) {
@@ -758,17 +830,26 @@ export default function CountryGuidePage() {
             <p className="mt-4 text-slate-600">{data.description}</p>
 
             {data.image ? (
-              <img
-                src={data.image}
-                alt={data.h1}
-                className="mt-8 h-72 w-full rounded-3xl object-cover shadow-sm"
-                width="1200"
-                height="480"
-                loading="eager"
-                onError={(event) => {
-                  event.currentTarget.src = '/abroad.webp';
-                }}
-              />
+              <figure className="mt-8">
+                <img
+                  src={data.image}
+                  alt={data.h1}
+                  className="h-72 w-full rounded-3xl object-cover shadow-sm"
+                  width="1200"
+                  height="480"
+                  loading="eager"
+                  onError={(event) => {
+                    event.currentTarget.src = '/abroad.webp';
+                  }}
+                />
+                {data.imageCredit ? (
+                  <figcaption className="mt-2 text-xs text-slate-500">
+                    <a href={data.imageCredit.href} target="_blank" rel="noreferrer" className="underline hover:text-slate-700">
+                      {data.imageCredit.label}
+                    </a>
+                  </figcaption>
+                ) : null}
+              </figure>
             ) : null}
 
             <div className="mt-8 grid gap-4 md:grid-cols-2">

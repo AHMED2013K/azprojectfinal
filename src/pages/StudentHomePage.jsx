@@ -69,7 +69,11 @@ const destinations = [
     path: '/etudier-en-autriche-depuis-tunisie',
     focus: 'Universités publiques, études abordables',
     timing: 'Dossier langue et budget à cadrer tôt',
-    image: 'https://images.unsplash.com/photo-1530423492383-2c6ff04b6d25?auto=format&fit=crop&w=700&q=80',
+    image: '/austria-vienna-schonbrunn.jpg',
+    imageCredit: {
+      label: 'Photo : Thomas Wolf (CC BY-SA 3.0 DE)',
+      href: 'https://commons.wikimedia.org/wiki/File:Schloss_Sch%C3%B6nbrunn_Wien_2014_(Zuschnitt_1).jpg',
+    },
   },
   {
     name: 'Hongrie',
@@ -170,6 +174,20 @@ const destinations = [
     image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=700&q=80',
   },
   {
+    name: 'Corée du Sud',
+    path: '/etudier-en-coree-du-sud-depuis-tunisie',
+    focus: 'Technologie, business, ingénierie, programmes en anglais',
+    timing: 'Anticiper admission, bourses et visa D-2',
+    image: '/south-korea-university-campus.jpg',
+  },
+  {
+    name: 'Japon',
+    path: '/etudier-au-japon-depuis-tunisie',
+    focus: 'Universités, MEXT, ingénierie, IT, langue japonaise',
+    timing: 'Préparation longue, langue et financement à cadrer',
+    image: '/japan-tokyo-study-destination.jpg',
+  },
+  {
     name: 'États-Unis',
     path: '/etudier-aux-usa-depuis-tunisie',
     focus: 'Universités, scholarships, visa F-1',
@@ -199,13 +217,15 @@ const homepageComparisonRows = [
   ['Allemagne', 'Modéré en public', 'Allemand / anglais', 'Compte bloqué fréquent', '/etudier-en-allemagne-depuis-tunisie'],
   ['Roumanie', 'Moyen', 'Français / anglais', 'Visa étudiant européen', '/etudier-en-roumanie-depuis-tunisie'],
   ['Dubai', 'À partir de 5000 USD/an selon programme', 'Anglais', 'Visa étudiant après admission', '/etudier-a-dubai-depuis-tunisie'],
+  ['Corée du Sud', 'Moyen à élevé', 'Anglais / coréen', 'Visa D-2 après admission', '/etudier-en-coree-du-sud-depuis-tunisie'],
+  ['Japon', 'Moyen à élevé', 'Japonais / anglais', 'Certificate of Eligibility + visa', '/etudier-au-japon-depuis-tunisie'],
 ];
 
 const copy = {
   fr: {
-    seoTitle: "EduGrowth Tunisie | Etudier a l'etranger depuis la Tunisie",
+    seoTitle: "Orientation etudiant Tunisie | Etudier a l'etranger | EduGrowth",
     seoDescription:
-      "EduGrowth accompagne les etudiants tunisiens dans leur projet d'etudes a l'etranger : orientation, admission, Campus France, visa, logement et alternance.",
+      "Orientation etudiant en Tunisie pour etudier a l'etranger: France, Allemagne, Canada, Coree du Sud, Japon, admission, Campus France, visa, logement et alternance.",
     navDestinations: 'Destinations',
     navServices: 'Services',
     navAlternance: 'Alternance France',
@@ -219,7 +239,7 @@ const copy = {
     primaryCta: 'Tester mon profil gratuitement',
     whatsappCta: 'Parler sur WhatsApp',
     badge: 'Accompagnement etudiant depuis la Tunisie',
-    heroTitle: "Etudier a l'etranger depuis la Tunisie avec un dossier clair, credible et bien prepare",
+    heroTitle: "Orientation etudiant en Tunisie pour etudier a l'etranger avec un dossier clair",
     heroText:
       "EduGrowth accompagne les etudiants tunisiens et leurs familles dans le choix du pays, l'admission, Campus France, le visa, le logement et la preparation au depart.",
     heroProof: ['Diagnostic gratuit', 'Parents bienvenus', 'Suivi en francais, arabe et anglais'],
@@ -262,7 +282,7 @@ const copy = {
     quizDestination: 'Destination visee',
     quizBudget: 'Budget mensuel estime',
     quizStage: 'Ou en etes-vous ?',
-    quizDestinations: ['France privé', 'France alternance', 'Dubai', 'Roumanie', 'Canada', 'Autriche', 'Hongrie', 'Espagne', 'Chine', 'Allemagne', 'Chypre du Nord', 'Turquie', 'Je ne sais pas encore'],
+    quizDestinations: ['France privé', 'France alternance', 'Dubai', 'Roumanie', 'Canada', 'Autriche', 'Hongrie', 'Espagne', 'Chine', 'Corée du Sud', 'Japon', 'Allemagne', 'Chypre du Nord', 'Turquie', 'Je ne sais pas encore'],
     quizBudgets: ['Moins de 500 EUR', '500 - 800 EUR', '800 - 1200 EUR', 'Plus de 1200 EUR', 'A definir avec mes parents'],
     quizStages: ['Je passe le bac cette année', 'Je n’ai pas le bac', 'Je compare les pays', 'Je veux preparer mon dossier', 'Je cherche une alternance', 'Je prepare le visa', 'Je veux rassurer mes parents'],
     quizResultTitle: 'Votre resume de profil',
@@ -425,7 +445,7 @@ const copy = {
     quizDestination: 'Target destination',
     quizBudget: 'Estimated monthly budget',
     quizStage: 'Where are you now?',
-    quizDestinations: ['France private school', 'France work-study', 'Dubai', 'Romania', 'Canada', 'Austria', 'Hungary', 'Spain', 'China', 'Germany', 'North Cyprus', 'Turkey', 'I am not sure yet'],
+    quizDestinations: ['France private school', 'France work-study', 'Dubai', 'Romania', 'Canada', 'Austria', 'Hungary', 'Spain', 'China', 'South Korea', 'Japan', 'Germany', 'North Cyprus', 'Turkey', 'I am not sure yet'],
     quizBudgets: ['Under EUR 500', 'EUR 500 - 800', 'EUR 800 - 1200', 'Over EUR 1200', 'To define with my parents'],
     quizStages: ['I am taking the bac this year', 'I do not have the bac', 'I am comparing countries', 'I want to prepare my file', 'I am looking for work-study', 'I am preparing visa steps', 'I want to reassure my parents'],
     quizResultTitle: 'Your profile summary',
@@ -1043,6 +1063,16 @@ export default function StudentHomePage() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 to-transparent" />
                       <h3 className="absolute bottom-5 left-5 text-3xl font-black text-white">{destination.name}</h3>
+                      {destination.imageCredit ? (
+                        <a
+                          href={destination.imageCredit.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="absolute bottom-2 right-2 rounded bg-slate-950/65 px-2 py-1 text-[9px] font-medium text-white/90 hover:bg-slate-950"
+                        >
+                          {destination.imageCredit.label}
+                        </a>
+                      ) : null}
                     </div>
                     <div className="p-5">
                       <div className="flex items-start gap-3 text-sm font-semibold text-slate-700">
