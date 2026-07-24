@@ -46,7 +46,12 @@ const priorityDestinations = [
 ];
 
 const authoritySupportPages = [
+  { label: 'Orientation étudiant Tunisie', path: '/orientation-etudiant-tunisie', intent: 'Choix du pays, filière, budget, calendrier et stratégie de dossier' },
+  { label: 'Agence orientation étudiant', path: '/agence-orientation-etudiant-tunisie', intent: 'Comment choisir une agence fiable pour étudier à l’étranger' },
+  { label: 'Admissions internationales', path: '/admission-universite-etranger-tunisie', intent: 'Documents, candidature, admission et calendrier international' },
   { label: 'Visa étudiant depuis la Tunisie', path: '/visa-etudiant-tunisie', intent: 'Documents, preuves financières, délais et erreurs à éviter' },
+  { label: 'Budget études à l’étranger', path: '/budget-etudes-etranger-tunisie', intent: 'Frais, logement, visa, assurance, billet et installation' },
+  { label: 'Logement étudiant à l’étranger', path: '/logement-etudiant-etranger-tunisie', intent: 'Résidence, colocation, preuve de logement et budget' },
   { label: 'Bourses pour Tunisiens', path: '/bourses-etudes-tunisiens', intent: 'Bourses publiques, universités, critères et stratégie de dossier' },
   { label: 'Comparatif pays', path: '/comparatif-pays-etudes-etranger-tunisie', intent: 'Budget, langue, visa, admission et niveau de difficulté' },
   { label: 'Étudier en Europe', path: '/etudier-en-europe-depuis-tunisie', intent: 'France, Allemagne, Autriche, Hongrie, Roumanie, Espagne' },

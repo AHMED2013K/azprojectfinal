@@ -7,3 +7,5 @@ Disallow: /thank-you
 Disallow: /lp/
 
 Sitemap: https://edugrowth.tn/sitemap.xml
+AI-Knowledge-Base: https://edugrowth.tn/ai-knowledge-base/
+LLMS: https://edugrowth.tn/llms.txt

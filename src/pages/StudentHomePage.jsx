@@ -197,13 +197,19 @@ const destinations = [
 ];
 
 const seoPillarLinks = [
+  { label: 'Orientation étudiant Tunisie', path: '/orientation-etudiant-tunisie' },
+  { label: 'Agence orientation étudiant Tunisie', path: '/agence-orientation-etudiant-tunisie' },
   { label: "Étudier à l'étranger depuis la Tunisie", path: '/fr/etudier-a-l-etranger-depuis-tunisie' },
+  { label: 'Admissions internationales Tunisie', path: '/admission-universite-etranger-tunisie' },
   { label: 'Visa étudiant depuis la Tunisie', path: '/visa-etudiant-tunisie' },
+  { label: 'Budget études à l’étranger', path: '/budget-etudes-etranger-tunisie' },
+  { label: 'Logement étudiant à l’étranger', path: '/logement-etudiant-etranger-tunisie' },
   { label: 'Bourses pour étudiants tunisiens', path: '/bourses-etudes-tunisiens' },
   { label: 'Comparatif des pays', path: '/comparatif-pays-etudes-etranger-tunisie' },
   { label: 'Étudier en Europe depuis la Tunisie', path: '/etudier-en-europe-depuis-tunisie' },
   { label: 'Après bac : étudier à l’étranger', path: '/apres-bac-etudier-a-l-etranger' },
   { label: 'Guide parents', path: '/parents-etudes-etranger-tunisie' },
+  { label: 'Base de connaissance IA', path: '/ai-knowledge-base' },
   { label: "Étudier à l'étranger depuis Tunis", path: '/fr/etudier-a-l-etranger-depuis-tunis' },
   { label: 'Médecine et pharmacie à l’étranger', path: '/fr/etudier-medecine-pharmacie-etranger' },
   { label: 'Médecine privée en Tunisie', path: '/fr/medecine-privee-tunisie' },

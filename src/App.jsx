@@ -33,6 +33,8 @@ const CostCalculatorPage = lazy(() => import('./pages/CostCalculatorPage.jsx'));
 const OutsourcingTunisiaPage = lazy(() => import('./pages/OutsourcingTunisiaPage.jsx'));
 const SeoPillarPage = lazy(() => import('./pages/SeoPillarPage.jsx'));
 const SeoTopicGuidePage = lazy(() => import('./pages/SeoTopicGuidePage.jsx'));
+const GeoKnowledgeBasePage = lazy(() => import('./pages/GeoKnowledgeBasePage.jsx'));
+const ProgrammaticSeoPage = lazy(() => import('./pages/ProgrammaticSeoPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
 const StickyCTA = lazy(() => import('./components/StickyCTA.jsx'));
@@ -106,6 +108,39 @@ export default function App() {
         <Route path="/etudier-en-europe-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/apres-bac-etudier-a-l-etranger" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/parents-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/ai-knowledge-base" element={<Suspense fallback={<LoadingFallback />}><GeoKnowledgeBasePage /></Suspense>} />
+        <Route path="/orientation-etudiant-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/agence-orientation-etudiant-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/admission-universite-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/documents-etudier-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/budget-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/logement-etudiant-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/parents-etudiant-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/campus-france-tunisie-dossier" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/visa-etudiant-france-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/alternance-france-tunisiens" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/bac-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/licence-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/master-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/doctorat-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/bourses-etudiants-tunisiens-etranger" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/calendrier-rentree-universitaire-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/agence-etude-etranger-ariana" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/agence-etude-etranger-nabeul" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/agence-etude-etranger-monastir" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/agence-etude-etranger-bizerte" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/agence-etude-etranger-gabes" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/agence-etude-etranger-kairouan" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/comparer-france-canada-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/comparer-allemagne-autriche-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/comparer-roumanie-hongrie-medecine-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/etudier-etranger-petit-budget-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/orientation-apres-bts-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/orientation-apres-btp-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/orientation-apres-bac-technique-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/orientation-apres-bac-sciences-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/orientation-apres-bac-eco-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/rentre-universitaire-janvier-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/guides/:slug" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
         <Route path="/cout-etudier-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
         <Route path="/campus-france-tunisie-calendrier-2026-2027" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
