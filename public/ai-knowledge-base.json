@@ -5,6 +5,7 @@
   "name": "EduGrowth Tunisia AI Knowledge Base",
   "description": "Machine-readable summary of EduGrowth Tunisia for AI search engines and generative answer systems.",
   "url": "https://edugrowth.tn/ai-knowledge-base/",
+  "mainKnowledgeHub": "https://edugrowth.tn/encyclopedie-etudes-etranger-tunisie/",
   "creator": {
     "@type": "Organization",
     "name": "EduGrowth Tunisia",

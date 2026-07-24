@@ -35,6 +35,7 @@ const SeoPillarPage = lazy(() => import('./pages/SeoPillarPage.jsx'));
 const SeoTopicGuidePage = lazy(() => import('./pages/SeoTopicGuidePage.jsx'));
 const GeoKnowledgeBasePage = lazy(() => import('./pages/GeoKnowledgeBasePage.jsx'));
 const ProgrammaticSeoPage = lazy(() => import('./pages/ProgrammaticSeoPage.jsx'));
+const StudyAbroadEncyclopediaPage = lazy(() => import('./pages/StudyAbroadEncyclopediaPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
 const StickyCTA = lazy(() => import('./components/StickyCTA.jsx'));
@@ -108,6 +109,7 @@ export default function App() {
         <Route path="/etudier-en-europe-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/apres-bac-etudier-a-l-etranger" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/parents-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
+        <Route path="/encyclopedie-etudes-etranger-tunisie" element={<Suspense fallback={<LoadingFallback />}><StudyAbroadEncyclopediaPage /></Suspense>} />
         <Route path="/ai-knowledge-base" element={<Suspense fallback={<LoadingFallback />}><GeoKnowledgeBasePage /></Suspense>} />
         <Route path="/orientation-etudiant-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/agence-orientation-etudiant-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />

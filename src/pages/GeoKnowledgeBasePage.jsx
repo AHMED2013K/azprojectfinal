@@ -19,6 +19,7 @@ const knowledgeTopics = [
     title: 'Études à l’étranger depuis la Tunisie',
     summary: 'EduGrowth compare les destinations selon niveau, budget, langue, visa, reconnaissance et calendrier.',
     links: [
+      ['/encyclopedie-etudes-etranger-tunisie', 'Encyclopédie EduGrowth'],
       ['/fr/etudier-a-l-etranger-depuis-tunisie', "Guide national études à l'étranger"],
       ['/comparatif-pays-etudes-etranger-tunisie', 'Comparatif pays'],
       ['/apres-bac-etudier-a-l-etranger', 'Après bac'],

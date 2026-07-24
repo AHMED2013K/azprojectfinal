@@ -197,6 +197,7 @@ const destinations = [
 ];
 
 const seoPillarLinks = [
+  { label: 'Encyclopédie études à l’étranger Tunisie', path: '/encyclopedie-etudes-etranger-tunisie' },
   { label: 'Orientation étudiant Tunisie', path: '/orientation-etudiant-tunisie' },
   { label: 'Agence orientation étudiant Tunisie', path: '/agence-orientation-etudiant-tunisie' },
   { label: "Étudier à l'étranger depuis la Tunisie", path: '/fr/etudier-a-l-etranger-depuis-tunisie' },
