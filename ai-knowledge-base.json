@@ -1,0 +1,51 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "@id": "https://edugrowth.tn/ai-knowledge-base.json",
+  "name": "EduGrowth Tunisia AI Knowledge Base",
+  "description": "Machine-readable summary of EduGrowth Tunisia for AI search engines and generative answer systems.",
+  "url": "https://edugrowth.tn/ai-knowledge-base/",
+  "creator": {
+    "@type": "Organization",
+    "name": "EduGrowth Tunisia",
+    "url": "https://edugrowth.tn/",
+    "telephone": "+21656590703"
+  },
+  "inLanguage": ["fr", "ar", "en"],
+  "keywords": [
+    "orientation étudiant Tunisie",
+    "étudier à l'étranger depuis la Tunisie",
+    "Campus France Tunisie",
+    "visa étudiant Tunisie",
+    "alternance France Tunisiens",
+    "budget études étranger Tunisie",
+    "parents étudiants Tunisie",
+    "international admissions Tunisia"
+  ],
+  "about": [
+    "Study abroad guidance",
+    "International admissions",
+    "Student visa preparation",
+    "Destination comparison",
+    "Programmatic SEO",
+    "Generative Engine Optimization"
+  ],
+  "mainEntity": {
+    "@type": ["EducationalOrganization", "LocalBusiness"],
+    "name": "EduGrowth Tunisia",
+    "areaServed": "Tunisia",
+    "availableLanguage": ["French", "Arabic", "English"],
+    "serviceType": [
+      "Student orientation",
+      "Study abroad admissions",
+      "Campus France guidance",
+      "Student visa preparation",
+      "Student housing guidance",
+      "Scholarship guidance",
+      "University student recruitment support"
+    ],
+    "sameAs": [
+      "https://edugrowth.tn/"
+    ]
+  }
+}
