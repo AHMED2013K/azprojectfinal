@@ -10,9 +10,11 @@ import {
   ChevronRight,
   Clock,
   FileCheck2,
+  Facebook,
   GraduationCap,
   HeartHandshake,
   Home,
+  Instagram,
   Languages,
   MapPin,
   Menu,
@@ -198,6 +200,7 @@ const destinations = [
 
 const seoPillarLinks = [
   { label: 'Encyclopédie études à l’étranger Tunisie', path: '/encyclopedie-etudes-etranger-tunisie' },
+  { label: 'توجيه للدراسة بالخارج من تونس', path: '/ar/tawjih-dirasa-kharij-tunisia' },
   { label: 'Orientation étudiant Tunisie', path: '/orientation-etudiant-tunisie' },
   { label: 'Agence orientation étudiant Tunisie', path: '/agence-orientation-etudiant-tunisie' },
   { label: "Étudier à l'étranger depuis la Tunisie", path: '/fr/etudier-a-l-etranger-depuis-tunisie' },
@@ -597,6 +600,8 @@ const structuredData = {
       },
       sameAs: [
         'https://edugrowth.tn/',
+        'https://www.instagram.com/edugrowth.tn/',
+        'https://www.facebook.com/edugrowth.tn',
       ],
     },
     {
@@ -1345,6 +1350,26 @@ export default function StudentHomePage() {
                 <div className="font-black text-[#17324d]">EduGrowth</div>
               </div>
               <p className="mt-4 max-w-md text-sm leading-7 text-slate-600">{t.footerText}</p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <a
+                  href="https://www.instagram.com/edugrowth.tn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-black text-[#17324d] transition hover:border-pink-200 hover:bg-pink-50 hover:text-pink-700"
+                  aria-label="EduGrowth sur Instagram"
+                >
+                  <Instagram size={16} /> Instagram
+                </a>
+                <a
+                  href="https://www.facebook.com/edugrowth.tn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-black text-[#17324d] transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                  aria-label="EduGrowth sur Facebook"
+                >
+                  <Facebook size={16} /> Facebook
+                </a>
+              </div>
             </div>
             <div className="space-y-3 text-sm font-semibold text-slate-600">
               <div className="flex items-center gap-2"><MapPin size={16} /> Tunisia</div>

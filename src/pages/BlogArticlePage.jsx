@@ -270,9 +270,9 @@ const posts = {
     ],
   },
   '/blog/compte-bloque-allemagne-tunisie': {
-    title: 'Compte bloqué Allemagne Tunisie: montant, étapes et erreurs à éviter',
-    description: 'Comprendre le compte bloqué Allemagne depuis la Tunisie: montant, justificatifs, calendrier et rôle dans le visa étudiant.',
-    h1: 'Compte bloqué Allemagne Tunisie: guide pratique',
+    title: 'Compte bloqué Allemagne Tunisie | Visa étudiant, étapes, erreurs',
+    description: 'Compte bloqué Allemagne pour Tunisiens: rôle dans le visa étudiant, preuves financières, calendrier, documents et erreurs à éviter.',
+    h1: 'Compte bloqué Allemagne Tunisie: visa étudiant, étapes et erreurs',
     updatedAt: '14 juillet 2026',
     sources: [
       { label: 'Ambassade d’Allemagne à Tunis — visas nationaux', url: 'https://tunis.diplo.de/tn-fr/service/05-visaeinreise/1672716-1672716?isLocal=false&isPreview=false' },

@@ -55,6 +55,10 @@ const SEOHelmet = ({
         "logo": "https://edugrowth.tn/Submark.webp",
         "description": "EduGrowth guides Tunisian students and families through study abroad projects, destination choice, admissions, visa preparation, housing, and work-study options.",
         "telephone": "+21656590703",
+        "sameAs": [
+          "https://www.instagram.com/edugrowth.tn/",
+          "https://www.facebook.com/edugrowth.tn"
+        ],
         "contactPoint": {
           "@type": "ContactPoint",
           "telephone": "+21656590703",

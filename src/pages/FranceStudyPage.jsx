@@ -155,8 +155,8 @@ const FranceStudyPage = () => {
   return (
     <>
       <SEOHelmet
-        title="Étudier en France depuis la Tunisie | Guide Complet Campus France 2026"
-        description="Étudier en France depuis la Tunisie : accompagnement Campus France, visa étudiant, admissions et financement. Guide complet pour étudiants tunisiens."
+        title="Étude en France Tunisie | Campus France, visa, budget"
+        description="Étude en France depuis la Tunisie: Campus France, admission, visa étudiant, alternance, logement et budget pour étudiants tunisiens."
         canonical="https://edugrowth.tn/etudier-en-france-depuis-tunisie"
         structuredData={franceStudyStructuredData}
         lang="fr"
