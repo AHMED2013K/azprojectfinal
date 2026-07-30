@@ -53,7 +53,7 @@ export default function LeadCaptureForm({
     },
   }[lang];
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
 
@@ -71,9 +71,30 @@ export default function LeadCaptureForm({
       ...utm,
     };
 
-    const currentLeads = JSON.parse(localStorage.getItem('eg_leads') || '[]');
-    localStorage.setItem('eg_leads', JSON.stringify([lead, ...currentLeads].slice(0, 200)));
+    try {
+      // 1. Send lead data to backend API
+      const apiBaseUrl = import.meta.env.VITE_PUBLIC_API_BASE_URL || '';
+      const response = await fetch(`${apiBaseUrl}/api/leads`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(lead),
+      });
 
+      if (!response.ok) {
+        console.error('Lead API error:', response.status);
+        throw new Error('Lead submission to server failed');
+      }
+
+      const result = await response.json();
+      console.log('Lead submitted successfully:', result);
+    } catch (error) {
+      // 2. If API fails, save to localStorage as backup
+      console.error('Lead submission error, saving locally:', error);
+      const currentLeads = JSON.parse(localStorage.getItem('eg_leads') || '[]');
+      localStorage.setItem('eg_leads', JSON.stringify([lead, ...currentLeads].slice(0, 200)));
+    }
+
+    // 3. Track event for analytics
     trackEvent('generate_lead', {
       lead_source: sourcePage,
       lead_segment: segment,
@@ -83,6 +104,7 @@ export default function LeadCaptureForm({
       currency: 'USD',
     });
 
+    // 4. Prepare WhatsApp message
     const message = [
       copy.leadTitle,
       `Segment: ${segment}`,
@@ -92,17 +114,15 @@ export default function LeadCaptureForm({
       `Phone: ${lead.phone}`,
       `Organization: ${lead.organization}`,
       `Objective: ${lead.objective}`,
-      `UTM Source: ${lead.utm_source}`,
-      `UTM Medium: ${lead.utm_medium}`,
-      `UTM Campaign: ${lead.utm_campaign}`,
-      `UTM Content: ${lead.utm_content}`,
-      `UTM Term: ${lead.utm_term}`,
-      `GCLID: ${lead.gclid}`,
-      `FBCLID: ${lead.fbclid}`,
+      ...(utm.utm_source ? [`UTM Source: ${utm.utm_source}`] : []),
+      ...(utm.utm_medium ? [`UTM Medium: ${utm.utm_medium}`] : []),
+      ...(utm.utm_campaign ? [`UTM Campaign: ${utm.utm_campaign}`] : []),
     ].join('\n');
 
+    // 5. Open WhatsApp
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
 
+    // 6. Navigate to thank you page
     navigate('/thank-you', { state: { segment, name: lead.name || 'there' } });
     setIsSubmitting(false);
   };

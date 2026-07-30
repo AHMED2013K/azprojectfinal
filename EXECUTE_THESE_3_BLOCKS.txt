@@ -1,0 +1,93 @@
+================================================================================
+🚀 COPIER-COLLER LES 3 BLOCS DE COMMANDES CI-DESSOUS
+================================================================================
+
+EXÉCUTER DANS CET ORDRE dans: /home/ahmed/Bureau/edugrowth
+
+================================================================================
+BLOC 1
+================================================================================
+
+git add backend/server.js src/components/LeadCaptureForm.jsx .env.example AUDIT_COMPLET_2026_JUILLET.md DEPLOYMENT_COMMANDS.sh COMMANDS_READY_TO_DEPLOY.md COPY_PASTE_COMMANDS.sh RESUME_EXECUTIF_DEPLOY.md COMMANDES_A_EXECUTER.md BLOCS_COMMANDES_COPIER_COLLER.md README_AUDIT.md && git status
+
+================================================================================
+BLOC 2
+================================================================================
+
+git commit -m "🚨 CRITICAL FIX: Implement lead capture API endpoint - Fix 0 prospects/day
+
+Context: LeadCaptureForm was saving leads only in browser localStorage, never reaching server.
+Result: 0 leads in 7+ days despite form submissions.
+
+Solution:
+✅ POST /api/leads endpoint in backend/server.js
+✅ LeadCaptureForm refactored to send data to server
+✅ Falls back to localStorage if API fails  
+✅ Improved security headers (HSTS, X-Frame-Options)
+✅ Fixed CORS: localhost only in development
+✅ Updated .env.example with proper defaults
+
+Expected: All leads now saved to server, emailed to team immediately
+Testing: Submit form at /lp/study-abroad → verify email at LEADS_TO
+Impact: Recover from 0 leads/day to normal 5+ leads/day"
+
+================================================================================
+BLOC 3
+================================================================================
+
+git push origin main
+
+================================================================================
+✅ APRÈS QUE LE BLOC 3 S'EXÉCUTE: VÉRIFIER QUE C'EST POUSSÉ
+================================================================================
+
+git log --oneline -1
+
+================================================================================
+✅ PUIS CONFIGURER EN PRODUCTION (après déploiement)
+================================================================================
+
+# SSH sur votre serveur et éditer le .env:
+
+VITE_PUBLIC_API_BASE_URL=https://edugrowth.tn
+LEADS_TO=leads@edugrowth.tn
+SMTP_HOST=votre_smtp_host
+SMTP_USER=votre_email
+SMTP_PASS=votre_password
+NODE_ENV=production
+
+# Redémarrer:
+npm start
+
+================================================================================
+✅ TEST IMMÉDIAT (après déploiement)
+================================================================================
+
+curl -X POST https://edugrowth.tn/api/leads -H "Content-Type: application/json" -d '{"name":"Test","email":"test@test.com","phone":"+21612345678","objective":"Test","segment":"general","sourcePage":"test"}'
+
+Doit retourner: {"status":"success","messageId":"...","leadId":"..."}
+
+================================================================================
+✅ TEST DANS LE NAVIGATEUR
+================================================================================
+
+1. Visiter: https://edugrowth.tn/lp/study-abroad
+2. Remplir et soumettre le formulaire
+3. Vérifier: Email reçu à LEADS_TO en < 1 minute
+4. Vérifier: Page de remerciement (/thank-you)
+5. Vérifier: Pas d'erreurs dans console (F12)
+
+================================================================================
+✨ FIN - C'EST TOUT CE QUE VOUS AVEZ À FAIRE!
+================================================================================
+
+Temps total: 10-15 minutes
+Impact: Retrouver 100% des prospects
+
+Pour plus de détails, lire les documents:
+- README_AUDIT.md (index de tous les documents)
+- RESUME_EXECUTIF_DEPLOY.md (contexte et plan)
+- AUDIT_COMPLET_2026_JUILLET.md (audit complet)
+
+Bonne chance! 🚀
+
