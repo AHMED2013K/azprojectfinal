@@ -855,7 +855,7 @@ router.post('/:id/merge', validate(mergeLeadSchema), asyncHandler(async (req, re
     mergedFields.push('bucket');
   }
 
-  const detailFields = ['dateOfBirth', 'age', 'studyField', 'studyLevel', 'alternanceAwareness', 'financialSituation', 'message'];
+  const detailFields = ['dateOfBirth', 'age', 'destinationCountry', 'studyField', 'studyLevel', 'alternanceAwareness', 'financialSituation', 'message'];
   targetLead.details = targetLead.details || {};
   sourceLead.details = sourceLead.details || {};
   detailFields.forEach((field) => {

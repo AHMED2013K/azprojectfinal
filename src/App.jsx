@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import StudentHomePage from './pages/StudentHomePage.jsx';
 import PortalGatePage from './pages/PortalGatePage.jsx';
 import { initMarketing, trackPageView } from './utils/marketing.js';
@@ -145,6 +145,9 @@ export default function App() {
         <Route path="/orientation-apres-bac-sciences-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/orientation-apres-bac-eco-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/rentre-universitaire-janvier-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/guides/etudier-russie-tunisie/guides/admission-universite-russie-tunisie" element={<Navigate to="/guides/admission-universite-russie-tunisie" replace />} />
+        <Route path="/guides/etudier-russie-tunisie/guides/visa-etudiant-russie-tunisie" element={<Navigate to="/guides/visa-etudiant-russie-tunisie" replace />} />
+        <Route path="/guides/etudier-russie-tunisie/guides/cout-etudier-russie-tunisie" element={<Navigate to="/guides/cout-etudier-russie-tunisie" replace />} />
         <Route path="/guides/:slug" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
         <Route path="/cout-etudier-france-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
         <Route path="/campus-france-tunisie-calendrier-2026-2027" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />

@@ -41,6 +41,7 @@ router.post('/:token/public', validate(publicLeadSchema), asyncHandler(async (re
     email,
     phone,
     country,
+    destinationCountry,
     dateOfBirth,
     studyField,
     studyLevel,
@@ -61,6 +62,7 @@ router.post('/:token/public', validate(publicLeadSchema), asyncHandler(async (re
     details: {
       dateOfBirth,
       age: calculateAgeFromBirthDate(dateOfBirth),
+      destinationCountry,
       studyField,
       studyLevel,
       alternanceAwareness,
@@ -102,6 +104,7 @@ router.post('/public/linkedin-alternance-2026', validate(publicLeadSchema), asyn
     email,
     phone,
     country,
+    destinationCountry,
     dateOfBirth,
     studyField,
     studyLevel,
@@ -115,12 +118,13 @@ router.post('/public/linkedin-alternance-2026', validate(publicLeadSchema), asyn
     email,
     phone: phone || '',
     country: country || '',
-    campaign: 'LinkedIn Alternance Septembre 2026',
+    campaign: 'Projet etudes a l etranger',
     source: 'linkedin-form',
     createdBy: admin?._id,
     details: {
       dateOfBirth,
       age: calculateAgeFromBirthDate(dateOfBirth),
+      destinationCountry,
       studyField,
       studyLevel,
       alternanceAwareness,
@@ -140,7 +144,7 @@ router.post('/public/linkedin-alternance-2026', validate(publicLeadSchema), asyn
     type: 'lead_created',
     label: 'Lead created from LinkedIn application form',
     actor: admin?._id || null,
-    meta: { source: 'linkedin-form', campaign: 'LinkedIn Alternance Septembre 2026', duplicate: duplicateState.isDuplicate },
+    meta: { source: 'linkedin-form', campaign: 'Projet etudes a l etranger', duplicate: duplicateState.isDuplicate },
   });
   await lead.save();
   invalidateLeadMetadataCache();
@@ -148,7 +152,7 @@ router.post('/public/linkedin-alternance-2026', validate(publicLeadSchema), asyn
   await createAuditLog({
     action: 'lead.linkedin_public_submitted',
     targetType: 'campaign',
-    details: { campaign: 'LinkedIn Alternance Septembre 2026', email },
+    details: { campaign: 'Projet etudes a l etranger', email, destinationCountry },
   });
   await backupLeadSubmission(lead, { route: 'linkedin-public' });
   await notifyNewLead(req, lead);
@@ -162,6 +166,7 @@ router.post('/public/tbs-event', validate(publicLeadSchema), asyncHandler(async 
     email,
     phone,
     country,
+    destinationCountry,
     dateOfBirth,
     studyField,
     studyLevel,
@@ -182,6 +187,7 @@ router.post('/public/tbs-event', validate(publicLeadSchema), asyncHandler(async 
     details: {
       dateOfBirth,
       age: calculateAgeFromBirthDate(dateOfBirth),
+      destinationCountry,
       studyField,
       studyLevel,
       alternanceAwareness,

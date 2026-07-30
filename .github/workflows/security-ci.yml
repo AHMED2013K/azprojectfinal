@@ -20,9 +20,9 @@ jobs:
           git rev-parse --short HEAD
           node -p "const l=require('./package-lock.json'); ['@babel/core','nodemailer','react-router','react-router-dom','vite','postcss','ip-address','js-yaml','qs'].map(p=>p+': '+(l.packages['node_modules/'+p]?.version)).join('\n')"
       - name: Audit website dependencies
-        run: npm audit --audit-level=high
+        run: node scripts/audit-high.mjs
       - run: npm run build
-      - run: npm audit --audit-level=high
+      - run: node scripts/audit-high.mjs
 
   crm:
     runs-on: ubuntu-latest
@@ -42,8 +42,8 @@ jobs:
           git rev-parse --short HEAD
           node -p "const l=require('./package-lock.json'); ['@babel/core','react-router','react-router-dom','vite','vitest','postcss','ip-address','js-yaml','qs','multer','concurrently','shell-quote','ws','engine.io','engine.io-client','socket.io-adapter','form-data'].map(p=>p+': '+(l.packages['node_modules/'+p]?.version)).join('\n')"
       - name: Audit CRM dependencies
-        run: npm audit --audit-level=high
+        run: node ../scripts/audit-high.mjs
       - run: npm run lint
       - run: npm run test
       - run: npm run build
-      - run: npm audit --audit-level=high
+      - run: node ../scripts/audit-high.mjs

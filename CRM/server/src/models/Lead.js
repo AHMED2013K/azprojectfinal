@@ -52,6 +52,7 @@ const leadSchema = new mongoose.Schema({
   details: {
     dateOfBirth: { type: String, default: '' },
     age: { type: Number, default: null },
+    destinationCountry: { type: String, default: '' },
     studyField: { type: String, default: '' },
     studyLevel: { type: String, default: '' },
     alternanceAwareness: { type: String, default: '' },

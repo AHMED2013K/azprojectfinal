@@ -1540,7 +1540,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
               {selectedLead.statusTimeline?.interestedAt && <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs text-emerald-100">Intéressé: {formatDate(selectedLead.statusTimeline.interestedAt)}</span>}
             </div>
 
-            {(selectedLead.country || selectedLead.phone || selectedLead.email || selectedLead.details?.studyField || selectedLead.details?.studyLevel || selectedLead.details?.financialSituation || selectedLead.details?.alternanceAwareness || selectedLead.details?.dateOfBirth || selectedLead.details?.message) && (
+            {(selectedLead.country || selectedLead.phone || selectedLead.email || selectedLead.details?.destinationCountry || selectedLead.details?.studyField || selectedLead.details?.studyLevel || selectedLead.details?.financialSituation || selectedLead.details?.alternanceAwareness || selectedLead.details?.dateOfBirth || selectedLead.details?.message) && (
               <div className={theme === 'dark' ? 'mt-6 rounded-3xl border border-white/10 bg-slate-950/40 p-5' : 'mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-5'}>
                 <h3 className={theme === 'dark' ? 'text-sm font-semibold uppercase tracking-[0.2em] text-slate-400' : 'text-sm font-semibold uppercase tracking-[0.2em] text-slate-500'}>Application details</h3>
                 <div className={theme === 'dark' ? 'mt-4 grid gap-3 text-sm text-slate-200' : 'mt-4 grid gap-3 text-sm text-slate-700'}>
@@ -1549,6 +1549,7 @@ export default function LeadWorkspace({ bucket = 'leads', title, description }) 
                   {selectedLead.email && <p><span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Email address:</span> {selectedLead.email}</p>}
                   {selectedLead.details?.dateOfBirth && <p><span className="text-slate-400">Date of birth:</span> {selectedLead.details.dateOfBirth}</p>}
                   {selectedLead.details?.age !== null && selectedLead.details?.age !== undefined && <p><span className="text-slate-400">Age:</span> {selectedLead.details.age} ans</p>}
+                  {selectedLead.details?.destinationCountry && <p><span className="text-slate-400">Desired study country:</span> {selectedLead.details.destinationCountry}</p>}
                   {selectedLead.details?.studyField && <p><span className="text-slate-400">Study field:</span> {selectedLead.details.studyField}</p>}
                   {selectedLead.details?.studyLevel && <p><span className="text-slate-400">Study level:</span> {selectedLead.details.studyLevel}</p>}
                   {selectedLead.details?.alternanceAwareness && <p><span className="text-slate-400">Alternance awareness:</span> {selectedLead.details.alternanceAwareness}</p>}

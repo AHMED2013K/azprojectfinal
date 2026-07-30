@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { CheckCircle2, GraduationCap, BriefcaseBusiness, Globe2 } from 'lucide-react';
+import { CheckCircle2, FileCheck2, GraduationCap, MapPinned } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { apiRequest } from '../lib/api';
 import { trackMetaEvent, trackMetaStandardEvent } from '../lib/marketing';
@@ -9,15 +9,14 @@ const initialForm = {
   email: '',
   phone: '',
   country: '',
+  destinationCountry: '',
   dateOfBirth: '',
   studyField: '',
   studyLevel: '',
-  alternanceAwareness: '',
   financialSituation: '',
   message: '',
   studyFieldOther: '',
   studyLevelOther: '',
-  alternanceAwarenessOther: '',
   financialSituationOther: '',
 };
 
@@ -58,22 +57,22 @@ export default function LinkedInApplicationForm() {
       return {
         apiPath: '/api/invites/public/tbs-event',
         source: 'apply',
-        headingAccent: "Opportunites d'alternance 2026",
-        description: "Candidatez pour la rentree Septembre 2026. Vos informations seront transmises directement a notre equipe afin de qualifier votre dossier.",
+        headingAccent: "Études à l'étranger",
+        description: "Présentez votre projet d'études à l'étranger. Vos informations seront transmises directement à notre équipe pour qualifier votre dossier et vous orienter vers les destinations adaptées.",
         successTitle: 'Demande envoyee',
-        successBody: 'Merci. Votre candidature a bien ete enregistree et apparait maintenant dans notre CRM.',
-        submitLabel: 'Envoyer ma candidature',
+        successBody: 'Merci. Votre demande a bien ete enregistree et apparait maintenant dans notre CRM.',
+        submitLabel: 'Envoyer ma demande',
       };
     }
 
     return {
       apiPath: '/api/invites/public/linkedin-alternance-2026',
       source: 'apply',
-      headingAccent: "Opportunites d'alternance 2026",
-      description: "Candidatez pour la rentree Septembre 2026. Vos informations seront transmises directement a notre equipe afin de qualifier votre dossier.",
+      headingAccent: "Études à l'étranger",
+      description: "Remplissez ce formulaire pour lancer votre projet d'études à l'étranger depuis la Tunisie. Notre équipe analysera votre profil, votre budget et la destination souhaitée.",
       successTitle: 'Demande envoyee',
-      successBody: 'Merci. Votre candidature a bien ete enregistree et apparait maintenant dans notre CRM.',
-      submitLabel: 'Envoyer ma candidature',
+      successBody: 'Merci. Votre demande a bien ete enregistree et apparait maintenant dans notre CRM.',
+      submitLabel: 'Envoyer ma demande',
     };
   }, [location.pathname]);
 
@@ -87,9 +86,7 @@ export default function LinkedInApplicationForm() {
         ...form,
         studyField: form.studyField === 'Autre' ? `Autre: ${form.studyFieldOther}` : form.studyField,
         studyLevel: form.studyLevel === 'Autre' ? `Autre: ${form.studyLevelOther}` : form.studyLevel,
-        alternanceAwareness: form.alternanceAwareness === 'Autre'
-          ? `Autre: ${form.alternanceAwarenessOther}`
-          : form.alternanceAwareness,
+        alternanceAwareness: 'Non applicable - formulaire etudes a l etranger',
         financialSituation: form.financialSituation === 'Autre'
           ? `Autre: ${form.financialSituationOther}`
           : form.financialSituation,
@@ -101,11 +98,12 @@ export default function LinkedInApplicationForm() {
       trackMetaEvent('crm_apply_submit', {
         source: formConfig.source,
         country: payload.country || 'unknown',
+        destinationCountry: payload.destinationCountry || 'unknown',
         studyLevel: payload.studyLevel || 'unknown',
       });
       trackMetaStandardEvent('Lead', {
         content_name: 'EduGrowth Apply Form',
-        content_category: 'student_application',
+        content_category: 'study_abroad_application',
       });
       trackMetaStandardEvent('CompleteRegistration', {
         content_name: 'EduGrowth Apply Form',
@@ -129,7 +127,7 @@ export default function LinkedInApplicationForm() {
               EduGrowth CRM
             </div>
             <h1 className="mt-6 text-4xl font-semibold leading-tight text-white md:text-5xl">
-              Formulaire d'inscription
+              Formulaire de projet
               <span className="block bg-gradient-to-r from-cyan-300 via-sky-300 to-emerald-300 bg-clip-text text-transparent">
                 {formConfig.headingAccent}
               </span>
@@ -140,9 +138,9 @@ export default function LinkedInApplicationForm() {
 
             <div className="mt-8 grid gap-4">
               {[
-                { icon: GraduationCap, text: "Etudiants et jeunes diplomes souhaitant construire un projet d'etudes solide" },
-                { icon: BriefcaseBusiness, text: "Orientation alternance avec qualification plus rapide de votre profil" },
-                { icon: Globe2, text: 'Suivi centralise dans notre CRM interne pour un traitement structure' },
+                { icon: GraduationCap, text: "Étudiants et parents qui veulent construire un projet d'études clair et réaliste." },
+                { icon: MapPinned, text: "Choix du pays souhaité, niveau actuel, spécialité et budget réunis dans un seul dossier." },
+                { icon: FileCheck2, text: 'Suivi centralisé dans notre CRM interne pour un traitement plus structuré.' },
               ].map((item) => (
                 <div key={item.text} className="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/5 p-4 text-slate-200">
                   <div className="mt-0.5 rounded-xl bg-cyan-400/10 p-2 text-cyan-300">
@@ -195,9 +193,28 @@ export default function LinkedInApplicationForm() {
                   </div>
                 </div>
 
-                <div>
-                  <p className="mb-2 text-sm font-medium text-cyan-100">Date de naissance *</p>
-                  <Input required type="date" value={form.dateOfBirth} onChange={(event) => setForm((current) => ({ ...current, dateOfBirth: event.target.value }))} placeholder="jj/mm/aaaa" />
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div>
+                    <p className="mb-2 text-sm font-medium text-cyan-100">Pays où vous voulez étudier *</p>
+                    <Select required value={form.destinationCountry} onChange={(event) => setForm((current) => ({ ...current, destinationCountry: event.target.value }))}>
+                      <option value="">Choisissez une destination</option>
+                      <option value="France">France</option>
+                      <option value="Allemagne">Allemagne</option>
+                      <option value="Canada">Canada</option>
+                      <option value="Roumanie">Roumanie</option>
+                      <option value="Hongrie">Hongrie</option>
+                      <option value="Chypre du Nord">Chypre du Nord</option>
+                      <option value="Russie">Russie</option>
+                      <option value="Turquie">Turquie</option>
+                      <option value="Corée du Sud">Corée du Sud</option>
+                      <option value="Japon">Japon</option>
+                      <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+                    </Select>
+                  </div>
+                  <div>
+                    <p className="mb-2 text-sm font-medium text-cyan-100">Date de naissance *</p>
+                    <Input required type="date" value={form.dateOfBirth} onChange={(event) => setForm((current) => ({ ...current, dateOfBirth: event.target.value }))} placeholder="jj/mm/aaaa" />
+                  </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
@@ -235,22 +252,6 @@ export default function LinkedInApplicationForm() {
                       </div>
                     )}
                   </div>
-                </div>
-
-                <div>
-                  <p className="mb-2 text-sm font-medium leading-6 text-cyan-100">Êtes-vous informé(e) que l’alternance pour les étudiants internationaux (première arrivée en France) est généralement possible qu'à partir de la 2ᵉ année ? *</p>
-                    <Select required value={form.alternanceAwareness} onChange={(event) => setForm((current) => ({ ...current, alternanceAwareness: event.target.value }))}>
-                    <option value="">Choisissez une réponse</option>
-                    <option value="Oui, je suis informé(e)">Oui, je suis informé(e)</option>
-                    <option value="Non, je ne le savais pas">Non, je ne le savais pas</option>
-                    <option value="J’ai besoin de plus d’informations">J’ai besoin de plus d’informations</option>
-                    <option value="Autre">Autre</option>
-                  </Select>
-                  {form.alternanceAwareness === 'Autre' && (
-                    <div className="mt-3">
-                      <Input required value={form.alternanceAwarenessOther} onChange={(event) => setForm((current) => ({ ...current, alternanceAwarenessOther: event.target.value }))} placeholder="Précisez votre réponse" />
-                    </div>
-                  )}
                 </div>
 
                 <div>

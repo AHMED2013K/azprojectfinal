@@ -45,6 +45,7 @@ export function serializeLead(lead, metadata = {}) {
     details: {
       dateOfBirth: lead.details?.dateOfBirth || '',
       age: lead.details?.age ?? null,
+      destinationCountry: lead.details?.destinationCountry || '',
       studyField: lead.details?.studyField || '',
       studyLevel: lead.details?.studyLevel || '',
       alternanceAwareness: lead.details?.alternanceAwareness || '',

@@ -131,6 +131,7 @@ export const publicLeadSchema = z.object({
     email: emailSchema,
     phone: z.string().trim().min(6, 'Phone is required').max(30, 'Phone is too long'),
     country: z.string().trim().min(2, 'Country is required').max(80, 'Country is too long'),
+    destinationCountry: z.string().trim().max(80, 'Destination country is too long').optional().default(''),
     dateOfBirth: birthDateSchema,
     studyField: z.string().trim().min(2, 'Study field is required').max(120, 'Study field is too long'),
     studyLevel: z.string().trim().min(2, 'Study level is required').max(80, 'Study level is too long'),
