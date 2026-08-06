@@ -47,10 +47,10 @@ const ExitIntentPopup = lazy(() => import('./components/ExitIntentPopup.jsx'));
 
 // Simple loading fallback
 const LoadingFallback = () => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900">
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100">
     <div className="flex flex-col items-center gap-4">
-      <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500/30 border-t-blue-400"></div>
-      <div className="text-white/60 text-sm font-medium">Loading EduGrowth...</div>
+      <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-slate-400"></div>
+      <div className="text-slate-700 text-sm font-medium">Loading EduGrowth...</div>
     </div>
   </div>
 );
