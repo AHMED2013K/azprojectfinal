@@ -12,6 +12,7 @@ import {
   FileCheck2,
   Facebook,
   GraduationCap,
+  Handshake,
   HeartHandshake,
   Home,
   Instagram,
