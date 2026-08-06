@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, CalendarDays, GraduationCap, Home, ShieldCheck } from 'lucide-react';
+import { ArrowRight, CalendarDays, FileCheck2, GraduationCap, Home, MessageCircle, ShieldCheck } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
 
 const DeferredAdmissionPage = () => {
@@ -59,6 +59,13 @@ const DeferredAdmissionPage = () => {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-100">
               Nous proposons des options concrètes pour les étudiants tunisiens qui veulent continuer leur projet même après la rentrée Septembre 2026. La priorité est de retrouver une offre réaliste, avec admission, dossier et préparation de visa.
             </p>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {['Russie Novembre 2026', 'Chypre du Nord Janvier 2027', 'Diagnostic dossier sous 24h'].map((item) => (
+                <div key={item} className="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm font-black text-cyan-50">
+                  {item}
+                </div>
+              ))}
+            </div>
           </section>
 
           <section className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -75,6 +82,32 @@ const DeferredAdmissionPage = () => {
                 </Link>
               </article>
             ))}
+          </section>
+
+          <section className="mt-10 rounded-[1.75rem] border border-amber-200 bg-amber-50 p-8 shadow-sm">
+            <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black text-amber-900 ring-1 ring-amber-200">
+                  <FileCheck2 size={16} /> Orientation urgente
+                </div>
+                <h2 className="mt-4 text-3xl font-black text-[#17324d]">Pour qui cette rentrée décalée est prioritaire ?</h2>
+                <p className="mt-4 text-base leading-8 text-slate-700">
+                  Cette page cible les étudiants tunisiens qui ont raté Campus France, une orientation tardive, une admission principale ou les délais de Septembre 2026. L’objectif n’est pas de promettre une solution magique, mais de trouver un calendrier encore réaliste.
+                </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  'Bachelier 2026 sans inscription claire',
+                  'Étudiant qui a raté la rentrée Septembre',
+                  'Famille qui veut éviter une année blanche',
+                  'Profil médecine, ingénierie ou business',
+                ].map((item) => (
+                  <div key={item} className="rounded-2xl border border-amber-200 bg-white p-4 text-sm font-bold text-slate-700">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
           </section>
 
           <section className="mt-10 rounded-[1.75rem] border border-slate-200 bg-[#f8fbfd] p-8 shadow-sm">
@@ -95,6 +128,10 @@ const DeferredAdmissionPage = () => {
                   Prendre un rendez-vous
                   <ArrowRight size={16} />
                 </Link>
+                <a href="https://wa.me/21656590703?text=Bonjour%20EduGrowth%2C%20je%20veux%20une%20orientation%20pour%20la%20rentree%20decalee%202026-2027" target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-6 py-3 text-sm font-black text-emerald-700 hover:bg-emerald-100">
+                  <MessageCircle size={16} />
+                  WhatsApp immédiat
+                </a>
               </div>
             </div>
           </section>

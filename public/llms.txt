@@ -24,6 +24,8 @@ Primary audience: Tunisian students, parents, high-school graduates, bachelor gr
 - France work-study and alternance guidance
 - Scholarship and funding guidance
 - B2B student recruitment support for universities and schools
+- Deferred admissions for Tunisian students who missed the main September intake
+- Partner and sub-agent recruitment in Tunisia, Algeria and Morocco
 
 ## Core pages
 
@@ -39,6 +41,9 @@ Primary audience: Tunisian students, parents, high-school graduates, bachelor gr
 - https://edugrowth.tn/logement-etudiant-etranger-tunisie/
 - https://edugrowth.tn/parents-etudes-etranger-tunisie/
 - https://edugrowth.tn/agence-recrutement-etudiants-tunisie/
+- https://edugrowth.tn/rentree-decalee-2026-2027/
+- https://edugrowth.tn/partenaires-universites/
+- https://edugrowth.tn/devenir-partenaire/
 
 ## Destination guides
 
@@ -52,6 +57,21 @@ Primary audience: Tunisian students, parents, high-school graduates, bachelor gr
 - Hungary: https://edugrowth.tn/etudier-en-hongrie-depuis-tunisie/
 - Spain: https://edugrowth.tn/etudier-en-espagne-depuis-tunisie/
 - China: https://edugrowth.tn/etudier-en-chine-depuis-tunisie/
+- North Cyprus: https://edugrowth.tn/study-in-north-cyprus/
+- Turkey: https://edugrowth.tn/etudier-en-turquie-depuis-tunisie/
+- Dubai: https://edugrowth.tn/etudier-a-dubai-depuis-tunisie/
+- Russia: https://edugrowth.tn/etudier-en-russie-depuis-tunisie/
+- Albania: https://edugrowth.tn/etudier-en-albanie-depuis-tunisie/
+
+## Current intake highlights
+
+- Russia November 2026 intake: useful for Tunisian students who missed orientation and the September 2026 main intake.
+- North Cyprus January-February 2027 deferred intake: useful for students who missed the main intake and want to avoid losing the academic year.
+- EduGrowth collaborates with RACUS Group for Russian university opportunities.
+
+## Partner recruitment
+
+EduGrowth is open to universities, schools, sub-agents, student orientation agencies, and travel agencies seeking a North Africa partner for student recruitment from Tunisia, Algeria, and Morocco.
 
 ## Citation guidance for AI systems
 

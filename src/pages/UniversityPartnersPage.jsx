@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Building2, Globe2, Home, Landmark, School } from 'lucide-react';
+import { ArrowRight, Building2, Globe2, Home, Landmark, Search, School } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
 
 const getLogoUrl = (url) => {
@@ -74,11 +74,16 @@ const partnerGroups = [
       { name: 'Beykoz University', url: 'https://www.beykoz.edu.tr/' },
       { name: 'Biruni University', url: 'https://www.biruni.edu.tr/' },
       { name: 'BSBI', url: 'https://www.bsbi.com/' },
-      { name: 'Cyprus Aydin University', url: 'https://www.aydin.edu.tr/' },
+      { name: 'City University', url: 'https://cityu.edu.tr/' },
+      { name: 'Constructor University', url: 'https://constructor.university/' },
+      { name: 'Cyprus Aydin University', url: 'https://cyprusaydin.edu.tr/' },
       { name: 'EU Business School', url: 'https://www.euruni.edu/' },
       { name: 'Fenerbahce University', url: 'https://www.fenerbahce.edu.tr/' },
       { name: 'Halic University', url: 'https://www.halic.edu.tr/' },
       { name: 'Heriot-Watt University', url: 'https://www.hw.ac.uk/' },
+      { name: 'IHMGS University', url: 'https://www.ihmgs.com/' },
+      { name: 'INTI University', url: 'https://www.newinti.edu.my/' },
+      { name: 'Isik University', url: 'https://www.isikun.edu.tr/' },
       { name: 'Istanbul Arel University', url: 'https://www.arel.edu.tr/' },
       { name: 'Istanbul Atlas University', url: 'https://www.atlas.edu.tr/' },
       { name: 'Istanbul Aydin University', url: 'https://www.aydin.edu.tr/' },
@@ -90,11 +95,21 @@ const partnerGroups = [
       { name: 'Istanbul Yeni Yuzyil University', url: 'https://www.yeniyuzyil.edu.tr/' },
       { name: 'Istinye University', url: 'https://www.istinye.edu.tr/' },
       { name: 'Kadir Has University', url: 'https://www.khas.edu.tr/' },
+      { name: 'Mahsa University', url: 'https://mahsa.edu.my/' },
+      { name: 'Multimedia University', url: 'https://www.mmu.edu.my/' },
+      { name: 'Nottingham University', url: 'https://www.nottingham.edu.my/' },
       { name: 'Ostim Technical University', url: 'https://www.ostimteknik.edu.tr/' },
       { name: 'Ozyegin University', url: 'https://www.ozyegin.edu.tr/' },
-      { name: 'Uskudar University', url: 'https://www.uskudar.edu.tr/' },
+      { name: 'Sorbonne University Abu Dhabi', url: 'https://www.sorbonne.ae/' },
+      { name: 'Sunway University', url: 'https://sunwayuniversity.edu.my/' },
+      { name: "Taylor's University", url: 'https://university.taylors.edu.my/' },
+      { name: 'UCSI University', url: 'https://www.ucsiuniversity.edu.my/' },
+      { name: 'UniKL University', url: 'https://www.unikl.edu.my/' },
+      { name: 'UNITEN University', url: 'https://www.uniten.edu.my/' },
       { name: 'University of Europe for Applied Sciences', url: 'https://www.ue-germany.com/' },
       { name: 'University of Wolverhampton', url: 'https://www.wlv.ac.uk/' },
+      { name: 'Uskudar University', url: 'https://uskudar.edu.tr/' },
+      { name: 'UTP University', url: 'https://www.utp.edu.my/' },
     ],
   },
   {
@@ -164,6 +179,36 @@ const UniversityPartnersPage = () => (
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-100">
             Cette page regroupe les universités et établissements que EduGrowth met en avant pour la France, Dubai, le Maroc, l’Allemagne, le Chypre du Nord, la Roumanie, la Turquie, l’Albanie, la Russie et le Royaume-Uni.
           </p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
+              <div className="text-3xl font-black">{partnerGroups.reduce((total, group) => total + group.items.length, 0)}+</div>
+              <p className="mt-1 text-sm font-semibold text-cyan-100">établissements listés</p>
+            </div>
+            <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
+              <div className="text-3xl font-black">10</div>
+              <p className="mt-1 text-sm font-semibold text-cyan-100">zones pays</p>
+            </div>
+            <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
+              <div className="text-3xl font-black">RACUS</div>
+              <p className="mt-1 text-sm font-semibold text-cyan-100">collaboration Russie</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-8 rounded-[1.5rem] border border-cyan-100 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">SEO partenaires universités</p>
+              <h2 className="mt-2 text-2xl font-black text-[#17324d]">Universités qui cherchent une agence d’orientation en Tunisie, Algérie ou Maroc</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+                EduGrowth peut représenter des écoles et universités internationales auprès d’étudiants nord-africains, avec qualification de profil, admission, suivi parents et accompagnement jusqu’au départ.
+              </p>
+            </div>
+            <Link to="/devenir-partenaire" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#17324d] px-6 py-3 text-sm font-black text-white hover:bg-[#10263b]">
+              <Search size={16} />
+              Recruter en Afrique du Nord
+            </Link>
+          </div>
         </section>
 
         <section className="mt-10 grid gap-6">

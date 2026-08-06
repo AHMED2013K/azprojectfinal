@@ -19,6 +19,39 @@ const partnerSegments = [
 
 const partnerAgencies = [
   { name: 'SiteVizo', url: 'https://www.sitevizo.com/', type: 'Agence d’orientation étudiante' },
+  { name: '1001 Voyages', city: 'Tunis' },
+  { name: '2MA Travel', city: 'Hammam Sousse' },
+  { name: '360 Insight Agency', city: 'Tunis' },
+  { name: '3H Travel', city: 'Tunis' },
+  { name: 'A Plus Voyages', city: 'Bizerte' },
+  { name: 'Absher Travel', city: 'Kalaa Kebira' },
+  { name: 'Achwak Tours', city: 'Moknine' },
+  { name: 'Afritours', city: 'Tunis' },
+  { name: 'Agence Alyssa', city: 'La Marsa' },
+  { name: 'Agence Bahry Travel Sfax', city: 'Sfax' },
+  { name: 'Agence de Voyage Dheyafa Tourism', city: 'Ariana' },
+  { name: 'Agence de Voyage Matt Booking', city: 'Sousse' },
+  { name: 'Agency Cokal Travel', city: 'Tunis' },
+  { name: 'Aknef Travel', city: 'Tunis' },
+  { name: 'Al Tayssir Travel', city: 'Sousse' },
+  { name: 'Al Wafa Travel & Events', city: 'Ariana' },
+  { name: 'Al-Sharif Voyages', city: 'Tunis' },
+  { name: 'Alaqsa Tourism et Service', city: 'Djerba' },
+  { name: 'Albalad Alamine Travel', city: 'Sousse' },
+  { name: 'Altaf Voyages', city: 'Sousse' },
+  { name: 'Amara Travel', city: 'Sfax' },
+  { name: 'Amel Voyages', city: 'Tunis' },
+  { name: 'Andalous Voyages', city: 'Ariana' },
+  { name: 'Angel Travel', city: 'Hammam Sousse' },
+  { name: 'Anida Voyages', city: 'Hammamet' },
+  { name: 'Antalya Voyages', city: 'Tunis' },
+  { name: 'Aouimri Des Voyages et Services', city: 'Menzel Bourguiba' },
+  { name: 'Arena Travel', city: 'Sfax' },
+  { name: 'Ariana Voyages', city: 'Ariana' },
+  { name: 'ATACS Voyages', city: 'Sousse' },
+  { name: 'Aviator Travel Services', city: 'Ariana' },
+  { name: 'AXA Tours Tunisie', city: 'Hammamet' },
+  { name: 'Aya Travel', city: 'Tunis' },
 ];
 
 const BecomePartnerPage = () => (
@@ -79,17 +112,19 @@ const BecomePartnerPage = () => (
             <p className="mt-4 text-base leading-8 text-slate-600">
               Nous accompagnons aussi les agences locales qui veulent devenir des points d’entrée fiables pour les familles et les étudiants en Tunisie, Algérie et Maroc.
             </p>
-            <div className="mt-6 space-y-4 text-base leading-8 text-slate-700">
+            <div className="mt-6 max-h-[520px] space-y-3 overflow-y-auto pr-2 text-base leading-8 text-slate-700">
               {partnerAgencies.map((agency) => (
                 <div key={agency.name} className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
                   <MapPinned size={18} className="mt-1 text-[#176b87]" />
                   <div>
                     <p className="font-black text-[#17324d]">{agency.name}</p>
-                    <p className="text-sm text-slate-600">{agency.type}</p>
-                    <a href={agency.url} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-2 text-sm font-black text-[#176b87]">
-                      Voir le site
-                      <ArrowRight size={14} />
-                    </a>
+                    <p className="text-sm text-slate-600">{agency.type || `Agence de voyages partenaire - ${agency.city}`}</p>
+                    {agency.url ? (
+                      <a href={agency.url} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-2 text-sm font-black text-[#176b87]">
+                        Voir le site
+                        <ArrowRight size={14} />
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               ))}

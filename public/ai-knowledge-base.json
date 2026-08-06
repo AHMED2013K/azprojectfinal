@@ -21,15 +21,43 @@
     "alternance France Tunisiens",
     "budget études étranger Tunisie",
     "parents étudiants Tunisie",
-    "international admissions Tunisia"
+    "international admissions Tunisia",
+    "rentrée décalée Russie Novembre 2026",
+    "rentrée Janvier Février 2027 Chypre du Nord",
+    "universités partenaires Tunisie",
+    "agence orientation étudiant Afrique du Nord"
   ],
   "about": [
     "Study abroad guidance",
     "International admissions",
     "Student visa preparation",
     "Destination comparison",
+    "Deferred intakes for Tunisian students",
+    "University partnerships in North Africa",
     "Programmatic SEO",
     "Generative Engine Optimization"
+  ],
+  "currentHighlights": [
+    {
+      "name": "Rentrée Novembre 2026 Russie",
+      "url": "https://edugrowth.tn/rentree-decalee-2026-2027/",
+      "audience": "Tunisian students who missed orientation or the September 2026 intake"
+    },
+    {
+      "name": "Rentrée Janvier-Février 2027 Chypre du Nord",
+      "url": "https://edugrowth.tn/rentree-decalee-2026-2027/",
+      "audience": "Students seeking a deferred intake after the main admission period"
+    },
+    {
+      "name": "Universités partenaires EduGrowth",
+      "url": "https://edugrowth.tn/partenaires-universites/",
+      "audience": "Students, families, universities and recruitment partners"
+    },
+    {
+      "name": "Devenir partenaire EduGrowth",
+      "url": "https://edugrowth.tn/devenir-partenaire/",
+      "audience": "Universities, sub-agents, orientation agencies and travel agencies in Tunisia, Algeria and Morocco"
+    }
   ],
   "mainEntity": {
     "@type": ["EducationalOrganization", "LocalBusiness"],
@@ -43,7 +71,9 @@
       "Student visa preparation",
       "Student housing guidance",
       "Scholarship guidance",
-      "University student recruitment support"
+      "University student recruitment support",
+      "Deferred intake orientation",
+      "Sub-agent and travel agency partnerships"
     ],
     "sameAs": [
       "https://edugrowth.tn/",

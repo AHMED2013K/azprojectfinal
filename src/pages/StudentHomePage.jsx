@@ -711,7 +711,9 @@ export default function StudentHomePage() {
 
   const navLinks = [
     { label: t.navDestinations, href: '#destinations' },
+    { label: 'Rentrée 2026-2027', to: '/rentree-decalee-2026-2027' },
     { label: t.navTestimonials, href: '#stories' },
+    { label: 'Universités', to: '/partenaires-universites' },
     { label: t.navResources, to: '/resources' },
     { label: t.navContact, href: '#contact' },
   ];
@@ -1084,7 +1086,10 @@ export default function StudentHomePage() {
                     </div>
                     <a href="https://share.google/CQnH7g1VhKplOtzGs" target="_blank" rel="noreferrer" className="rounded-full bg-[#eef8fb] px-3 py-2 text-sm font-semibold text-[#176b87]">Laisser un avis</a>
                   </div>
-                  <img src="/Discussion whatsapp visa accordé meriam Kacem.png" alt="Preuve de visa accordée à une étudiante accompagnée par EduGrowth" className="mt-5 h-64 w-full rounded-2xl object-cover" />
+                  <img src="/Discussion whatsapp visa accordé meriam Kacem.png" alt="Capture WhatsApp anonymisable montrant un visa accordé à une étudiante accompagnée par EduGrowth" className="mt-5 h-64 w-full rounded-2xl bg-slate-100 object-contain ring-1 ring-slate-200" />
+                  <p className="mt-3 text-xs font-semibold leading-5 text-slate-500">
+                    À publier uniquement après vérification du consentement et floutage des données personnelles visibles.
+                  </p>
                 </div>
               </div>
             </div>
