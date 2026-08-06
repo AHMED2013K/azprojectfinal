@@ -1121,14 +1121,13 @@ export default function StudentHomePage() {
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 to-transparent" />
                       <h3 className="absolute bottom-5 left-5 text-3xl font-black text-white">{destination.name}</h3>
                       {destination.imageCredit ? (
-                        <a
-                          href={destination.imageCredit.href}
-                          target="_blank"
-                          rel="noreferrer"
+                        <button
+                          type="button"
+                          onClick={() => window.open(destination.imageCredit.href, '_blank', 'noopener')}
                           className="absolute bottom-2 right-2 rounded bg-slate-950/65 px-2 py-1 text-[9px] font-medium text-white/90 hover:bg-slate-950"
                         >
                           {destination.imageCredit.label}
-                        </a>
+                        </button>
                       ) : null}
                     </div>
                     <div className="p-5">
