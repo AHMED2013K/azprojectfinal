@@ -4,10 +4,15 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  background-color: #f8fafc;
+  color: #0f172a;
+  min-height: 100%;
 }
 
 body {
-  background-color: #0a0f1e; /* Fallback to match Vanta background */
+  min-height: 100%;
+  background-color: #f8fafc;
+  color: #0f172a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   touch-action: manipulation;
@@ -15,6 +20,8 @@ body {
 }
 
 #root {
+  min-height: 100%;
+  background-color: #f8fafc;
   transition: opacity 180ms ease, filter 180ms ease, transform 180ms ease;
   transform-origin: top center;
 }
