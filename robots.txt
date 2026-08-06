@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+Allow: /rentree-decalee-2026-2027/
+Allow: /partenaires-universites/
+Allow: /devenir-partenaire/
 Disallow: /backend/
 Disallow: /api/
 Disallow: /portal

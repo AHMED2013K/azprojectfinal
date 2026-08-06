@@ -1045,6 +1045,50 @@ export default function StudentHomePage() {
             </div>
           </section>
 
+          <section className="bg-[#f8fbfd] px-4 py-20 sm:px-6">
+            <div className="mx-auto max-w-7xl">
+              <div className="max-w-3xl">
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Nouveaux axes 2026-2027</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">Des options de rentrée adaptées aux profils qui ont raté la rentrée principale.</h2>
+                <p className="mt-4 text-lg leading-8 text-slate-600">EduGrowth met désormais en avant la Russie pour la rentrée Novembre 2026 et le Chypre du Nord pour une rentrée décalée Janvier–Février 2027.</p>
+              </div>
+              <div className="mt-10 grid gap-6 lg:grid-cols-3">
+                <Link to="/rentree-decalee-2026-2027" className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8fb] text-[#176b87]"><CalendarDays size={20} /></div>
+                  <h3 className="mt-5 text-xl font-black text-[#17324d]">Rentrée Novembre 2026 — Russie</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">Pour les étudiants qui ont raté la rentrée Septembre 2026 et qui veulent une nouvelle fenêtre d’admission.</p>
+                </Link>
+                <Link to="/rentree-decalee-2026-2027" className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8fb] text-[#176b87]"><CalendarDays size={20} /></div>
+                  <h3 className="mt-5 text-xl font-black text-[#17324d]">Rentrée Janvier–Février 2027 — Chypre du Nord</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">Une option idéale pour les profils qui ont manqué l’orientation principale ou qui veulent une admission plus tardive.</p>
+                </Link>
+                <Link to="/partenaires-universites" className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8fb] text-[#176b87]"><Building2 size={20} /></div>
+                  <h3 className="mt-5 text-xl font-black text-[#17324d]">Universités partenaires</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">France, Dubai, Maroc, Allemagne, Chypre du Nord, Roumanie, Turquie, Albanie, Russie, Royaume-Uni et plus encore.</p>
+                </Link>
+              </div>
+              <div className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+                <Link to="/devenir-partenaire" className="rounded-[1.75rem] border border-slate-200 bg-[#17324d] p-7 text-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-cyan-100"><Handshake size={20} /></div>
+                  <h3 className="mt-5 text-xl font-black">Devenir partenaire, sous-agent ou agence de voyages</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-200">EduGrowth travaille avec des universités, agences d’orientation et opérateurs qui veulent accompagner des étudiants vers l’étranger.</p>
+                </Link>
+                <div className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Avis Google & preuve</p>
+                      <h3 className="mt-2 text-xl font-black text-[#17324d]">Preuve de visa et avis clients</h3>
+                    </div>
+                    <a href="https://share.google/CQnH7g1VhKplOtzGs" target="_blank" rel="noreferrer" className="rounded-full bg-[#eef8fb] px-3 py-2 text-sm font-semibold text-[#176b87]">Laisser un avis</a>
+                  </div>
+                  <img src="/Discussion whatsapp visa accordé meriam Kacem.png" alt="Preuve de visa accordée à une étudiante accompagnée par EduGrowth" className="mt-5 h-64 w-full rounded-2xl object-cover" />
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section id="destinations" className="bg-white px-4 py-20 sm:px-6">
             <div className="mx-auto max-w-7xl">
               <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
