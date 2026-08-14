@@ -50,6 +50,8 @@ const countryData = {
     relatedLinks: [
       { to: "/programmes/ausbildung-allemagne", label: "Guide Ausbildung Allemagne" },
       { to: "/ausbildung-sante-allemagne-tunisie", label: "Ausbildung santé Allemagne" },
+      { to: "/ausbildung-infirmier-allemagne-tunisie", label: "Ausbildung infirmier Allemagne" },
+      { to: "/travail-etude-allemagne-tunisie", label: "Travail et étude Allemagne" },
       { to: "/blog/etudier-en-allemagne-depuis-la-tunisie", label: "Article complet Allemagne" },
       { to: "/blog/bourses-etudes-etranger-tunisiens", label: "Bourses à l’étranger" },
       { to: "/book-consultation", label: "Réserver une consultation" },

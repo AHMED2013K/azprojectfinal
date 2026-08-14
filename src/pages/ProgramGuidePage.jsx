@@ -9,6 +9,9 @@ const applyUrls = {
   '/programmes/alternance-france': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=alternance_france',
   '/programmes/ausbildung-allemagne': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=ausbildung_allemagne_sante',
   '/ausbildung-sante-allemagne-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=ausbildung_sante_allemagne_tunisie',
+  '/ausbildung-infirmier-allemagne-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=ausbildung_infirmier_allemagne_tunisie',
+  '/ausbildung-aide-soignant-allemagne-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=ausbildung_aide_soignant_allemagne_tunisie',
+  '/travail-etude-allemagne-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=travail_etude_allemagne_tunisie',
 };
 
 function normalizeContentPath(pathname) {
@@ -79,6 +82,9 @@ const programData = {
     relatedLinks: [
       { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
       { to: '/ausbildung-sante-allemagne-tunisie', label: 'Ausbildung santé Allemagne' },
+      { to: '/ausbildung-infirmier-allemagne-tunisie', label: 'Ausbildung infirmier Allemagne' },
+      { to: '/ausbildung-aide-soignant-allemagne-tunisie', label: 'Ausbildung aide-soignant Allemagne' },
+      { to: '/travail-etude-allemagne-tunisie', label: 'Travail et étude Allemagne' },
       { to: '/universites-allemagne-etudiants-tunisiens', label: 'Universités Allemagne pour étudiants tunisiens' },
       { to: '/logement-etudiant-allemagne-depuis-tunisie', label: 'Logement étudiant Allemagne' },
       { to: '/blog/ausbildung-allemagne-tunisiens-conditions', label: 'Conditions Ausbildung Allemagne' },
@@ -119,11 +125,131 @@ const programData = {
     ],
     relatedLinks: [
       { to: '/programmes/ausbildung-allemagne', label: 'Guide principal Ausbildung Allemagne' },
+      { to: '/ausbildung-infirmier-allemagne-tunisie', label: 'Ausbildung infirmier Allemagne' },
+      { to: '/ausbildung-aide-soignant-allemagne-tunisie', label: 'Ausbildung aide-soignant Allemagne' },
+      { to: '/travail-etude-allemagne-tunisie', label: 'Travail et étude Allemagne' },
       { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Étudier en Allemagne depuis la Tunisie' },
       { to: '/blog/ausbildung-allemagne-tunisiens-conditions', label: 'Conditions Ausbildung pour Tunisiens' },
       { to: '/blog/compte-bloque-allemagne-tunisie', label: 'Compte bloqué Allemagne' },
       { to: '/logement-etudiant-allemagne-depuis-tunisie', label: 'Logement Allemagne' },
       { to: '/book-consultation', label: 'Évaluer mon profil santé' },
+    ],
+  },
+  '/ausbildung-infirmier-allemagne-tunisie': {
+    title: 'Ausbildung infirmier Allemagne Tunisie | Soins infirmiers | EduGrowth',
+    description:
+      "Ausbildung infirmier en Allemagne pour Tunisiens: soins infirmiers, niveau B1/B2 allemand, candidature employeur, contrat, visa, dossier et accompagnement EduGrowth.",
+    h1: 'Ausbildung infirmier en Allemagne pour les Tunisiens',
+    chips: [
+      'ausbildung infirmier allemagne tunisie',
+      'soins infirmiers allemagne tunisiens',
+      'formation infirmier rémunérée allemagne',
+      'pflege ausbildung tunisie',
+      'contrat ausbildung infirmier allemagne',
+    ],
+    highlights: [
+      "Cette page vise les candidats tunisiens qui cherchent une voie concrète vers les soins infirmiers en Allemagne via une formation professionnelle rémunérée.",
+      "Le parcours demande une vraie motivation santé: communication avec les patients, rigueur, horaires de stage, responsabilité et capacité à apprendre en allemand.",
+      "Le niveau linguistique est central. Un B1 fragile bloque souvent le dossier; un B1 solide avec progression vers B2 donne un positionnement plus crédible.",
+      "EduGrowth vérifie le profil, les documents, la cohérence du métier et le calendrier avant d’orienter vers une stratégie de candidature.",
+    ],
+    proof: [
+      { stat: 'Pflege', label: 'mot clé allemand du secteur soins' },
+      { stat: '3 ans', label: 'durée fréquente de formation' },
+      { stat: 'B2', label: 'objectif langue recommandé' },
+    ],
+    faq: [
+      ['Peut-on faire une Ausbildung infirmier depuis la Tunisie ?', 'Oui, si le profil académique, la langue allemande, la motivation métier et les conditions employeur sont cohérents. Le dossier doit être préparé sérieusement avant les candidatures.'],
+      ['Quel niveau d’allemand pour soins infirmiers ?', 'B1 peut parfois lancer une première étape, mais B2 est souvent beaucoup plus réaliste pour comprendre les patients, les consignes et la formation.'],
+      ['L’Ausbildung infirmier est-elle rémunérée ?', 'L’Ausbildung combine formation théorique et pratique, avec rémunération selon contrat et établissement. Les montants et conditions doivent être vérifiés dans l’offre concrète.'],
+      ['Quels documents préparer ?', 'Diplôme, relevés, passeport, CV, lettre de motivation, preuves de langue, traductions éventuelles et documents demandés par l’employeur ou l’école.'],
+      ['EduGrowth prépare-t-il les entretiens ?', 'Oui, l’accompagnement peut inclure clarification du projet, CV, motivation, préparation entretien et organisation des étapes administratives.'],
+    ],
+    relatedLinks: [
+      { to: '/ausbildung-sante-allemagne-tunisie', label: 'Ausbildung santé Allemagne' },
+      { to: '/ausbildung-aide-soignant-allemagne-tunisie', label: 'Ausbildung aide-soignant Allemagne' },
+      { to: '/travail-etude-allemagne-tunisie', label: 'Travail et étude Allemagne' },
+      { to: '/programmes/ausbildung-allemagne', label: 'Guide principal Ausbildung' },
+      { to: '/blog/ausbildung-allemagne-tunisiens-conditions', label: 'Conditions Ausbildung' },
+      { to: '/book-consultation', label: 'Tester mon profil infirmier' },
+    ],
+  },
+  '/ausbildung-aide-soignant-allemagne-tunisie': {
+    title: 'Ausbildung aide-soignant Allemagne Tunisie | Santé | EduGrowth',
+    description:
+      "Ausbildung aide-soignant en Allemagne depuis la Tunisie: métiers du soin, accompagnement personnes âgées, allemand, candidature, contrat, visa et préparation dossier.",
+    h1: 'Ausbildung aide-soignant en Allemagne depuis la Tunisie',
+    chips: [
+      'ausbildung aide-soignant allemagne tunisie',
+      'formation aide-soignant allemagne',
+      'soins personnes âgées allemagne',
+      'ausbildung santé tunisiens',
+      'travailler dans les soins en allemagne',
+    ],
+    highlights: [
+      "Cette page cible les profils qui veulent entrer dans les métiers du soin avec une voie plus professionnelle et progressive que l’université classique.",
+      "Les domaines à étudier incluent aide-soignant, accompagnement en établissement, soins aux personnes âgées et assistance au quotidien selon les offres disponibles.",
+      "Le projet doit être humainement crédible: patience, communication, respect des patients, stabilité et capacité à travailler dans un environnement germanophone.",
+      "EduGrowth aide à structurer le dossier et à éviter les promesses trop rapides: le contrat dépend toujours des critères employeur et de la qualité du profil.",
+    ],
+    proof: [
+      { stat: 'Soins', label: 'besoin récurrent en Allemagne' },
+      { stat: 'B1+', label: 'base langue à consolider' },
+      { stat: 'Visa', label: 'dossier à cadrer tôt' },
+    ],
+    faq: [
+      ['Aide-soignant en Allemagne est-il accessible aux Tunisiens ?', 'C’est possible selon le niveau, la langue, les offres et la cohérence du dossier. Il faut vérifier chaque parcours avant de s’engager.'],
+      ['Quelle différence avec infirmier ?', 'L’infirmier vise un niveau de responsabilité plus large dans les soins. Aide-soignant ou assistant de soin peut être plus progressif selon profil, mais les critères varient.'],
+      ['Faut-il une expérience dans la santé ?', 'Elle peut aider, surtout pour prouver la motivation, mais elle n’est pas toujours obligatoire. Le dossier doit expliquer pourquoi ce métier est choisi.'],
+      ['Quels risques éviter ?', 'Éviter les offres floues, les promesses de contrat garanti, les dossiers sans niveau d’allemand suffisant et les candidatures envoyées sans stratégie.'],
+      ['Quand commencer ?', 'Le plus tôt possible, surtout pour améliorer l’allemand, préparer les traductions, travailler le CV et cibler les offres sérieuses.'],
+    ],
+    relatedLinks: [
+      { to: '/ausbildung-sante-allemagne-tunisie', label: 'Ausbildung santé Allemagne' },
+      { to: '/ausbildung-infirmier-allemagne-tunisie', label: 'Ausbildung infirmier Allemagne' },
+      { to: '/travail-etude-allemagne-tunisie', label: 'Travail et étude Allemagne' },
+      { to: '/programmes/ausbildung-allemagne', label: 'Guide principal Ausbildung' },
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
+      { to: '/book-consultation', label: 'Tester mon profil aide-soignant' },
+    ],
+  },
+  '/travail-etude-allemagne-tunisie': {
+    title: 'Travail et étude en Allemagne depuis la Tunisie | Ausbildung | EduGrowth',
+    description:
+      "Travail et étude en Allemagne pour Tunisiens: Ausbildung, alternance allemande, santé, langue, contrat, visa, budget et accompagnement EduGrowth.",
+    h1: 'Travail et étude en Allemagne depuis la Tunisie',
+    chips: [
+      'travail et étude allemagne tunisie',
+      'étudier et travailler en allemagne',
+      'formation rémunérée allemagne',
+      'ausbildung allemagne pour tunisiens',
+      'alternance allemagne tunisie',
+    ],
+    highlights: [
+      "Cette page capte l’intention large des jeunes Tunisiens qui ne cherchent pas seulement une université, mais un parcours qui combine formation, salaire et insertion professionnelle.",
+      "L’Ausbildung est souvent la piste la plus concrète pour travail + étude en Allemagne, notamment dans la santé, les soins, l’hôtellerie, la technique ou certains métiers de service.",
+      "Le projet doit être réaliste: allemand, contrat, dossier visa, budget d’installation, logement et capacité à tenir le rythme formation + travail.",
+      "EduGrowth oriente le candidat entre études universitaires, Ausbildung santé, formation professionnelle ou autre destination si l’Allemagne n’est pas la meilleure option.",
+    ],
+    proof: [
+      { stat: 'Ausbildung', label: 'voie travail + formation' },
+      { stat: 'Santé', label: 'axe prioritaire 2026-2027' },
+      { stat: 'Profil', label: 'qualification avant candidature' },
+    ],
+    faq: [
+      ['Comment étudier et travailler en Allemagne depuis la Tunisie ?', 'Les options principales sont les études avec emploi étudiant selon règles applicables, ou l’Ausbildung qui combine formation et pratique rémunérée avec contrat.'],
+      ['L’Ausbildung est-elle la même chose que l’alternance ?', 'Elle ressemble à une alternance professionnelle, mais elle suit le cadre allemand avec école professionnelle, employeur, contrat et exigences linguistiques.'],
+      ['Quel profil est prioritaire ?', 'Les profils sérieux avec allemand en progression, motivation claire, documents prêts et projet métier cohérent sont les plus crédibles.'],
+      ['Peut-on partir sans allemand ?', 'Pour un parcours travail + étude, partir sans allemand est rarement réaliste. Il faut construire la langue avant ou pendant la préparation, selon l’objectif.'],
+      ['EduGrowth choisit-il le pays avec l’étudiant ?', 'Oui. Si le dossier Allemagne n’est pas réaliste, EduGrowth peut comparer avec France, Chypre du Nord, Russie, Dubai ou autres options selon profil.'],
+    ],
+    relatedLinks: [
+      { to: '/programmes/ausbildung-allemagne', label: 'Guide Ausbildung Allemagne' },
+      { to: '/ausbildung-sante-allemagne-tunisie', label: 'Ausbildung santé Allemagne' },
+      { to: '/ausbildung-infirmier-allemagne-tunisie', label: 'Ausbildung infirmier Allemagne' },
+      { to: '/ausbildung-aide-soignant-allemagne-tunisie', label: 'Ausbildung aide-soignant Allemagne' },
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Étudier en Allemagne' },
+      { to: '/book-consultation', label: 'Évaluer mon projet Allemagne' },
     ],
   },
 };

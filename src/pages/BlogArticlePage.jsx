@@ -342,6 +342,10 @@ const posts = {
     ],
     relatedLinks: [
       { to: '/programmes/ausbildung-allemagne', label: 'Programme Ausbildung Allemagne' },
+      { to: '/ausbildung-sante-allemagne-tunisie', label: 'Ausbildung santé Allemagne' },
+      { to: '/ausbildung-infirmier-allemagne-tunisie', label: 'Ausbildung infirmier Allemagne' },
+      { to: '/ausbildung-aide-soignant-allemagne-tunisie', label: 'Ausbildung aide-soignant Allemagne' },
+      { to: '/travail-etude-allemagne-tunisie', label: 'Travail et étude Allemagne' },
       { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Étudier en Allemagne depuis la Tunisie' },
       { to: '/blog/compte-bloque-allemagne-tunisie', label: 'Compte bloqué Allemagne : guide' },
       { to: '/book-consultation', label: 'Évaluer mon projet Allemagne' },
