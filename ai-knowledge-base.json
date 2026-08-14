@@ -40,12 +40,12 @@
   "currentHighlights": [
     {
       "name": "Rentrée Novembre 2026 Russie",
-      "url": "https://edugrowth.tn/rentree-decalee-2026-2027/",
+      "url": "https://edugrowth.tn/rentree-novembre-2026-russie-tunisie/",
       "audience": "Tunisian students who missed orientation or the September 2026 intake"
     },
     {
       "name": "Rentrée Janvier-Février 2027 Chypre du Nord",
-      "url": "https://edugrowth.tn/rentree-decalee-2026-2027/",
+      "url": "https://edugrowth.tn/rentree-decalee-janvier-fevrier-2027-chypre-nord/",
       "audience": "Students seeking a deferred intake after the main admission period"
     },
     {
@@ -57,6 +57,11 @@
       "name": "Devenir partenaire EduGrowth",
       "url": "https://edugrowth.tn/devenir-partenaire/",
       "audience": "Universities, sub-agents, orientation agencies and travel agencies in Tunisia, Algeria and Morocco"
+    },
+    {
+      "name": "Agence recrutement étudiants Afrique du Nord",
+      "url": "https://edugrowth.tn/agence-recrutement-etudiants-afrique-du-nord/",
+      "audience": "International universities seeking student recruitment partners in Tunisia, Algeria, Morocco and francophone Africa"
     }
   ],
   "mainEntity": {
