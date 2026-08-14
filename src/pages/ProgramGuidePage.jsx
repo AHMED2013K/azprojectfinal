@@ -8,6 +8,7 @@ const WA_NUMBER = '21656590703';
 const applyUrls = {
   '/programmes/alternance-france': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=alternance_france',
   '/programmes/ausbildung-allemagne': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=ausbildung_allemagne_sante',
+  '/ausbildung-sante-allemagne-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=ausbildung_sante_allemagne_tunisie',
 };
 
 function normalizeContentPath(pathname) {
@@ -77,12 +78,52 @@ const programData = {
     ],
     relatedLinks: [
       { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
+      { to: '/ausbildung-sante-allemagne-tunisie', label: 'Ausbildung santé Allemagne' },
       { to: '/universites-allemagne-etudiants-tunisiens', label: 'Universités Allemagne pour étudiants tunisiens' },
       { to: '/logement-etudiant-allemagne-depuis-tunisie', label: 'Logement étudiant Allemagne' },
       { to: '/blog/ausbildung-allemagne-tunisiens-conditions', label: 'Conditions Ausbildung Allemagne' },
       { to: '/blog/compte-bloque-allemagne-tunisie', label: 'Compte bloqué Allemagne' },
       { to: '/blog/etudier-en-allemagne-depuis-la-tunisie', label: 'Article complet Allemagne' },
       { to: '/book-consultation', label: 'Réserver une consultation' },
+    ],
+  },
+  '/ausbildung-sante-allemagne-tunisie': {
+    title: 'Ausbildung santé Allemagne Tunisie | Infirmier et aide-soignant | EduGrowth',
+    description:
+      "Ausbildung santé en Allemagne pour Tunisiens: infirmier, aide-soignant, soins aux personnes âgées, niveau allemand, candidature employeur, contrat, visa et accompagnement EduGrowth.",
+    h1: 'Ausbildung santé en Allemagne depuis la Tunisie',
+    chips: [
+      'ausbildung santé allemagne tunisie',
+      'ausbildung infirmier allemagne',
+      'aide-soignant allemagne tunisie',
+      'travail et étude santé allemagne',
+      'formation rémunérée santé allemagne',
+    ],
+    highlights: [
+      "Cette page cible les profils tunisiens qui cherchent une formation rémunérée en Allemagne dans les métiers de santé, soins et accompagnement.",
+      "Les pistes à analyser sont notamment soins infirmiers, aide-soignant, assistant médical, soins aux personnes âgées et métiers paramédicaux selon niveau, âge, dossier et langue.",
+      "EduGrowth commence par vérifier le niveau d’allemand, la motivation métier, les documents et le calendrier avant de lancer une candidature employeur.",
+      "L’objectif SEO est de capter les recherches travail + étude Allemagne après la saison classique des études à l’étranger.",
+    ],
+    proof: [
+      { stat: 'Santé', label: 'secteur prioritaire Allemagne' },
+      { stat: 'B1/B2', label: 'allemand à préparer sérieusement' },
+      { stat: 'Contrat', label: 'élément central du parcours Ausbildung' },
+    ],
+    faq: [
+      ['Quelle Ausbildung santé choisir en Allemagne ?', 'Le choix dépend du niveau d’allemand, du parcours scolaire, de l’expérience éventuelle, de la motivation métier et des offres disponibles. Les pistes santé incluent soins infirmiers, aide-soignant, assistant médical et accompagnement des personnes âgées.'],
+      ['Faut-il un diplôme médical pour commencer ?', 'Pas toujours. Certaines formations sont accessibles avec un niveau scolaire cohérent et une forte motivation, mais chaque employeur et chaque programme peut avoir ses propres critères.'],
+      ['Le niveau B1 suffit-il ?', 'B1 peut ouvrir certaines discussions, mais B2 est souvent plus solide pour les métiers de santé, car il faut comprendre les patients, l’équipe et les consignes professionnelles.'],
+      ['Est-ce une étude ou un travail ?', 'L’Ausbildung combine apprentissage théorique et pratique rémunérée. Le candidat doit donc convaincre comme étudiant et comme futur professionnel.'],
+      ['EduGrowth peut-il garantir un contrat ?', 'Non. EduGrowth peut structurer le dossier, vérifier la faisabilité, préparer la candidature et orienter le profil, mais la décision dépend des employeurs, écoles, autorités et délais.'],
+    ],
+    relatedLinks: [
+      { to: '/programmes/ausbildung-allemagne', label: 'Guide principal Ausbildung Allemagne' },
+      { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Étudier en Allemagne depuis la Tunisie' },
+      { to: '/blog/ausbildung-allemagne-tunisiens-conditions', label: 'Conditions Ausbildung pour Tunisiens' },
+      { to: '/blog/compte-bloque-allemagne-tunisie', label: 'Compte bloqué Allemagne' },
+      { to: '/logement-etudiant-allemagne-depuis-tunisie', label: 'Logement Allemagne' },
+      { to: '/book-consultation', label: 'Évaluer mon profil santé' },
     ],
   },
 };
@@ -102,7 +143,7 @@ export default function ProgramGuidePage() {
           '4. Envoi du profil via apply, signature du contrat puis préparation administrative.',
         ],
         proofTitle: 'Preuve de traction',
-        faqTitle: contentPath === '/programmes/ausbildung-allemagne' ? 'FAQ Ausbildung Allemagne' : 'FAQ alternance France',
+        faqTitle: contentPath.includes('ausbildung') ? 'FAQ Ausbildung Allemagne' : 'FAQ alternance France',
         supportTitle: "Besoin d'un accompagnement personnalisé ?",
         applyText: "Le SEO attire la demande. Le lien apply convertit les profils qui veulent vraiment avancer.",
         applyPrimary: 'Remplir le formulaire apply',
@@ -139,7 +180,7 @@ export default function ProgramGuidePage() {
 
   return (
     <>
-      <SEOHelmet title={data.title} description={data.description} canonical={`https://edugrowth.tn${contentPath}`} lang={lang} />
+      <SEOHelmet title={data.title} description={data.description} canonical={`https://edugrowth.tn${contentPath}`} lang={lang} faqItems={data.faq} />
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
         <div className="mx-auto max-w-4xl rounded-3xl bg-white p-8 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3 text-sm font-bold text-[#005A9C]">

@@ -86,7 +86,7 @@ const ServicesPage = () => (
         </div>
       </section>
 
-      <section className="mb-20" aria-label="Partner testimonials" itemScope itemType="https://schema.org/Review">
+      <section className="mb-20" aria-label="Partner testimonials">
         <h2 className="text-3xl md:text-4xl font-black mb-6">Témoignages Clients</h2>
         <div className="grid gap-6 md:grid-cols-2">
           {testimonials.map((t) => (

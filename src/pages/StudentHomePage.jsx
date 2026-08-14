@@ -825,11 +825,12 @@ export default function StudentHomePage() {
               <div className="relative">
                 <div className="overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-200">
                   <img
-                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1280&q=82"
-                    alt="Accompagnement etudiant EduGrowth"
-                    className="h-[420px] w-full object-cover sm:h-[520px]"
+                    src="/south-korea-university-campus.jpg"
+                    alt="Accompagnement etudiant EduGrowth vers les universites internationales"
+                    className="h-[420px] w-full object-cover object-[center_45%] sm:h-[520px]"
                     width="640"
                     height="520"
+                    fetchPriority="high"
                   />
                 </div>
                 <div className="absolute -bottom-6 left-4 right-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:left-8 sm:right-8">

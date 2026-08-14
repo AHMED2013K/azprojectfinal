@@ -215,6 +215,7 @@ export default function App() {
 
         <Route path="/programmes/alternance-france" element={<Suspense fallback={<LoadingFallback />}><ProgramGuidePage /></Suspense>} />
         <Route path="/programmes/ausbildung-allemagne" element={<Suspense fallback={<LoadingFallback />}><ProgramGuidePage /></Suspense>} />
+        <Route path="/ausbildung-sante-allemagne-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgramGuidePage /></Suspense>} />
 
         <Route path="/education-outsourcing-tunisia" element={<Suspense fallback={<LoadingFallback />}><OutsourcingServicePage /></Suspense>} />
         <Route path="/student-recruitment-outsourcing" element={<Suspense fallback={<LoadingFallback />}><OutsourcingServicePage /></Suspense>} />
