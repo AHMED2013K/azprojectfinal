@@ -78,7 +78,7 @@ export default function ThankYouPage() {
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm font-bold text-[#005A9C]">
             <Link to="/">{copy.portal}</Link>
-            <Link to="/abroad-zone">Abroad Zone</Link>
+            <Link to="/abroad-zone">EduGrowth</Link>
             <Link to="/outsourcing">Outsourcing</Link>
           </div>
         </div>

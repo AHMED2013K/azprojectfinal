@@ -300,7 +300,7 @@ export default function AlternanceFranceTunisiensPage() {
                 to="/abroad-zone"
                 className="inline-flex items-center gap-2 rounded-2xl border border-white/30 px-6 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/10"
               >
-                Voir Abroad Zone
+                Voir EduGrowth
               </Link>
             </div>
           </div>

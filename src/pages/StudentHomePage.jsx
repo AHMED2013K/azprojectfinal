@@ -665,22 +665,6 @@ const structuredData = {
         },
       })),
     },
-    ...studentAbroadTestimonials.slice(0, 3).map((testimonial, index) => ({
-      '@type': 'Review',
-      '@id': `https://edugrowth.tn/#student-review-${index + 1}`,
-      itemReviewed: { '@id': 'https://edugrowth.tn/#study-abroad-service' },
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: String(testimonial.rating || 5),
-        bestRating: '5',
-      },
-      author: {
-        '@type': 'Person',
-        name: testimonial.name,
-      },
-      datePublished: `${testimonial.year}-01-01`,
-      reviewBody: `${testimonial.content} Destination: ${testimonial.destination}. Programme: ${testimonial.program}. Resultat: ${testimonial.result}`,
-    })),
   ],
 };
 
@@ -841,7 +825,7 @@ export default function StudentHomePage() {
               <div className="relative">
                 <div className="overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-200">
                   <img
-                    src="/abroad.webp"
+                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1280&q=82"
                     alt="Accompagnement etudiant EduGrowth"
                     className="h-[420px] w-full object-cover sm:h-[520px]"
                     width="640"
@@ -1119,7 +1103,7 @@ export default function StudentHomePage() {
                         loading="lazy"
                         decoding="async"
                         onError={(event) => {
-                          event.currentTarget.src = '/abroad.webp';
+                          event.currentTarget.src = '/Submark.webp';
                         }}
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                       />

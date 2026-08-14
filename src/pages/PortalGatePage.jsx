@@ -10,25 +10,25 @@ import { trackEvent } from '../utils/tracking';
 const portalTranslations = {
   en: {
     gateTitle: 'Choose your portal',
-    gateSubtitle: 'Access Abroad Zone for student guidance or EduGrowth for outsourcing and B2B services from Tunisia.',
+    gateSubtitle: 'Access EduGrowth for student guidance or EduGrowth for outsourcing and B2B services from Tunisia.',
   },
   fr: {
     gateTitle: 'Choisissez votre portail',
-    gateSubtitle: "Accédez à Abroad Zone pour l'accompagnement étudiant ou à EduGrowth pour l'outsourcing et les services B2B depuis la Tunisie.",
+    gateSubtitle: "Accédez à EduGrowth pour l'accompagnement étudiant ou à EduGrowth pour l'outsourcing et les services B2B depuis la Tunisie.",
   },
 };
 
 const pageCopy = {
   en: {
     title: 'EduGrowth Portal',
-    subtitle: 'Choose Abroad Zone for student guidance or Outsourcing for business services from Tunisia.',
+    subtitle: 'Choose EduGrowth for student guidance or Outsourcing for business services from Tunisia.',
     openPortal: 'Open portal',
     seoPage: 'SEO page',
     description: 'Welcome to EduGrowth. Select the portal that fits your needs or continue to the SEO landing page for more details.',
   },
   fr: {
     title: 'Portail EduGrowth',
-    subtitle: "Choisissez Abroad Zone pour l'accompagnement étudiant ou Outsourcing pour les services B2B depuis la Tunisie.",
+    subtitle: "Choisissez EduGrowth pour l'accompagnement étudiant ou Outsourcing pour les services B2B depuis la Tunisie.",
     openPortal: 'Ouvrir le portail',
     seoPage: 'Page SEO',
     description: 'Bienvenue sur EduGrowth. Sélectionnez le portail qui vous convient ou poursuivez vers la page SEO pour en savoir plus.',

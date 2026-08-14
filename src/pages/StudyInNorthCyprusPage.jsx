@@ -14,7 +14,7 @@ const faqItems = [
   {
     question: 'Est-ce reconnu ?',
     answer:
-      "Les diplômes doivent être vérifiés selon le programme, le pays visé et le projet de l'étudiant. Abroad Zone accompagne les étudiants tunisiens dans cette vérification avant toute candidature.",
+      "Les diplômes doivent être vérifiés selon le programme, le pays visé et le projet de l'étudiant. EduGrowth accompagne les étudiants tunisiens dans cette vérification avant toute candidature.",
   },
   {
     question: 'Combien ça coûte ?',
@@ -24,12 +24,12 @@ const faqItems = [
   {
     question: 'Y a-t-il un visa ou un compte bloqué ?',
     answer:
-      "La procédure est généralement plus simple que d'autres destinations: pas de compte bloqué demandé pour ce parcours lorsque les conditions du programme s'appliquent, et entrée avec procédure facilitée. Abroad Zone vérifie toujours les règles applicables au moment du dossier.",
+      "La procédure est généralement plus simple que d'autres destinations: pas de compte bloqué demandé pour ce parcours lorsque les conditions du programme s'appliquent, et entrée avec procédure facilitée. EduGrowth vérifie toujours les règles applicables au moment du dossier.",
   },
   {
     question: 'Peut-on travailler ?',
     answer:
-      "Des possibilités existent selon les règles locales et le profil de l'étudiant. Abroad Zone explique les conditions réelles avant le départ afin d'éviter les attentes irréalistes.",
+      "Des possibilités existent selon les règles locales et le profil de l'étudiant. EduGrowth explique les conditions réelles avant le départ afin d'éviter les attentes irréalistes.",
   },
 ];
 
@@ -39,7 +39,7 @@ const structuredData = {
     {
       '@type': 'Organization',
       '@id': 'https://edugrowth.tn/#organization',
-      name: 'Abroad Zone',
+      name: 'EduGrowth',
       url: 'https://edugrowth.tn/',
       logo: 'https://edugrowth.tn/Submark.webp',
       telephone: '+21656590703',
@@ -74,7 +74,7 @@ function LandingForm({ destination = 'Chypre du Nord' }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const message = `Bonjour Abroad Zone, je veux une évaluation gratuite.\nNom: ${data.get('name')}\nEmail: ${data.get('email')}\nNiveau: ${data.get('level')}\nDestination: ${data.get('destination')}`;
+    const message = `Bonjour EduGrowth, je veux une évaluation gratuite.\nNom: ${data.get('name')}\nEmail: ${data.get('email')}\nNiveau: ${data.get('level')}\nDestination: ${data.get('destination')}`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
@@ -116,7 +116,7 @@ export default function StudyInNorthCyprusPage() {
       <main className="min-h-screen bg-white text-slate-900">
         <section className="bg-[#175c7d] px-5 pb-20 pt-10 text-white md:px-8">
           <nav className="mx-auto flex max-w-6xl items-center justify-between py-4">
-            <Link to="/abroad-zone" className="text-lg font-black uppercase tracking-tight">Abroad Zone</Link>
+            <Link to="/abroad-zone" className="text-lg font-black uppercase tracking-tight">EduGrowth</Link>
             <a href={`https://wa.me/${WA_NUMBER}`} className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-black text-[#175c7d]">
               <MessageCircle size={17} /> WhatsApp
             </a>
@@ -126,7 +126,7 @@ export default function StudyInNorthCyprusPage() {
               <p className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-cyan-100">European University of Lefke • Tunisie • TRNC</p>
               <h1 className="max-w-4xl text-4xl font-black uppercase leading-tight md:text-6xl">Étudier à Chypre du Nord depuis la Tunisie</h1>
               <p className="mt-6 max-w-2xl text-lg font-medium text-cyan-50/90">
-                Abroad Zone accompagne les étudiants tunisiens vers European University of Lefke avec admission simple, bourses jusqu’à 70% des frais de scolarité, filières variées et parcours Bachelor, Master ou PhD.
+                EduGrowth accompagne les étudiants tunisiens vers European University of Lefke avec admission simple, bourses jusqu’à 70% des frais de scolarité, filières variées et parcours Bachelor, Master ou PhD.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a href="#formulaire" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#175c7d]">
@@ -149,11 +149,11 @@ export default function StudyInNorthCyprusPage() {
               <p className="mb-3 text-sm font-black uppercase tracking-[0.2em] text-[#175c7d]">Partenariat officiel</p>
               <h2 className="text-3xl font-black uppercase md:text-4xl">European University of Lefke pour les étudiants tunisiens</h2>
               <p className="mt-5 text-slate-600">
-                Grâce au nouveau partenariat Abroad Zone, les étudiants depuis la Tunisie peuvent candidater à European University of Lefke à Chypre du Nord avec un accompagnement complet: choix du programme, vérification du dossier, admission et préparation du départ.
+                Grâce au nouveau partenariat EduGrowth, les étudiants depuis la Tunisie peuvent candidater à European University of Lefke à Chypre du Nord avec un accompagnement complet: choix du programme, vérification du dossier, admission et préparation du départ.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              {['Bourses jusqu’à 70% des frais de scolarité', 'Admission Bachelor, Master et PhD', 'Procédure plus simple que plusieurs destinations européennes', 'Accompagnement Abroad Zone depuis la Tunisie'].map((item) => (
+              {['Bourses jusqu’à 70% des frais de scolarité', 'Admission Bachelor, Master et PhD', 'Procédure plus simple que plusieurs destinations européennes', 'Accompagnement EduGrowth depuis la Tunisie'].map((item) => (
                 <div key={item} className="rounded-2xl bg-slate-50 p-5">
                   <CheckCircle2 className="mb-3 text-[#175c7d]" />
                   <h3 className="font-black">{item}</h3>
@@ -222,7 +222,7 @@ export default function StudyInNorthCyprusPage() {
           <div className="mx-auto max-w-6xl">
             <h2 className="text-3xl font-black uppercase md:text-4xl">Comment postuler ?</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-3">
-              {['Remplir le formulaire Abroad Zone', 'Étude du dossier pour European University of Lefke', 'Admission et préparation du départ'].map((step, index) => (
+              {['Remplir le formulaire EduGrowth', 'Étude du dossier pour European University of Lefke', 'Admission et préparation du départ'].map((step, index) => (
                 <div key={step} className="rounded-2xl bg-white/10 p-6">
                   <div className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-cyan-100">Step {index + 1}</div>
                   <h3 className="text-2xl font-black">{step}</h3>
@@ -249,11 +249,11 @@ export default function StudyInNorthCyprusPage() {
         <section className="bg-slate-50 px-5 py-16 md:px-8">
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
             <div>
-              <h2 className="text-3xl font-black uppercase md:text-4xl">Abroad Zone, votre référence en Tunisie</h2>
+              <h2 className="text-3xl font-black uppercase md:text-4xl">EduGrowth, votre référence en Tunisie</h2>
               <p className="mt-4 text-slate-600">Objectif: devenir la première référence en Tunisie pour étudier à Chypre du Nord, avec une page dédiée à European University of Lefke, un suivi personnalisé et des conseils transparents pour choisir entre Chypre du Nord et l’alternance en France.</p>
               <div className="mt-6 flex gap-3 text-sm font-black text-[#175c7d]">
                 <Link to="/alternance-france">Voir alternance en France</Link>
-                <Link to="/abroad-zone">Retour Abroad Zone</Link>
+                <Link to="/abroad-zone">Retour EduGrowth</Link>
               </div>
               <div className="mt-6 flex items-center gap-2 text-yellow-500">
                 {[1, 2, 3, 4, 5].map((star) => <Star key={star} className="fill-current" size={18} />)}
@@ -264,7 +264,7 @@ export default function StudyInNorthCyprusPage() {
           </div>
         </section>
       </main>
-      <a href={`https://wa.me/${WA_NUMBER}`} className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl" aria-label="Contacter Abroad Zone sur WhatsApp">
+      <a href={`https://wa.me/${WA_NUMBER}`} className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl" aria-label="Contacter EduGrowth sur WhatsApp">
         <MessageCircle />
       </a>
     </>

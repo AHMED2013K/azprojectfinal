@@ -153,7 +153,7 @@ const countryData = {
     ],
     relatedLinks: [
       { to: "/study-in-north-cyprus", label: "Page prioritaire Chypre du Nord" },
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
       { to: "/blog/top-pays-pour-etudier", label: "Comparer les destinations" },
       { to: "/book-consultation", label: "Réserver une consultation" },
       { to: "/etudier-en-turquie-depuis-tunisie", label: "Voir aussi Turquie" },
@@ -185,7 +185,7 @@ const countryData = {
       { q: "Le visa est-il compliqué ?", a: "Il reste gérable avec un dossier propre, une admission valide et des justificatifs complets." },
     ],
     relatedLinks: [
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
       { to: "/blog/top-pays-pour-etudier", label: "Comparer les destinations" },
       { to: "/book-consultation", label: "Réserver une consultation" },
       { to: "/etudier-a-dubai-depuis-tunisie", label: "Voir aussi Dubai" },
@@ -219,7 +219,7 @@ const countryData = {
       { q: "Combien coûtent les études à Dubai ?", a: "Certains frais commencent autour de 5000 USD par an, mais le budget complet dépend du programme, du logement, du visa et du coût de vie." },
     ],
     relatedLinks: [
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
       { to: "/etudier-en-france-ecole-privee-depuis-tunisie", label: "Comparer avec France privé" },
       { to: "/etudier-en-roumanie-depuis-tunisie", label: "Comparer avec Roumanie" },
       { to: "/blog/top-pays-pour-etudier", label: "Comparer les destinations" },
@@ -321,7 +321,7 @@ const countryData = {
       { q: "Le visa est-il difficile ?", a: "Le visa dépend d’une admission valide, de l’invitation officielle et d’un dossier complet." },
     ],
     relatedLinks: [
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
       { to: "/study-in-north-cyprus", label: "Comparer avec Chypre du Nord" },
       { to: "/blog/top-pays-pour-etudier", label: "Comparer les destinations" },
       { to: "/book-consultation", label: "Réserver une consultation" },
@@ -356,7 +356,7 @@ const countryData = {
     relatedLinks: [
       { to: "/etudier-en-france-depuis-tunisie", label: "Comparer avec France" },
       { to: "/alternance-france", label: "Voir alternance France" },
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
       { to: "/book-consultation", label: "Réserver une consultation" },
     ],
   },
@@ -452,10 +452,10 @@ const countryData = {
     faq: [
       { q: "Pourquoi choisir le Maroc ?", a: "Pour la proximité, la langue, la diversité des écoles et un budget parfois plus maîtrisable." },
       { q: "Les diplômes sont-ils reconnus ?", a: "Il faut vérifier l’école, le programme et l’objectif professionnel avant de s’inscrire." },
-      { q: "Abroad Zone peut aider ?", a: "Oui, pour filtrer les établissements, préparer le dossier et organiser l’installation." },
+      { q: "EduGrowth peut aider ?", a: "Oui, pour filtrer les établissements, préparer le dossier et organiser l’installation." },
     ],
     relatedLinks: [
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
       { to: "/etudier-en-turquie-depuis-tunisie", label: "Comparer avec Turquie" },
       { to: "/study-in-north-cyprus", label: "Comparer avec Chypre du Nord" },
       { to: "/book-consultation", label: "Réserver une consultation" },
@@ -490,7 +490,7 @@ const countryData = {
     relatedLinks: [
       { to: "/etudier-au-canada-depuis-tunisie", label: "Comparer avec Canada" },
       { to: "/etudier-en-france-depuis-tunisie", label: "Comparer avec France" },
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
       { to: "/book-consultation", label: "Réserver une consultation" },
     ],
   },
@@ -523,7 +523,7 @@ const countryData = {
     relatedLinks: [
       { to: "/etudier-au-canada-depuis-tunisie", label: "Comparer avec Canada" },
       { to: "/etudier-au-royaume-uni-depuis-tunisie", label: "Comparer avec UK" },
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
       { to: "/book-consultation", label: "Réserver une consultation" },
     ],
   },
@@ -639,7 +639,7 @@ function QuickApplicationForm({ country }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const message = `Bonjour Abroad Zone, je veux une évaluation pour ${country}.\nNom: ${formData.get('name')}\nEmail: ${formData.get('email')}\nNiveau: ${formData.get('level')}\nDestination: ${formData.get('destination')}`;
+    const message = `Bonjour EduGrowth, je veux une évaluation pour ${country}.\nNom: ${formData.get('name')}\nEmail: ${formData.get('email')}\nNiveau: ${formData.get('level')}\nDestination: ${formData.get('destination')}`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
@@ -676,7 +676,7 @@ export default function CountryGuidePage() {
   const data = countryData[contentPath] || countryData['/etudier-en-allemagne-depuis-tunisie'];
   const canonicalUrl = `https://edugrowth.tn${contentPath}/`;
   const copy = {
-        back: 'Retour à Abroad Zone',
+        back: 'Retour à EduGrowth',
         advisor: 'Conseiller WhatsApp',
         advisorText: `Bonjour EduGrowth, je veux étudier en ${data.country}.`,
         badge: "Guide d'études à l'étranger",
@@ -839,7 +839,7 @@ export default function CountryGuidePage() {
                   height="480"
                   loading="eager"
                   onError={(event) => {
-                    event.currentTarget.src = '/abroad.webp';
+                    event.currentTarget.src = '/Submark.webp';
                   }}
                 />
                 {data.imageCredit ? (

@@ -222,7 +222,7 @@ const PortalSelector = ({ isOpen, onClose, onSelect, onToggleLanguage, translati
                   <div className="flex h-12 w-12 sm:h-16 sm:w-16 lg:h-20 lg:w-20 items-center justify-center rounded-xl sm:rounded-2xl border-2 border-blue-300/30 bg-blue-500/20 text-blue-100 transition-all group-hover:bg-blue-400/30 group-hover:scale-110 flex-shrink-0">
                     <img
                       src="/abraod.webp"
-                      alt="Abroad Zone"
+                      alt="EduGrowth"
                       loading="eager"
                       decoding="sync"
                       fetchPriority="high"
@@ -236,7 +236,7 @@ const PortalSelector = ({ isOpen, onClose, onSelect, onToggleLanguage, translati
                       {copy.studentRole}
                     </div>
                     <div className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-tight">
-                      Abroad Zone
+                      EduGrowth
                     </div>
                   </div>
                 </div>

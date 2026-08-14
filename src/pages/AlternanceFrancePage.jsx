@@ -14,7 +14,7 @@ const faqItems = [
   {
     question: 'Est-ce adapté aux étudiants tunisiens ?',
     answer:
-      "Oui, si le dossier académique, le niveau linguistique, le projet professionnel et les conditions administratives sont cohérents. Abroad Zone qualifie le profil depuis la Tunisie avant la candidature.",
+      "Oui, si le dossier académique, le niveau linguistique, le projet professionnel et les conditions administratives sont cohérents. EduGrowth qualifie le profil depuis la Tunisie avant la candidature.",
   },
   {
     question: 'Est-ce rémunéré ?',
@@ -29,7 +29,7 @@ const structuredData = {
     {
       '@type': 'Organization',
       '@id': 'https://edugrowth.tn/#organization',
-      name: 'Abroad Zone',
+      name: 'EduGrowth',
       url: 'https://edugrowth.tn/',
       logo: 'https://edugrowth.tn/Submark.webp',
       telephone: '+21656590703',
@@ -55,7 +55,7 @@ function AlternanceForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const message = `Bonjour Abroad Zone, je veux candidater en alternance en France.\nNom: ${data.get('name')}\nEmail: ${data.get('email')}\nNiveau: ${data.get('level')}\nDestination: ${data.get('destination')}`;
+    const message = `Bonjour EduGrowth, je veux candidater en alternance en France.\nNom: ${data.get('name')}\nEmail: ${data.get('email')}\nNiveau: ${data.get('level')}\nDestination: ${data.get('destination')}`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
@@ -97,7 +97,7 @@ export default function AlternanceFrancePage() {
       <main className="min-h-screen bg-white text-slate-900">
         <section className="bg-[#175c7d] px-5 pb-20 pt-10 text-white md:px-8">
           <nav className="mx-auto flex max-w-6xl items-center justify-between py-4">
-            <Link to="/abroad-zone" className="text-lg font-black uppercase tracking-tight">Abroad Zone</Link>
+            <Link to="/abroad-zone" className="text-lg font-black uppercase tracking-tight">EduGrowth</Link>
             <a href={`https://wa.me/${WA_NUMBER}`} className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-black text-[#175c7d]">
               <MessageCircle size={17} /> WhatsApp
             </a>
@@ -150,7 +150,7 @@ export default function AlternanceFrancePage() {
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2">
             <div>
               <h2 className="text-3xl font-black uppercase md:text-4xl">Conditions d’accès</h2>
-              <p className="mt-4 text-slate-600">Chaque école et chaque entreprise peut demander des critères précis. Abroad Zone qualifie le dossier avant de lancer les candidatures.</p>
+              <p className="mt-4 text-slate-600">Chaque école et chaque entreprise peut demander des critères précis. EduGrowth qualifie le dossier avant de lancer les candidatures.</p>
             </div>
             <div className="grid gap-4">
               {['Niveau académique compatible avec la formation', 'Projet professionnel cohérent', 'CV et motivation adaptés au marché français', 'Dossier administratif complet depuis la Tunisie'].map((condition) => (
@@ -180,11 +180,11 @@ export default function AlternanceFrancePage() {
         <section className="bg-[#0f4668] px-5 py-16 text-white md:px-8">
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
             <div>
-              <h2 className="text-3xl font-black uppercase md:text-4xl">Candidater via Abroad Zone</h2>
+              <h2 className="text-3xl font-black uppercase md:text-4xl">Candidater via EduGrowth</h2>
               <p className="mt-4 text-cyan-50/90">Notre équipe accompagne les étudiants tunisiens depuis la Tunisie pour cibler les formations, préparer le dossier et avancer vers l’alternance en France.</p>
               <div className="mt-6 flex gap-3 text-sm font-black text-cyan-100">
                 <Link to="/study-in-north-cyprus">Étudier à Chypre du Nord</Link>
-                <Link to="/abroad-zone">Abroad Zone</Link>
+                <Link to="/abroad-zone">EduGrowth</Link>
               </div>
             </div>
             <AlternanceForm />
@@ -205,7 +205,7 @@ export default function AlternanceFrancePage() {
           </div>
         </section>
       </main>
-      <a href={`https://wa.me/${WA_NUMBER}`} className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl" aria-label="Contacter Abroad Zone sur WhatsApp">
+      <a href={`https://wa.me/${WA_NUMBER}`} className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl" aria-label="Contacter EduGrowth sur WhatsApp">
         <MessageCircle />
       </a>
     </>

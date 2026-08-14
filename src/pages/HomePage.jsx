@@ -29,7 +29,7 @@ const translations = {
     badge: 'Tunisia growth platform for students and companies',
     heroTitle: 'Study abroad and scale acquisition with AI from Tunisia.',
     gateTitle: 'Choose your portal',
-    gateSubtitle: 'Access Abroad Zone for student guidance or EduGrowth AI Growth Systems for B2B prospecting and qualification.',
+    gateSubtitle: 'Access EduGrowth for student guidance or EduGrowth AI Growth Systems for B2B prospecting and qualification.',
     portalButton: 'Portal',
     heroText:
       'EduGrowth connects Tunisian students with international opportunities and helps companies deploy AI workflows for prospecting, qualification, and CRM follow-up.',
@@ -51,7 +51,7 @@ const translations = {
       'France admissions and alternance support',
       'Direct application funnel on app.edugrowth.tn/apply',
     ],
-    studentPrimary: 'Go to Abroad Zone',
+    studentPrimary: 'Go to EduGrowth',
     studentSecondary: 'Open Apply Form',
     b2bBadge: 'B2B funnel',
     b2bTitle: 'AI growth, LinkedIn prospecting, and CRM qualification',
@@ -143,7 +143,7 @@ const translations = {
     badge: 'Plateforme de croissance tunisienne pour étudiants et entreprises',
     heroTitle: "Étudier à l'étranger et scaler votre acquisition avec l'IA depuis la Tunisie.",
     gateTitle: 'Choisissez votre portail',
-    gateSubtitle: "Accédez à Abroad Zone pour l'accompagnement étudiant ou à EduGrowth AI Growth Systems pour la prospection et la qualification B2B.",
+    gateSubtitle: "Accédez à EduGrowth pour l'accompagnement étudiant ou à EduGrowth AI Growth Systems pour la prospection et la qualification B2B.",
     portalButton: 'Portail',
     heroText:
       "EduGrowth relie les étudiants tunisiens aux opportunités internationales et aide les entreprises à déployer des workflows IA de prospection, qualification et suivi CRM.",
@@ -165,7 +165,7 @@ const translations = {
       'Admissions France et accompagnement alternance',
       "Formulaire de candidature direct sur app.edugrowth.tn/apply",
     ],
-    studentPrimary: 'Voir Abroad Zone',
+    studentPrimary: 'Voir EduGrowth',
     studentSecondary: 'Ouvrir le formulaire',
     b2bBadge: 'Funnel B2B',
     b2bTitle: "Growth IA, prospection LinkedIn et qualification CRM",
@@ -280,7 +280,7 @@ const homeStructuredData = {
       '@type': 'ItemList',
       name: 'Core EduGrowth funnels',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, url: 'https://edugrowth.tn/abroad-zone', name: 'Abroad Zone' },
+        { '@type': 'ListItem', position: 1, url: 'https://edugrowth.tn/abroad-zone', name: 'EduGrowth' },
         { '@type': 'ListItem', position: 2, url: 'https://edugrowth.tn/programmes/alternance-france', name: 'Alternance France' },
         { '@type': 'ListItem', position: 3, url: 'https://edugrowth.tn/outsourcing', name: 'Outsourcing Tunisia' },
         { '@type': 'ListItem', position: 4, url: 'https://app.edugrowth.tn/apply', name: 'CRM Apply Funnel' },
@@ -333,7 +333,7 @@ export default function HomePage() {
             </Link>
 
             <nav className="hidden items-center gap-6 text-sm font-bold text-slate-600 lg:flex">
-              <Link to="/abroad-zone" className="transition hover:text-[#175c7d]">Abroad Zone</Link>
+              <Link to="/abroad-zone" className="transition hover:text-[#175c7d]">EduGrowth</Link>
               <Link to="/programmes/alternance-france" className="transition hover:text-[#175c7d]">Alternance France</Link>
               <Link to="/outsourcing" className="transition hover:text-[#175c7d]">Outsourcing</Link>
               <Link to="/blog" className="transition hover:text-[#175c7d]">Blog</Link>

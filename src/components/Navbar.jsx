@@ -26,7 +26,7 @@ const Navbar = ({ onOpenPortalSelector, onOpenDemo, lang, setLang, translations 
 
       {/* Desktop menu */}
 <div className="hidden lg:flex items-center gap-8 text-sm font-semibold text-gray-500">
-        <RouterLink to="/abroad-zone" className="hover:text-[#005A9C] uppercase transition-colors">Abroad Zone</RouterLink>
+        <RouterLink to="/abroad-zone" className="hover:text-[#005A9C] uppercase transition-colors">EduGrowth</RouterLink>
         <RouterLink to="/outsourcing" className="hover:text-[#005A9C] uppercase transition-colors">Outsourcing</RouterLink>
         <a href="#services" className="hover:text-[#005A9C] uppercase transition-colors">{t.navServices}</a>
         <a href="#pricing" className="hover:text-[#005A9C] uppercase transition-colors">{t.navPricing}</a>

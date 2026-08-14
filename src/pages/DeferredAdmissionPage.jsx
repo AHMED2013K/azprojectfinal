@@ -8,15 +8,15 @@ const DeferredAdmissionPage = () => {
       title: 'Rentrée Novembre 2026 — Russie',
       badge: 'Pour les profils qui ont raté la rentrée Septembre 2026',
       text: 'Nous accompagnons les étudiants qui souhaitent rejoindre la Russie en fin d’année 2026 avec un parcours d’admission clair, des universités partenaires et une préparation visa adaptée.',
-      link: '/etudier-en-russie-depuis-tunisie',
-      cta: 'Découvrir la Russie',
+      link: '/rentree-novembre-2026-russie-tunisie',
+      cta: 'Page Russie Novembre 2026',
     },
     {
       title: 'Rentrée décalée Janvier–Février 2027 — Chypre du Nord',
       badge: 'Pour les profils qui ont manqué l’orientation principale',
       text: 'Le Chypre du Nord propose une fenêtre d’admission très intéressante pour les étudiants qui veulent une rentrée plus tardive, avec un cadre académique international et des admissions plus flexibles.',
-      link: '/study-in-north-cyprus',
-      cta: 'Voir Chypre du Nord',
+      link: '/rentree-decalee-janvier-fevrier-2027-chypre-nord',
+      cta: 'Page Janvier-Février 2027',
     },
   ];
 
@@ -60,7 +60,7 @@ const DeferredAdmissionPage = () => {
               Nous proposons des options concrètes pour les étudiants tunisiens qui veulent continuer leur projet même après la rentrée Septembre 2026. La priorité est de retrouver une offre réaliste, avec admission, dossier et préparation de visa.
             </p>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {['Russie Novembre 2026', 'Chypre du Nord Janvier 2027', 'Diagnostic dossier sous 24h'].map((item) => (
+              {['Russie Novembre 2026', 'Chypre du Nord Janvier-Février 2027', 'Diagnostic dossier sous 24h'].map((item) => (
                 <div key={item} className="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm font-black text-cyan-50">
                   {item}
                 </div>
@@ -128,6 +128,10 @@ const DeferredAdmissionPage = () => {
                   Prendre un rendez-vous
                   <ArrowRight size={16} />
                 </Link>
+                <div className="mt-4 grid gap-2 text-sm font-bold text-[#176b87]">
+                  <Link to="/etudier-en-russie-depuis-tunisie">Guide général Russie</Link>
+                  <Link to="/study-in-north-cyprus">Guide général Chypre du Nord</Link>
+                </div>
                 <a href="https://wa.me/21656590703?text=Bonjour%20EduGrowth%2C%20je%20veux%20une%20orientation%20pour%20la%20rentree%20decalee%202026-2027" target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-6 py-3 text-sm font-black text-emerald-700 hover:bg-emerald-100">
                   <MessageCircle size={16} />
                   WhatsApp immédiat

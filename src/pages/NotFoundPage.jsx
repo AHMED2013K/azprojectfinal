@@ -20,7 +20,7 @@ export default function NotFoundPage() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm font-black">
             <Link to="/" className="rounded-xl bg-[#005A9C] px-5 py-3 text-white">Accueil</Link>
-            <Link to="/abroad-zone" className="rounded-xl border border-slate-300 px-5 py-3 text-slate-700">Abroad Zone</Link>
+            <Link to="/abroad-zone" className="rounded-xl border border-slate-300 px-5 py-3 text-slate-700">EduGrowth</Link>
             <Link to="/blog" className="rounded-xl border border-slate-300 px-5 py-3 text-slate-700">Blog</Link>
           </div>
         </div>

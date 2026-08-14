@@ -39,7 +39,7 @@ const copy = {
       "EduGrowth doit rester la marque principale. Les sous-marques aident a organiser les offres, mais ne doivent jamais rendre le parcours etudiant confus.",
     architecture: [
       { title: 'EduGrowth', text: "Marque mere : confiance, orientation, accompagnement international depuis la Tunisie." },
-      { title: 'Abroad Zone by EduGrowth', text: "Programme B2C etudiant : guides pays, admission, visa, logement et alternance." },
+      { title: 'EduGrowth Student', text: "Programme B2C etudiant : guides pays, admission, visa, logement et alternance." },
       { title: 'EduGrowth Partners', text: "Offre B2B separee pour ecoles, universites et partenaires de recrutement." },
     ],
     premiumTitle: 'Direction premium',
@@ -99,7 +99,7 @@ const copy = {
       'EduGrowth should remain the main brand. Sub-brands can organize offers, but they should never make the student journey confusing.',
     architecture: [
       { title: 'EduGrowth', text: 'Master brand: trust, guidance, and international education support from Tunisia.' },
-      { title: 'Abroad Zone by EduGrowth', text: 'B2C student program: country guides, admissions, visa steps, housing, and work-study.' },
+      { title: 'EduGrowth Student', text: 'B2C student program: country guides, admissions, visa steps, housing, and work-study.' },
       { title: 'EduGrowth Partners', text: 'Separate B2B offer for schools, universities, and recruitment partners.' },
     ],
     premiumTitle: 'Premium direction',

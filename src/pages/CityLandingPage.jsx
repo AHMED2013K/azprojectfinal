@@ -171,7 +171,7 @@ export default function CityLandingPage() {
   const data = cityData[contentPath] || cityData['/agence-etude-etranger-tunis'];
   const copy = lang === 'fr'
     ? {
-        back: 'Retour à Abroad Zone',
+        back: 'Retour à EduGrowth',
         orientation: 'Orientation',
         orientationText: 'Sélection du pays et du programme selon votre budget et votre profil.',
         admissions: 'Admissions',
@@ -190,7 +190,7 @@ export default function CityLandingPage() {
           'Notre équipe suit votre dossier en continu avec un support rapide sur WhatsApp et une méthode structurée jusqu’au départ.',
       }
     : {
-        back: 'Back to Abroad Zone',
+        back: 'Back to EduGrowth',
         orientation: 'Orientation',
         orientationText: 'Country and program selection based on your budget and profile.',
         admissions: 'Admissions',

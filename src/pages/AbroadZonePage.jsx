@@ -35,7 +35,7 @@ const abroadStructuredData = {
       },
       "areaServed": ["Tunisia", "France", "Germany", "Cyprus", "Turkey", "Canada"],
       "availableLanguage": ["French", "Arabic", "English"],
-      "description": "Abroad Zone helps Tunisian students with destination choice, applications, admissions, and student visa preparation."
+      "description": "EduGrowth helps Tunisian students with destination choice, applications, admissions, and student visa preparation."
     },
     {
       "@type": "FAQPage",
@@ -83,8 +83,8 @@ const translations = {
     stdOfficeDesc: "Local offices providing reliable, fast, and personalized support in multiple countries.",
     stdAlternanceHeroTitle: "Launch Your Career in France",
     stdAlternanceHeroDesc: "Full-cycle support to secure your work-study contract, backed by our extensive network of partner companies.",
-    stdPackTitle: "Complete Alternance Pack",
-    stdPackPrice: "400€",
+    stdPackTitle: "Personalized Alternance Support",
+    stdPackPrice: "On request",
     stdFormTitle: "Start Your Journey",
     stdFormName: "Your Full Name",
     stdFormEmail: "Your Email Address",
@@ -114,8 +114,8 @@ const translations = {
     stdOfficeDesc: 'Des bureaux locaux pour un support fiable, rapide et personnalisé dans plusieurs pays.',
     stdAlternanceHeroTitle: 'Lancez votre carrière en France',
     stdAlternanceHeroDesc: "Un accompagnement complet pour décrocher votre contrat d'alternance grâce à notre réseau étendu d'entreprises partenaires.",
-    stdPackTitle: 'Pack alternance complet',
-    stdPackPrice: '400€',
+    stdPackTitle: 'Accompagnement alternance personnalisé',
+    stdPackPrice: 'Sur diagnostic',
     stdFormTitle: 'Commencez votre parcours',
     stdFormName: 'Nom complet',
     stdFormEmail: 'Adresse email',
@@ -200,24 +200,24 @@ const AbroadZonePage = () => {
   const handleWA = (e) => {
     e.preventDefault();
     trackEvent('generate_lead', {
-      lead_source: 'abroad_zone_form',
+      lead_source: 'edugrowth_student_form',
       page_location: '/abroad-zone',
       value: 1,
       currency: 'USD',
     });
     const fd = new FormData(e.target);
-    const msg = `New contact from Abroad Zone\nName: ${fd.get('name')}\nEmail: ${fd.get('email')}\nService: ${fd.get('service')}\nMessage: ${fd.get('message')}`;
+    const msg = `New student contact from EduGrowth\nName: ${fd.get('name')}\nEmail: ${fd.get('email')}\nService: ${fd.get('service')}\nMessage: ${fd.get('message')}`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   const studentTestimonials = studentAbroadTestimonials;
-  const applyUrl = buildApplyUrl('abroad_zone', lang);
+  const applyUrl = buildApplyUrl('edugrowth_student', lang);
 
   return (
     <>
       <SEOHelmet 
-        title="Agence Étude à l'Étranger Tunisie | Abroad Zone by EduGrowth"
-        description="Étudier à l'étranger depuis la Tunisie: orientation, admission, visa étudiant et accompagnement complet vers la France, l'Allemagne, le Canada et plus."
+        title="EduGrowth | Agence étude à l'étranger Tunisie | Orientation étudiant"
+        description="EduGrowth accompagne les étudiants tunisiens pour étudier à l'étranger: orientation, admission, visa étudiant, logement, rentrée décalée, Allemagne, Russie, Chypre du Nord, France et Canada."
         canonical="https://edugrowth.tn/abroad-zone"
         structuredData={abroadStructuredData}
         lang={lang}
@@ -229,14 +229,14 @@ const AbroadZonePage = () => {
           <div className="flex min-w-0 items-center gap-3">
             <div className="h-10 w-10 flex-shrink-0 rounded-xl overflow-hidden flex items-center justify-center shadow-sm ring-1 ring-slate-200" style={{ backgroundColor: '#175c7d' }}>
               <img
-                src="/abroad.webp"
-                alt="Abroad Zone"
+                src="/Submark.webp"
+                alt="EduGrowth"
                 width="40"
                 height="40"
                 className="block h-10 w-10 scale-[1.8] object-cover"
               />
             </div>
-            <span className="truncate text-lg font-black tracking-tight uppercase sm:text-2xl" style={{color: '#175c7d'}}>Abroad Zone</span>
+            <span className="truncate text-lg font-black tracking-tight uppercase sm:text-2xl" style={{color: '#175c7d'}}>EduGrowth</span>
           </div>
           {/* Links */}
           <div className="hidden lg:flex items-center gap-10 text-sm font-bold text-gray-500">
@@ -268,7 +268,7 @@ const AbroadZonePage = () => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a
                 href={applyUrl}
-                onClick={() => trackEvent('cta_click', { cta_type: 'abroad_zone_apply_hero', page: '/abroad-zone' })}
+                onClick={() => trackEvent('cta_click', { cta_type: 'edugrowth_student_apply_hero', page: '/abroad-zone' })}
                 className="bg-white text-[#175c7d] px-10 py-6 rounded-[2rem] font-black text-xl shadow-2xl hover:scale-105 transition-all uppercase"
               >
                 {t.stdHeroCTA}
@@ -357,7 +357,7 @@ const AbroadZonePage = () => {
                 <div className="mt-6 flex flex-col gap-3">
                   <a
                     href={applyUrl}
-                    onClick={() => trackEvent('cta_click', { cta_type: 'abroad_zone_apply_section', page: '/abroad-zone' })}
+                    onClick={() => trackEvent('cta_click', { cta_type: 'edugrowth_student_apply_section', page: '/abroad-zone' })}
                     className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-4 text-sm font-black uppercase tracking-[0.18em] text-[#175c7d] transition hover:bg-slate-100"
                   >
                     {ui.applyPrimary}
@@ -367,7 +367,7 @@ const AbroadZonePage = () => {
                     href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lang === 'fr' ? "Bonjour EduGrowth, je veux de l'aide pour l'alternance en France." : 'Hello EduGrowth, I want help with alternance in France.')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackEvent('cta_click', { cta_type: 'abroad_zone_apply_whatsapp', page: '/abroad-zone' })}
+                    onClick={() => trackEvent('cta_click', { cta_type: 'edugrowth_student_apply_whatsapp', page: '/abroad-zone' })}
                     className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-5 py-4 text-sm font-black uppercase tracking-[0.18em] text-white transition hover:bg-white/15"
                   >
                     {ui.applySecondary}
@@ -416,10 +416,10 @@ const AbroadZonePage = () => {
                 <p className="text-xl mb-10 max-w-2xl text-[#175c7d]/70">
                   {t.stdAlternanceHeroDesc}
                 </p>
-                <button onClick={() => document.getElementById('std-pricing')?.scrollIntoView({behavior: 'smooth'})}
-                  className="bg-[#175c7d] text-white px-8 py-4 rounded-2xl font-black uppercase hover:shadow-xl transition-all">
+                <Link to="/book-consultation"
+                  className="inline-flex bg-[#175c7d] text-white px-8 py-4 rounded-2xl font-black uppercase hover:shadow-xl transition-all">
                   {ui.pricing}
-                </button>
+                </Link>
               </div>
               <CheckCircle2 className="absolute top-0 right-0 p-10 opacity-5" size={300} style={{ color: '#175c7d' }} />
             </div>
@@ -450,12 +450,12 @@ const AbroadZonePage = () => {
                   ))}
                 </div>
                 <div className="bg-white/5 border border-white/10 p-5 rounded-2xl text-xs mb-8 opacity-80">
-                  <strong>{ui.payment}</strong>
+                  <strong>{lang === 'fr' ? 'Le tarif dépend du pays, du programme, du niveau linguistique et de l’urgence du dossier. Le diagnostic initial permet de proposer une solution claire.' : 'Pricing depends on destination, program, language level, and timeline. The initial diagnosis helps define the right support.'}</strong>
                 </div>
-                <a href="https://gateway.konnect.network/pay?payment_ref=693042fe7f6493f1d231e7d4" target="_blank" rel="noopener noreferrer" 
+                <Link to="/book-consultation"
                    className="block w-full text-center py-5 rounded-2xl font-black uppercase text-white shadow-lg transition-all" style={{ backgroundColor: '#175c7d' }}>
-                  {ui.signup}
-                </a>
+                  {lang === 'fr' ? 'Demander un diagnostic' : 'Request diagnosis'}
+                </Link>
               </div>
             </div>
           </div>
@@ -581,12 +581,12 @@ const AbroadZonePage = () => {
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="flex items-center gap-3 font-black text-2xl tracking-tighter">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#175c7d' }}>
-                <img src="/abroad.webp" alt="Abroad Zone" className="w-full h-full object-contain" />
+                <img src="/Submark.webp" alt="EduGrowth" className="w-full h-full object-contain" />
               </div>
-              Abroad Zone
+              EduGrowth
             </div>
             <p className="text-xs font-black text-gray-300 uppercase tracking-widest">
-              © 2024 Abroadzone Group • Tunisia • UK • UAE
+              © 2026 EduGrowth Tunisia • Student guidance • International admissions
             </p>
           </div>
         </footer>

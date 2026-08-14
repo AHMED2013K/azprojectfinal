@@ -70,7 +70,7 @@ const posts = {
     relatedLinks: [
       { to: '/blog/refus-visa-etudiant-france-erreurs', label: 'Erreurs qui causent un refus visa' },
       { to: '/book-consultation', label: 'Réserver une consultation' },
-      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+      { to: '/abroad-zone', label: 'Voir EduGrowth' },
     ],
   },
   '/blog/refus-visa-etudiant-france-erreurs': {
@@ -110,7 +110,7 @@ const posts = {
     relatedLinks: [
       { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses pour Tunisiens à l’étranger' },
       { to: '/blog/top-pays-pour-etudier', label: 'Top pays pour étudier' },
-      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+      { to: '/abroad-zone', label: 'Voir EduGrowth' },
     ],
   },
   '/blog/bourses-etudes-etranger-tunisiens': {
@@ -391,7 +391,7 @@ const posts = {
     relatedLinks: [
       { to: '/blog/top-pays-pour-etudier', label: 'Top pays pour étudier' },
       { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Budget études à l’étranger' },
-      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+      { to: '/abroad-zone', label: 'Voir EduGrowth' },
     ],
   },
   '/blog/logement-etudiant-france-depuis-tunisie': {
@@ -451,7 +451,7 @@ const posts = {
     relatedLinks: [
       { to: '/etudier-a-chypre-depuis-tunisie', label: 'Guide Chypre' },
       { to: '/blog/quel-pays-etudier-petit-budget', label: 'Quel pays choisir avec petit budget' },
-      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+      { to: '/abroad-zone', label: 'Voir EduGrowth' },
     ],
   },
   '/blog/etudier-en-turquie-depuis-la-tunisie': {
@@ -471,7 +471,7 @@ const posts = {
     relatedLinks: [
       { to: '/etudier-en-turquie-depuis-tunisie', label: 'Guide Turquie' },
       { to: '/blog/cout-des-etudes-a-l-etranger', label: 'Budget études à l’étranger' },
-      { to: '/abroad-zone', label: 'Voir Abroad Zone' },
+      { to: '/abroad-zone', label: 'Voir EduGrowth' },
     ],
   },
   '/blog/etudier-a-dubai-depuis-la-tunisie': {
@@ -773,7 +773,7 @@ export default function BlogArticlePage() {
           <div className="flex flex-wrap items-center justify-between gap-3 text-sm font-bold text-[#005A9C]">
             <div className="flex flex-wrap gap-3">
               <Link to="/blog">{copy.back}</Link>
-              <Link to="/abroad-zone">Abroad Zone</Link>
+              <Link to="/abroad-zone">EduGrowth</Link>
               <Link to="/outsourcing">Outsourcing</Link>
             </div>
             <LanguageSwitch lang={lang} onToggle={toggleLanguage} />

@@ -134,7 +134,7 @@ const translations = {
       { to: "/blog/etudier-au-canada-depuis-la-tunisie", label: "Article complet : étudier au Canada" },
       { to: "/blog/bourses-etudes-etranger-tunisiens", label: "Bourses pour Tunisiens à l’étranger" },
       { to: "/book-consultation", label: "Réserver une consultation gratuite" },
-      { to: "/abroad-zone", label: "Voir Abroad Zone" },
+      { to: "/abroad-zone", label: "Voir EduGrowth" },
     ],
 
     ctaTitle: "Prêt à étudier au Canada ?",

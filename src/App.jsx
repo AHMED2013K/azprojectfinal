@@ -13,8 +13,11 @@ const ContactPage = lazy(() => import('./pages/ContactPage.jsx'));
 const PartnersPage = lazy(() => import('./pages/PartnersPage.jsx'));
 const ResourcesPage = lazy(() => import('./pages/ResourcesPage.jsx'));
 const DeferredAdmissionPage = lazy(() => import('./pages/DeferredAdmissionPage.jsx'));
+const SeasonalIntakePage = lazy(() => import('./pages/SeasonalIntakePage.jsx'));
 const UniversityPartnersPage = lazy(() => import('./pages/UniversityPartnersPage.jsx'));
+const UniversityRecruitmentAgencyPage = lazy(() => import('./pages/UniversityRecruitmentAgencyPage.jsx'));
 const BecomePartnerPage = lazy(() => import('./pages/BecomePartnerPage.jsx'));
+const GoogleReviewPage = lazy(() => import('./pages/GoogleReviewPage.jsx'));
 const CountryGuidePage = lazy(() => import('./pages/CountryGuidePage.jsx'));
 const CityLandingPage = lazy(() => import('./pages/CityLandingPage.jsx'));
 const BlogHubPage = lazy(() => import('./pages/BlogHubPage.jsx'));
@@ -101,8 +104,12 @@ export default function App() {
         <Route path="/partners" element={<Suspense fallback={<LoadingFallback />}><PartnersPage /></Suspense>} />
         <Route path="/resources" element={<Suspense fallback={<LoadingFallback />}><ResourcesPage /></Suspense>} />
         <Route path="/rentree-decalee-2026-2027" element={<Suspense fallback={<LoadingFallback />}><DeferredAdmissionPage /></Suspense>} />
+        <Route path="/rentree-novembre-2026-russie-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeasonalIntakePage /></Suspense>} />
+        <Route path="/rentree-decalee-janvier-fevrier-2027-chypre-nord" element={<Suspense fallback={<LoadingFallback />}><SeasonalIntakePage /></Suspense>} />
         <Route path="/partenaires-universites" element={<Suspense fallback={<LoadingFallback />}><UniversityPartnersPage /></Suspense>} />
+        <Route path="/agence-recrutement-etudiants-afrique-du-nord" element={<Suspense fallback={<LoadingFallback />}><UniversityRecruitmentAgencyPage /></Suspense>} />
         <Route path="/devenir-partenaire" element={<Suspense fallback={<LoadingFallback />}><BecomePartnerPage /></Suspense>} />
+        <Route path="/avis-google" element={<Suspense fallback={<LoadingFallback />}><GoogleReviewPage /></Suspense>} />
 
         <Route path="/fr/etudier-a-l-etranger-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/fr/etudier-a-l-etranger-depuis-tunis" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />

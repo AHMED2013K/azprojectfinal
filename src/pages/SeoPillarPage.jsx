@@ -779,7 +779,11 @@ export default function SeoPillarPage() {
               '@id': `${canonical}#comparison-data`,
               name: 'Comparatif des pays pour étudier à l’étranger depuis la Tunisie',
               description: 'Comparaison éditoriale des destinations selon budget, langue, visa et profil étudiant tunisien.',
-              creator: { '@id': `${SITE}/#organization` },
+              creator: {
+                '@type': 'Organization',
+                name: 'EduGrowth Tunisia',
+                url: `${SITE}/`,
+              },
             },
           ]
         : []),

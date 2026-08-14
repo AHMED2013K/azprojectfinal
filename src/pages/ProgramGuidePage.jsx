@@ -5,7 +5,10 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 import { trackEvent } from '../utils/tracking';
 
 const WA_NUMBER = '21656590703';
-const APPLY_URL = 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=alternance_france';
+const applyUrls = {
+  '/programmes/alternance-france': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=alternance_france',
+  '/programmes/ausbildung-allemagne': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=ausbildung_allemagne_sante',
+};
 
 function normalizeContentPath(pathname) {
   if (pathname === '/') return pathname;
@@ -46,14 +49,39 @@ const programData = {
     ],
   },
   '/programmes/ausbildung-allemagne': {
-    title: 'Ausbildung en Allemagne depuis la Tunisie | EduGrowth',
+    title: 'Ausbildung Allemagne santé depuis la Tunisie | Travail et étude | EduGrowth',
     description:
-      "Guide complet Ausbildung: conditions, langue, dossier, contrat et installation en Allemagne.",
-    h1: 'Ausbildung en Allemagne depuis la Tunisie',
+      "Guide complet Ausbildung en Allemagne pour Tunisiens: santé, soins infirmiers, aide-soignant, langue allemande, dossier, contrat, visa, travail et étude.",
+    h1: 'Ausbildung en Allemagne depuis la Tunisie: santé, travail et étude',
+    chips: [
+      'ausbildung allemagne tunisie',
+      'travail et étude en allemagne',
+      'ausbildung santé allemagne',
+      'formation rémunérée allemagne tunisiens',
+    ],
+    highlights: [
+      "La demande études à l’étranger baisse après août; l’Ausbildung devient une priorité forte pour les profils qui veulent apprendre un métier, travailler et construire une trajectoire en Allemagne.",
+      "Le domaine santé est prioritaire: soins infirmiers, aide-soignant, assistance médicale, accompagnement des personnes âgées et métiers paramédicaux selon niveau d’allemand.",
+      "EduGrowth qualifie le niveau académique, le niveau d’allemand, le sérieux du projet et la faisabilité visa avant de lancer les candidatures.",
+    ],
+    proof: [
+      { stat: 'B1/B2', label: 'niveau allemand souvent attendu selon employeur' },
+      { stat: 'Santé', label: 'priorité stratégique 2026-2027' },
+      { stat: 'CRM', label: 'profil suivi via apply EduGrowth' },
+    ],
+    faq: [
+      ['Quel niveau d’allemand faut-il pour une Ausbildung ?', 'Le niveau dépend du métier et de l’employeur. Pour les métiers de santé, B1 solide ou B2 est souvent plus réaliste. EduGrowth vérifie le niveau avant de promettre une candidature.'],
+      ['Quels métiers santé viser en Ausbildung ?', 'Les pistes fréquentes sont soins infirmiers, aide-soignant, assistant médical, assistance en maison de retraite et autres métiers paramédicaux selon profil.'],
+      ['Peut-on travailler et étudier en Allemagne avec une Ausbildung ?', 'Oui, l’Ausbildung combine formation théorique et pratique rémunérée. Il faut toutefois un contrat, un niveau linguistique cohérent et un dossier visa solide.'],
+      ['EduGrowth aide-t-il pour le dossier visa ?', 'EduGrowth accompagne la préparation du dossier, la cohérence du projet, les documents et la planification, sans garantir la décision consulaire.'],
+    ],
     relatedLinks: [
       { to: '/etudier-en-allemagne-depuis-tunisie', label: 'Guide Allemagne' },
+      { to: '/universites-allemagne-etudiants-tunisiens', label: 'Universités Allemagne pour étudiants tunisiens' },
+      { to: '/logement-etudiant-allemagne-depuis-tunisie', label: 'Logement étudiant Allemagne' },
+      { to: '/blog/ausbildung-allemagne-tunisiens-conditions', label: 'Conditions Ausbildung Allemagne' },
+      { to: '/blog/compte-bloque-allemagne-tunisie', label: 'Compte bloqué Allemagne' },
       { to: '/blog/etudier-en-allemagne-depuis-la-tunisie', label: 'Article complet Allemagne' },
-      { to: '/blog/bourses-etudes-etranger-tunisiens', label: 'Bourses à l’étranger' },
       { to: '/book-consultation', label: 'Réserver une consultation' },
     ],
   },
@@ -74,7 +102,7 @@ export default function ProgramGuidePage() {
           '4. Envoi du profil via apply, signature du contrat puis préparation administrative.',
         ],
         proofTitle: 'Preuve de traction',
-        faqTitle: 'FAQ alternance France',
+        faqTitle: contentPath === '/programmes/ausbildung-allemagne' ? 'FAQ Ausbildung Allemagne' : 'FAQ alternance France',
         supportTitle: "Besoin d'un accompagnement personnalisé ?",
         applyText: "Le SEO attire la demande. Le lien apply convertit les profils qui veulent vraiment avancer.",
         applyPrimary: 'Remplir le formulaire apply',
@@ -116,7 +144,7 @@ export default function ProgramGuidePage() {
         <div className="mx-auto max-w-4xl rounded-3xl bg-white p-8 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3 text-sm font-bold text-[#005A9C]">
             <div className="flex flex-wrap gap-3">
-              <Link to="/abroad-zone">Abroad Zone</Link>
+              <Link to="/abroad-zone">EduGrowth</Link>
               <Link to="/blog">Blog</Link>
               <Link to="/book-consultation">Book Consultation</Link>
             </div>
@@ -170,9 +198,9 @@ export default function ProgramGuidePage() {
             <h2 className="text-2xl font-black">{copy.supportTitle}</h2>
             <p className="mt-3 text-slate-300">{copy.applyText}</p>
             <div className="mt-4 flex flex-wrap gap-3">
-              {contentPath === '/programmes/alternance-france' ? (
+              {applyUrls[contentPath] ? (
                 <a
-                  href={APPLY_URL}
+                  href={applyUrls[contentPath]}
                   onClick={handleApplyClick}
                   className="rounded-xl bg-emerald-500 px-5 py-3 text-sm font-black text-white"
                 >
