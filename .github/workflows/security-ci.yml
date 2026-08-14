@@ -21,7 +21,7 @@ jobs:
           node -p "const l=require('./package-lock.json'); ['@babel/core','nodemailer','react-router','react-router-dom','vite','postcss','ip-address','js-yaml','qs'].map(p=>p+': '+(l.packages['node_modules/'+p]?.version)).join('\n')"
       - name: Audit website dependencies
         run: node scripts/audit-high.mjs
-      - run: npm run build
+      - run: npm run build:prerender
       - run: node scripts/audit-high.mjs
 
   crm:
