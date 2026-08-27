@@ -546,7 +546,7 @@ const AbroadZonePage = () => {
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-blue-400"><Mail size={20} /></div>
-                  <p className="font-bold">contact@edugrowth.tn</p>
+                  <p className="font-bold">edugrowth.tn@gmail.com</p>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500"><Phone size={20} /></div>

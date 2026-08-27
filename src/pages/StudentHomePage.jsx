@@ -17,6 +17,7 @@ import {
   Home,
   Instagram,
   Languages,
+  Mail,
   MapPin,
   Menu,
   MessageCircle,
@@ -33,6 +34,7 @@ import { studentAbroadTestimonials } from '../components/TestimonialsData.js';
 import { trackEvent } from '../utils/tracking';
 
 const WA_NUMBER = '21656590703';
+const CONTACT_EMAIL = 'edugrowth.tn@gmail.com';
 
 function buildEligibilityUrl(source, lang) {
   const params = new URLSearchParams({
@@ -601,6 +603,7 @@ const structuredData = {
       description:
         "EduGrowth accompagne les bacheliers, étudiants et parents en Tunisie dans les projets d'études à l'étranger avec orientation transparente, budget réaliste, admission, visa étudiant et suivi WhatsApp.",
       telephone: '+21656590703',
+      email: CONTACT_EMAIL,
       priceRange: '$$',
       address: {
         '@type': 'PostalAddress',
@@ -623,6 +626,7 @@ const structuredData = {
       contactPoint: {
         '@type': 'ContactPoint',
         telephone: '+21656590703',
+        email: CONTACT_EMAIL,
         contactType: 'student guidance',
         availableLanguage: ['French', 'Arabic', 'English'],
         areaServed: 'TN',
@@ -1480,6 +1484,7 @@ export default function StudentHomePage() {
             <div className="space-y-3 text-sm font-semibold text-slate-600">
               <div className="flex items-center gap-2"><MapPin size={16} /> Tunisia</div>
               <div className="flex items-center gap-2"><MessageCircle size={16} /> +216 56 59 07 03</div>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-2 hover:text-[#176b87]"><Mail size={16} /> {CONTACT_EMAIL}</a>
               <div className="flex items-center gap-2"><Languages size={16} /> FR / AR / EN</div>
             </div>
             <div className="space-y-3 text-sm font-semibold text-slate-600">

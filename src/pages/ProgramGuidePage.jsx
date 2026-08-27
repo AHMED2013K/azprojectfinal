@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 import { trackEvent } from '../utils/tracking';
 
 const WA_NUMBER = '21656590703';
+const CONTACT_EMAIL = 'edugrowth.tn@gmail.com';
 const applyUrls = {
   '/programmes/alternance-france': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=alternance_france',
   '/programmes/ausbildung-allemagne': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=program_page&utm_campaign=ausbildung_allemagne_sante',
@@ -12,6 +13,8 @@ const applyUrls = {
   '/ausbildung-infirmier-allemagne-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=ausbildung_infirmier_allemagne_tunisie',
   '/ausbildung-aide-soignant-allemagne-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=ausbildung_aide_soignant_allemagne_tunisie',
   '/travail-etude-allemagne-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=travail_etude_allemagne_tunisie',
+  '/travailler-en-allemagne-depuis-tunisie': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=travailler_allemagne_tunisie',
+  '/etudier-et-travailler-en-allemagne': 'https://app.edugrowth.tn/apply?utm_source=website&utm_medium=seo&utm_campaign=etudier_travailler_allemagne',
 };
 
 function normalizeContentPath(pathname) {
@@ -254,6 +257,48 @@ const programData = {
   },
 };
 
+programData['/travailler-en-allemagne-depuis-tunisie'] = {
+  ...programData['/travail-etude-allemagne-tunisie'],
+  title: 'Travailler en Allemagne depuis la Tunisie | Ausbildung et emploi | EduGrowth',
+  description:
+    "Travailler en Allemagne depuis la Tunisie: Ausbildung rémunérée, métiers santé, allemand B1/B2, contrat, visa, dossier et accompagnement EduGrowth.",
+  h1: 'Travailler en Allemagne depuis la Tunisie avec un projet Ausbildung réaliste',
+  chips: [
+    'travailler en allemagne depuis la tunisie',
+    'travailler en allemagne tunisien',
+    'ausbildung allemagne travail',
+    'emploi formation allemagne',
+    'visa travail formation allemagne',
+  ],
+  highlights: [
+    "Cette page cible l’intention directe travailler en Allemagne, mais clarifie que la voie la plus réaliste pour beaucoup de jeunes Tunisiens est souvent une formation professionnelle rémunérée.",
+    "Les profils doivent prouver une motivation métier, un niveau d’allemand en progression, des documents propres et un calendrier compatible avec les candidatures et le visa.",
+    "EduGrowth filtre les options sérieuses: Ausbildung santé, soins infirmiers, aide-soignant, hôtellerie, technique ou autre parcours selon le niveau réel du candidat.",
+    "L’objectif n’est pas de promettre un emploi garanti, mais de construire un dossier crédible pour discuter avec des écoles, employeurs et autorités compétentes.",
+  ],
+};
+
+programData['/etudier-et-travailler-en-allemagne'] = {
+  ...programData['/travail-etude-allemagne-tunisie'],
+  title: 'Étudier et travailler en Allemagne | Ausbildung pour Tunisiens | EduGrowth',
+  description:
+    "Étudier et travailler en Allemagne depuis la Tunisie: Ausbildung, formation rémunérée, langue allemande, contrat, visa, budget, logement et dossier.",
+  h1: 'Étudier et travailler en Allemagne: la voie Ausbildung pour les Tunisiens',
+  chips: [
+    'étudier et travailler en allemagne',
+    'travailler et étudier en allemagne',
+    'formation rémunérée allemagne',
+    'ausbildung pour tunisiens',
+    'alternance allemagne tunisie',
+  ],
+  highlights: [
+    "Cette page répond aux recherches des jeunes qui veulent combiner apprentissage, salaire, expérience professionnelle et installation progressive en Allemagne.",
+    "L’Ausbildung n’est pas une simple étude universitaire: elle combine école professionnelle, employeur, contrat, langue allemande et dossier administratif.",
+    "Les métiers santé restent prioritaires pour EduGrowth, surtout soins infirmiers, aide-soignant, accompagnement des personnes âgées et assistance médicale selon profil.",
+    "Le diagnostic gratuit vérifie d’abord le niveau, le budget, la motivation métier, la langue et les délais avant de recommander une stratégie Allemagne.",
+  ],
+};
+
 export default function ProgramGuidePage() {
   const { lang, toggleLanguage } = useLanguage();
   const { pathname } = useLocation();
@@ -273,10 +318,13 @@ export default function ProgramGuidePage() {
         supportTitle: "Besoin d'un accompagnement personnalisé ?",
         applyText: "Le SEO attire la demande. Le lien apply convertit les profils qui veulent vraiment avancer.",
         applyPrimary: 'Remplir le formulaire apply',
+        emailLabel: 'Email temporaire',
         related: 'Ressources liées',
         consultation: 'Réserver une consultation gratuite',
         whatsapp: 'Conseiller WhatsApp',
-        whatsappText: 'Bonjour EduGrowth, je veux un accompagnement pour ce programme.',
+        whatsappText: contentPath.includes('allemagne') || contentPath.includes('ausbildung')
+          ? "Bonjour EduGrowth, je veux vérifier mon profil pour l'Ausbildung / travailler et étudier en Allemagne.\nNiveau:\nAllemand:\nMétier visé:\nVille en Tunisie:"
+          : 'Bonjour EduGrowth, je veux un accompagnement pour ce programme.',
       }
     : {
         roadmap: 'Recommended Roadmap',
@@ -291,6 +339,7 @@ export default function ProgramGuidePage() {
         supportTitle: 'Need personalized guidance?',
         applyText: 'SEO captures demand. The apply link converts serious profiles into CRM-qualified leads.',
         applyPrimary: 'Open apply form',
+        emailLabel: 'Temporary email',
         related: 'Related resources',
         consultation: 'Book Free Consultation',
         whatsapp: 'WhatsApp Advisor',
@@ -304,9 +353,56 @@ export default function ProgramGuidePage() {
     });
   };
 
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `https://edugrowth.tn${contentPath}/#webpage`,
+        url: `https://edugrowth.tn${contentPath}/`,
+        name: data.title,
+        description: data.description,
+        inLanguage: 'fr-TN',
+        about: {
+          '@type': 'Course',
+          name: data.h1,
+          description: data.description,
+          provider: {
+            '@type': ['EducationalOrganization', 'LocalBusiness'],
+            name: 'EduGrowth Tunisia',
+            url: 'https://edugrowth.tn/',
+            telephone: '+21656590703',
+            email: CONTACT_EMAIL,
+          },
+          educationalCredentialAwarded: contentPath.includes('ausbildung') || contentPath.includes('allemagne') ? 'German vocational training pathway' : undefined,
+          occupationalCategory: contentPath.includes('allemagne') ? ['Healthcare', 'Nursing', 'Elder care', 'Vocational training'] : undefined,
+          inLanguage: ['fr', 'de'],
+          audience: {
+            '@type': 'Audience',
+            audienceType: 'Tunisian students interested in Ausbildung, working and studying in Germany',
+          },
+        },
+        potentialAction: {
+          '@type': 'ContactAction',
+          name: "Tester mon profil Allemagne / Ausbildung",
+          target: `https://wa.me/${WA_NUMBER}`,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `https://edugrowth.tn${contentPath}/#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://edugrowth.tn/' },
+          { '@type': 'ListItem', position: 2, name: 'Allemagne et Ausbildung', item: 'https://edugrowth.tn/programmes/ausbildung-allemagne/' },
+          { '@type': 'ListItem', position: 3, name: data.h1, item: `https://edugrowth.tn${contentPath}/` },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
-      <SEOHelmet title={data.title} description={data.description} canonical={`https://edugrowth.tn${contentPath}`} lang={lang} faqItems={data.faq} />
+      <SEOHelmet title={data.title} description={data.description} canonical={`https://edugrowth.tn${contentPath}`} lang={lang} structuredData={structuredData} faqItems={data.faq} />
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
         <div className="mx-auto max-w-4xl rounded-3xl bg-white p-8 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3 text-sm font-bold text-[#005A9C]">
@@ -364,6 +460,7 @@ export default function ProgramGuidePage() {
           <section className="mt-8 rounded-2xl bg-slate-950 p-6 text-white">
             <h2 className="text-2xl font-black">{copy.supportTitle}</h2>
             <p className="mt-3 text-slate-300">{copy.applyText}</p>
+            <p className="mt-3 text-sm font-semibold text-slate-300">{copy.emailLabel}: <a href={`mailto:${CONTACT_EMAIL}`} className="text-white underline">{CONTACT_EMAIL}</a></p>
             <div className="mt-4 flex flex-wrap gap-3">
               {applyUrls[contentPath] ? (
                 <a

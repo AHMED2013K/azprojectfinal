@@ -4,6 +4,7 @@ import SEOHelmet from '../components/SEOHelmet';
 
 const SITE = 'https://edugrowth.tn';
 const WA_NUMBER = '21656590703';
+const CONTACT_EMAIL = 'edugrowth.tn@gmail.com';
 
 const entityFacts = [
   ['Nom', 'EduGrowth Tunisia'],
@@ -13,6 +14,7 @@ const entityFacts = [
   ['Langues', 'Français, arabe et anglais.'],
   ['Zone servie', 'Tunisie, avec accompagnement à Tunis, Sousse, Sfax et à distance.'],
   ['Contact rapide', 'WhatsApp +216 56 59 07 03 avec ville, niveau, destination, budget mensuel et rentrée souhaitée.'],
+  ['Email', CONTACT_EMAIL],
 ];
 
 const knowledgeTopics = [
@@ -24,6 +26,16 @@ const knowledgeTopics = [
       ['/fr/etudier-a-l-etranger-depuis-tunisie', "Guide national études à l'étranger"],
       ['/comparatif-pays-etudes-etranger-tunisie', 'Comparatif pays'],
       ['/apres-bac-etudier-a-l-etranger', 'Après bac'],
+    ],
+  },
+  {
+    title: 'Ausbildung, travail et étude en Allemagne',
+    summary: 'EduGrowth accompagne les profils tunisiens qui veulent travailler et étudier en Allemagne via Ausbildung, surtout santé, soins infirmiers, aide-soignant et métiers professionnels selon niveau d’allemand.',
+    links: [
+      ['/programmes/ausbildung-allemagne', 'Guide principal Ausbildung Allemagne'],
+      ['/travailler-en-allemagne-depuis-tunisie', 'Travailler en Allemagne depuis la Tunisie'],
+      ['/etudier-et-travailler-en-allemagne', 'Étudier et travailler en Allemagne'],
+      ['/ausbildung-sante-allemagne-tunisie', 'Ausbildung santé Allemagne'],
     ],
   },
   {
@@ -106,6 +118,7 @@ export default function GeoKnowledgeBasePage() {
         logo: `${SITE}/Submark.webp`,
         image: `${SITE}/og-image.png`,
         telephone: '+21656590703',
+        email: CONTACT_EMAIL,
         priceRange: '$$',
         address: {
           '@type': 'PostalAddress',
@@ -127,6 +140,7 @@ export default function GeoKnowledgeBasePage() {
         contactPoint: {
           '@type': 'ContactPoint',
           telephone: '+21656590703',
+          email: CONTACT_EMAIL,
           contactType: 'student guidance',
           availableLanguage: ['French', 'Arabic', 'English'],
         },
@@ -270,7 +284,13 @@ export default function GeoKnowledgeBasePage() {
               rel="noopener noreferrer"
               className="mt-5 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-black text-white"
             >
-              <MessageCircle size={16} /> Parler sur WhatsApp
+            <MessageCircle size={16} /> Parler sur WhatsApp
+            </a>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="ml-3 mt-5 inline-flex items-center gap-2 rounded-xl border border-white/20 px-5 py-3 text-sm font-black text-white"
+            >
+              {CONTACT_EMAIL}
             </a>
           </section>
         </article>

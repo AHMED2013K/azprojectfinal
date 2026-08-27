@@ -6,6 +6,7 @@ import LanguageSwitch from '../components/LanguageSwitch';
 import { trackEvent } from '../utils/tracking';
 
 const WA_NUMBER = '21656590703';
+const CONTACT_EMAIL = 'edugrowth.tn@gmail.com';
 
 const ContactPage = () => {
   const { lang, toggleLanguage } = useLanguage();
@@ -52,10 +53,31 @@ const ContactPage = () => {
 
   const applyUrl = `https://app.edugrowth.tn/apply?utm_source=website&utm_medium=contact_page&utm_campaign=student_contact&utm_content=${lang}`;
   const whatsappUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(copy.whatsappText)}`;
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': ['ContactPage', 'WebPage'],
+    '@id': 'https://edugrowth.tn/contact/#webpage',
+    url: 'https://edugrowth.tn/contact/',
+    name: copy.title,
+    description: copy.description,
+    about: {
+      '@type': ['EducationalOrganization', 'LocalBusiness'],
+      name: 'EduGrowth Tunisia',
+      telephone: '+21656590703',
+      email: CONTACT_EMAIL,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+21656590703',
+        email: CONTACT_EMAIL,
+        contactType: 'student guidance',
+        availableLanguage: ['French', 'Arabic', 'English'],
+      },
+    },
+  };
 
   return (
     <>
-      <SEOHelmet title={copy.title} description={copy.description} canonical="https://edugrowth.tn/contact" lang={lang} />
+      <SEOHelmet title={copy.title} description={copy.description} canonical="https://edugrowth.tn/contact" lang={lang} structuredData={structuredData} />
       <div className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900">
         <div className="mx-auto max-w-6xl">
           <div className="mb-8 flex items-center justify-between gap-4">
@@ -98,7 +120,7 @@ const ContactPage = () => {
 
               <div className="mt-8 space-y-4 text-sm font-semibold text-slate-700">
                 <div className="flex items-start gap-3"><Phone className="mt-0.5 text-[#176b87]" size={18} /> +216 56 59 07 03</div>
-                <div className="flex items-start gap-3"><Mail className="mt-0.5 text-[#176b87]" size={18} /> contact@edugrowth.tn</div>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-start gap-3 hover:text-[#176b87]"><Mail className="mt-0.5 text-[#176b87]" size={18} /> {CONTACT_EMAIL}</a>
                 <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900">{copy.warning}</div>
               </div>
             </section>

@@ -55,6 +55,7 @@ const SEOHelmet = ({
         "logo": "https://edugrowth.tn/Submark.webp",
         "description": "EduGrowth guides Tunisian students and families through study abroad projects, destination choice, admissions, visa preparation, housing, and work-study options.",
         "telephone": "+21656590703",
+        "email": "edugrowth.tn@gmail.com",
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
@@ -79,6 +80,7 @@ const SEOHelmet = ({
         "contactPoint": {
           "@type": "ContactPoint",
           "telephone": "+21656590703",
+          "email": "edugrowth.tn@gmail.com",
           "contactType": "student guidance",
           "availableLanguage": ["English", "French", "Arabic"],
           "areaServed": ["TN", "AE", "GB", "FR", "DE", "CA"]

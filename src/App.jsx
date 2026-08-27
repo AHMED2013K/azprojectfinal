@@ -219,6 +219,8 @@ export default function App() {
         <Route path="/ausbildung-infirmier-allemagne-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgramGuidePage /></Suspense>} />
         <Route path="/ausbildung-aide-soignant-allemagne-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgramGuidePage /></Suspense>} />
         <Route path="/travail-etude-allemagne-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgramGuidePage /></Suspense>} />
+        <Route path="/travailler-en-allemagne-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgramGuidePage /></Suspense>} />
+        <Route path="/etudier-et-travailler-en-allemagne" element={<Suspense fallback={<LoadingFallback />}><ProgramGuidePage /></Suspense>} />
 
         <Route path="/education-outsourcing-tunisia" element={<Suspense fallback={<LoadingFallback />}><OutsourcingServicePage /></Suspense>} />
         <Route path="/student-recruitment-outsourcing" element={<Suspense fallback={<LoadingFallback />}><OutsourcingServicePage /></Suspense>} />
