@@ -32,9 +32,9 @@ export default function LeadCaptureForm({
 
   const copy = {
     en: {
-      helper: '30-second form. Our team replies quickly on WhatsApp.',
+      helper: '30-second form. Phone is enough to start. Our team replies quickly on WhatsApp.',
       name: 'Full name',
-      email: 'Email',
+      email: 'Email (optional)',
       phone: 'Phone / WhatsApp',
       organization: 'School / Agency / University (optional)',
       objective: 'What is your goal?',
@@ -42,9 +42,9 @@ export default function LeadCaptureForm({
       leadTitle: 'New Funnel Lead',
     },
     fr: {
-      helper: "Formulaire de 30 secondes. Notre équipe vous répond rapidement sur WhatsApp.",
+      helper: "Formulaire de 30 secondes. Le téléphone suffit pour démarrer. Réponse rapide sur WhatsApp.",
       name: 'Nom complet',
-      email: 'Email',
+      email: 'Email (optionnel)',
       phone: 'Téléphone / WhatsApp',
       organization: 'École / agence / université (optionnel)',
       objective: 'Quel est votre objectif ?',
@@ -143,15 +143,18 @@ export default function LeadCaptureForm({
         <input
           name="email"
           type="email"
-          required
           placeholder={copy.email}
+          autoComplete="email"
           data-i18n-placeholder="lead_form.email"
           className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]"
         />
         <input
           name="phone"
+          type="tel"
           required
           placeholder={copy.phone}
+          autoComplete="tel"
+          inputMode="tel"
           data-i18n-placeholder="lead_form.phone"
           className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold outline-none focus:border-[#005A9C]"
         />

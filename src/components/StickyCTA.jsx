@@ -16,6 +16,18 @@ function buildApplyUrl(pathname, lang) {
   return `https://app.edugrowth.tn/apply?${params.toString()}`;
 }
 
+function buildWhatsAppUrl(message, pathname, lang) {
+  const params = new URLSearchParams({
+    text: message,
+    utm_source: 'website',
+    utm_medium: 'sticky_whatsapp',
+    utm_campaign: pathname.replace(/\//g, '_') || 'homepage',
+    utm_content: lang,
+  });
+
+  return `https://wa.me/${WA_NUMBER}?${params.toString()}`;
+}
+
 function getWhatsAppText(pathname, lang) {
   const isFr = lang === 'fr';
 
@@ -68,8 +80,8 @@ function getWhatsAppText(pathname, lang) {
   }
 
   return isFr
-    ? "Bonjour EduGrowth, je souhaite tester mon eligibilite pour etudier a l'etranger."
-    : 'Hello EduGrowth, I want to check my eligibility to study abroad.';
+    ? "Bonjour EduGrowth, je souhaite tester mon eligibilite pour etudier a l'etranger.\nVille:\nNiveau:\nBudget mensuel:\nDestination visee:"
+    : 'Hello EduGrowth, I want to check my eligibility to study abroad.\nCity:\nStudy level:\nMonthly budget:\nTarget destination:';
 }
 
 export default function StickyCTA() {
@@ -90,13 +102,13 @@ export default function StickyCTA() {
   const copy = lang === 'fr'
       ? {
         consultation: 'Consultation gratuite',
-        whatsapp: 'WhatsApp',
-        apply: 'Éligibilité',
+        whatsapp: 'WhatsApp direct',
+        apply: 'Test 30 sec',
       }
     : {
         consultation: 'Free Consultation',
-        whatsapp: 'WhatsApp',
-        apply: 'Eligibility',
+        whatsapp: 'Direct WhatsApp',
+        apply: '30-sec test',
       };
 
   return (
@@ -104,12 +116,17 @@ export default function StickyCTA() {
       <div className="mx-auto flex max-w-6xl items-center gap-2 sm:gap-3">
         {isStudentJourney ? (
           <a
-            href={buildApplyUrl(pathname, lang)}
-            onClick={() => trackEvent('cta_click', { cta_type: 'sticky_apply', page: pathname })}
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#17324d] px-3 py-3 text-sm font-black text-white transition-all duration-200 hover:bg-[#10263b] active:scale-95 touch-manipulation sm:min-w-[210px] sm:px-4 sm:py-3"
+            href={buildWhatsAppUrl(whatsappText, pathname, lang)}
+            onClick={() => {
+              trackEvent('cta_click', { cta_type: 'sticky_whatsapp_primary', page: pathname });
+              trackEvent('whatsapp_lead', { lead_source: 'sticky_whatsapp_primary', page_location: pathname, value: 1, currency: 'USD' });
+            }}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-3 py-3 text-sm font-black text-white transition-all duration-200 hover:bg-emerald-700 active:scale-95 touch-manipulation sm:min-w-[210px] sm:px-4 sm:py-3"
           >
-            <GraduationCap size={16} className="flex-shrink-0" />
-            <span className="truncate">{copy.apply}</span>
+            <MessageCircle size={16} className="flex-shrink-0" />
+            <span className="truncate">{copy.whatsapp}</span>
           </a>
         ) : (
           <Link
@@ -122,14 +139,14 @@ export default function StickyCTA() {
           </Link>
         )}
         <a
-          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(whatsappText)}`}
-          onClick={() => trackEvent('cta_click', { cta_type: 'sticky_whatsapp', page: pathname })}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-3 text-sm font-black text-emerald-700 transition-all duration-200 hover:bg-emerald-100 hover:scale-105 active:scale-95 touch-manipulation sm:min-w-[180px] sm:px-4 sm:py-3"
+          href={isStudentJourney ? buildApplyUrl(pathname, lang) : buildWhatsAppUrl(whatsappText, pathname, lang)}
+          onClick={() => trackEvent('cta_click', { cta_type: isStudentJourney ? 'sticky_apply_secondary' : 'sticky_whatsapp', page: pathname })}
+          target={isStudentJourney ? undefined : '_blank'}
+          rel={isStudentJourney ? undefined : 'noopener noreferrer'}
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-black text-[#17324d] transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 touch-manipulation sm:min-w-[180px] sm:px-4 sm:py-3"
         >
-          <MessageCircle size={16} className="flex-shrink-0" />
-          <span className="truncate">{copy.whatsapp}</span>
+          <GraduationCap size={16} className="flex-shrink-0" />
+          <span className="truncate">{isStudentJourney ? copy.apply : copy.whatsapp}</span>
         </a>
       </div>
     </div>

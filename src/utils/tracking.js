@@ -11,7 +11,7 @@ export function trackEvent(eventName, params = {}) {
     }
 
     trackMetaEvent(eventName, params);
-    if (eventName === 'generate_lead') {
+    if (eventName === 'generate_lead' || eventName === 'whatsapp_lead') {
       trackMetaStandardEvent('Lead', params);
     }
   } catch {

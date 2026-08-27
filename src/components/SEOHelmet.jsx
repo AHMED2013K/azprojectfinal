@@ -55,6 +55,23 @@ const SEOHelmet = ({
         "logo": "https://edugrowth.tn/Submark.webp",
         "description": "EduGrowth guides Tunisian students and families through study abroad projects, destination choice, admissions, visa preparation, housing, and work-study options.",
         "telephone": "+21656590703",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Tunis",
+          "addressCountry": "TN"
+        },
+        "areaServed": ["Tunisia", "Tunis", "Sousse", "Sfax", "Ariana", "France", "Germany", "Canada", "United Arab Emirates"],
+        "knowsAbout": [
+          "orientation etudiant Tunisie",
+          "etudier a l'etranger depuis la Tunisie",
+          "Campus France Tunisie",
+          "visa etudiant",
+          "admission universite etranger",
+          "alternance France pour Tunisiens",
+          "budget etudes etranger",
+          "logement etudiant"
+        ],
         "sameAs": [
           "https://www.instagram.com/edugrowth.tn/",
           "https://www.facebook.com/edugrowth.tn"
@@ -65,6 +82,11 @@ const SEOHelmet = ({
           "contactType": "student guidance",
           "availableLanguage": ["English", "French", "Arabic"],
           "areaServed": ["TN", "AE", "GB", "FR", "DE", "CA"]
+        },
+        "potentialAction": {
+          "@type": "ContactAction",
+          "name": "Request a free study abroad diagnosis on WhatsApp",
+          "target": "https://wa.me/21656590703"
         }
       },
       {

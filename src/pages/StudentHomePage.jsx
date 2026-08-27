@@ -45,6 +45,18 @@ function buildEligibilityUrl(source, lang) {
   return `https://app.edugrowth.tn/apply?${params.toString()}`;
 }
 
+function buildWhatsAppUrl(message, source, lang) {
+  const params = new URLSearchParams({
+    text: message,
+    utm_source: 'website',
+    utm_medium: 'whatsapp',
+    utm_campaign: source,
+    utm_content: lang,
+  });
+
+  return `https://wa.me/${WA_NUMBER}?${params.toString()}`;
+}
+
 const destinations = [
   {
     name: 'France privé',
@@ -253,7 +265,11 @@ const copy = {
     heroTitle: "Orientation etudiant en Tunisie pour etudier a l'etranger avec un dossier clair",
     heroText:
       "EduGrowth accompagne les etudiants tunisiens et leurs familles dans le choix du pays, l'admission, Campus France, le visa, le logement et la preparation au depart.",
-    heroProof: ['Diagnostic gratuit', 'Parents bienvenus', 'Suivi en francais, arabe et anglais'],
+    heroProof: ['Diagnostic gratuit aujourd’hui', 'Parents bienvenus', 'Réponse WhatsApp prioritaire'],
+    conversionTitle: 'Vous avez cliqué mais vous hésitez à écrire ?',
+    conversionText:
+      'Envoyez simplement votre niveau, budget et destination. Aucun engagement: on vous dit si votre projet est réaliste et quelles options éviter.',
+    conversionPoints: ['Réponse humaine, pas un bot', 'Premier tri gratuit', 'Message prêt à compléter sur WhatsApp'],
     brandTitle: "Un seul interlocuteur pour votre projet d'etudes a l'etranger",
     brandText:
       "EduGrowth centralise l'orientation, les candidatures, le suivi administratif et la preparation au depart pour eviter les informations dispersees, les retards et les erreurs de dossier.",
@@ -289,7 +305,7 @@ const copy = {
     quizEyebrow: 'Test rapide',
     quizTitle: 'Quel pays correspond a votre profil et votre budget ?',
     quizText:
-      "Repondez a trois questions. Vous obtenez un resume clair a envoyer sur WhatsApp pour recevoir une premiere orientation personnalisee.",
+      "Repondez a trois questions. Vous obtenez un message pret a envoyer sur WhatsApp pour recevoir une premiere orientation personnalisee.",
     quizDestination: 'Destination visee',
     quizBudget: 'Budget mensuel estime',
     quizStage: 'Ou en etes-vous ?',
@@ -359,6 +375,10 @@ const copy = {
     faqTitle: 'Questions frequentes',
     faqs: [
       {
+        q: 'Que dois-je envoyer sur WhatsApp pour recevoir une réponse utile ?',
+        a: 'Envoyez votre ville, niveau actuel, destination visée, budget mensuel et date de rentrée souhaitée. Avec ces cinq infos, le conseiller peut filtrer les options réalistes.',
+      },
+      {
         q: 'Quel pays choisir selon mon budget ?',
         a: 'Le diagnostic permet de comparer les destinations selon votre niveau, votre budget, votre langue et votre objectif professionnel.',
       },
@@ -379,7 +399,7 @@ const copy = {
     finalText:
       'Faites analyser votre profil gratuitement et recevez une premiere orientation claire selon votre niveau, votre budget et votre objectif.',
     footerText: "EduGrowth accompagne les etudiants tunisiens dans leurs projets d'etudes internationales.",
-    whatsappText: "Bonjour EduGrowth, je veux tester mon eligibilite pour etudier a l'etranger.",
+    whatsappText: "Bonjour EduGrowth, je veux tester mon eligibilite pour etudier a l'etranger.\nVille:\nNiveau actuel:\nDestination visee:\nBudget mensuel:\nRentree souhaitee:",
     seoSectionTitle: "Etudier a l'etranger depuis la Tunisie : les points a verifier",
     seoBlocks: [
       {
@@ -417,6 +437,10 @@ const copy = {
     heroText:
       'EduGrowth helps Tunisian students and families choose the right destination, prepare a strong application, secure admission, and move toward visa and departure with clarity.',
     heroProof: ['Free diagnosis', 'Tunisia-based advisors', 'French, Arabic, and English support'],
+    conversionTitle: 'Clicked but not sure what to send?',
+    conversionText:
+      'Send your level, budget, and target destination. No commitment: we tell you whether the project is realistic and which options to avoid.',
+    conversionPoints: ['Human reply, not a bot', 'Free first screening', 'Ready-to-complete WhatsApp message'],
     brandTitle: 'One trusted contact for your study abroad project',
     brandText:
       'EduGrowth centralizes guidance, applications, administrative follow-up, and departure preparation so students avoid scattered information, delays, and file mistakes.',
@@ -452,7 +476,7 @@ const copy = {
     quizEyebrow: 'Quick test',
     quizTitle: 'Which country fits your profile and budget?',
     quizText:
-      'Answer three simple questions. You can then send the summary on WhatsApp or open the eligibility form.',
+      'Answer three simple questions. You get a ready-to-send WhatsApp message for first personalized guidance.',
     quizDestination: 'Target destination',
     quizBudget: 'Estimated monthly budget',
     quizStage: 'Where are you now?',
@@ -522,6 +546,10 @@ const copy = {
     faqTitle: 'Frequently asked questions',
     faqs: [
       {
+        q: 'What should I send on WhatsApp to get a useful answer?',
+        a: 'Send your city, current study level, target destination, monthly budget, and intended intake. With these five details, the advisor can filter realistic options.',
+      },
+      {
         q: 'Which country should I choose based on my budget?',
         a: 'The diagnosis compares destinations based on your level, budget, language, and career objective.',
       },
@@ -541,7 +569,7 @@ const copy = {
     finalTitle: 'Not sure where to start?',
     finalText: 'Get your profile reviewed for free and receive first guidance based on your level, budget, and objective.',
     footerText: 'EduGrowth guides Tunisian students through international study projects.',
-    whatsappText: 'Hello EduGrowth, I want to check my eligibility to study abroad.',
+    whatsappText: 'Hello EduGrowth, I want to check my eligibility to study abroad.\nCity:\nCurrent level:\nTarget destination:\nMonthly budget:\nTarget intake:',
     seoSectionTitle: 'Study abroad from Tunisia: what to check first',
     seoBlocks: [
       {
@@ -598,6 +626,11 @@ const structuredData = {
         contactType: 'student guidance',
         availableLanguage: ['French', 'Arabic', 'English'],
         areaServed: 'TN',
+      },
+      potentialAction: {
+        '@type': 'ContactAction',
+        name: 'Demander un diagnostic gratuit sur WhatsApp',
+        target: 'https://wa.me/21656590703',
       },
       sameAs: [
         'https://edugrowth.tn/',
@@ -678,15 +711,25 @@ export default function StudentHomePage() {
     stage: t.quizStages[0],
   });
   const eligibilityUrl = buildEligibilityUrl('eligibility_homepage', lang);
-  const whatsappUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t.whatsappText)}`;
+  const whatsappUrl = buildWhatsAppUrl(t.whatsappText, 'homepage_direct_whatsapp', lang);
   const quizSummary =
     lang === 'fr'
       ? `Bonjour EduGrowth, je veux tester mon eligibilite.\nDestination: ${quiz.destination}\nBudget: ${quiz.budget}\nEtape actuelle: ${quiz.stage}`
       : `Hello EduGrowth, I want to check my eligibility.\nDestination: ${quiz.destination}\nBudget: ${quiz.budget}\nCurrent stage: ${quiz.stage}`;
-  const quizWhatsAppUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(quizSummary)}`;
+  const quizWhatsAppUrl = buildWhatsAppUrl(quizSummary, 'homepage_quiz_whatsapp', lang);
 
   const handleCta = (ctaType) => {
     trackEvent('cta_click', { cta_type: ctaType, page: '/' });
+  };
+
+  const handleWhatsAppLead = (ctaType) => {
+    trackEvent('cta_click', { cta_type: ctaType, page: '/' });
+    trackEvent('whatsapp_lead', {
+      lead_source: ctaType,
+      page_location: '/',
+      value: 1,
+      currency: 'USD',
+    });
   };
 
   const updateQuiz = (field, value) => {
@@ -804,7 +847,7 @@ export default function StudentHomePage() {
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => handleCta('homepage_hero_whatsapp')}
+                    onClick={() => handleWhatsAppLead('homepage_hero_whatsapp')}
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-7 py-4 text-sm font-black text-emerald-700 transition hover:-translate-y-0.5 hover:bg-emerald-100"
                   >
                     <MessageCircle size={18} />
@@ -856,6 +899,35 @@ export default function StudentHomePage() {
                   <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{item.label}</p>
                 </div>
               ))}
+            </div>
+          </section>
+
+          <section className="px-4 pb-16 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-6 rounded-[1.75rem] border border-emerald-200 bg-emerald-50 p-6 shadow-sm md:grid-cols-[0.9fr_1.1fr] md:items-center md:p-8">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.18em] text-emerald-700">Contact rapide</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d]">{t.conversionTitle}</h2>
+                <p className="mt-3 text-base leading-7 text-emerald-950/80">{t.conversionText}</p>
+              </div>
+              <div className="grid gap-4">
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {t.conversionPoints.map((point) => (
+                    <div key={point} className="rounded-2xl bg-white px-4 py-3 text-sm font-black text-emerald-800 ring-1 ring-emerald-100">
+                      {point}
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => handleWhatsAppLead('homepage_conversion_whatsapp')}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-6 py-4 text-sm font-black text-white hover:bg-emerald-700"
+                >
+                  <MessageCircle size={18} />
+                  {t.whatsappCta}
+                </a>
+              </div>
             </div>
           </section>
 
@@ -971,7 +1043,7 @@ export default function StudentHomePage() {
                     href={quizWhatsAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => handleCta('homepage_quiz_whatsapp')}
+                    onClick={() => handleWhatsAppLead('homepage_quiz_whatsapp')}
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-6 py-4 text-sm font-black text-white hover:bg-emerald-700"
                   >
                     <MessageCircle size={18} />
@@ -1240,7 +1312,7 @@ export default function StudentHomePage() {
                   {t.alternanceCta}
                   <ArrowRight size={16} />
                 </Link>
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleCta('homepage_alternance_whatsapp')} className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-6 py-4 text-sm font-black text-emerald-700 hover:bg-emerald-100">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleWhatsAppLead('homepage_alternance_whatsapp')} className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-6 py-4 text-sm font-black text-emerald-700 hover:bg-emerald-100">
                   <MessageCircle size={17} />
                   {t.whatsappCta}
                 </a>
@@ -1317,7 +1389,7 @@ export default function StudentHomePage() {
                 <Users size={34} className="text-cyan-200" />
                 <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">{t.parentsTitle}</h2>
                 <p className="mt-5 text-lg leading-8 text-slate-200">{t.parentsText}</p>
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleCta('homepage_parents_whatsapp')} className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-4 text-sm font-black text-[#17324d] hover:bg-slate-100">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleWhatsAppLead('homepage_parents_whatsapp')} className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-4 text-sm font-black text-[#17324d] hover:bg-slate-100">
                   <PhoneCall size={17} />
                   {t.whatsappCta}
                 </a>
@@ -1366,7 +1438,7 @@ export default function StudentHomePage() {
                     <FileCheck2 size={18} />
                     {t.primaryCta}
                   </a>
-                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleCta('homepage_final_whatsapp')} className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200/30 bg-emerald-400/10 px-6 py-4 text-sm font-black text-white hover:bg-emerald-400/20">
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleWhatsAppLead('homepage_final_whatsapp')} className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200/30 bg-emerald-400/10 px-6 py-4 text-sm font-black text-white hover:bg-emerald-400/20">
                     <MessageCircle size={18} />
                     {t.whatsappCta}
                   </a>
