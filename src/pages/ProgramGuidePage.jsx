@@ -56,15 +56,18 @@ const programData = {
     ],
   },
   '/programmes/ausbildung-allemagne': {
-    title: 'Ausbildung Allemagne santé depuis la Tunisie | Travail et étude | EduGrowth',
+    title: 'Ausbildung Tunisie 2026 | Allemagne, visa, prix, contrat',
     description:
-      "Guide complet Ausbildung en Allemagne pour Tunisiens: santé, soins infirmiers, aide-soignant, langue allemande, dossier, contrat, visa, travail et étude.",
+      "Ausbildung en Allemagne pour Tunisiens: conditions 2026, prix à prévoir, niveau allemand, contrat, visa Ausbildung, santé, infirmier et dossier.",
     h1: 'Ausbildung en Allemagne depuis la Tunisie: santé, travail et étude',
     chips: [
       'ausbildung allemagne tunisie',
       'travail et étude en allemagne',
       'ausbildung santé allemagne',
       'formation rémunérée allemagne tunisiens',
+      'visa ausbildung allemagne tunisie',
+      'ausbildung tunisie prix',
+      'contrat ausbildung allemagne',
     ],
     highlights: [
       "La demande études à l’étranger baisse après août; l’Ausbildung devient une priorité forte pour les profils qui veulent apprendre un métier, travailler et construire une trajectoire en Allemagne.",
@@ -80,6 +83,9 @@ const programData = {
       ['Quel niveau d’allemand faut-il pour une Ausbildung ?', 'Le niveau dépend du métier et de l’employeur. Pour les métiers de santé, B1 solide ou B2 est souvent plus réaliste. EduGrowth vérifie le niveau avant de promettre une candidature.'],
       ['Quels métiers santé viser en Ausbildung ?', 'Les pistes fréquentes sont soins infirmiers, aide-soignant, assistant médical, assistance en maison de retraite et autres métiers paramédicaux selon profil.'],
       ['Peut-on travailler et étudier en Allemagne avec une Ausbildung ?', 'Oui, l’Ausbildung combine formation théorique et pratique rémunérée. Il faut toutefois un contrat, un niveau linguistique cohérent et un dossier visa solide.'],
+      ['Combien coûte une démarche Ausbildung depuis la Tunisie ?', 'Le prix dépend de la préparation langue, traductions, documents, visa, assurance, logement et accompagnement choisi. Avant tout paiement, il faut demander une ventilation claire des frais et vérifier ce qui est remboursable.'],
+      ['Que faut-il pour le visa Ausbildung Allemagne ?', 'Le dossier dépend de votre situation, mais il faut généralement prouver le sérieux du projet, le contrat ou l’admission, la langue, le financement et les documents demandés par les autorités compétentes.'],
+      ['Comment reconnaître un contrat Ausbildung sérieux ?', 'Un contrat sérieux précise métier, employeur, lieu, durée, rémunération, école professionnelle et conditions. Il doit être vérifiable avant de prendre un engagement financier important.'],
       ['EduGrowth aide-t-il pour le dossier visa ?', 'EduGrowth accompagne la préparation du dossier, la cohérence du projet, les documents et la planification, sans garantir la décision consulaire.'],
     ],
     relatedLinks: [
@@ -97,7 +103,7 @@ const programData = {
     ],
   },
   '/ausbildung-sante-allemagne-tunisie': {
-    title: 'Ausbildung santé Allemagne Tunisie | Infirmier et aide-soignant | EduGrowth',
+    title: 'Ausbildung santé Allemagne Tunisie | Infirmier, visa, prix',
     description:
       "Ausbildung santé en Allemagne pour Tunisiens: infirmier, aide-soignant, soins aux personnes âgées, niveau allemand, candidature employeur, contrat, visa et accompagnement EduGrowth.",
     h1: 'Ausbildung santé en Allemagne depuis la Tunisie',
@@ -124,6 +130,7 @@ const programData = {
       ['Faut-il un diplôme médical pour commencer ?', 'Pas toujours. Certaines formations sont accessibles avec un niveau scolaire cohérent et une forte motivation, mais chaque employeur et chaque programme peut avoir ses propres critères.'],
       ['Le niveau B1 suffit-il ?', 'B1 peut ouvrir certaines discussions, mais B2 est souvent plus solide pour les métiers de santé, car il faut comprendre les patients, l’équipe et les consignes professionnelles.'],
       ['Est-ce une étude ou un travail ?', 'L’Ausbildung combine apprentissage théorique et pratique rémunérée. Le candidat doit donc convaincre comme étudiant et comme futur professionnel.'],
+      ['Quels frais prévoir avant le départ ?', 'Il faut anticiper langue allemande, traductions, dossier, visa, assurance, voyage, installation et parfois logement initial. Le budget doit être clarifié avant de lancer les candidatures.'],
       ['EduGrowth peut-il garantir un contrat ?', 'Non. EduGrowth peut structurer le dossier, vérifier la faisabilité, préparer la candidature et orienter le profil, mais la décision dépend des employeurs, écoles, autorités et délais.'],
     ],
     relatedLinks: [

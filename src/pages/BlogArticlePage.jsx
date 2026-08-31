@@ -34,9 +34,10 @@ const posts = {
     ],
   },
   '/blog/campus-france-tunisie-etapes': {
-    title: 'Campus France Tunisie: étapes, calendrier et erreurs à éviter',
-    description: 'Guide Campus France Tunisie: étapes, documents, calendrier, entretien et erreurs fréquentes.',
-    h1: 'Campus France Tunisie: étapes, calendrier et erreurs à éviter',
+    title: 'Campus France Tunisie 2026/2027 | Étapes, calendrier',
+    description: 'Campus France Tunisie 2026/2027: calendrier, étapes, documents, entretien, lettre de motivation et erreurs à éviter pour étudiants tunisiens.',
+    h1: 'Campus France Tunisie 2026/2027: étapes, calendrier et erreurs à éviter',
+    updatedAt: '31 août 2026',
     sections: [
       { h2: '1. Quand commencer Campus France ?', text: 'Commencez le plus tôt possible pour sécuriser le choix de formation, les pièces du dossier et le visa.' },
       { h2: '2. Quels documents préparer ?', text: 'Relevés, diplômes, identité, justificatifs et tout élément soutenant la cohérence du projet.' },
@@ -45,6 +46,8 @@ const posts = {
     ],
     faq: [
       ['Campus France est-il obligatoire ?', 'Pour beaucoup de parcours vers la France, oui, c’est une étape centrale du processus.'],
+      ['Quand ouvre le calendrier Campus France 2026/2027 ?', 'Les dates exactes doivent être vérifiées sur Campus France Tunisie. Le bon réflexe est de préparer le projet, les documents et la liste de formations avant l’ouverture ou les périodes chargées.'],
+      ['Quels documents préparer en priorité ?', 'Préparez passeport, relevés, diplômes, CV, lettre de motivation, justificatifs de langue si demandés, preuves de financement et éléments expliquant la cohérence du projet.'],
       ['Quand préparer son entretien ?', 'Dès que le projet est stabilisé et que le dossier prend une forme cohérente.'],
     ],
     relatedLinks: [
@@ -270,10 +273,10 @@ const posts = {
     ],
   },
   '/blog/compte-bloque-allemagne-tunisie': {
-    title: 'Compte bloqué Allemagne Tunisie | Visa étudiant, étapes, erreurs',
-    description: 'Compte bloqué Allemagne pour Tunisiens: rôle dans le visa étudiant, preuves financières, calendrier, documents et erreurs à éviter.',
+    title: 'Compte bloqué Allemagne Tunisie | Visa, montant, erreurs',
+    description: 'Compte bloqué Allemagne Tunisie: visa étudiant, montant à vérifier, preuves financières, calendrier, documents, Tiba Plus et erreurs à éviter.',
     h1: 'Compte bloqué Allemagne Tunisie: visa étudiant, étapes et erreurs',
-    updatedAt: '14 juillet 2026',
+    updatedAt: '31 août 2026',
     sources: [
       { label: 'Ambassade d’Allemagne à Tunis — visas nationaux', url: 'https://tunis.diplo.de/tn-fr/service/05-visaeinreise/1672716-1672716?isLocal=false&isPreview=false' },
     ],
@@ -285,6 +288,8 @@ const posts = {
     ],
     faq: [
       ['Le compte bloqué est-il toujours obligatoire ?', 'Selon le profil et la voie choisie, il reste souvent central dans la démonstration financière.'],
+      ['Quel montant mettre sur le compte bloqué ?', 'Le montant change selon les règles en vigueur et la durée du séjour. Vérifiez toujours l’exigence officielle applicable avant d’ouvrir ou d’alimenter le compte.'],
+      ['Tiba Plus ou autre prestataire suffit-il pour le visa ?', 'Le prestataire ne remplace jamais la vérification officielle. Contrôlez les conditions, délais, justificatifs et frais avant de choisir une solution de compte bloqué.'],
       ['L’Allemagne est-elle accessible avec un budget limité ?', 'Oui sur certains parcours, mais il faut chiffrer tout le projet et pas seulement le compte bloqué.'],
     ],
     relatedLinks: [
@@ -294,10 +299,10 @@ const posts = {
     ],
   },
   '/blog/visa-etudiant-france-tunisie-documents': {
-    title: 'Visa étudiant France Tunisie : documents, étapes et calendrier',
-    description: 'Préparez un visa étudiant France depuis la Tunisie : admission, pièces justificatives, cohérence du dossier et étapes à anticiper.',
+    title: 'Visa étudiant France Tunisie | Documents à fournir 2026',
+    description: 'Visa étudiant France Tunisie: documents à fournir, admission, Campus France, preuves financières, logement, calendrier et erreurs à éviter.',
     h1: 'Visa étudiant France depuis la Tunisie : préparer son dossier',
-    updatedAt: '14 juillet 2026',
+    updatedAt: '31 août 2026',
     sources: [
       { label: 'Campus France Tunisie — procédures et informations officielles', url: 'https://www.tunisie.campusfrance.org/' },
       { label: 'France-Visas — portail officiel des visas', url: 'https://france-visas.gouv.fr/' },
@@ -311,6 +316,8 @@ const posts = {
     faq: [
       ['Quand faut-il commencer le dossier visa France ?', 'Dès que le projet d’études est défini : admission, financement et documents prennent du temps. Vérifiez le calendrier officiel de votre procédure avant de réserver un rendez-vous.'],
       ['Campus France remplace-t-il la demande de visa ?', 'Non. Campus France et la demande de visa sont des étapes distinctes dont l’ordre et les exigences dépendent de votre situation. Consultez les sites officiels avant toute démarche.'],
+      ['Quels documents sont souvent demandés pour un visa étudiant France ?', 'Admission, passeport, photos, formulaires, justificatifs financiers, logement, assurance si applicable, pièces académiques et documents Campus France peuvent être nécessaires selon le cas. La liste officielle reste prioritaire.'],
+      ['Comment éviter un refus visa étudiant France ?', 'Travaillez la cohérence entre formation, parcours, budget, logement et projet professionnel. Un dossier complet mais incohérent reste fragile.'],
       ['Quel est le point le plus important ?', 'La cohérence globale : formation, parcours, budget et pièces justificatives doivent être clairs, complets et vérifiables.'],
     ],
     relatedLinks: [
@@ -321,10 +328,10 @@ const posts = {
     ],
   },
   '/blog/ausbildung-allemagne-tunisiens-conditions': {
-    title: 'Ausbildung Allemagne pour les Tunisiens : conditions et préparation',
-    description: 'Comprendre l’Ausbildung en Allemagne depuis la Tunisie : projet, langue, contrat, visa et étapes de préparation.',
-    h1: 'Ausbildung Allemagne pour les Tunisiens : conditions et démarche',
-    updatedAt: '14 juillet 2026',
+    title: 'Ausbildung Tunisie 2026 | Conditions, visa, prix',
+    description: 'Ausbildung Allemagne pour Tunisiens: conditions 2026, niveau allemand, contrat, visa Ausbildung, prix, métiers santé et dossier.',
+    h1: 'Ausbildung Allemagne pour les Tunisiens: conditions, visa et prix',
+    updatedAt: '31 août 2026',
     sources: [
       { label: 'Ambassade d’Allemagne à Tunis — visas nationaux', url: 'https://tunis.diplo.de/tn-fr/service/05-visaeinreise/1672716-1672716?isLocal=false&isPreview=false' },
       { label: 'Make it in Germany — formation professionnelle', url: 'https://www.make-it-in-germany.com/fr/etudier-formation/formation-professionnelle-en-allemagne' },
@@ -338,6 +345,8 @@ const posts = {
     faq: [
       ['Faut-il parler allemand pour une Ausbildung ?', 'La langue est généralement déterminante pour suivre la formation et travailler. Le niveau réellement exigé doit être vérifié auprès du programme et dans la procédure de visa applicable.'],
       ['Une Ausbildung est-elle la même chose que l’université ?', 'Non. Elle relève de la formation professionnelle et combine généralement enseignement et pratique ; l’université suit un parcours académique différent.'],
+      ['Quel budget prévoir pour Ausbildung Allemagne depuis la Tunisie ?', 'Il faut prévoir la langue, les traductions, documents, visa, assurance, voyage, logement initial et frais de service éventuels. Demandez toujours une liste claire avant de payer.'],
+      ['Le visa Ausbildung est-il différent du visa étudiant classique ?', 'Oui, l’intention et les justificatifs peuvent différer car le projet repose sur une formation professionnelle et souvent un contrat. Les exigences exactes doivent être vérifiées auprès des autorités officielles.'],
       ['Peut-on préparer l’Ausbildung depuis la Tunisie ?', 'Oui, mais un dossier solide demande anticipation, langue, candidatures ciblées et vérification des étapes officielles.'],
     ],
     relatedLinks: [
@@ -734,7 +743,7 @@ export default function BlogArticlePage() {
         url: `https://edugrowth.tn${contentPath}/`,
         headline: post.h1,
         description: post.description,
-        dateModified: post.updatedAt ? '2026-07-14' : undefined,
+        dateModified: post.updatedAt ? '2026-08-31' : undefined,
         author: {
           '@type': 'Organization',
           name: 'EduGrowth Tunisia',

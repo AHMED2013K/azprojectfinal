@@ -58,8 +58,8 @@ const franceStudyStructuredData = {
 
 const translations = {
   fr: {
-    heroTitle: "Étudier en France depuis la Tunisie : dossier, Campus France, visa et alternance",
-    heroSubtitle: "Accompagnement clair pour choisir les formations, préparer Campus France, cadrer le budget, anticiper le visa et rassurer la famille.",
+    heroTitle: "Étudier en France depuis la Tunisie : Campus France 2026/2027, visa et budget",
+    heroSubtitle: "Accompagnement clair pour choisir les formations, préparer Campus France, organiser les documents visa, cadrer le budget et rassurer la famille.",
     heroCTA: "Commencer mon dossier Campus France",
     heroSecondary: "Estimer mon budget",
 
@@ -106,6 +106,14 @@ const translations = {
       {
         q: "Quand commencer Campus France depuis la Tunisie ?",
         a: "L’idéal est de commencer 8 à 10 mois avant la rentrée pour éviter les retards sur le dossier, le financement et le visa.",
+      },
+      {
+        q: "Quels documents préparer pour un visa étudiant France depuis la Tunisie ?",
+        a: "Admission, passeport, dossier Campus France, justificatifs financiers, logement, assurance si applicable et documents académiques doivent être préparés selon la liste officielle.",
+      },
+      {
+        q: "Comment augmenter ses chances sur Campus France 2026/2027 ?",
+        a: "Choisissez des formations cohérentes, préparez une lettre de motivation précise, expliquez le budget, anticipez l’entretien et vérifiez les dates officielles avant chaque étape.",
       },
       {
         q: "Combien coûte la vie étudiante en France ?",
@@ -155,8 +163,8 @@ const FranceStudyPage = () => {
   return (
     <>
       <SEOHelmet
-        title="Étude en France Tunisie | Campus France, visa, budget"
-        description="Étude en France depuis la Tunisie: Campus France, admission, visa étudiant, alternance, logement et budget pour étudiants tunisiens."
+        title="Étudier en France Tunisie | Campus France 2026, visa"
+        description="Étudier en France depuis la Tunisie: Campus France 2026/2027, documents visa étudiant, admission, alternance, logement et budget."
         canonical="https://edugrowth.tn/etudier-en-france-depuis-tunisie"
         structuredData={franceStudyStructuredData}
         lang="fr"

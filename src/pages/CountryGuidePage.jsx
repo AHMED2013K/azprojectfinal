@@ -14,8 +14,8 @@ function normalizeContentPath(pathname) {
 const countryData = {
   '/etudier-en-allemagne-depuis-tunisie': {
     country: 'Allemagne',
-    title: "Étudier en Allemagne depuis la Tunisie | Visa, Ausbildung, budget",
-    description: "Étudier en Allemagne depuis la Tunisie: admission, compte bloqué, visa étudiant, budget, logement, universités et opportunités Ausbildung pour Tunisiens.",
+    title: "Étudier en Allemagne Tunisie | Visa, compte bloqué, Ausbildung",
+    description: "Étudier en Allemagne depuis la Tunisie: universités, Ausbildung, visa étudiant, compte bloqué, budget, logement, langue allemande et dossier.",
     h1: "Étudier en Allemagne depuis la Tunisie",
     tuition: "Souvent faible en public, avec frais semestriels et budget de vie à prévoir",
     visa: "Visa national étudiant + compte bloqué + admission",
@@ -41,6 +41,14 @@ const countryData = {
       {
         q: "Le compte bloqué est-il obligatoire ?",
         a: "Dans la majorité des cas, il fait partie des preuves financières attendues pour le visa étudiant en Allemagne.",
+      },
+      {
+        q: "Quel budget prévoir pour le compte bloqué Allemagne depuis la Tunisie ?",
+        a: "Le montant exact doit être vérifié sur les sources officielles avant le dépôt du dossier. Il faut aussi ajouter logement, assurance, visa, traductions, voyage et installation.",
+      },
+      {
+        q: "Ausbildung ou université en Allemagne : que choisir ?",
+        a: "L’université convient aux profils académiques avec admission et financement. L’Ausbildung convient aux profils métier, surtout si l’allemand, le contrat et la motivation professionnelle sont solides.",
       },
       {
         q: "Quelle différence entre université et Ausbildung ?",
@@ -365,8 +373,8 @@ const countryData = {
   },
   '/etudier-en-espagne-depuis-tunisie': {
     country: 'Espagne',
-    title: "Étudier en Espagne depuis la Tunisie | Universités européennes",
-    description: "Étudier en Espagne depuis la Tunisie: universités accessibles, coût modéré, programmes internationaux, admission, visa et logement.",
+    title: "Étudier en Espagne Tunisie | Visa étudiant, coût, universités",
+    description: "Étudier en Espagne depuis la Tunisie: visa étudiant Espagne, coût des études, universités accessibles, programmes internationaux, admission et logement.",
     h1: "Étudier en Espagne depuis la Tunisie",
     image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1200&q=80",
     tuition: "Coût modéré selon université publique, privée et programme international",
@@ -387,6 +395,8 @@ const countryData = {
     programs: ['Business', 'Ingénierie', 'Médecine', 'Santé', 'Tourisme', 'Langues', 'Bachelor', 'Master'],
     faq: [
       { q: "L’Espagne est-elle accessible aux Tunisiens ?", a: "Oui selon niveau, budget, langue et université. Le dossier visa doit être préparé tôt." },
+      { q: "Quels documents préparer pour le visa étudiant Espagne Tunisie ?", a: "Admission, passeport, justificatifs financiers, assurance, logement et documents académiques sont souvent à prévoir selon le cas. Vérifiez toujours la liste officielle applicable." },
+      { q: "Combien coûtent les études en Espagne pour un Tunisien ?", a: "Le coût dépend de la ville, de l’université publique ou privée, du logement et du programme. Comparez scolarité et budget mensuel avant de candidater." },
       { q: "Faut-il parler espagnol ?", a: "Souvent oui pour l’intégration et plusieurs cursus, même si certains programmes internationaux existent en anglais." },
       { q: "L’Espagne convient-elle à médecine privée ?", a: "Elle peut faire partie des options à comparer, mais les frais, places et équivalences doivent être vérifiés avant engagement." },
     ],
@@ -433,15 +443,15 @@ const countryData = {
   },
   '/etudier-au-maroc-depuis-tunisie': {
     country: 'Maroc',
-    title: "Étudier au Maroc depuis la Tunisie | Universités et écoles privées",
-    description: "Étudier au Maroc depuis la Tunisie: écoles privées, universités, admissions, budget, logement et choix de spécialité pour étudiants tunisiens.",
-    h1: "Étudier au Maroc depuis la Tunisie",
+    title: "Étudier médecine au Maroc pour Tunisiens | Écoles, budget",
+    description: "Étudier au Maroc depuis la Tunisie: médecine, dentaire, pharmacie, écoles privées, universités, admission, budget, logement et reconnaissance.",
+    h1: "Étudier au Maroc depuis la Tunisie: médecine, écoles privées et admission",
     tuition: "Budget variable selon école privée, ville et spécialité",
     visa: "Procédures administratives plus simples que plusieurs destinations lointaines",
     timeline: ["Choix école et ville", "Dossier admission", "Inscription", "Logement et installation"],
     highlights: [
       "Proximité culturelle et linguistique intéressante pour les Tunisiens",
-      "Choix important en business, santé, ingénierie et écoles privées",
+      "Choix important en médecine, dentaire, pharmacie, business, santé, ingénierie et écoles privées",
       "Budget souvent plus prévisible que les destinations lointaines",
       "Comparer la reconnaissance et le sérieux de chaque école",
     ],
@@ -454,6 +464,8 @@ const countryData = {
     programs: ['Médecine', 'Dentisterie', 'Pharmacie', 'Business', 'Ingénierie', 'Architecture', 'Management', 'Bachelor', 'Master'],
     faq: [
       { q: "Pourquoi choisir le Maroc ?", a: "Pour la proximité, la langue, la diversité des écoles et un budget parfois plus maîtrisable." },
+      { q: "Peut-on étudier médecine au Maroc pour les Tunisiens ?", a: "Oui, certains profils tunisiens comparent le Maroc pour médecine, dentaire ou pharmacie. Il faut vérifier l’école, les conditions d’admission, les frais et la reconnaissance avant de s’inscrire." },
+      { q: "Le Maroc est-il adapté après le bac tunisien ?", a: "Il peut l’être pour les bacheliers qui cherchent une option régionale proche, surtout si le dossier, le budget et la spécialité sont cohérents." },
       { q: "Les diplômes sont-ils reconnus ?", a: "Il faut vérifier l’école, le programme et l’objectif professionnel avant de s’inscrire." },
       { q: "EduGrowth peut aider ?", a: "Oui, pour filtrer les établissements, préparer le dossier et organiser l’installation." },
     ],

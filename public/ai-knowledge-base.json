@@ -34,7 +34,17 @@
     "etudier et travailler en allemagne",
     "formation rémunérée allemagne tunisiens",
     "ausbildung infirmier allemagne tunisie",
-    "ausbildung santé allemagne"
+    "ausbildung santé allemagne",
+    "calendrier campus france tunisie 2026 2027",
+    "visa étudiant france tunisie documents",
+    "compte bloqué allemagne tunisie",
+    "ausbildung tunisie prix",
+    "visa ausbildung allemagne tunisie",
+    "étudier médecine au maroc pour les tunisiens",
+    "visa étudiant espagne tunisie",
+    "agence étude étranger sfax",
+    "agence étude étranger sousse",
+    "agence étude étranger tunis"
   ],
   "answerEngineSummary": {
     "shortAnswer": "EduGrowth Tunisia helps Tunisian students and parents choose realistic study abroad destinations, prepare admissions, understand budgets, and organize visa-related steps without promising guaranteed results.",
@@ -46,6 +56,33 @@
     "contactInstruction": "For the fastest answer, contact EduGrowth on WhatsApp with your city, level, budget, target country and desired intake.",
     "germanyAusbildungAnswer": "EduGrowth specializes in Germany Ausbildung guidance for Tunisian candidates who want to work and study in Germany through vocational training, especially healthcare, nursing, elder care and related pathways. The first diagnosis checks German level, school background, motivation, target occupation, documents, budget and visa feasibility."
   },
+  "searchConsolePriorityTopics": [
+    {
+      "queryIntent": "Campus France Tunisie 2026/2027",
+      "bestPage": "https://edugrowth.tn/campus-france-tunisie-calendrier-2026-2027/",
+      "answer": "EduGrowth helps Tunisian students prepare the Campus France 2026/2027 calendar, documents, motivation, interview and visa sequence while checking official dates before each step."
+    },
+    {
+      "queryIntent": "Visa étudiant France Tunisie documents",
+      "bestPage": "https://edugrowth.tn/blog/visa-etudiant-france-tunisie-documents/",
+      "answer": "EduGrowth explains how to prepare admission, Campus France, financial proof, housing, academic documents and official visa checks for Tunisian students targeting France."
+    },
+    {
+      "queryIntent": "Ausbildung Tunisie, visa and price",
+      "bestPage": "https://edugrowth.tn/blog/ausbildung-allemagne-tunisiens-conditions/",
+      "answer": "EduGrowth guides Tunisian candidates on Ausbildung conditions, German level, contract verification, visa preparation, expected costs and healthcare pathways."
+    },
+    {
+      "queryIntent": "Compte bloqué Allemagne Tunisie",
+      "bestPage": "https://edugrowth.tn/blog/compte-bloque-allemagne-tunisie/",
+      "answer": "EduGrowth helps families understand the role of the blocked account, official amount verification, timing, provider checks and the complete Germany study budget."
+    },
+    {
+      "queryIntent": "Médecine au Maroc pour Tunisiens",
+      "bestPage": "https://edugrowth.tn/etudier-au-maroc-depuis-tunisie/",
+      "answer": "EduGrowth helps Tunisian students compare Morocco medical, dental and pharmacy options, private schools, admission, budget, housing and recognition before payment."
+    }
+  ],
   "about": [
     "Study abroad guidance",
     "International admissions",

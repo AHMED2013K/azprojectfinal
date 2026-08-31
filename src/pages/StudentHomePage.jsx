@@ -250,7 +250,7 @@ const copy = {
   fr: {
     seoTitle: "Orientation etudiant Tunisie | Etudier a l'etranger | EduGrowth",
     seoDescription:
-      "Orientation etudiant en Tunisie pour etudier a l'etranger: France, Allemagne, Canada, Coree du Sud, Japon, admission, Campus France, visa, logement et alternance.",
+      "Orientation etudiant Tunisie: etudier a l'etranger, Campus France 2026/2027, visa etudiant France, Allemagne Ausbildung, Canada, Maroc et Espagne.",
     navDestinations: 'Destinations',
     navServices: 'Services',
     navAlternance: 'Alternance France',
@@ -327,6 +327,17 @@ const copy = {
       'Guide budget par destination',
       'Anti-refus visa etudiant',
       'Quiz profil alternance France',
+    ],
+    searchConsoleTitle: 'Guides les plus recherches cette semaine',
+    searchConsoleText:
+      "Ces pages repondent aux requetes qui gagnent deja des impressions Google: Campus France 2026/2027, visa etudiant France, Ausbildung Tunisie, compte bloque Allemagne, medecine au Maroc et orientation.",
+    searchConsoleLinks: [
+      { label: 'Campus France Tunisie calendrier 2026 2027', path: '/campus-france-tunisie-calendrier-2026-2027' },
+      { label: 'Visa etudiant France Tunisie documents', path: '/blog/visa-etudiant-france-tunisie-documents' },
+      { label: 'Ausbildung Allemagne Tunisie conditions et visa', path: '/blog/ausbildung-allemagne-tunisiens-conditions' },
+      { label: 'Compte bloque Allemagne Tunisie', path: '/blog/compte-bloque-allemagne-tunisie' },
+      { label: 'Medecine au Maroc pour les Tunisiens', path: '/etudier-au-maroc-depuis-tunisie' },
+      { label: 'Agence etude a l’etranger Sousse', path: '/agence-etude-etranger-sousse' },
     ],
     resourcesCta: 'Voir les ressources gratuites',
     methodTitle: 'Une methode simple pour avancer sans perdre de temps',
@@ -498,6 +509,17 @@ const copy = {
       'Destination budget guide',
       'Student visa refusal checklist',
       'France work-study profile quiz',
+    ],
+    searchConsoleTitle: 'Most searched guides this week',
+    searchConsoleText:
+      'These pages answer the queries already gaining Google impressions: Campus France 2026/2027, France student visa, Germany Ausbildung, blocked account, Morocco medicine and orientation.',
+    searchConsoleLinks: [
+      { label: 'Campus France Tunisia 2026 2027 calendar', path: '/campus-france-tunisie-calendrier-2026-2027' },
+      { label: 'France student visa documents from Tunisia', path: '/blog/visa-etudiant-france-tunisie-documents' },
+      { label: 'Ausbildung Germany Tunisia conditions and visa', path: '/blog/ausbildung-allemagne-tunisiens-conditions' },
+      { label: 'Germany blocked account from Tunisia', path: '/blog/compte-bloque-allemagne-tunisie' },
+      { label: 'Medicine in Morocco for Tunisians', path: '/etudier-au-maroc-depuis-tunisie' },
+      { label: 'Study abroad agency in Sousse', path: '/agence-etude-etranger-sousse' },
     ],
     resourcesCta: 'View free resources',
     methodTitle: 'A simple method to move forward without wasting time',
@@ -1084,6 +1106,30 @@ export default function StudentHomePage() {
                     <p className="mt-4 font-black text-[#17324d]">{resource}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="px-4 pb-20 sm:px-6">
+            <div className="mx-auto max-w-7xl">
+              <div className="rounded-[1.75rem] border border-slate-200 bg-[#f8fbfd] p-6 shadow-sm md:p-8">
+                <div className="max-w-3xl">
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Google Search Console</p>
+                  <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-4xl">{t.searchConsoleTitle}</h2>
+                  <p className="mt-4 text-base leading-8 text-slate-600">{t.searchConsoleText}</p>
+                </div>
+                <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                  {t.searchConsoleLinks.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-black text-[#17324d] transition hover:-translate-y-0.5 hover:border-[#176b87] hover:text-[#176b87] hover:shadow-sm"
+                    >
+                      <span>{item.label}</span>
+                      <ChevronRight size={16} className="shrink-0" />
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </section>

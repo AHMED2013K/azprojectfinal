@@ -15,8 +15,8 @@ const cityData = {
   '/agence-etude-etranger-tunis': {
     city: 'Tunis',
     h1: "Agence étude à l'étranger à Tunis",
-    title: "Agence étude à l'étranger Tunis | EduGrowth",
-    description: "Conseillers study abroad à Tunis: orientation, admission, visa étudiant, suivi dossier et préparation départ.",
+    title: "Agence étude à l’étranger Tunis | Orientation, visa, admission",
+    description: "Agence étude à l’étranger à Tunis: orientation étudiant, Campus France, admission université, visa étudiant, budget, logement et suivi WhatsApp.",
     intro:
       "Depuis Tunis, les étudiants ont souvent plus d'options mais aussi plus de bruit. Notre rôle est de transformer une intention floue en plan concret: pays pertinent, budget réaliste, dossier solide et calendrier maîtrisé.",
     localSignals: [
@@ -54,6 +54,11 @@ const cityData = {
         answer:
           "Oui, nous accompagnons la stratégie dossier, les documents, la préparation entretien et le suivi jusqu'à la prochaine étape.",
       },
+      {
+        question: "Quelle agence choisir pour étudier à l'étranger depuis Tunis ?",
+        answer:
+          "Choisissez une agence qui compare plusieurs destinations, explique le budget, vérifie les documents, implique les parents et ne promet jamais un visa garanti.",
+      },
     ],
     links: [
       { to: '/etudier-en-france-depuis-tunisie', label: 'Étudier en France depuis la Tunisie' },
@@ -65,8 +70,8 @@ const cityData = {
   '/agence-etude-etranger-sousse': {
     city: 'Sousse',
     h1: "Agence étude à l'étranger à Sousse",
-    title: "Agence étude à l'étranger Sousse | EduGrowth",
-    description: "Accompagnement complet pour étudier à l'étranger depuis Sousse: choix pays, dossier, admission, visa.",
+    title: "Agence étude à l’étranger Sousse | Visa, admission, budget",
+    description: "Agence étude à l’étranger à Sousse: orientation, admission, Campus France, visa étudiant, budget, bourses, Allemagne, France, Canada et Maroc.",
     intro:
       "À Sousse, beaucoup d'étudiants cherchent une solution claire, rapide et rassurante pour partir étudier à l'étranger. Nous structurons le projet pour éviter les mauvaises destinations, les budgets irréalistes et les dossiers incomplets.",
     localSignals: [
@@ -104,6 +109,11 @@ const cityData = {
         answer:
           'Oui, nous travaillons la stratégie financière globale, les coûts réels et les options de destinations plus accessibles.',
       },
+      {
+        question: "EduGrowth accompagne-t-il les étudiants de Monastir et Mahdia ?",
+        answer:
+          "Oui, la page Sousse couvre aussi les étudiants du Sahel: Sousse, Monastir, Mahdia et villes proches, avec suivi digital et WhatsApp.",
+      },
     ],
     links: [
       { to: '/etudier-en-france-depuis-tunisie', label: 'Étudier en France depuis la Tunisie' },
@@ -115,8 +125,8 @@ const cityData = {
   '/agence-etude-etranger-sfax': {
     city: 'Sfax',
     h1: "Agence étude à l'étranger à Sfax",
-    title: "Agence étude à l'étranger Sfax | EduGrowth",
-    description: "Service local à Sfax pour étudiants: stratégie d'admission internationale, préparation visa et support WhatsApp.",
+    title: "Agence étude à l’étranger Sfax | Admission, visa, Canada",
+    description: "Agence étude à l’étranger à Sfax: orientation étudiant, admission internationale, France, Canada, Maroc, visa étudiant, budget et WhatsApp.",
     intro:
       "À Sfax, beaucoup de familles veulent une démarche sérieuse, rentable et bien pilotée pour les études à l'étranger. Nous aidons à choisir une destination réaliste et à bâtir un dossier crédible jusqu'au visa.",
     localSignals: [
@@ -153,6 +163,11 @@ const cityData = {
         question: 'Est-ce que vous aidez à préparer tout le parcours jusqu’au départ ?',
         answer:
           "Oui, nous accompagnons l'étudiant depuis l'orientation jusqu'aux étapes de visa, installation et prochaines actions utiles.",
+      },
+      {
+        question: "Quelle destination choisir depuis Sfax avec un budget limité ?",
+        answer:
+          "Le bon choix dépend du niveau, de la langue, du budget familial et du délai. Maroc, France, Allemagne, Chypre, Roumanie ou Canada ne conviennent pas aux mêmes profils.",
       },
     ],
     links: [

@@ -71,7 +71,18 @@ const SEOHelmet = ({
           "admission universite etranger",
           "alternance France pour Tunisiens",
           "budget etudes etranger",
-          "logement etudiant"
+          "logement etudiant",
+          "calendrier Campus France 2026 2027",
+          "visa etudiant France Tunisie documents",
+          "compte bloque Allemagne Tunisie",
+          "ausbildung Allemagne Tunisie",
+          "ausbildung Tunisie prix",
+          "visa Ausbildung Allemagne Tunisie",
+          "etudier medecine au Maroc pour les Tunisiens",
+          "visa etudiant Espagne Tunisie",
+          "agence etude etranger Sfax",
+          "agence etude etranger Sousse",
+          "agence etude etranger Tunis"
         ],
         "sameAs": [
           "https://www.instagram.com/edugrowth.tn/",
