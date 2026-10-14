@@ -1055,7 +1055,7 @@ export default function StudentHomePage() {
                 <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Nos recrutements</p>
                 <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-4xl">EduGrowth recrute pour renforcer l’équipe commerciale et recrutement.</h2>
                 <p className="mt-4 text-base leading-8 text-slate-600">Les candidats doivent postuler via le formulaire officiel. Les CV seront centralisés dans votre espace candidatures.</p>
-                <a href="https://app.edugrowth.tn/candidatures" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#17324d] px-6 py-4 text-sm font-black text-white hover:bg-[#10263b]">
+                <a href="https://app.edugrowth.tn/student-job" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#17324d] px-6 py-4 text-sm font-black text-white hover:bg-[#10263b]">
                   Postuler maintenant <ArrowRight size={16} />
                 </a>
               </div>

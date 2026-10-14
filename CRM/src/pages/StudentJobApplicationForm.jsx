@@ -104,20 +104,20 @@ export default function StudentJobApplicationForm() {
               EduGrowth Careers
             </div>
             <h1 className="mt-6 text-4xl font-semibold leading-tight text-white md:text-5xl">
-              Candidatez pour un
+              Déposez votre candidature
               <span className="block bg-gradient-to-r from-cyan-300 via-sky-300 to-emerald-300 bg-clip-text text-transparent">
-                part-time job etudiant
+                EduGrowth Careers
               </span>
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-300">
-              Remplissez ce formulaire pour rejoindre notre vivier de candidats. Votre candidature sera envoyee directement dans l espace recrutement du CRM avec votre CV PDF.
+              Remplissez ce formulaire pour postuler chez EduGrowth. Votre candidature sera envoyee directement dans l espace Candidatures du CRM avec votre CV PDF, sans creation de compte.
             </p>
 
             <div className="mt-8 grid gap-4">
               {[
-                { icon: BriefcaseBusiness, text: 'Postes etudiants et opportunites part-time a suivre par notre equipe recrutement.' },
-                { icon: Clock3, text: "Disponibilites, experience et langues visibles d un coup pour accelerer la preselection." },
-                { icon: MapPinned, text: 'Possibilite de preciser votre preference entre teletravail et passages occasionnels a Montplaisir.' },
+                { icon: BriefcaseBusiness, text: 'Postes actuels: charge d affaires B2C/B2B full time et charge de recrutement freelance part-time.' },
+                { icon: Clock3, text: "Coordonnees, experience, langues, disponibilites et CV visibles d un coup pour accelerer la preselection." },
+                { icon: MapPinned, text: 'Vous pouvez indiquer votre disponibilite, votre mode de travail et vos informations utiles pour le premier tri.' },
               ].map((item) => (
                 <div key={item.text} className="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/5 p-4 text-slate-200">
                   <div className="mt-0.5 rounded-xl bg-cyan-400/10 p-2 text-cyan-300">
@@ -157,8 +157,8 @@ export default function StudentJobApplicationForm() {
                     <Input required value={form.phone} onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))} placeholder="Numero de telephone" />
                   </div>
                   <div>
-                    <p className="mb-2 text-sm font-medium text-cyan-100">Domaine d etude *</p>
-                    <Input required value={form.studyField} onChange={(event) => setForm((current) => ({ ...current, studyField: event.target.value }))} placeholder="Domaine d etude" />
+                    <p className="mb-2 text-sm font-medium text-cyan-100">Domaine / poste vise *</p>
+                    <Input required value={form.studyField} onChange={(event) => setForm((current) => ({ ...current, studyField: event.target.value }))} placeholder="Ex: Chargé d'affaires B2B, recrutement freelance, commerce..." />
                   </div>
                 </div>
 
@@ -210,7 +210,7 @@ export default function StudentJobApplicationForm() {
 
                 <div className="grid gap-4 md:grid-cols-[1fr_0.7fr]">
                   <div>
-                    <p className="mb-2 text-sm font-medium text-cyan-100">Disponible pour un stage cet ete ? *</p>
+                    <p className="mb-2 text-sm font-medium text-cyan-100">Disponible pour mission part-time/freelance ? *</p>
                     <Select
                       required
                       value={form.summerInternshipAvailable}
@@ -225,7 +225,7 @@ export default function StudentJobApplicationForm() {
                     </Select>
                   </div>
                   <div>
-                    <p className="mb-2 text-sm font-medium text-cyan-100">Si oui, combien de mois ?</p>
+                    <p className="mb-2 text-sm font-medium text-cyan-100">Si oui, pour combien de mois ?</p>
                     <Input
                       type="number"
                       min="1"
@@ -240,14 +240,14 @@ export default function StudentJobApplicationForm() {
 
                 <div className="grid gap-4 md:grid-cols-[0.8fr_1.2fr]">
                   <div>
-                    <p className="mb-2 text-sm font-medium text-cyan-100">Heures disponibles par jour *</p>
+                    <p className="mb-2 text-sm font-medium text-cyan-100">Heures disponibles par jour / disponibilité *</p>
                     <Input required type="number" min="1" max="24" value={form.hoursPerDayAvailable} onChange={(event) => setForm((current) => ({ ...current, hoursPerDayAvailable: event.target.value }))} placeholder="4" />
                   </div>
                   <div>
-                    <p className="mb-2 text-sm font-medium text-cyan-100">Disponibilite geographique *</p>
+                    <p className="mb-2 text-sm font-medium text-cyan-100">Mode de travail prefere *</p>
                     <Select required value={form.workMode} onChange={(event) => setForm((current) => ({ ...current, workMode: event.target.value }))}>
-                      <option value="montplaisir-flex">Deplacement occasionnel a Montplaisir possible</option>
-                      <option value="remote-only">Je souhaite 100% teletravail</option>
+                      <option value="montplaisir-flex">Full time / presentiel ou hybride possible</option>
+                      <option value="remote-only">Freelance / temps partiel / remote preferable</option>
                     </Select>
                   </div>
                 </div>
