@@ -176,6 +176,9 @@ async function main() {
       : path.join(distDir, route.slice(1), 'index.html');
     await fs.mkdir(path.dirname(outputPath), { recursive: true });
     await fs.writeFile(outputPath, rendered, 'utf-8');
+    if (route === '/ajouter-un-avis/' || route === '/ajouter-un-avis') {
+      await fs.writeFile(path.join(distDir, 'ajouter-un-avis.html'), rendered, 'utf-8');
+    }
     console.log(`Prerendered ${route} -> ${path.relative(rootDir, outputPath)}`);
   }
 
