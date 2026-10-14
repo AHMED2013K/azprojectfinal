@@ -40,6 +40,19 @@ const clusters = [
   ['rentre-universitaire-janvier-tunisie', 'Rentrée universitaire janvier depuis la Tunisie', 'trouver les pays avec rentrées décalées et dossiers encore possibles', 'calendrier'],
   ['parcoursup-tunisie-accompagnement', 'Accompagnement Parcoursup depuis la Tunisie', 'préparer Parcoursup, les vœux, le dossier et les formations françaises post-bac depuis la Tunisie', 'parcoursup'],
   ['nos-recrutements', 'Nos recrutements EduGrowth Tunisie', 'postuler aux offres EduGrowth: chargé d’affaires B2C/B2B et chargé de recrutement freelance', 'recrutement'],
+  ['stage-hotellerie-grece-salaire-logement-repas', 'Stage hôtellerie Grèce: salaire, logement et repas', 'comprendre le programme de stage en Grèce avec salaire, accommodation et meals covered pour profils hospitality', 'greeceInternship'],
+  ['internship-grece-hospitality-tunisie', 'Internship Grèce hospitality depuis la Tunisie', 'préparer une candidature internship en Grèce pour hospitality, tourism management et hotel management', 'greeceInternship'],
+  ['etudier-tourisme-hotellerie-grece', 'Étudier tourisme et hôtellerie en Grèce depuis la Tunisie', 'comparer études et expérience professionnelle en Grèce pour tourisme, hôtellerie et hospitality', 'greeceStudy'],
+  ['etudier-en-pologne-budget-tunisie', 'Étudier en Pologne: budget pour étudiants tunisiens', 'calculer le budget complet pour étudier en Pologne depuis la Tunisie', 'poland'],
+  ['visa-etudiant-pologne-tunisie', 'Visa étudiant Pologne Tunisie: documents et étapes', 'préparer admission, financement, logement et dossier visa étudiant Pologne depuis la Tunisie', 'poland'],
+  ['comparer-france-pologne-tunisie', 'France ou Pologne pour étudiants tunisiens ?', 'choisir entre France et Pologne selon budget, langue, admission, visa et projet professionnel', 'comparison'],
+  ['comparer-grece-chypre-nord-hospitality', 'Grèce ou Chypre du Nord pour hospitality ?', 'comparer Grèce et Chypre du Nord pour hospitality, tourisme, hôtellerie et budget', 'comparison'],
+  ['comparer-campus-france-parcoursup-tunisie', 'Campus France ou Parcoursup depuis la Tunisie ?', 'comparer Campus France et Parcoursup pour étudiants tunisiens selon niveau, type de formation et calendrier', 'comparison'],
+  ['comparer-russie-novembre-chypre-fevrier', 'Russie Novembre ou Chypre du Nord Février ?', 'choisir entre rentrée Russie Novembre 2026 et rentrée décalée Chypre du Nord Février 2027', 'comparison'],
+  ['methode-edugrowth', 'Méthode EduGrowth: orientation, dossier, visa et suivi', 'comprendre la méthode EduGrowth, les preuves, les limites et le suivi parents', 'trust'],
+  ['mentions-legales', 'Mentions légales EduGrowth Tunisie', 'consulter les informations légales, contact et responsabilité éditoriale EduGrowth', 'legal'],
+  ['politique-confidentialite', 'Politique de confidentialité EduGrowth', 'comprendre la collecte, l’usage et la protection des données envoyées via les formulaires EduGrowth', 'legal'],
+  ['conditions-utilisation', 'Conditions d’utilisation EduGrowth', 'comprendre les conditions d’usage, limites d’accompagnement et absence de garantie visa', 'legal'],
 ];
 
 const relatedByCluster = {
@@ -103,6 +116,31 @@ const relatedByCluster = {
     ['https://app.edugrowth.tn/job', 'Formulaire candidatures'],
     ['/about', 'À propos EduGrowth'],
   ],
+  greeceInternship: [
+    ['/stage-hotellerie-tourisme-grece', 'Programme internship Grèce'],
+    ['/etudier-en-grece-depuis-tunisie', 'Étudier en Grèce'],
+  ],
+  greeceStudy: [
+    ['/stage-hotellerie-tourisme-grece', 'Stage hospitality Grèce'],
+    ['/comparer-grece-chypre-nord-hospitality', 'Comparer Grèce et Chypre du Nord'],
+  ],
+  poland: [
+    ['/etudier-en-pologne-depuis-tunisie', 'Étudier en Pologne'],
+    ['/guides/etudier-medecine-pologne-tunisie', 'Médecine en Pologne'],
+  ],
+  comparison: [
+    ['/comparatif-pays-etudes-etranger-tunisie', 'Comparatif pays'],
+    ['/orientation-etudiant-tunisie', 'Orientation étudiant Tunisie'],
+  ],
+  trust: [
+    ['/about', 'À propos EduGrowth'],
+    ['/avis-google', 'Avis Google EduGrowth'],
+  ],
+  legal: [
+    ['/contact', 'Contact EduGrowth'],
+    ['/methode-edugrowth', 'Méthode EduGrowth'],
+  ],
+
   local: [
     ['/agence-etude-etranger-tunis', 'Agence à Tunis'],
     ['/agence-etude-etranger-sousse', 'Agence à Sousse'],
@@ -141,6 +179,54 @@ function buildSections(page) {
         h2: 'Pourquoi commencer maintenant',
         body: 'La période hors pic est idéale pour construire une liste de formations solide, éviter les candidatures improvisées et préparer un plan B vers écoles privées, Campus France, Grèce, Pologne, Russie ou Chypre du Nord.',
       },
+    ];
+  }
+
+  if (page.cluster === 'greeceInternship') {
+    return [
+      { h2: 'Réponse rapide pour le programme Grèce', body: 'Le programme internship Grèce cible les profils hospitality, tourism management, hotel management et hôtellerie. Il dure 6 mois, se déroule en anglais, exige un bon niveau d’anglais et prévoit un salaire, le logement et les repas selon les conditions du poste. Le coût annoncé est 4000 EUR + frais EduGrowth.' },
+      { h2: 'Ce que le candidat doit préparer', body: 'CV en anglais, preuve du parcours hospitality/tourisme, disponibilité de 6 mois, passeport, niveau d’anglais, budget de départ, assurance et motivation claire pour travailler dans un environnement hôtelier international.' },
+      { h2: 'Points à vérifier avant paiement', body: 'Poste proposé, établissement d’accueil, conditions exactes de salaire, accommodation, meals, assurance, documents administratifs, calendrier de départ et politique de remboursement.' },
+    ];
+  }
+
+  if (page.cluster === 'greeceStudy') {
+    return [
+      { h2: 'Réponse rapide', body: 'La Grèce peut être pertinente pour les Tunisiens intéressés par tourisme, hospitality, hotel management, business ou programmes anglophones. Il faut comparer études académiques, internship, budget, langue, logement et objectif professionnel avant de choisir.' },
+      { h2: 'Études ou internship ?', body: 'Les études conviennent aux profils qui veulent un diplôme. L’internship convient aux profils qui veulent une expérience professionnelle concrète de 6 mois dans l’hôtellerie ou le tourisme.' },
+      { h2: 'Critères de décision', body: 'Niveau d’anglais, budget, expérience souhaitée, reconnaissance, durée, conditions de logement et capacité à travailler dans un environnement touristique international.' },
+    ];
+  }
+
+  if (page.cluster === 'poland') {
+    return [
+      { h2: 'Réponse rapide pour la Pologne', body: 'La Pologne est une option européenne intéressante pour les Tunisiens qui cherchent des programmes en anglais, un coût de vie souvent plus maîtrisable que l’Europe de l’Ouest et des filières comme médecine, IT, ingénierie ou business.' },
+      { h2: 'Budget à prévoir', body: 'Calculez frais de scolarité, logement, assurance, visa, traductions, légalisation, billet, installation et budget mensuel. Les filières santé peuvent coûter nettement plus cher que business ou IT.' },
+      { h2: 'Visa étudiant Pologne', body: 'Le dossier dépend de l’admission, du financement, du logement, de l’assurance et des documents académiques. La liste officielle doit être vérifiée avant chaque dépôt.' },
+    ];
+  }
+
+  if (page.cluster === 'comparison') {
+    return [
+      { h2: 'Réponse directe', body: 'Le meilleur choix dépend du niveau, du budget, de la langue, du calendrier, du type de programme et du risque visa. Pour un étudiant tunisien, il faut toujours comparer le coût complet et la cohérence du projet avant de payer une admission.' },
+      { h2: 'Critères de comparaison', body: 'Budget total, langue d’enseignement, délai admission/visa, logement, reconnaissance du diplôme, possibilité de stage ou travail, accompagnement parents et plan B si le dossier principal échoue.' },
+      { h2: 'Recommandation EduGrowth', body: 'Commencer par un diagnostic court: niveau actuel, notes, budget familial, pays ciblés, rentrée souhaitée et objectif professionnel. Ensuite seulement, choisir la destination prioritaire.' },
+    ];
+  }
+
+  if (page.cluster === 'trust') {
+    return [
+      { h2: 'Notre méthode', body: 'EduGrowth commence par un diagnostic du profil, puis construit une stratégie de destination, vérifie le budget, prépare le dossier, organise les documents, suit les étapes visa et garde les parents informés.' },
+      { h2: 'Nos preuves', body: 'Les admissions, retours étudiants, captures floutées, avis Google, échanges WhatsApp anonymisés et dossiers préparés servent à montrer des preuves sans exposer les données personnelles.' },
+      { h2: 'Nos limites', body: 'EduGrowth ne garantit pas un visa, une admission automatique ou un résultat sans vérification du profil. Les décisions finales dépendent des écoles, universités, ambassades et autorités compétentes.' },
+    ];
+  }
+
+  if (page.cluster === 'legal') {
+    return [
+      { h2: 'Informations légales', body: 'EduGrowth Tunisia est un service d’orientation et d’accompagnement pour étudiants et familles. Contact: edugrowth.tn@gmail.com, téléphone: +216 56 590 703, site: https://edugrowth.tn/.' },
+      { h2: 'Données et confidentialité', body: 'Les données envoyées via les formulaires ou WhatsApp servent à qualifier le profil, répondre à la demande, préparer le suivi et gérer les candidatures. Les CV et documents doivent être partagés uniquement par les canaux officiels.' },
+      { h2: 'Responsabilité', body: 'Les informations publiées sont indicatives et doivent être vérifiées auprès des sources officielles. EduGrowth ne remplace pas une ambassade, une université ou une autorité de visa.' },
     ];
   }
 
@@ -184,6 +270,7 @@ export default function ProgrammaticSeoPage() {
   const canonical = `${SITE}${page.path}/`;
   const related = relatedByCluster[page.cluster] || relatedByCluster.orientation;
   const sections = buildSections(page);
+  const directAnswer = sections[0]?.body || `Pour ${page.title}, commencez par valider le niveau, le budget, la langue, le calendrier et le risque visa avant toute candidature.`;
   const faq = [
     {
       q: `${page.title} : par où commencer ?`,
@@ -207,7 +294,7 @@ export default function ProgrammaticSeoPage() {
         headline: page.title,
         description: `Guide EduGrowth pour ${page.angle}.`,
         inLanguage: 'fr',
-        dateModified: '2026-07-24',
+        dateModified: '2026-10-14',
         author: { '@type': 'Organization', name: 'EduGrowth Tunisia' },
         publisher: {
           '@type': 'Organization',
@@ -233,6 +320,44 @@ export default function ProgrammaticSeoPage() {
           acceptedAnswer: { '@type': 'Answer', text: item.a },
         })),
       },
+      ...(page.cluster === 'recrutement' ? [
+        {
+          '@type': 'JobPosting',
+          '@id': `${SITE}/nos-recrutements/#charge-affaires`,
+          title: 'Chargé d’affaires B2C / B2B',
+          description: 'Poste full time dans le département commercial EduGrowth: prospection, suivi prospects, partenariats et conversion B2C/B2B.',
+          datePosted: '2026-10-14',
+          validThrough: '2026-10-31T23:59:00+01:00',
+          employmentType: 'FULL_TIME',
+          hiringOrganization: { '@type': 'Organization', name: 'EduGrowth Tunisia', sameAs: SITE },
+          jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressLocality: 'Tunis', addressCountry: 'TN' } },
+          applicantLocationRequirements: { '@type': 'Country', name: 'Tunisia' },
+          directApply: true,
+        },
+        {
+          '@type': 'JobPosting',
+          '@id': `${SITE}/nos-recrutements/#charge-recrutement`,
+          title: 'Chargé de recrutement freelance',
+          description: 'Mission part time commission based: qualification de candidats, sourcing, premiers échanges et suivi avec EduGrowth.',
+          datePosted: '2026-10-14',
+          validThrough: '2027-03-30T23:59:00+01:00',
+          employmentType: ['PART_TIME', 'CONTRACTOR'],
+          hiringOrganization: { '@type': 'Organization', name: 'EduGrowth Tunisia', sameAs: SITE },
+          jobLocationType: 'TELECOMMUTE',
+          applicantLocationRequirements: { '@type': 'Country', name: 'Tunisia' },
+          directApply: true,
+        },
+      ] : []),
+      ...(page.cluster === 'greeceInternship' ? [{
+        '@type': 'EducationalOccupationalProgram',
+        '@id': `${canonical}#program`,
+        name: page.title,
+        description: 'Programme internship de 6 mois en Grèce pour hospitality, tourism management et hotel management. Anglais obligatoire, salaire, accommodation et meals covered selon poste.',
+        occupationalCategory: ['Hospitality', 'Tourism Management', 'Hotel Management'],
+        timeToComplete: 'P6M',
+        provider: { '@type': 'Organization', name: 'EduGrowth Tunisia', url: SITE },
+        offers: { '@type': 'Offer', price: '4000', priceCurrency: 'EUR', description: '4000 EUR + frais EduGrowth' },
+      }] : []),
     ],
   };
 
@@ -250,7 +375,7 @@ export default function ProgrammaticSeoPage() {
           <Link to="/" className="inline-flex items-center gap-2 text-sm font-black text-[#005A9C]">
             <Home size={16} /> Accueil
           </Link>
-          <p className="mt-8 text-xs font-black uppercase tracking-[0.18em] text-[#176b87]">Guide EduGrowth · Tunisie · Mis à jour le 24 juillet 2026</p>
+          <p className="mt-8 text-xs font-black uppercase tracking-[0.18em] text-[#176b87]">Guide EduGrowth · Tunisie · Mis à jour le 14 octobre 2026</p>
           <h1 className="mt-3 text-4xl font-black leading-tight text-[#17324d]">{page.title}</h1>
           <p className="mt-5 text-lg leading-8 text-slate-700">
             Ce guide aide les étudiants tunisiens et leurs parents à {page.angle}. Il sert de point de départ avant une consultation ou une candidature.
@@ -259,7 +384,7 @@ export default function ProgrammaticSeoPage() {
           <div className="mt-8 rounded-2xl border border-[#176b87]/20 bg-[#176b87]/5 p-5">
             <h2 className="text-xl font-black text-[#17324d]">Réponse directe</h2>
             <p className="mt-2 leading-8 text-slate-700">
-              Pour réussir ce projet, il faut comparer les pays selon le budget réel, les exigences d’admission, la langue, le visa, le logement et la reconnaissance du diplôme. Le meilleur choix est celui qui reste finançable et cohérent avec le parcours de l’étudiant.
+              {directAnswer}
             </p>
           </div>
 

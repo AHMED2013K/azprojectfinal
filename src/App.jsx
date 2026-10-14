@@ -3,6 +3,7 @@ import { Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import StudentHomePage from './pages/StudentHomePage.jsx';
 import PortalGatePage from './pages/PortalGatePage.jsx';
 import { initMarketing, trackPageView } from './utils/marketing.js';
+import { seoProgrammaticRoutes } from './seoRoutes.js';
 
 // Lazy loading all pages for better initial loading performance
 const AbroadZonePage = lazy(() => import('./pages/AbroadZonePage.jsx'));
@@ -158,6 +159,9 @@ export default function App() {
         <Route path="/orientation-apres-bac-sciences-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/orientation-apres-bac-eco-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/rentre-universitaire-janvier-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        {seoProgrammaticRoutes.map((path) => (
+          <Route key={path} path={path} element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        ))}
         <Route path="/parcoursup-tunisie-accompagnement" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
         <Route path="/nos-recrutements" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/guides/etudier-russie-tunisie/guides/admission-universite-russie-tunisie" element={<Navigate to="/guides/admission-universite-russie-tunisie" replace />} />
