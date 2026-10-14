@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield, Database, Inbox, BriefcaseBusiness } from 'lucide-react';
+import { BarChart3, Users, KanbanSquare, MessageSquare, Clock3, Settings, Shield, Database, Inbox, BriefcaseBusiness, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -29,7 +29,8 @@ export default function Sidebar() {
 
   if (user?.role === 'admin') {
     navItems.splice(3, 0, { to: '/candidatures', icon: BriefcaseBusiness, label: 'Candidatures' });
-    navItems.splice(4, 0, { to: '/pipeline', icon: KanbanSquare, label: 'Pipeline' });
+    navItems.splice(4, 0, { to: '/avis', icon: Star, label: 'Avis' });
+    navItems.splice(5, 0, { to: '/pipeline', icon: KanbanSquare, label: 'Pipeline' });
     navItems.splice(7, 0, { to: '/team', icon: Shield, label: 'Team' });
     navItems.splice(8, 0, { to: '/backups', icon: Database, label: 'Backups' });
     navItems.push({ to: '/settings', icon: Settings, label: 'Settings' });

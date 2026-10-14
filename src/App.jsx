@@ -19,6 +19,7 @@ const UniversityPartnersPage = lazy(() => import('./pages/UniversityPartnersPage
 const UniversityRecruitmentAgencyPage = lazy(() => import('./pages/UniversityRecruitmentAgencyPage.jsx'));
 const BecomePartnerPage = lazy(() => import('./pages/BecomePartnerPage.jsx'));
 const GoogleReviewPage = lazy(() => import('./pages/GoogleReviewPage.jsx'));
+const ReviewSubmissionPage = lazy(() => import('./pages/ReviewSubmissionPage.jsx'));
 const CountryGuidePage = lazy(() => import('./pages/CountryGuidePage.jsx'));
 const CityLandingPage = lazy(() => import('./pages/CityLandingPage.jsx'));
 const BlogHubPage = lazy(() => import('./pages/BlogHubPage.jsx'));
@@ -111,6 +112,7 @@ export default function App() {
         <Route path="/agence-recrutement-etudiants-afrique-du-nord" element={<Suspense fallback={<LoadingFallback />}><UniversityRecruitmentAgencyPage /></Suspense>} />
         <Route path="/devenir-partenaire" element={<Suspense fallback={<LoadingFallback />}><BecomePartnerPage /></Suspense>} />
         <Route path="/avis-google" element={<Suspense fallback={<LoadingFallback />}><GoogleReviewPage /></Suspense>} />
+        <Route path="/ajouter-un-avis" element={<Suspense fallback={<LoadingFallback />}><ReviewSubmissionPage /></Suspense>} />
 
         <Route path="/fr/etudier-a-l-etranger-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />
         <Route path="/fr/etudier-a-l-etranger-depuis-tunis" element={<Suspense fallback={<LoadingFallback />}><SeoPillarPage /></Suspense>} />

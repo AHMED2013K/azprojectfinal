@@ -31,6 +31,7 @@ import SEOHelmet from '../components/SEOHelmet';
 import LanguageSwitch from '../components/LanguageSwitch';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { studentAbroadTestimonials } from '../components/TestimonialsData.js';
+import ReviewsSection from '../components/ReviewsSection.jsx';
 import { trackEvent } from '../utils/tracking';
 
 const WA_NUMBER = '21656590703';
@@ -1170,6 +1171,8 @@ export default function StudentHomePage() {
               </div>
             </div>
           </section>
+
+          <ReviewsSection />
 
           <section id="stories" className="px-4 pb-20 sm:px-6">
             <div className="mx-auto max-w-7xl rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm md:p-8">

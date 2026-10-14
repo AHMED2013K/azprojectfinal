@@ -19,6 +19,7 @@ const Team = lazy(() => import('./pages/Team'));
 const Backups = lazy(() => import('./pages/Backups'));
 const Settings = lazy(() => import('./pages/Settings'));
 const Candidatures = lazy(() => import('./pages/Candidatures'));
+const Reviews = lazy(() => import('./pages/Reviews'));
 const PublicLeadForm = lazy(() => import('./pages/PublicLeadForm'));
 const LinkedInApplicationForm = lazy(() => import('./pages/LinkedInApplicationForm'));
 const StudentJobApplicationForm = lazy(() => import('./pages/StudentJobApplicationForm'));
@@ -81,6 +82,7 @@ export default function App() {
                     <Route path="/leads" element={<Leads />} />
                     <Route path="/treated" element={<Treated />} />
                     <Route path="/candidatures" element={<ProtectedRoute roles={['admin']}><Candidatures /></ProtectedRoute>} />
+                    <Route path="/avis" element={<ProtectedRoute roles={['admin']}><Reviews /></ProtectedRoute>} />
                     <Route path="/pipeline" element={<ProtectedRoute roles={['admin', 'manager']}><Pipeline /></ProtectedRoute>} />
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/tracking" element={<Tracking />} />
