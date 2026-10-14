@@ -31,7 +31,6 @@ import SEOHelmet from '../components/SEOHelmet';
 import LanguageSwitch from '../components/LanguageSwitch';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { studentAbroadTestimonials } from '../components/TestimonialsData.js';
-import ReviewsSection from '../components/ReviewsSection.jsx';
 import { trackEvent } from '../utils/tracking';
 
 const WA_NUMBER = '21656590703';
@@ -688,6 +687,13 @@ const seoInternalLinks = [
   { label: 'Méthode EduGrowth', path: '/methode-edugrowth', text: 'Diagnostic, shortlist, dossier, admission, visa, départ et suivi.' },
 ];
 
+const googleReviews = [
+  { name: 'Nesrine', destination: 'EduGrowth', year: 'Google', institution: 'Avis Google - il y a 2 mois', program: 'Avis client', visaStatus: '', before: '', support: '', result: '', content: "Je suis très satisfaite de mon expérience avec cette agence. Dès le premier accueil, l’équipe a été très chaleureuse, professionnelle et à l’écoute. Ils prennent vraiment le temps de comprendre mes besoins et de m’orienter vers la solution qui me correspond le mieux pour mes études à l’étranger. Merci pour votre accompagnement, votre disponibilité et votre gentillesse. Je recommande vivement cette agence.", rating: 5, avatar: '⭐' },
+  { name: 'Kacem Meriam', destination: 'EduGrowth', year: 'Google', institution: 'Avis Google - il y a 3 mois', program: 'Avis client', visaStatus: '', before: '', support: '', result: '', content: "Un immense merci pour votre professionnalisme, votre disponibilité et votre bienveillance tout au long de mon accompagnement. Une équipe à l'écoute que je recommande les yeux fermés !", rating: 5, avatar: '⭐' },
+  { name: 'DCB', destination: 'Abroad Zone', year: 'Google', institution: 'Avis Google', program: 'Avis client', visaStatus: '', before: '', support: '', result: '', content: "Merci à toute l’équipe d’Abroad Zone (surtout Mr. Yousssef et Ahmed) pour leur disponibilité, leur réactivité et leur accompagnement tout au long du processus. Une équipe sérieuse, professionnelle et toujours à l’écoute. Je recommande vivement leurs services à toute personne souhaitant poursuivre ses études à l’étranger.", rating: 5, avatar: '⭐' },
+  { name: 'Mehdi', destination: 'EduGrowth', year: 'Google', institution: 'Avis client', program: 'Avis client', visaStatus: '', before: '', support: '', result: '', content: "Bel7a9 équipe yeser pro, bel5sous sid Ahmed c'est lui qui a géré mon dossier de A jusqu'à Z, je suis très satisfait, il était tjrs disponible w fin manest7a9hom mawjoudin.", rating: 5, avatar: '⭐' },
+ ];
+
 const realOutcomeProofs = [
   { destination: 'France', year: '2026', result: 'admission obtenue', field: 'Master informatique' },
   { destination: 'Chypre du Nord', year: '2026', result: 'admission obtenue', field: 'Business Administration' },
@@ -1172,8 +1178,6 @@ export default function StudentHomePage() {
             </div>
           </section>
 
-          <ReviewsSection />
-
           <section id="stories" className="px-4 pb-20 sm:px-6">
             <div className="mx-auto max-w-7xl rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm md:p-8">
               <div className="max-w-3xl">
@@ -1559,7 +1563,7 @@ export default function StudentHomePage() {
                 <a href="/ajouter-un-avis" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#176b87] px-5 py-3 text-sm font-black text-white transition hover:bg-[#12586f]">Ajouter un avis <MessageCircle size={16} /></a>
               </div>
               <div className="mt-10 grid gap-5 lg:grid-cols-3">
-                {studentAbroadTestimonials.slice(0, 3).map((story) => (
+                {[...studentAbroadTestimonials.slice(0, 3), ...googleReviews].map((story) => (
                   <blockquote key={story.name} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-1 text-amber-400">
@@ -1570,7 +1574,7 @@ export default function StudentHomePage() {
                       <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[#176b87] ring-1 ring-slate-200">{story.year}</span>
                     </div>
                     <p className="mt-4 text-sm leading-7 text-slate-700">"{story.content}"</p>
-                    <div className="mt-5 space-y-3 text-sm leading-6 text-slate-700">
+                    <div className="mt-5 space-y-3 text-sm leading-6 text-slate-700">{story.before && story.support && story.result && (<>
                       <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
                         <strong className="text-[#17324d]">Avant : </strong>{story.before}
                       </div>
@@ -1580,7 +1584,7 @@ export default function StudentHomePage() {
                       <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
                         <strong className="text-[#17324d]">Resultat : </strong>{story.result}
                       </div>
-                    </div>
+                    </>)}</div>
                     <footer className="mt-5 flex items-center gap-3">
                       <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-xl ring-1 ring-slate-200">{story.avatar}</div>
                       <div>
