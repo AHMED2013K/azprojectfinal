@@ -1556,6 +1556,7 @@ export default function StudentHomePage() {
                 <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">{t.proofTitle}</h2>
                 <p className="mt-4 text-lg leading-8 text-slate-600">{t.proofText}</p>
                 <p className="mt-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-semibold leading-6 text-amber-900">{t.proofDisclaimer}</p>
+                <a href="/ajouter-un-avis" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#176b87] px-5 py-3 text-sm font-black text-white transition hover:bg-[#12586f]">Ajouter un avis <MessageCircle size={16} /></a>
               </div>
               <div className="mt-10 grid gap-5 lg:grid-cols-3">
                 {studentAbroadTestimonials.slice(0, 3).map((story) => (
