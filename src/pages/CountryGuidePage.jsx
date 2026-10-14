@@ -367,6 +367,9 @@ const countryData = {
     ],
     relatedLinks: [
       { to: "/stage-hotellerie-tourisme-grece", label: "Stage hospitality et tourisme en Grèce" },
+      { to: "/internship-grece-hospitality-tunisie", label: "Internship Grèce hospitality" },
+      { to: "/stage-hotellerie-grece-salaire-logement-repas", label: "Salaire, logement et repas stage Grèce" },
+      { to: "/etudier-tourisme-hotellerie-grece", label: "Tourisme et hôtellerie en Grèce" },
       { to: "/etudier-en-pologne-depuis-tunisie", label: "Comparer avec Pologne" },
       { to: "/etudier-en-italie-depuis-tunisie", label: "Comparer avec Italie" },
       { to: "/book-consultation", label: "Tester mon profil" },
@@ -440,6 +443,9 @@ const countryData = {
     ],
     relatedLinks: [
       { to: "/guides/etudier-medecine-pologne-tunisie", label: "Médecine en Pologne" },
+      { to: "/etudier-en-pologne-budget-tunisie", label: "Budget étudiant Pologne" },
+      { to: "/visa-etudiant-pologne-tunisie", label: "Visa étudiant Pologne" },
+      { to: "/comparer-france-pologne-tunisie", label: "France vs Pologne" },
       { to: "/etudier-en-grece-depuis-tunisie", label: "Comparer avec Grèce" },
       { to: "/etudier-en-hongrie-depuis-tunisie", label: "Comparer avec Hongrie" },
       { to: "/book-consultation", label: "Tester mon profil" },

@@ -678,6 +678,23 @@ const copy = {
   },
 };
 
+const seoInternalLinks = [
+  { label: 'Campus France: date limite 18 décembre', path: '/campus-france-tunisie-calendrier-2026-2027', text: 'Calendrier, dossier, étapes et accompagnement Campus France Tunisie 2026/2027.' },
+  { label: 'Parcoursup depuis la Tunisie', path: '/parcoursup-tunisie-accompagnement', text: 'Voeux, calendrier, dossier et stratégie pour les candidats tunisiens.' },
+  { label: 'Internship Grèce hospitality', path: '/internship-grece-hospitality-tunisie', text: 'Programme 6 mois en Grèce: anglais obligatoire, salaire, logement et repas selon poste.' },
+  { label: 'Pologne: budget étudiant', path: '/etudier-en-pologne-budget-tunisie', text: 'Budget, villes, frais, logement et préparation du projet depuis la Tunisie.' },
+  { label: 'Visa étudiant Pologne', path: '/visa-etudiant-pologne-tunisie', text: 'Documents, cohérence du dossier, preuves financières et préparation visa.' },
+  { label: 'Méthode EduGrowth', path: '/methode-edugrowth', text: 'Diagnostic, shortlist, dossier, admission, visa, départ et suivi.' },
+];
+
+const realOutcomeProofs = [
+  { destination: 'France', year: '2026', result: 'admission obtenue', field: 'Master informatique' },
+  { destination: 'Chypre du Nord', year: '2026', result: 'admission obtenue', field: 'Business Administration' },
+  { destination: 'Allemagne', year: '2025', result: 'dossier accepté', field: 'Ausbildung santé' },
+  { destination: 'Russie', year: '2026', result: 'admission obtenue', field: 'Médecine' },
+  { destination: 'France', year: '2025', result: 'accompagnement visa', field: 'Bachelor management' },
+];
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -1125,6 +1142,49 @@ export default function StudentHomePage() {
                       <p className="text-sm font-semibold leading-6 text-slate-100">{item}</p>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+
+          <section className="px-4 pb-20 sm:px-6">
+            <div className="mx-auto max-w-7xl">
+              <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Maillage prioritaire SEO</p>
+                  <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-4xl">Les dossiers à traiter maintenant depuis la Tunisie.</h2>
+                </div>
+                <Link to="/methode-edugrowth" className="inline-flex items-center gap-2 text-sm font-black text-[#176b87]">
+                  Voir la méthode EduGrowth <ArrowRight size={16} />
+                </Link>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {seoInternalLinks.map((item) => (
+                  <Link key={item.path} to={item.path} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                    <h3 className="text-lg font-black text-[#17324d]">{item.label}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{item.text}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-black text-[#176b87]">Consulter <ArrowRight size={15} /></span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section id="stories" className="px-4 pb-20 sm:px-6">
+            <div className="mx-auto max-w-7xl rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+              <div className="max-w-3xl">
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Résultats accompagnés</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-4xl">Exemples de parcours suivis par EduGrowth.</h2>
+                <p className="mt-4 text-base leading-8 text-slate-600">Ces exemples sont anonymisés. Les preuves détaillées peuvent être floutées avant publication pour protéger les données personnelles des étudiants.</p>
+              </div>
+              <div className="mt-7 grid gap-4 md:grid-cols-5">
+                {realOutcomeProofs.map((item) => (
+                  <article key={item.destination + item.year + item.field} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                    <div className="text-sm font-black text-[#176b87]">{item.destination} · {item.year}</div>
+                    <h3 className="mt-3 font-black text-[#17324d]">{item.result}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.field}</p>
+                  </article>
                 ))}
               </div>
             </div>

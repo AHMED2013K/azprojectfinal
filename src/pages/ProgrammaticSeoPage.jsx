@@ -263,6 +263,25 @@ function buildSections(page) {
   ];
 }
 
+const edugrowthMethodSections = [
+  {
+    title: 'Diagnostic initial EduGrowth',
+    body: 'Nous commençons par comprendre le niveau académique, le budget familial, les langues, les délais, les contraintes visa et l’objectif professionnel. Cette étape évite de choisir une destination séduisante mais incohérente.'
+  },
+  {
+    title: 'Shortlist réaliste',
+    body: 'EduGrowth construit une shortlist de pays, universités ou programmes selon le profil réel: Campus France, Parcoursup, Grèce, Pologne, Russie, Chypre du Nord, Allemagne ou autres options selon le cas.'
+  },
+  {
+    title: 'Dossier et preuves',
+    body: 'Nous préparons les documents, traductions, lettres, CV, preuves financières et éléments de cohérence. L’objectif est un dossier lisible, complet et défendable.'
+  },
+  {
+    title: 'Admission, visa, départ et suivi',
+    body: 'Après l’admission, nous accompagnons la préparation visa, logement, départ et suivi administratif. Le travail ne s’arrête pas au dépôt du dossier.'
+  },
+];
+
 export default function ProgrammaticSeoPage() {
   const { pathname } = useLocation();
   const normalizedPath = pathname.replace(/\/+$/, '') || '/orientation-etudiant-tunisie';
