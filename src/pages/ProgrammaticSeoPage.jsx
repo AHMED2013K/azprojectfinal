@@ -100,7 +100,7 @@ const relatedByCluster = {
     ['/campus-france-tunisie-calendrier-2026-2027', 'Calendrier Campus France'],
   ],
   recrutement: [
-    ['https://app.edugrowth.tn/student-job', 'Formulaire candidatures'],
+    ['https://app.edugrowth.tn/job', 'Formulaire candidatures'],
     ['/about', 'À propos EduGrowth'],
   ],
   local: [
@@ -156,7 +156,7 @@ function buildSections(page) {
       },
       {
         h2: 'Comment postuler',
-        body: 'Les candidats doivent déposer leur CV via le formulaire public officiel https://app.edugrowth.tn/student-job afin que les candidatures soient centralisées dans l’espace EduGrowth, sans login candidat.',
+        body: 'Les candidats doivent déposer leur CV via le formulaire public officiel https://app.edugrowth.tn/job afin que les candidatures soient centralisées dans l’espace EduGrowth, sans login candidat.',
       },
     ];
   }
@@ -309,7 +309,7 @@ export default function ProgrammaticSeoPage() {
               )
             ))}
             <a
-              href={page.cluster === 'recrutement' ? 'https://app.edugrowth.tn/student-job' : `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Bonjour EduGrowth, je veux une orientation: ${page.title}.`)}`}
+              href={page.cluster === 'recrutement' ? 'https://app.edugrowth.tn/job' : `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Bonjour EduGrowth, je veux une orientation: ${page.title}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 p-4 text-sm font-black text-white"

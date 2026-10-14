@@ -68,6 +68,7 @@ export default function App() {
                   <Route path="/alternance-2026" element={<Navigate to="/apply" replace />} />
                   <Route path="/inscription" element={<LinkedInApplicationForm />} />
                   <Route path="/student-job" element={<StudentJobApplicationForm />} />
+                  <Route path="/job" element={<StudentJobApplicationForm />} />
                   <Route
                     element={(
                       <ProtectedRoute>

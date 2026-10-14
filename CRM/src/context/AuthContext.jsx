@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
     async function restoreSession() {
       try {
         const storedToken = sessionStorage.getItem(TOKEN_KEY);
-        const isPublicAuthPage = ['/login', '/apply', '/inscription', '/student-job'].includes(window.location.pathname)
+        const isPublicAuthPage = ['/login', '/apply', '/inscription', '/student-job', '/job'].includes(window.location.pathname)
           || window.location.pathname.startsWith('/public/');
 
         if (!storedToken) {
