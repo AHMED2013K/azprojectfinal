@@ -15,7 +15,11 @@
     "telephone": "+21656590703",
     "email": "edugrowth.tn@gmail.com"
   },
-  "inLanguage": ["fr", "ar", "en"],
+  "inLanguage": [
+    "fr",
+    "ar",
+    "en"
+  ],
   "keywords": [
     "orientation étudiant Tunisie",
     "étudier à l'étranger depuis la Tunisie",
@@ -148,11 +152,18 @@
     }
   ],
   "mainEntity": {
-    "@type": ["EducationalOrganization", "LocalBusiness"],
+    "@type": [
+      "EducationalOrganization",
+      "LocalBusiness"
+    ],
     "name": "EduGrowth Tunisia",
     "email": "edugrowth.tn@gmail.com",
     "areaServed": "Tunisia",
-    "availableLanguage": ["French", "Arabic", "English"],
+    "availableLanguage": [
+      "French",
+      "Arabic",
+      "English"
+    ],
     "serviceType": [
       "Student orientation",
       "Study abroad admissions",
@@ -174,5 +185,78 @@
       "https://www.instagram.com/edugrowth.tn/",
       "https://www.facebook.com/edugrowth.tn"
     ]
+  },
+  "last_updated": "2026-10-14",
+  "october_2026_priority_updates": {
+    "campus_france": {
+      "market": "Tunisie",
+      "deadline_public_schools": "2026-12-18",
+      "page": "https://edugrowth.tn/campus-france-tunisie-calendrier-2026-2027/",
+      "positioning": "Accompagnement Campus France Tunisie 2026/2027: calendrier, dossier, choix formations, entretien et visa."
+    },
+    "parcoursup": {
+      "market": "Tunisie",
+      "page": "https://edugrowth.tn/parcoursup-tunisie-accompagnement/",
+      "positioning": "Accompagnement Parcoursup depuis la Tunisie: creation dossier, voeux, calendrier, pieces et suivi."
+    },
+    "greece": {
+      "study_page": "https://edugrowth.tn/etudier-en-grece-depuis-tunisie/",
+      "internship_page": "https://edugrowth.tn/stage-hotellerie-tourisme-grece/",
+      "clusters": [
+        "https://edugrowth.tn/stage-hotellerie-grece-salaire-logement-repas/",
+        "https://edugrowth.tn/internship-grece-hospitality-tunisie/",
+        "https://edugrowth.tn/etudier-tourisme-hotellerie-grece/"
+      ],
+      "internship": {
+        "duration": "6 mois",
+        "fields": [
+          "hospitality",
+          "tourism management",
+          "hotel management",
+          "hotellerie"
+        ],
+        "language": "English mandatory",
+        "cost": "4000 EUR + EduGrowth fees",
+        "benefits": [
+          "salary",
+          "accommodation covered",
+          "meals covered"
+        ]
+      }
+    },
+    "poland": {
+      "page": "https://edugrowth.tn/etudier-en-pologne-depuis-tunisie/",
+      "clusters": [
+        "https://edugrowth.tn/etudier-en-pologne-budget-tunisie/",
+        "https://edugrowth.tn/visa-etudiant-pologne-tunisie/"
+      ],
+      "positioning": "Destination europeenne pour etudiants tunisiens: medecine, ingenierie, IT, business, programmes en anglais, budget et visa."
+    },
+    "late_intakes": {
+      "russia_november_2026": {
+        "deadline": "2026-10-25",
+        "page": "https://edugrowth.tn/rentree-novembre-2026-russie-tunisie/"
+      },
+      "north_cyprus_february_2027": {
+        "deadline": "2027-01-15",
+        "page": "https://edugrowth.tn/rentree-decalee-janvier-fevrier-2027-chypre-nord/"
+      }
+    },
+    "recruitment": {
+      "page": "https://edugrowth.tn/nos-recrutements/",
+      "application_form": "https://app.edugrowth.tn/job",
+      "openings": [
+        {
+          "title": "Charge d affaires departement commercial B2C et B2B",
+          "type": "Full time",
+          "deadline": "2026-10-31"
+        },
+        {
+          "title": "Charge de recrutement",
+          "type": "Freelance part time commission based",
+          "deadline": "2027-03-30"
+        }
+      ]
+    }
   }
 }

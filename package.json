@@ -13,7 +13,8 @@
     "postinstall": "npm --prefix CRM install",
     "deploy": "gh-pages -d dist",
     "start": "node backend/server.js",
-    "serve-api": "node backend/server.js"
+    "serve-api": "node backend/server.js",
+    "seo:audit": "node scripts/seo-audit.mjs"
   },
   "dependencies": {
     "cors": "^2.8.6",
