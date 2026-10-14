@@ -158,6 +158,8 @@ export default function App() {
         <Route path="/orientation-apres-bac-sciences-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/orientation-apres-bac-eco-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/rentre-universitaire-janvier-tunisie" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
+        <Route path="/parcoursup-tunisie-accompagnement" element={<Suspense fallback={<LoadingFallback />}><SeoTopicGuidePage /></Suspense>} />
+        <Route path="/nos-recrutements" element={<Suspense fallback={<LoadingFallback />}><ProgrammaticSeoPage /></Suspense>} />
         <Route path="/guides/etudier-russie-tunisie/guides/admission-universite-russie-tunisie" element={<Navigate to="/guides/admission-universite-russie-tunisie" replace />} />
         <Route path="/guides/etudier-russie-tunisie/guides/visa-etudiant-russie-tunisie" element={<Navigate to="/guides/visa-etudiant-russie-tunisie" replace />} />
         <Route path="/guides/etudier-russie-tunisie/guides/cout-etudier-russie-tunisie" element={<Navigate to="/guides/cout-etudier-russie-tunisie" replace />} />
@@ -194,6 +196,9 @@ export default function App() {
         <Route path="/etudier-en-roumanie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-france-ecole-privee-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-russie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-grece-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/stage-hotellerie-tourisme-grece" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
+        <Route path="/etudier-en-pologne-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-italie-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-espagne-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />
         <Route path="/etudier-en-chine-depuis-tunisie" element={<Suspense fallback={<LoadingFallback />}><CountryGuidePage /></Suspense>} />

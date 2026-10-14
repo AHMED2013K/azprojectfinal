@@ -173,8 +173,29 @@ const destinations = [
     name: 'Russie',
     path: '/etudier-en-russie-depuis-tunisie',
     focus: 'Médecine, ingénierie, budget accessible',
-    timing: 'À vérifier selon langue et reconnaissance',
+    timing: 'Rentrée Novembre 2026 disponible jusqu’au 25 octobre 2026',
     image: 'https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Grèce',
+    path: '/etudier-en-grece-depuis-tunisie',
+    focus: 'Europe, programmes en anglais, hospitality, tourisme',
+    timing: 'Nouveauté octobre 2026',
+    image: 'https://images.unsplash.com/photo-1503152394-c571994fd383?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Stage Grèce 6 mois',
+    path: '/stage-hotellerie-tourisme-grece',
+    focus: 'Hospitality, tourism management, hotel management',
+    timing: 'Salaire + logement + repas selon programme',
+    image: 'https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=700&q=80',
+  },
+  {
+    name: 'Pologne',
+    path: '/etudier-en-pologne-depuis-tunisie',
+    focus: 'Europe, anglais, médecine, IT, business',
+    timing: 'Nouvelle destination EduGrowth',
+    image: 'https://images.unsplash.com/photo-1519197924294-4ba991a11128?auto=format&fit=crop&w=700&q=80',
   },
   {
     name: 'Albanie',
@@ -242,15 +263,56 @@ const homepageComparisonRows = [
   ['Allemagne', 'Modéré en public', 'Allemand / anglais', 'Compte bloqué fréquent', '/etudier-en-allemagne-depuis-tunisie'],
   ['Roumanie', 'Moyen', 'Français / anglais', 'Visa étudiant européen', '/etudier-en-roumanie-depuis-tunisie'],
   ['Dubai', 'À partir de 5000 USD/an selon programme', 'Anglais', 'Visa étudiant après admission', '/etudier-a-dubai-depuis-tunisie'],
+  ['Grèce', 'Moyen selon ville et programme', 'Anglais / grec', 'Admission + visa selon parcours', '/etudier-en-grece-depuis-tunisie'],
+  ['Pologne', 'Moyen, médecine plus élevée', 'Anglais / polonais', 'Admission + visa national étudiant', '/etudier-en-pologne-depuis-tunisie'],
   ['Corée du Sud', 'Moyen à élevé', 'Anglais / coréen', 'Visa D-2 après admission', '/etudier-en-coree-du-sud-depuis-tunisie'],
   ['Japon', 'Moyen à élevé', 'Japonais / anglais', 'Certificate of Eligibility + visa', '/etudier-au-japon-depuis-tunisie'],
+];
+
+const octoberHighlights = [
+  {
+    label: 'NOUVEAUTÉ Octobre 2026',
+    title: 'Rentrée Russie Novembre 2026',
+    text: 'Admissions disponibles jusqu’au 25 octobre 2026 pour les profils qui veulent éviter une année blanche.',
+    path: '/rentree-novembre-2026-russie-tunisie',
+    cta: 'Voir la rentrée Russie',
+  },
+  {
+    label: 'Rentrée décalée Février 2027',
+    title: 'Chypre du Nord Janvier-Février 2027',
+    text: 'Admissions disponibles jusqu’au 15 janvier 2027 selon programme, budget et places restantes.',
+    path: '/rentree-decalee-janvier-fevrier-2027-chypre-nord',
+    cta: 'Voir Chypre du Nord',
+  },
+  {
+    label: 'Nouveau programme international',
+    title: 'Internship 6 mois en Grèce',
+    text: 'Pour hospitality, tourisme et hôtellerie: anglais obligatoire, programme en anglais, salaire + logement + repas selon poste.',
+    path: '/stage-hotellerie-tourisme-grece',
+    cta: 'Voir le stage Grèce',
+  },
+];
+
+const recruitmentNeeds = [
+  {
+    title: 'Chargé d’affaires B2C / B2B',
+    contract: 'Full time - Département commercial',
+    deadline: 'Date limite: 31 octobre 2026',
+    details: 'Prospection, suivi prospects, partenariats, relance commerciale, reporting et conversion des demandes étudiants/partenaires.',
+  },
+  {
+    title: 'Chargé de recrutement freelance',
+    contract: 'Part time - Commission based job',
+    deadline: 'Date limite: 30 mars 2027',
+    details: 'Identification de candidats, orientation initiale, qualification des leads et collaboration à temps partiel sur commission.',
+  },
 ];
 
 const copy = {
   fr: {
     seoTitle: "Orientation etudiant Tunisie | Etudier a l'etranger | EduGrowth",
     seoDescription:
-      "Orientation etudiant Tunisie: etudier a l'etranger, Campus France 2026/2027, visa etudiant France, Allemagne Ausbildung, Canada, Maroc et Espagne.",
+      "Orientation etudiant Tunisie: Campus France 2026/2027, Parcoursup, Grèce, Pologne, Russie Novembre 2026, Chypre Février 2027, visa et études à l'étranger.",
     navDestinations: 'Destinations',
     navServices: 'Services',
     navAlternance: 'Alternance France',
@@ -311,7 +373,7 @@ const copy = {
     quizDestination: 'Destination visee',
     quizBudget: 'Budget mensuel estime',
     quizStage: 'Ou en etes-vous ?',
-    quizDestinations: ['France privé', 'France alternance', 'Dubai', 'Roumanie', 'Canada', 'Autriche', 'Hongrie', 'Espagne', 'Chine', 'Corée du Sud', 'Japon', 'Allemagne', 'Chypre du Nord', 'Turquie', 'Je ne sais pas encore'],
+    quizDestinations: ['France Campus France', 'Parcoursup France', 'Grèce', 'Stage Grèce hospitality', 'Pologne', 'Russie Novembre 2026', 'Chypre du Nord Février 2027', 'France privé', 'France alternance', 'Dubai', 'Roumanie', 'Canada', 'Autriche', 'Hongrie', 'Espagne', 'Chine', 'Corée du Sud', 'Japon', 'Allemagne', 'Turquie', 'Je ne sais pas encore'],
     quizBudgets: ['Moins de 500 EUR', '500 - 800 EUR', '800 - 1200 EUR', 'Plus de 1200 EUR', 'A definir avec mes parents'],
     quizStages: ['Je passe le bac cette année', 'Je n’ai pas le bac', 'Je compare les pays', 'Je veux preparer mon dossier', 'Je cherche une alternance', 'Je prepare le visa', 'Je veux rassurer mes parents'],
     quizResultTitle: 'Votre resume de profil',
@@ -333,6 +395,9 @@ const copy = {
       "Ces pages repondent aux requetes qui gagnent deja des impressions Google: Campus France 2026/2027, visa etudiant France, Ausbildung Tunisie, compte bloque Allemagne, medecine au Maroc et orientation.",
     searchConsoleLinks: [
       { label: 'Campus France Tunisie calendrier 2026 2027', path: '/campus-france-tunisie-calendrier-2026-2027' },
+      { label: 'Parcoursup Tunisie accompagnement 2027', path: '/parcoursup-tunisie-accompagnement' },
+      { label: 'Stage hôtellerie tourisme en Grèce', path: '/stage-hotellerie-tourisme-grece' },
+      { label: 'Étudier en Pologne depuis la Tunisie', path: '/etudier-en-pologne-depuis-tunisie' },
       { label: 'Visa etudiant France Tunisie documents', path: '/blog/visa-etudiant-france-tunisie-documents' },
       { label: 'Ausbildung Allemagne Tunisie conditions et visa', path: '/blog/ausbildung-allemagne-tunisiens-conditions' },
       { label: 'Compte bloque Allemagne Tunisie', path: '/blog/compte-bloque-allemagne-tunisie' },
@@ -356,7 +421,8 @@ const copy = {
     services: [
       'Orientation destination',
       'Admission universite ou ecole',
-      'Campus France',
+      'Campus France public avant le 18 décembre 2026',
+      'Parcoursup France',
       'Preparation visa',
       'Alternance France',
       'Recherche logement',
@@ -493,7 +559,7 @@ const copy = {
     quizDestination: 'Target destination',
     quizBudget: 'Estimated monthly budget',
     quizStage: 'Where are you now?',
-    quizDestinations: ['France private school', 'France work-study', 'Dubai', 'Romania', 'Canada', 'Austria', 'Hungary', 'Spain', 'China', 'South Korea', 'Japan', 'Germany', 'North Cyprus', 'Turkey', 'I am not sure yet'],
+    quizDestinations: ['Campus France', 'Parcoursup France', 'Greece', 'Greece hospitality internship', 'Poland', 'Russia November 2026', 'North Cyprus February 2027', 'France private school', 'France work-study', 'Dubai', 'Romania', 'Canada', 'Austria', 'Hungary', 'Spain', 'China', 'South Korea', 'Japan', 'Germany', 'Turkey', 'I am not sure yet'],
     quizBudgets: ['Under EUR 500', 'EUR 500 - 800', 'EUR 800 - 1200', 'Over EUR 1200', 'To define with my parents'],
     quizStages: ['I am taking the bac this year', 'I do not have the bac', 'I am comparing countries', 'I want to prepare my file', 'I am looking for work-study', 'I am preparing visa steps', 'I want to reassure my parents'],
     quizResultTitle: 'Your profile summary',
@@ -768,6 +834,7 @@ export default function StudentHomePage() {
     { label: t.navTestimonials, href: '#stories' },
     { label: 'Universités', to: '/partenaires-universites' },
     { label: t.navResources, to: '/resources' },
+    { label: 'Recrutements', to: '/nos-recrutements' },
     { label: t.navContact, href: '#contact' },
   ];
 
@@ -908,7 +975,7 @@ export default function StudentHomePage() {
                     <div>
                       <div className="font-black text-[#17324d]">{t.trustTitle}</div>
                       <p className="mt-1 text-sm leading-6 text-slate-600">
-                        France privé, alternance, Dubai, Roumanie, Allemagne, Canada, Chypre et Turquie selon profil, bac 2026 ou parcours sans bac.
+                        Campus France, Parcoursup, Grèce, Pologne, Russie Novembre 2026, Chypre Février 2027, France privé, alternance, Dubai et Allemagne selon profil.
                       </p>
                     </div>
                   </div>
@@ -953,6 +1020,55 @@ export default function StudentHomePage() {
                   <MessageCircle size={18} />
                   {t.whatsappCta}
                 </a>
+              </div>
+            </div>
+          </section>
+
+          <section className="px-4 pb-16 sm:px-6">
+            <div className="mx-auto max-w-7xl rounded-[1.75rem] border border-amber-200 bg-amber-50 p-6 shadow-sm md:p-8">
+              <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+                <div className="max-w-3xl">
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-amber-700">NOUVEAUTÉ Octobre 2026 !!</p>
+                  <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-4xl">Rentrées tardives, Grèce, Pologne et opportunités internationales.</h2>
+                  <p className="mt-4 text-base leading-8 text-amber-950/80">La période hors pic commence: EduGrowth remet en avant les dossiers encore actionnables maintenant, avec deadlines claires et CTA WhatsApp spécialisés.</p>
+                </div>
+                <a href={buildWhatsAppUrl('Bonjour EduGrowth, je veux connaître les nouveautés Octobre 2026: Russie, Chypre du Nord, Grèce, Pologne ou internship Grèce.', 'homepage_october_highlights', lang)} target="_blank" rel="noopener noreferrer" onClick={() => handleWhatsAppLead('homepage_october_highlights')} className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-6 py-4 text-sm font-black text-white hover:bg-emerald-700">
+                  <MessageCircle size={18} /> WhatsApp nouveautés
+                </a>
+              </div>
+              <div className="mt-7 grid gap-5 lg:grid-cols-3">
+                {octoberHighlights.map((item) => (
+                  <Link key={item.title} to={item.path} className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-amber-700">{item.label}</p>
+                    <h3 className="mt-3 text-xl font-black text-[#17324d]">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-700">{item.text}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-black text-[#176b87]">{item.cta}<ArrowRight size={15} /></span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="px-4 pb-16 sm:px-6">
+            <div className="mx-auto grid max-w-7xl gap-6 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm md:p-8 lg:grid-cols-[0.85fr_1.15fr]">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Nos recrutements</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-4xl">EduGrowth recrute pour renforcer l’équipe commerciale et recrutement.</h2>
+                <p className="mt-4 text-base leading-8 text-slate-600">Les candidats doivent postuler via le formulaire officiel. Les CV seront centralisés dans votre espace candidatures.</p>
+                <a href="https://app.edugrowth.tn/candidatures" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#17324d] px-6 py-4 text-sm font-black text-white hover:bg-[#10263b]">
+                  Postuler maintenant <ArrowRight size={16} />
+                </a>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                {recruitmentNeeds.map((job) => (
+                  <article key={job.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                    <Users size={22} className="text-[#176b87]" />
+                    <h3 className="mt-4 text-xl font-black text-[#17324d]">{job.title}</h3>
+                    <p className="mt-2 text-sm font-black text-slate-700">{job.contract}</p>
+                    <p className="mt-2 text-sm font-black text-rose-700">{job.deadline}</p>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{job.details}</p>
+                  </article>
+                ))}
               </div>
             </div>
           </section>
@@ -1160,18 +1276,18 @@ export default function StudentHomePage() {
               <div className="max-w-3xl">
                 <p className="text-sm font-black uppercase tracking-[0.2em] text-[#176b87]">Nouveaux axes 2026-2027</p>
                 <h2 className="mt-3 text-3xl font-black tracking-tight text-[#17324d] sm:text-5xl">Des options de rentrée adaptées aux profils qui ont raté la rentrée principale.</h2>
-                <p className="mt-4 text-lg leading-8 text-slate-600">EduGrowth met désormais en avant la Russie pour la rentrée Novembre 2026 et le Chypre du Nord pour une rentrée décalée Janvier–Février 2027.</p>
+                <p className="mt-4 text-lg leading-8 text-slate-600">EduGrowth met désormais en avant la Russie pour la rentrée Novembre 2026, Chypre du Nord pour Février 2027, la Grèce et la Pologne comme nouvelles destinations, avec des deadlines visibles pour agir vite.</p>
               </div>
               <div className="mt-10 grid gap-6 lg:grid-cols-3">
                 <Link to="/rentree-decalee-2026-2027" className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8fb] text-[#176b87]"><CalendarDays size={20} /></div>
                   <h3 className="mt-5 text-xl font-black text-[#17324d]">Rentrée Novembre 2026 — Russie</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">Pour les étudiants qui ont raté la rentrée Septembre 2026 et qui veulent une nouvelle fenêtre d’admission.</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">Pour les étudiants qui ont raté la rentrée Septembre 2026. Admissions disponibles jusqu’au 25 octobre 2026 selon places et dossier.</p>
                 </Link>
                 <Link to="/rentree-decalee-2026-2027" className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8fb] text-[#176b87]"><CalendarDays size={20} /></div>
                   <h3 className="mt-5 text-xl font-black text-[#17324d]">Rentrée Janvier–Février 2027 — Chypre du Nord</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">Une option idéale pour les profils qui ont manqué l’orientation principale ou qui veulent une admission plus tardive.</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">Une option idéale pour les profils qui ont manqué l’orientation principale. Admissions disponibles jusqu’au 15 janvier 2027 selon programme.</p>
                 </Link>
                 <Link to="/partenaires-universites" className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8fb] text-[#176b87]"><Building2 size={20} /></div>

@@ -5,6 +5,7 @@ const SOURCES = {
   france: [
     { label: 'Campus France Tunisie — informations officielles', url: 'https://www.tunisie.campusfrance.org/' },
     { label: 'France-Visas — portail officiel', url: 'https://france-visas.gouv.fr/' },
+    { label: 'Parcoursup — calendrier officiel', url: 'https://www.parcoursup.gouv.fr/calendrier' },
   ],
   germany: [
     { label: 'Ambassade d’Allemagne à Tunis — visas nationaux', url: 'https://tunis.diplo.de/tn-fr/service/05-visaeinreise/1672716-1672716?isLocal=false&isPreview=false' },
@@ -86,6 +87,7 @@ export const seoGuides = rawGuides.map(([slug, title, cluster, angle]) => ({ slu
 export const priorityGuides = [
   { path: '/cout-etudier-france-depuis-tunisie', slug: 'cout-etudier-france-depuis-tunisie', title: 'Coût des études en France depuis la Tunisie', cluster: 'france', angle: 'budgéter études, logement, visa, assurance et installation en France' },
   { path: '/campus-france-tunisie-calendrier-2026-2027', slug: 'campus-france-tunisie-calendrier-2026-2027', title: 'Calendrier Campus France Tunisie 2026-2027', cluster: 'france', angle: 'organiser le calendrier Campus France Tunisie, les documents, l’entretien et les échéances 2026-2027' },
+  { path: '/parcoursup-tunisie-accompagnement', slug: 'parcoursup-tunisie-accompagnement', title: 'Parcoursup depuis la Tunisie : accompagnement et dates 2027', cluster: 'france', angle: 'préparer Parcoursup depuis la Tunisie, choisir les formations, formuler les vœux et finaliser le dossier sans attendre la période de pic' },
   { path: '/alternance-france-tunisiens-conditions-visa', slug: 'alternance-france-tunisiens-conditions-visa', title: 'Alternance en France pour Tunisiens : conditions et visa', cluster: 'france', angle: 'vérifier l’éligibilité, le contrat et les étapes administratives' },
   { path: '/universites-allemagne-etudiants-tunisiens', slug: 'universites-allemagne-etudiants-tunisiens', title: 'Universités allemandes pour étudiants tunisiens', cluster: 'germany', angle: 'comparer université, programme, langue et admission en Allemagne' },
   { path: '/visa-etudiant-espagne-tunisie', slug: 'visa-etudiant-espagne-tunisie', title: 'Visa étudiant Espagne Tunisie : documents et étapes', cluster: 'spain', angle: 'préparer les documents, le financement, le logement et les étapes du visa étudiant Espagne depuis la Tunisie' },
@@ -131,7 +133,7 @@ export default function SeoTopicGuidePage() {
     { q: 'Pourquoi consulter les sources officielles ?', a: 'Les règles d’admission, de visa et de reconnaissance évoluent. Les sites officiels et l’université concernée restent la référence avant tout paiement.' },
   ];
   const schema = { '@context': 'https://schema.org', '@graph': [
-    { '@type': 'Article', '@id': `${canonical}#article`, headline: guide.title, description: `Guide EduGrowth pour ${guide.angle}.`, dateModified: '2026-08-31', author: { '@type': 'Organization', name: 'EduGrowth Tunisia' }, publisher: { '@type': 'Organization', name: 'EduGrowth Tunisia', logo: { '@type': 'ImageObject', url: 'https://edugrowth.tn/Submark.webp' } } },
+    { '@type': 'Article', '@id': `${canonical}#article`, headline: guide.title, description: `Guide EduGrowth pour ${guide.angle}.`, dateModified: '2026-10-14', author: { '@type': 'Organization', name: 'EduGrowth Tunisia' }, publisher: { '@type': 'Organization', name: 'EduGrowth Tunisia', logo: { '@type': 'ImageObject', url: 'https://edugrowth.tn/Submark.webp' } } },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://edugrowth.tn/' }, { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://edugrowth.tn/blog/' }, { '@type': 'ListItem', position: 3, name: guide.title, item: canonical }] },
     { '@type': 'FAQPage', mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) },
   ] };
@@ -139,8 +141,20 @@ export default function SeoTopicGuidePage() {
   return <><SEOHelmet title={`${guide.title} | EduGrowth`} description={`Guide pratique : ${guide.angle}. Étapes, budget, documents et vérifications pour les étudiants tunisiens.`} canonical={canonical} lang="fr" structuredData={schema} />
     <main className="min-h-screen bg-slate-50 px-6 py-12 text-slate-900"><article className="mx-auto max-w-4xl rounded-3xl bg-white p-8 shadow-sm">
       <nav className="text-sm font-bold text-[#005A9C]"><Link to="/">Accueil</Link> <span className="px-2">/</span><Link to="/blog">Guides études à l’étranger</Link></nav>
-      <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#176b87]">Guide vérifié · 31 août 2026</p><h1 className="mt-3 text-4xl font-black leading-tight">{guide.title}</h1>
+      <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#176b87]">Guide vérifié · 14 octobre 2026</p><h1 className="mt-3 text-4xl font-black leading-tight">{guide.title}</h1>
       <p className="mt-5 text-lg leading-8 text-slate-700">Ce guide aide les étudiants tunisiens à {guide.angle}. Il ne remplace pas les exigences de l’université, de l’ambassade ou de l’autorité de reconnaissance compétente.</p>
+      {guide.slug === 'campus-france-tunisie-calendrier-2026-2027' ? (
+        <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 p-5 text-rose-950">
+          <h2 className="text-xl font-black">Deadline prioritaire Campus France Tunisie</h2>
+          <p className="mt-2 leading-7">Pour les candidatures vers les établissements publics via la procédure Campus France Tunisie, le dernier délai indiqué pour finaliser et déposer le dossier est le 18 décembre 2026. EduGrowth accompagne le choix des formations, le dossier, la motivation et l’entretien avant cette échéance.</p>
+        </div>
+      ) : null}
+      {guide.slug === 'parcoursup-tunisie-accompagnement' ? (
+        <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-amber-950">
+          <h2 className="text-xl font-black">Parcoursup 2027: dates candidat à confirmer</h2>
+          <p className="mt-2 leading-7">Au 14 octobre 2026, le calendrier candidat Parcoursup 2027 n’est pas encore publié comme calendrier complet. Repère utile: en 2026, la saisie des vœux se faisait de janvier à mars et la confirmation du dossier début avril. EduGrowth prépare les profils dès maintenant pour éviter les candidatures de dernière minute.</p>
+        </div>
+      ) : null}
       <section className="mt-9"><h2 className="text-2xl font-black">1. Commencer par un projet vérifiable</h2><p className="mt-3 leading-7 text-slate-700">Avant de candidater, définissez le niveau d’études, la spécialité, la langue et le pays où vous souhaitez ensuite exercer. Pour {destination}, le choix doit reposer sur le programme précis et non sur une promesse générale.</p></section>
       <section className="mt-8"><h2 className="text-2xl font-black">2. Contrôler l’établissement et le programme</h2><p className="mt-3 leading-7 text-slate-700">Consultez la page officielle de l’université : accréditation, durée, langue d’enseignement, frais et conditions d’admission. {healthStudy ? 'Pour les filières santé, vérifiez aussi les conditions de pratique clinique et les règles de reconnaissance du diplôme.' : 'Vérifiez également la reconnaissance du programme et les prérequis académiques applicables à votre projet.'}</p></section>
       <section className="mt-8"><h2 className="text-2xl font-black">3. Calculer le budget complet</h2><p className="mt-3 leading-7 text-slate-700">Additionnez scolarité, logement, assurance, visa, transport, traductions, installation et une marge de sécurité. Un projet finançable est plus important qu’un prix d’inscription attractif isolé.</p></section>

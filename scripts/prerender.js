@@ -38,7 +38,7 @@ async function syncSeoTopicGuides(guides) {
   const markerStart = '<!-- seo-topic-guides:start -->';
   const markerEnd = '<!-- seo-topic-guides:end -->';
   const urls = guides.map(({ slug, path: guidePath }) =>
-    `  <url><loc>https://edugrowth.tn${guidePath || `/guides/${slug}`}/</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>`
+    `  <url><loc>https://edugrowth.tn${guidePath || `/guides/${slug}`}/</loc><lastmod>2026-10-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>`
   ).join('\n');
   const block = `${markerStart}\n${urls}\n${markerEnd}`;
 

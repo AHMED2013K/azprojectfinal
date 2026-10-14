@@ -6,14 +6,14 @@ const DeferredAdmissionPage = () => {
   const highlights = [
     {
       title: 'Rentrée Novembre 2026 — Russie',
-      badge: 'Pour les profils qui ont raté la rentrée Septembre 2026',
+      badge: 'Disponible jusqu’au 25 octobre 2026',
       text: 'Nous accompagnons les étudiants qui souhaitent rejoindre la Russie en fin d’année 2026 avec un parcours d’admission clair, des universités partenaires et une préparation visa adaptée.',
       link: '/rentree-novembre-2026-russie-tunisie',
       cta: 'Page Russie Novembre 2026',
     },
     {
       title: 'Rentrée décalée Janvier–Février 2027 — Chypre du Nord',
-      badge: 'Pour les profils qui ont manqué l’orientation principale',
+      badge: 'Admissions disponibles jusqu’au 15 janvier 2027',
       text: 'Le Chypre du Nord propose une fenêtre d’admission très intéressante pour les étudiants qui veulent une rentrée plus tardive, avec un cadre académique international et des admissions plus flexibles.',
       link: '/rentree-decalee-janvier-fevrier-2027-chypre-nord',
       cta: 'Page Janvier-Février 2027',
@@ -57,10 +57,10 @@ const DeferredAdmissionPage = () => {
               Si vous avez raté la rentrée principale, EduGrowth vous ouvre une nouvelle route vers la Russie et le Chypre du Nord.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-100">
-              Nous proposons des options concrètes pour les étudiants tunisiens qui veulent continuer leur projet même après la rentrée Septembre 2026. La priorité est de retrouver une offre réaliste, avec admission, dossier et préparation de visa.
+              Nous proposons des options concrètes pour les étudiants tunisiens qui veulent continuer leur projet même après la rentrée Septembre 2026: Russie Novembre 2026 jusqu’au 25 octobre 2026 et Chypre du Nord Février 2027 jusqu’au 15 janvier 2027. La priorité est de retrouver une offre réaliste, avec admission, dossier et préparation de visa.
             </p>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {['Russie Novembre 2026', 'Chypre du Nord Janvier-Février 2027', 'Diagnostic dossier sous 24h'].map((item) => (
+              {['Russie Novembre 2026 jusqu’au 25 octobre', 'Chypre du Nord Février 2027 jusqu’au 15 janvier', 'Diagnostic dossier sous 24h'].map((item) => (
                 <div key={item} className="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm font-black text-cyan-50">
                   {item}
                 </div>

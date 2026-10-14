@@ -38,6 +38,8 @@ const clusters = [
   ['orientation-apres-bac-sciences-tunisie', 'Orientation après bac sciences Tunisie', 'comparer médecine, pharmacie, ingénierie, biologie et sciences', 'niveau'],
   ['orientation-apres-bac-eco-tunisie', 'Orientation après bac économie Tunisie', 'comparer business, finance, marketing, data et management', 'niveau'],
   ['rentre-universitaire-janvier-tunisie', 'Rentrée universitaire janvier depuis la Tunisie', 'trouver les pays avec rentrées décalées et dossiers encore possibles', 'calendrier'],
+  ['parcoursup-tunisie-accompagnement', 'Accompagnement Parcoursup depuis la Tunisie', 'préparer Parcoursup, les vœux, le dossier et les formations françaises post-bac depuis la Tunisie', 'parcoursup'],
+  ['nos-recrutements', 'Nos recrutements EduGrowth Tunisie', 'postuler aux offres EduGrowth: chargé d’affaires B2C/B2B et chargé de recrutement freelance', 'recrutement'],
 ];
 
 const relatedByCluster = {
@@ -93,6 +95,14 @@ const relatedByCluster = {
     ['/apres-bac-etudier-a-l-etranger', 'Calendrier après bac'],
     ['/campus-france-tunisie-calendrier-2026-2027', 'Calendrier Campus France'],
   ],
+  parcoursup: [
+    ['/etudier-en-france-depuis-tunisie', 'Étudier en France'],
+    ['/campus-france-tunisie-calendrier-2026-2027', 'Calendrier Campus France'],
+  ],
+  recrutement: [
+    ['https://app.edugrowth.tn/candidatures', 'Formulaire candidatures'],
+    ['/about', 'À propos EduGrowth'],
+  ],
   local: [
     ['/agence-etude-etranger-tunis', 'Agence à Tunis'],
     ['/agence-etude-etranger-sousse', 'Agence à Sousse'],
@@ -117,6 +127,40 @@ export const programmaticSeoPages = clusters.map(([slug, title, angle, cluster])
 }));
 
 function buildSections(page) {
+  if (page.cluster === 'parcoursup') {
+    return [
+      {
+        h2: 'Dates Parcoursup à surveiller pour la session 2027',
+        body: "Le calendrier candidat Parcoursup 2027 doit être confirmé sur Parcoursup.gouv.fr. En repère, la session 2026 ouvrait la carte des formations en décembre, les vœux de janvier à mars, puis la confirmation du dossier début avril. Pour 2026-2027, le ministère a déjà ouvert le paramétrage des formations à partir du 12 novembre 2026.",
+      },
+      {
+        h2: 'Ce que EduGrowth prépare avec l’étudiant',
+        body: 'Choix des formations, cohérence des vœux, CV, projet motivé, pièces demandées, calendrier, frais, alternatives hors Parcoursup et stratégie Campus France/visa si le profil tunisien est concerné.',
+      },
+      {
+        h2: 'Pourquoi commencer maintenant',
+        body: 'La période hors pic est idéale pour construire une liste de formations solide, éviter les candidatures improvisées et préparer un plan B vers écoles privées, Campus France, Grèce, Pologne, Russie ou Chypre du Nord.',
+      },
+    ];
+  }
+
+  if (page.cluster === 'recrutement') {
+    return [
+      {
+        h2: 'Chargé d’affaires B2C / B2B - full time',
+        body: 'Besoin actuel dans le département commercial: prospection, suivi prospects, partenariats, relance B2C/B2B, reporting et conversion des demandes. Date limite pour postuler: 31 octobre 2026.',
+      },
+      {
+        h2: 'Chargé de recrutement - freelance part time',
+        body: 'Mission à temps partiel et commission based: qualification de candidats, sourcing, premiers échanges, remontée des profils et suivi avec l’équipe EduGrowth. Date limite pour postuler: 30 mars 2027.',
+      },
+      {
+        h2: 'Comment postuler',
+        body: 'Les candidats doivent déposer leur CV via le formulaire officiel https://app.edugrowth.tn/candidatures afin que les candidatures soient centralisées dans l’espace EduGrowth.',
+      },
+    ];
+  }
+
   return [
     {
       h2: `Comment aborder ${page.title.toLowerCase()} ?`,
@@ -254,17 +298,23 @@ export default function ProgrammaticSeoPage() {
 
           <section className="mt-10 grid gap-3 md:grid-cols-2">
             {related.map(([to, label]) => (
-              <Link key={to} to={to} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-black text-[#005A9C]">
-                {label} <ArrowRight size={14} className="inline" />
-              </Link>
+              to.startsWith('http') ? (
+                <a key={to} href={to} target="_blank" rel="noopener noreferrer" className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-black text-[#005A9C]">
+                  {label} <ArrowRight size={14} className="inline" />
+                </a>
+              ) : (
+                <Link key={to} to={to} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-black text-[#005A9C]">
+                  {label} <ArrowRight size={14} className="inline" />
+                </Link>
+              )
             ))}
             <a
-              href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Bonjour EduGrowth, je veux une orientation: ${page.title}.`)}`}
+              href={page.cluster === 'recrutement' ? 'https://app.edugrowth.tn/candidatures' : `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Bonjour EduGrowth, je veux une orientation: ${page.title}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 p-4 text-sm font-black text-white"
             >
-              <MessageCircle size={16} /> WhatsApp EduGrowth
+              <MessageCircle size={16} /> {page.cluster === 'recrutement' ? 'Déposer ma candidature' : 'WhatsApp EduGrowth'}
             </a>
           </section>
         </article>

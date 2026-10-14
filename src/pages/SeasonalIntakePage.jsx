@@ -8,16 +8,17 @@ const pages = {
   '/rentree-novembre-2026-russie-tunisie': {
     title: 'Rentrée Novembre 2026 Russie | Étudiants tunisiens | EduGrowth',
     description:
-      "Rentrée Novembre 2026 en Russie pour les étudiants tunisiens qui ont raté l'orientation ou la rentrée Septembre 2026. Admission, dossier, visa et accompagnement EduGrowth.",
-    h1: 'Rentrée Novembre 2026 en Russie pour les étudiants tunisiens',
+      "Rentrée Novembre 2026 en Russie pour les étudiants tunisiens qui ont raté l'orientation ou la rentrée Septembre 2026. Admissions disponibles jusqu’au 25 octobre 2026 selon dossier.",
+    h1: 'Rentrée Novembre 2026 en Russie: disponible jusqu’au 25 octobre 2026',
     eyebrow: 'Russie Novembre 2026',
     intro:
-      "Vous avez raté l'orientation, Campus France ou la rentrée Septembre 2026 ? La Russie peut rester une option à analyser rapidement selon votre niveau, votre budget, la filière visée et les délais visa.",
+      "Vous avez raté l'orientation, Campus France ou la rentrée Septembre 2026 ? Les admissions sont disponibles jusqu’au 25 octobre 2026 selon places et dossier. La Russie peut rester une option à analyser rapidement selon votre niveau, votre budget, la filière visée et les délais visa.",
     bullets: [
       'Orientation urgente pour éviter une année blanche',
       'Filières médecine, ingénierie, informatique, business selon disponibilité',
       'Vérification du dossier avant candidature',
       'Préparation des documents, admission et départ',
+      'Deadline prioritaire: 25 octobre 2026',
     ],
     timeline: [
       ['Août - Septembre 2026', 'Diagnostic du profil, budget, langue et filière réaliste.'],
@@ -36,16 +37,17 @@ const pages = {
   '/rentree-decalee-janvier-fevrier-2027-chypre-nord': {
     title: 'Rentrée décalée Janvier Février 2027 Chypre du Nord | EduGrowth',
     description:
-      "Rentrée décalée Janvier-Février 2027 à Chypre du Nord pour étudiants tunisiens qui ont raté l'orientation principale. Admission flexible avec EduGrowth.",
-    h1: 'Rentrée décalée Janvier-Février 2027 à Chypre du Nord',
+      "Rentrée décalée Février 2027 à Chypre du Nord pour étudiants tunisiens qui ont raté l'orientation principale. Admissions disponibles jusqu’au 15 janvier 2027 selon programme.",
+    h1: 'Rentrée décalée Février 2027 à Chypre du Nord: admissions jusqu’au 15 janvier 2027',
     eyebrow: 'Chypre du Nord Janvier - Février 2027',
     intro:
-      "Pour les étudiants qui ont manqué la rentrée principale, Chypre du Nord offre souvent une fenêtre plus flexible. EduGrowth qualifie le profil, le budget et le programme avant toute candidature.",
+      "Pour les étudiants qui ont manqué la rentrée principale, Chypre du Nord offre souvent une fenêtre plus flexible avec admissions disponibles jusqu’au 15 janvier 2027 selon programme. EduGrowth qualifie le profil, le budget et le programme avant toute candidature.",
     bullets: [
       'Option intéressante après une orientation tardive',
       'Programmes Bachelor, Master et PhD selon université',
       'Admission plus flexible que plusieurs destinations européennes',
       'Accompagnement dossier, admission, logement et départ',
+      'Deadline prioritaire: 15 janvier 2027',
     ],
     timeline: [
       ['Août - Octobre 2026', 'Choix du programme, budget et vérification des documents.'],

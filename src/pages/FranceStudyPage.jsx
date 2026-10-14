@@ -58,8 +58,8 @@ const franceStudyStructuredData = {
 
 const translations = {
   fr: {
-    heroTitle: "Étudier en France depuis la Tunisie : Campus France 2026/2027, visa et budget",
-    heroSubtitle: "Accompagnement clair pour choisir les formations, préparer Campus France, organiser les documents visa, cadrer le budget et rassurer la famille.",
+    heroTitle: "Étudier en France depuis la Tunisie : Campus France, Parcoursup 2027, visa et budget",
+    heroSubtitle: "Accompagnement clair pour Campus France, Parcoursup, écoles publiques avant le 18 décembre 2026, écoles privées, visa, budget et dossier familial.",
     heroCTA: "Commencer mon dossier Campus France",
     heroSecondary: "Estimer mon budget",
 
@@ -97,7 +97,7 @@ const translations = {
     checklistItems: [
       "Choisir 3 à 5 formations cohérentes avec votre niveau et votre projet",
       "Préparer les relevés, diplômes, traductions et justificatifs financiers",
-      "Structurer un calendrier Campus France, admission, logement et visa",
+      "Structurer un calendrier Campus France, Parcoursup, admission, logement et visa",
       "Prévoir un budget réaliste pour la province ou Paris",
     ],
 
@@ -105,7 +105,7 @@ const translations = {
     faq: [
       {
         q: "Quand commencer Campus France depuis la Tunisie ?",
-        a: "L’idéal est de commencer 8 à 10 mois avant la rentrée pour éviter les retards sur le dossier, le financement et le visa.",
+        a: "Pour les établissements publics via Campus France Tunisie, la date limite annoncée pour finaliser et déposer le dossier est le 18 décembre 2026. L’idéal est de commencer avant cette date pour éviter les retards sur le choix des formations, le financement et le visa.",
       },
       {
         q: "Quels documents préparer pour un visa étudiant France depuis la Tunisie ?",
@@ -132,6 +132,7 @@ const translations = {
     relatedTitle: "Ressources utiles pour continuer",
     relatedLinks: [
       { to: "/campus-france-tunisie-guide", label: "Campus France Tunisie guide" },
+      { to: "/parcoursup-tunisie-accompagnement", label: "Accompagnement Parcoursup Tunisie" },
       { to: "/alternance-en-france-pour-tunisiens", label: "Alternance en France pour Tunisiens" },
       { to: "/programmes/alternance-france", label: "Guide alternance France" },
       { to: "/blog/comment-etudier-en-france-depuis-la-tunisie", label: "Article complet études en France" },
@@ -163,8 +164,8 @@ const FranceStudyPage = () => {
   return (
     <>
       <SEOHelmet
-        title="Étudier en France Tunisie | Campus France 2026, visa"
-        description="Étudier en France depuis la Tunisie: Campus France 2026/2027, documents visa étudiant, admission, alternance, logement et budget."
+        title="Étudier en France Tunisie | Campus France 2027, Parcoursup"
+        description="Étudier en France depuis la Tunisie: Campus France 2026/2027, Parcoursup 2027, écoles publiques avant le 18 décembre 2026, visa étudiant, admission et budget."
         canonical="https://edugrowth.tn/etudier-en-france-depuis-tunisie"
         structuredData={franceStudyStructuredData}
         lang="fr"
@@ -180,6 +181,10 @@ const FranceStudyPage = () => {
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               {t.heroSubtitle}
             </p>
+            <div className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-left text-amber-950">
+              <p className="text-sm font-black uppercase tracking-[0.16em]">Deadline Campus France Tunisie</p>
+              <p className="mt-2 leading-7">Pour les écoles et universités publiques, finalisez le dossier Campus France avant le 18 décembre 2026. EduGrowth accompagne aussi Parcoursup pour les formations post-bac en France, avec dates candidat 2027 à confirmer sur le calendrier officiel.</p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={handleCTA}
@@ -333,6 +338,10 @@ const FranceStudyPage = () => {
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl font-black mb-6">{t.ctaTitle}</h2>
             <p className="text-xl mb-8 opacity-90">{t.ctaText}</p>
+            <div className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-left text-amber-950">
+              <p className="text-sm font-black uppercase tracking-[0.16em]">Deadline Campus France Tunisie</p>
+              <p className="mt-2 leading-7">Pour les écoles et universités publiques, finalisez le dossier Campus France avant le 18 décembre 2026. EduGrowth accompagne aussi Parcoursup pour les formations post-bac en France, avec dates candidat 2027 à confirmer sur le calendrier officiel.</p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={handleCTA}

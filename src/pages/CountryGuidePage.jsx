@@ -338,6 +338,113 @@ const countryData = {
       { to: "/book-consultation", label: "Réserver une consultation" },
     ],
   },
+  '/etudier-en-grece-depuis-tunisie': {
+    country: 'Grèce',
+    title: "Étudier en Grèce depuis la Tunisie | Universités, visa et budget",
+    description: "Étudier en Grèce depuis la Tunisie: universités, programmes en anglais, hospitality, tourisme, business, budget, visa étudiant et accompagnement EduGrowth.",
+    h1: "Étudier en Grèce depuis la Tunisie",
+    image: "https://images.unsplash.com/photo-1503152394-c571994fd383?auto=format&fit=crop&w=1200&q=80",
+    tuition: "Variable selon université publique, privée, programme international et ville",
+    visa: "Admission + dossier visa étudiant Schengen/long séjour selon le programme + preuves financières",
+    timeline: ["Diagnostic profil et anglais", "Choix programme et université", "Admission, budget et logement", "Visa, assurance et départ"],
+    highlights: [
+      "Destination européenne méditerranéenne avec environnement international",
+      "Programmes en anglais possibles dans business, tourisme, hospitality, management et IT",
+      "Option attractive pour les profils qui veulent Europe, climat proche et vie étudiante internationale",
+      "Le budget, la langue d'enseignement et la reconnaissance du diplôme doivent être vérifiés avant inscription",
+    ],
+    budget: [
+      "Frais académiques selon établissement et niveau",
+      "Logement étudiant, colocation ou résidence selon ville",
+      "Assurance, visa, traductions et frais administratifs",
+      "Budget de vie à comparer entre Athènes, Thessalonique, îles et villes touristiques",
+    ],
+    programs: ['Hospitality', 'Tourism Management', 'Hotel Management', 'Business', 'Marketing', 'IT', 'Bachelor', 'Master'],
+    faq: [
+      { q: "La Grèce est-elle une bonne destination pour les Tunisiens ?", a: "Oui pour certains profils, surtout ceux qui cherchent une expérience européenne, des programmes en anglais et des filières liées au tourisme, management, business ou hospitality." },
+      { q: "Peut-on étudier en anglais en Grèce ?", a: "Oui, certains programmes internationaux existent en anglais. Il faut vérifier le niveau demandé, la langue réelle des cours et les conditions d'admission." },
+      { q: "EduGrowth propose-t-il aussi un programme stage en Grèce ?", a: "Oui. EduGrowth met en avant un programme de stage de 6 mois en Grèce pour les profils hospitality, tourisme et hôtellerie, avec anglais obligatoire, logement et repas couverts selon conditions du programme." },
+    ],
+    relatedLinks: [
+      { to: "/stage-hotellerie-tourisme-grece", label: "Stage hospitality et tourisme en Grèce" },
+      { to: "/etudier-en-pologne-depuis-tunisie", label: "Comparer avec Pologne" },
+      { to: "/etudier-en-italie-depuis-tunisie", label: "Comparer avec Italie" },
+      { to: "/book-consultation", label: "Tester mon profil" },
+    ],
+  },
+  '/stage-hotellerie-tourisme-grece': {
+    country: 'Grèce',
+    title: "Stage en Grèce hôtellerie et tourisme | 6 mois, logement et repas",
+    description: "Programme internship de 6 mois en Grèce pour étudiants et jeunes diplômés en hospitality, tourism management, hotel management et hôtellerie. Anglais obligatoire, salaire, logement et repas couverts selon programme.",
+    h1: "Internship en Grèce: hospitality, tourisme et hôtellerie",
+    image: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1200&q=80",
+    tuition: "Programme à partir de 4000 EUR + frais EduGrowth, avec salaire, logement et repas couverts selon poste",
+    visa: "Accompagnement dossier, placement, documents programme et préparation administrative selon profil",
+    timeline: ["Vérification du niveau d'anglais", "CV hospitality/tourisme", "Matching avec opportunité", "Départ pour 6 mois en Grèce"],
+    highlights: [
+      "Programme de stage de 6 mois en Grèce pour hospitality, tourism management et hotel management",
+      "Anglais obligatoire: les échanges, le programme et l'environnement de travail sont en anglais",
+      "Salaire prévu, accommodation couverte et meals covered selon conditions du poste",
+      "Pour étudiants ou profils du secteur hôtellerie/tourisme qui cherchent une expérience professionnelle abroad",
+    ],
+    budget: [
+      "Coût programme: 4000 EUR + frais EduGrowth",
+      "Logement couvert selon le programme et l'employeur",
+      "Repas couverts selon le poste et l'établissement",
+      "Prévoir billet, assurance, documents, argent de départ et frais personnels",
+    ],
+    programs: ['Hospitality', 'Tourism Management', 'Hotel Management', 'Food & Beverage', 'Front Office', 'Guest Relations', 'Resort Operations', 'Internship'],
+    whatsappMessage: "Bonjour EduGrowth, I am interested in the internship opportunity in Greece. My field is hospitality/tourism/hotel management.",
+    specialProgram: {
+      title: "Programme internship Grèce - 6 mois",
+      text: "Pour les étudiants en hospitality, tourism management, hotel management et hôtellerie qui veulent une expérience professionnelle internationale. Anglais obligatoire. Programme en anglais. Coût: 4000 EUR + nos fees. Salaire, accommodation et meals covered selon poste.",
+      items: ['Durée: 6 mois', 'Secteur: hospitality, tourisme, hôtellerie', 'Anglais obligatoire', 'Salaire + logement + repas selon conditions'],
+    },
+    faq: [
+      { q: "Qui peut postuler au stage en Grèce ?", a: "Les étudiants ou jeunes profils dans hospitality, tourism management, hotel management, hôtellerie, restauration, front office ou domaines proches, avec anglais obligatoire." },
+      { q: "Combien coûte le programme internship Grèce ?", a: "Le programme coûte 4000 EUR + les frais EduGrowth. Il faut aussi prévoir les frais personnels, documents, assurance et déplacement." },
+      { q: "Le logement et les repas sont-ils couverts ?", a: "Oui, le programme prévoit accommodation covered et meals covered selon le poste et l'établissement. Les conditions exactes sont vérifiées avant engagement." },
+    ],
+    relatedLinks: [
+      { to: "/etudier-en-grece-depuis-tunisie", label: "Étudier en Grèce" },
+      { to: "/abroad-zone", label: "Voir les destinations EduGrowth" },
+      { to: "/book-consultation", label: "Évaluer mon profil" },
+    ],
+  },
+  '/etudier-en-pologne-depuis-tunisie': {
+    country: 'Pologne',
+    title: "Étudier en Pologne depuis la Tunisie | Europe, anglais, budget",
+    description: "Étudier en Pologne depuis la Tunisie: universités européennes, programmes en anglais, médecine, ingénierie, business, budget, admission et visa étudiant.",
+    h1: "Étudier en Pologne depuis la Tunisie",
+    image: "https://images.unsplash.com/photo-1519197924294-4ba991a11128?auto=format&fit=crop&w=1200&q=80",
+    tuition: "Variable selon université, programme en anglais et spécialité; médecine plus coûteuse",
+    visa: "Admission universitaire + dossier visa étudiant national + preuves financières + logement",
+    timeline: ["Choix programme en anglais", "Préparation documents et admission", "Budget, logement et assurance", "Visa étudiant et départ"],
+    highlights: [
+      "Destination européenne intéressante pour médecine, ingénierie, IT, business et sciences",
+      "Nombreux programmes internationaux en anglais selon université et niveau",
+      "Coût de vie souvent plus maîtrisable que plusieurs pays d'Europe de l'Ouest",
+      "Bien vérifier reconnaissance, langue, ville et frais réels avant candidature",
+    ],
+    budget: [
+      "Frais académiques selon université publique ou privée",
+      "Logement étudiant ou colocation selon ville",
+      "Assurance, visa, traductions et légalisation",
+      "Budget de vie à comparer entre Varsovie, Cracovie, Wroclaw et autres villes",
+    ],
+    programs: ['Médecine', 'Ingénierie', 'IT', 'Business', 'Management', 'Sciences', 'Bachelor', 'Master'],
+    faq: [
+      { q: "La Pologne convient-elle aux étudiants tunisiens ?", a: "Oui pour les profils qui cherchent une destination européenne avec programmes en anglais, budget relativement maîtrisable et parcours académique clair." },
+      { q: "Peut-on étudier en anglais en Pologne ?", a: "Oui, de nombreux programmes internationaux existent en anglais, notamment en médecine, IT, ingénierie et business selon université." },
+      { q: "Quel budget prévoir pour la Pologne ?", a: "Le budget dépend de la ville, du programme, du logement et du visa. Il faut calculer scolarité, vie quotidienne, assurance, documents et installation." },
+    ],
+    relatedLinks: [
+      { to: "/guides/etudier-medecine-pologne-tunisie", label: "Médecine en Pologne" },
+      { to: "/etudier-en-grece-depuis-tunisie", label: "Comparer avec Grèce" },
+      { to: "/etudier-en-hongrie-depuis-tunisie", label: "Comparer avec Hongrie" },
+      { to: "/book-consultation", label: "Tester mon profil" },
+    ],
+  },
   '/etudier-en-italie-depuis-tunisie': {
     country: 'Italie',
     title: "Étudier en Italie depuis la Tunisie | Admission, bourses, visa",
@@ -693,7 +800,7 @@ export default function CountryGuidePage() {
   const copy = {
         back: 'Retour à EduGrowth',
         advisor: 'Conseiller WhatsApp',
-        advisorText: `Bonjour EduGrowth, je veux étudier en ${data.country}.`,
+        advisorText: data.whatsappMessage || `Bonjour EduGrowth, je veux étudier en ${data.country}.`,
         badge: "Guide d'études à l'étranger",
         tuition: 'Estimation des frais',
         visa: 'Parcours visa',
@@ -705,7 +812,7 @@ export default function CountryGuidePage() {
         supportText: 'Nos conseillers vous aident à choisir le bon programme, préparer le dossier et sécuriser votre visa.',
         consultation: 'Réserver une consultation gratuite',
         whatsappNow: 'WhatsApp maintenant',
-        supportWhatsapp: `Je souhaite un accompagnement pour étudier en ${data.country}.`,
+        supportWhatsapp: data.whatsappMessage || `Je souhaite un accompagnement pour étudier en ${data.country}.`,
         related: 'Guides liés',
         programs: 'Programmes et domaines populaires',
         decisionTitle: `Ce qu'il faut valider avant de choisir ${data.country}`,
@@ -947,6 +1054,22 @@ export default function CountryGuidePage() {
                 ))}
               </div>
             </section>
+
+            {data.specialProgram ? (
+              <section className="mt-10 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700">Programme prioritaire EduGrowth</p>
+                <h2 className="mt-3 text-2xl font-black text-emerald-950">{data.specialProgram.title}</h2>
+                <p className="mt-3 leading-7 text-emerald-950/80">{data.specialProgram.text}</p>
+                <div className="mt-5 grid gap-3 md:grid-cols-2">
+                  {data.specialProgram.items.map((item) => (
+                    <p key={item} className="rounded-2xl bg-white p-4 text-sm font-black text-emerald-900 ring-1 ring-emerald-100">{item}</p>
+                  ))}
+                </div>
+                <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(data.whatsappMessage || copy.supportWhatsapp)}`} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-4 text-sm font-black text-white hover:bg-emerald-700">
+                  <MessageCircle size={16} /> I am interested in the internship opportunity in Greece
+                </a>
+              </section>
+            ) : null}
 
             <section className="mt-10">
               <h2 className="text-2xl font-black">{copy.faqTitle}</h2>
