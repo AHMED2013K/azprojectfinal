@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CheckCircle2, Send, Star } from 'lucide-react';
 import SEOHelmet from '../components/SEOHelmet';
 
-const API_URL = (import.meta.env.VITE_API_URL || 'https://app.edugrowth.tn').replace(/\/$/, '');
+const API_URL = (import.meta.env.VITE_API_URL || 'https://backedugrowth.onrender.com').replace(/\/$/, '');
 
 export default function ReviewSubmissionPage() {
   const [form, setForm] = useState({ name: '', content: '', consent: false });

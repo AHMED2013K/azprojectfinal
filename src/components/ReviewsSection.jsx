@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MessageCircle, Star } from 'lucide-react';
 
-const API_URL = (import.meta.env.VITE_API_URL || 'https://app.edugrowth.tn').replace(/\/$/, '');
+const API_URL = (import.meta.env.VITE_API_URL || 'https://backedugrowth.onrender.com').replace(/\/$/, '');
 
 const initialReviews = [
   { name: 'Nesrine', content: "Je suis très satisfaite de mon expérience avec cette agence. Dès le premier accueil, l’équipe a été très chaleureuse, professionnelle et à l’écoute. Ils prennent vraiment le temps de comprendre mes besoins et de m’orienter vers la solution qui me correspond le mieux pour mes études à l’étranger. Merci pour votre accompagnement, votre disponibilité et votre gentillesse. Je recommande vivement cette agence." },
