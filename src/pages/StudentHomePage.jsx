@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -35,6 +35,7 @@ import { trackEvent } from '../utils/tracking';
 
 const WA_NUMBER = '21656590703';
 const CONTACT_EMAIL = 'edugrowth.tn@gmail.com';
+const REVIEWS_API_URL = (import.meta.env.VITE_API_URL || 'https://backedugrowth.onrender.com').replace(/\/$/, '');
 
 function buildEligibilityUrl(source, lang) {
   const params = new URLSearchParams({
@@ -821,6 +822,7 @@ export default function StudentHomePage() {
   const { lang, toggleLanguage } = useLanguage();
   const t = copy[lang] || copy.en;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [approvedReviews, setApprovedReviews] = useState([]);
   const [quiz, setQuiz] = useState({
     destination: t.quizDestinations[0],
     budget: t.quizBudgets[1],
@@ -833,6 +835,30 @@ export default function StudentHomePage() {
       ? `Bonjour EduGrowth, je veux tester mon eligibilite.\nDestination: ${quiz.destination}\nBudget: ${quiz.budget}\nEtape actuelle: ${quiz.stage}`
       : `Hello EduGrowth, I want to check my eligibility.\nDestination: ${quiz.destination}\nBudget: ${quiz.budget}\nCurrent stage: ${quiz.stage}`;
   const quizWhatsAppUrl = buildWhatsAppUrl(quizSummary, 'homepage_quiz_whatsapp', lang);
+
+  useEffect(() => {
+    fetch(`${REVIEWS_API_URL}/api/reviews/public?ts=${Date.now()}`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        if (!data?.reviews?.length) return;
+        setApprovedReviews(data.reviews.map((review) => ({
+          id: review.id,
+          name: review.name,
+          destination: 'EduGrowth',
+          year: 'Avis validé',
+          institution: 'Avis client',
+          program: 'Expérience client',
+          visaStatus: '',
+          before: '',
+          support: '',
+          result: '',
+          content: review.content,
+          rating: 5,
+          avatar: '⭐',
+        })));
+      })
+      .catch(() => {});
+  }, []);
 
   const handleCta = (ctaType) => {
     trackEvent('cta_click', { cta_type: ctaType, page: '/' });
@@ -1563,8 +1589,8 @@ export default function StudentHomePage() {
                 <a href="/ajouter-un-avis" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#176b87] px-5 py-3 text-sm font-black text-white transition hover:bg-[#12586f]">Ajouter un avis <MessageCircle size={16} /></a>
               </div>
               <div className="mt-10 grid gap-5 lg:grid-cols-3">
-                {[...studentAbroadTestimonials.slice(0, 3), ...googleReviews].map((story) => (
-                  <blockquote key={story.name} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+                {[...studentAbroadTestimonials.slice(0, 3), ...googleReviews, ...approvedReviews].map((story) => (
+                  <blockquote key={story.id || story.name + story.content} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-1 text-amber-400">
                         {[...Array(story.rating || 5)].map((_, index) => (
