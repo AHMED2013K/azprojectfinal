@@ -853,6 +853,9 @@ export default function StudentHomePage() {
           support: '',
           result: '',
           content: review.content,
+          date: review.createdAt
+            ? new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(review.createdAt))
+            : '',
           rating: 5,
           avatar: '⭐',
         })));
@@ -1616,7 +1619,7 @@ export default function StudentHomePage() {
                       <div>
                         <div className="font-black text-[#17324d]">{story.name}</div>
                         <div className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">{story.program} - {story.destination}</div>
-                        <div className="mt-1 text-xs font-semibold text-slate-500">{story.institution} - {story.visaStatus}</div>
+                        <div className="mt-1 text-xs font-semibold text-slate-500">{story.institution}{story.visaStatus ? ` - ${story.visaStatus}` : ''}{story.date ? ` - ${story.date}` : ''}</div>
                       </div>
                     </footer>
                   </blockquote>
