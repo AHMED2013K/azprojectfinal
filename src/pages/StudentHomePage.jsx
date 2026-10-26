@@ -883,6 +883,7 @@ export default function StudentHomePage() {
 
   const navLinks = [
     { label: t.navDestinations, href: '#destinations' },
+    { label: 'Séjours linguistiques', to: '/sejours-linguistiques' },
     { label: 'Rentrée 2026-2027', to: '/rentree-decalee-2026-2027' },
     { label: t.navTestimonials, href: '#stories' },
     { label: 'Universités', to: '/partenaires-universites' },
@@ -1748,6 +1749,7 @@ export default function StudentHomePage() {
             </div>
             <div className="space-y-3 text-sm font-semibold text-slate-600">
               <Link to="/book-consultation" className="block hover:text-[#176b87]"><CalendarDays size={16} className="mr-2 inline" /> Consultation</Link>
+              <Link to="/sejours-linguistiques" className="block hover:text-[#176b87]"><Languages size={16} className="mr-2 inline" /> Séjours linguistiques</Link>
               <Link to="/resources" className="block hover:text-[#176b87]"><BookOpen size={16} className="mr-2 inline" /> {t.navResources}</Link>
               <Link to="/blog" className="block hover:text-[#176b87]"><BookOpen size={16} className="mr-2 inline" /> {t.navGuides}</Link>
               <Link to="/outsourcing" className="block hover:text-[#176b87]"><Building2 size={16} className="mr-2 inline" /> {t.navPartners}</Link>
